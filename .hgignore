@@ -4,3 +4,4 @@ syntax:glob
 *.pyc
 *.mako.py
 *.mo
+pyrone.db
