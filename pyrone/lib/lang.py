@@ -4,8 +4,6 @@ Languages (i18n)
 """
 import logging
 
-from pylons import request
-
 log = logging.getLogger(__name__)
 
 # DO NOT TRANSLATE! 

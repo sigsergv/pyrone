@@ -3,8 +3,7 @@ Authentication and authorization functions
 """
 import logging
 
-from pylons import session as s
-from pylons.controllers.util import abort, redirect
+#from pylons.controllers.util import abort, redirect
 from decorator import decorator
 
 log = logging.getLogger(__name__)

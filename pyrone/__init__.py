@@ -1,5 +1,6 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
+from pyramid_beaker import session_factory_from_settings
 
 from pyrone.models import initialize_sql
 
@@ -8,7 +9,8 @@ def main(global_config, **settings):
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
-    config = Configurator(settings=settings)
+    session_factory = session_factory_from_settings(settings)
+    config = Configurator(settings=settings, session_factory=session_factory)
     config.scan()
     config.add_static_view('static', 'pyrone:static')
     config.add_route('blog_latest', '/')
