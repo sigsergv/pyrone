@@ -6,3 +6,4 @@ syntax:glob
 *.mo
 pyrone.db
 .coverage
+.settings/org.eclipse.core.resources.prefs
