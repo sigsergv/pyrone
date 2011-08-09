@@ -3,7 +3,7 @@ Required packages
 
 The following packages are required, install the using ``easy_install``:
 
-    pyramid SQLAlchemy markdown pytz hurry.filesize tweepy
+    pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy
     
 The following packages are required for development:
 
