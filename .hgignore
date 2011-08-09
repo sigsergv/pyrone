@@ -5,3 +5,4 @@ syntax:glob
 *.mako.py
 *.mo
 pyrone.db
+.coverage
