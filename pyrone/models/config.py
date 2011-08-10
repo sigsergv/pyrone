@@ -4,7 +4,7 @@ import logging
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText
 
-from . import Base
+from . import Base, DBSession
 
 log = logging.getLogger(__name__)
 
@@ -18,23 +18,34 @@ class Config(Base):
         self.id = id
         self.value = value
 
+# internal cache for setting values
+_cache = dict()
+
+# config values are cached
+
 def get_all():
-    all = Session.query(Config).all()
+    dbsession = DBSession()
+    all = dbsession.query(Config).all()
     return all
 
 def get(id):
-    # TODO: cache values?
-    cv = Session.query(Config).get(id)
-    return cv
+    if id not in _cache:
+        dbsession = DBSession()
+        c = dbsession.query(Config).get(id)
+        if c is not None:
+            _cache[id] = c.value
+        
+    return _cache[id]
 
 def set(id, value, commit=True):
-    cv = Session.query(Config).get(id)
-    if cv is None:
-        cv = Config(id, value)
-        Session.add(cv)
+    dbsession = DBSession()
+    c = dbsession.query(Config).get(id)
+    if c is None:
+        c = Config(id, value)
+        dbsession.add(c)
     else:
-        cv.value = value
+        c.value = value
         
-    if commit:
-        Session.commit()
+    #if commit:
+    #    Session.commit()
     
