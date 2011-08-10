@@ -12,14 +12,12 @@ import datetime
 import pytz #@UnresolvedImport
 import time
 
-
 from pyramid.url import route_url
-#from pylons import url, app_globals as g
 #from pylons.i18n.translation import _
 from mako.filters import html_escape
 from hurry.filesize import size as hsize
 
-from pyrone.models import config
+from pyrone.models.config import get as get_config
 from pyrone.lib import auth, lang
 from pyrone.lib.lang import supported_langs
 
@@ -130,7 +128,7 @@ def timestamp_to_str(ts):
     """
     Convert UTC seconds to time string in local timezone
     """
-    tz = ''#'g.get_config('timezone') 
+    tz = get_config('timezone') 
     tts = datetime.datetime.utcfromtimestamp(ts) # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz) # utc time -> local time
     
@@ -201,5 +199,5 @@ def article_tags_links(article):
     
     return ', '.join(res)
 
-def get_config(config_id):
-    return g.get_config(config_id)
+def url(*args, **kwargs):
+    pass

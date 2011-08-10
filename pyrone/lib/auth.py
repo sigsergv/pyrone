@@ -3,14 +3,16 @@ Authentication and authorization functions
 """
 import logging
 
+import pyramid.threadlocal as threadlocal
 #from pylons.controllers.util import abort, redirect
 from decorator import decorator
 
 log = logging.getLogger(__name__)
 
 def get_user():
-    if 'user' in s:
-        return s['user']
+    request = threadlocal.get_current_request()
+    if 'user' in request.session:
+        return request.session['user']
     else:
         return None
     

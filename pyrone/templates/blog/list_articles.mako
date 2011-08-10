@@ -4,7 +4,8 @@
     admin_permission = h.auth.has_permission('admin')
 %>
 
-<%def name="title()">${c.title}</%def>
+
+<%def name="title()">${title}</%def>
 
 <%def name="preview(article)">
 <%
@@ -39,8 +40,8 @@ ${_('Comments:')} ${article.comments_approved}
 </div>
 </%def>
 
-% if len(c.articles):
-  % for a in c.articles:
+% if len(articles):
+  % for a in articles:
   	${preview(a)}
   % endfor
 % else:
@@ -49,7 +50,7 @@ ${_('No articles here.')}
 
 ## display pager
 <div class="pager">
-${h.cond(c.next_page is not None, '<a href="%s">%s</a>' % (c.next_page, _(u'←newer')), _(u'←newer'))|n} 
-${h.cond(c.prev_page is not None, '<a href="%s">%s</a>' % (c.prev_page, _(u'older→')), _(u'older→'))|n} 
+${h.cond(next_page is not None, '<a href="%s">%s</a>' % (next_page, _(u'←newer')), _(u'←newer'))|n} 
+${h.cond(prev_page is not None, '<a href="%s">%s</a>' % (prev_page, _(u'older→')), _(u'older→'))|n} 
 
 </div>

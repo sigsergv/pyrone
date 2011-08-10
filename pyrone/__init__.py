@@ -15,6 +15,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'pyrone:static')
     config.add_route('blog_latest', '/')
     config.add_subscriber('pyrone.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
+    #config.add_subscriber('pyrone.subscribers.add_localizer', 'pyramid.events.NewRequest')
     
     #config.add_view('pyrone.views.latest',
     #                route_name='latest',
