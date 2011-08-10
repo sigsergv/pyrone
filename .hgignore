@@ -4,6 +4,7 @@ syntax:glob
 *.pyc
 *.mako.py
 *.mo
+*.pot
 pyrone.db
 .coverage
 .settings/org.eclipse.core.resources.prefs

@@ -1,0 +1,741 @@
+# Russian translations for pyrone.
+# Copyright (C) 2011 Sergei Stolyarov
+# This file is distributed under the same license as the pyrone project.
+# Sergei Stolyarov <sergei.stolyarov@regolit.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pyrone 0.1\n"
+"Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
+"POT-Creation-Date: 2011-08-11 01:39+0700\n"
+"PO-Revision-Date: 2011-07-31 19:51+0600\n"
+"Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
+"Language-Team: ru <pyrone-translation@regolit.com>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: pyrone/lib/helpers.py:166
+msgid "Administrator"
+msgstr "Администратор"
+
+#: pyrone/templates/admin/base.mako:12 pyrone/templates/admin/base.mako:15
+msgid "administration"
+msgstr "администрирование"
+
+#: pyrone/templates/admin/base.mako:20 pyrone/templates/blog/base.mako:19
+msgid "Powered by Pyrone"
+msgstr "Работает на Pyrone"
+
+#: pyrone/templates/admin/edit_file_props.mako:3
+#: pyrone/templates/admin/edit_file_props.mako:5
+msgid "Edit file properties"
+msgstr "Редактирование свойств файла"
+
+#: pyrone/templates/admin/edit_file_props.mako:11
+msgid "Name of the file"
+msgstr "Имя файла"
+
+#: pyrone/templates/admin/edit_file_props.mako:13
+#: pyrone/templates/admin/list_files.mako:19
+msgid "File access type"
+msgstr "Тип доступа к файлу"
+
+#: pyrone/templates/admin/edit_file_props.mako:14
+#: pyrone/templates/admin/list_files.mako:20
+msgid "display file download dialog (suitable for documents, archives)"
+msgstr "показывать диалог сохранения (подходит для архивов, документов)"
+
+#: pyrone/templates/admin/edit_file_props.mako:15
+#: pyrone/templates/admin/list_files.mako:21
+msgid "leave processing to web browser (suitable for pictures)"
+msgstr "пусть браузер сам решает, что делать (подходит для картинок)"
+
+#: pyrone/templates/admin/edit_file_props.mako:17
+#: pyrone/templates/admin/list_files.mako:23
+msgid "What should happen when user open URL to the file in web browser"
+msgstr ""
+"Что должно произойти, когда пользователь обратится к файлу по его URL "
+"через браузер"
+
+#: pyrone/templates/admin/edit_file_props.mako:19
+msgid "File content type"
+msgstr "Тип файла (content type)"
+
+#: pyrone/templates/admin/edit_file_props.mako:21
+msgid "submit"
+msgstr "отправить"
+
+#: pyrone/templates/admin/list_accounts.mako:6
+#: pyrone/templates/widgets/actions.mako:16
+msgid "Accounts"
+msgstr "Аккаунты"
+
+#: pyrone/templates/admin/list_accounts.mako:8
+msgid "User accounts"
+msgstr "Аккаунты пользователей"
+
+#: pyrone/templates/admin/list_accounts.mako:12
+msgid "Select/deselect all users"
+msgstr "Выбрать/снять выделение со всех"
+
+#: pyrone/templates/admin/list_accounts.mako:13
+msgid "User"
+msgstr "Пользователь"
+
+#: pyrone/templates/admin/list_accounts.mako:14
+#: pyrone/templates/blog/my_profile.mako:12
+msgid "Display name"
+msgstr "Имя"
+
+#: pyrone/templates/admin/list_accounts.mako:15
+msgid "Email"
+msgstr "Электропочта"
+
+#: pyrone/templates/admin/list_accounts.mako:16
+msgid "Information"
+msgstr "Информация"
+
+#: pyrone/templates/admin/list_accounts.mako:22
+msgid "You cannot delete current user"
+msgstr "Нельзя удалить текущего пользователя"
+
+#: pyrone/templates/admin/list_accounts.mako:26
+msgid "admin"
+msgstr "администратор"
+
+#: pyrone/templates/admin/list_accounts.mako:32
+#: pyrone/templates/admin/list_backups.mako:32
+#: pyrone/templates/admin/list_files.mako:55
+msgid "delete selected"
+msgstr "удалить выделенное"
+
+#: pyrone/templates/admin/list_backups.mako:3
+msgid "Backups"
+msgstr "Бэкапы"
+
+#: pyrone/templates/admin/list_backups.mako:5
+msgid "Backups management"
+msgstr "Управление бэкапами"
+
+#: pyrone/templates/admin/list_backups.mako:9
+msgid "Backup archives"
+msgstr "Архивы бэкапов"
+
+#: pyrone/templates/admin/list_backups.mako:10
+msgid "Upload backup file"
+msgstr "Закачать новый файл бэкапа"
+
+#: pyrone/templates/admin/list_backups.mako:15
+#: pyrone/templates/admin/list_files.mako:35
+msgid "Select/deselect all files"
+msgstr "Выбрать/снять выделение со всех"
+
+#: pyrone/templates/admin/list_backups.mako:17
+msgid "Backup filename"
+msgstr "Имя файла бэкапа"
+
+#: pyrone/templates/admin/list_backups.mako:18
+#: pyrone/templates/admin/list_files.mako:39
+msgid "File size"
+msgstr "Размер файла"
+
+#: pyrone/templates/admin/list_backups.mako:24
+msgid "restore"
+msgstr "восстановить"
+
+#: pyrone/templates/admin/list_backups.mako:25
+msgid "Download backup"
+msgstr "Скачать бэкап"
+
+#: pyrone/templates/admin/list_backups.mako:26
+#: pyrone/templates/admin/list_files.mako:49
+#, python-format
+msgid "%i bytes"
+msgstr "%i байтов"
+
+#: pyrone/templates/admin/list_files.mako:3
+msgid "Files"
+msgstr "Файлы"
+
+#: pyrone/templates/admin/list_files.mako:5
+msgid "Files management"
+msgstr "Управление файлами"
+
+#: pyrone/templates/admin/list_files.mako:12
+msgid "Choose file to upload\""
+msgstr "Выберите файл"
+
+#: pyrone/templates/admin/list_files.mako:14
+msgid "← First choose file (other fields will be filled automatically)"
+msgstr "← Сначала выберите файл, а другие поля будут заполнены автоматически"
+
+#: pyrone/templates/admin/list_files.mako:16
+msgid "Name of the file (required, case-sensitive)"
+msgstr "Имя файла (обязательно, зависит от регистра)"
+
+#: pyrone/templates/admin/list_files.mako:17
+msgid "File will be accessed using specified name"
+msgstr "Файл будет доступен по указанному имени"
+
+#: pyrone/templates/admin/list_files.mako:25
+msgid "upload"
+msgstr "закачать"
+
+#: pyrone/templates/admin/list_files.mako:25
+msgid "cancel"
+msgstr "отменить"
+
+#: pyrone/templates/admin/list_files.mako:31
+msgid "upload new file"
+msgstr "закачать новый файл"
+
+#: pyrone/templates/admin/list_files.mako:37
+msgid "Filename"
+msgstr "Имя файла"
+
+#: pyrone/templates/admin/list_files.mako:38
+msgid "Content type"
+msgstr "Тип файла"
+
+#: pyrone/templates/admin/list_files.mako:45
+#: pyrone/templates/blog/list_articles.mako:21
+#: pyrone/templates/blog/view_article.mako:22
+#: pyrone/templates/widgets/comment.mako:26
+msgid "edit"
+msgstr "править"
+
+#: pyrone/templates/admin/list_files.mako:47
+msgid "file URL"
+msgstr "URL файла"
+
+#: pyrone/templates/admin/settings.mako:3
+#: pyrone/templates/admin/settings.mako:5
+msgid "Blog settings"
+msgstr "Настройки блога"
+
+#: pyrone/templates/admin/settings.mako:10
+#: pyrone/templates/admin/settings.mako:47
+#: pyrone/templates/blog/my_profile.mako:19
+#: pyrone/templates/blog/view_article.mako:63
+#: pyrone/templates/blog/write_article.mako:23
+msgid "save"
+msgstr "сохранить"
+
+#: pyrone/templates/admin/settings.mako:12
+msgid "General"
+msgstr "Общие"
+
+#: pyrone/templates/admin/settings.mako:13
+msgid "Blog title"
+msgstr "Заголовок блога"
+
+#: pyrone/templates/admin/settings.mako:14
+msgid "Base blog address"
+msgstr "Базовый URL блога"
+
+#: pyrone/templates/admin/settings.mako:15
+msgid ""
+"URL that will be used in all external communications (notification "
+"messages for example)"
+msgstr ""
+"URL, который будет использоваться во внешних коммуникациях (уведомления "
+"по почте, например)"
+
+#: pyrone/templates/admin/settings.mako:16
+msgid "Copyright string"
+msgstr "Строка копирайта"
+
+#: pyrone/templates/admin/settings.mako:17
+msgid ""
+"A string displayed at the bottom of each blog page, just before “Powered "
+"by Pyrone”"
+msgstr ""
+"Строка, отображаемая в нижней части каждой страницы блога, прямо перед "
+"надписью «Работает на Pyrone»"
+
+#: pyrone/templates/admin/settings.mako:18
+msgid "Number of elements on a page"
+msgstr "Сколько элементов на странице"
+
+#: pyrone/templates/admin/settings.mako:19
+msgid "How much elements (articles etc) display on single page"
+msgstr "Сколько элементов (например, статей) показывать на одной странице"
+
+#: pyrone/templates/admin/settings.mako:20
+msgid "Blog style (skin)"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:21
+msgid "Picture preview width"
+msgstr "Ширина превьюшки для картинки"
+
+#: pyrone/templates/admin/settings.mako:22
+msgid ""
+"Width of automatically generated preview to be used as smaller copy of "
+"original picture."
+msgstr ""
+"Ширина автоматически сгенерённой превьюшки, которая будет использоваться "
+"в качестве уменьшенной копии картинки"
+
+#: pyrone/templates/admin/settings.mako:24
+msgid "Twitter Auth"
+msgstr "Авторизация через Twitter"
+
+#: pyrone/templates/admin/settings.mako:25
+msgid ""
+"To use Twitter authentication you MUST <a "
+"href=\"https://dev.twitter.com/apps\">register</a> a new twitter "
+"application and obtain consumer key and secret."
+msgstr ""
+"Чтобы использовать автоизацию при помощи Twitter, вы должны <a "
+"href=\"https://dev.twitter.com/apps\">зарегистрировать</a> новое "
+"приложение на сайте twitter и получить ключи consumer и secret."
+
+#: pyrone/templates/admin/settings.mako:26
+msgid "Consumer key"
+msgstr "Consumer key"
+
+#: pyrone/templates/admin/settings.mako:27
+msgid "Consumer secret"
+msgstr "Consumer secret"
+
+#: pyrone/templates/admin/settings.mako:29
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: pyrone/templates/admin/settings.mako:30
+msgid "Email address for system notifications"
+msgstr "Адрес электропочты для системных уведомлений"
+
+#: pyrone/templates/admin/settings.mako:31
+msgid ""
+"Email address for the system notification: user added, comment added for "
+"moderation etc"
+msgstr ""
+"Адрес электропочты, на который будут рассылаться уведомления о добавлении"
+" нового пользователя, новом комментарии и т.п."
+
+#: pyrone/templates/admin/settings.mako:33
+msgid "Select notifications you want to receive"
+msgstr "Выберите, какие уведомления вы хотите получать"
+
+#: pyrone/templates/admin/settings.mako:35
+msgid "new comment added (including comment moderation requests)"
+msgstr "добавлен новый комментарий (включая требующий модерации)"
+
+#: pyrone/templates/admin/settings.mako:37
+msgid "new user registered"
+msgstr "зарегистрировался новый пользователь"
+
+#: pyrone/templates/admin/settings.mako:38
+msgid "Email address verification message subject template"
+msgstr "Шаблон темы письма о верификации адреса электропочты"
+
+#: pyrone/templates/admin/settings.mako:39
+#: pyrone/templates/admin/settings.mako:41
+msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}"
+msgstr ""
+"Простой текст, без HTML, допускаются символы подстановки {vrf_link}, "
+"{email}"
+
+#: pyrone/templates/admin/settings.mako:40
+msgid "Email address verification message body template"
+msgstr "Шаблон тела письма о верификации адреса электропочты"
+
+#: pyrone/templates/admin/settings.mako:42
+#, fuzzy
+#| msgid "Email address verification message subject template"
+msgid "Answer to comment notification message subject template"
+msgstr "Шаблон темы письма о верификации адреса электропочты"
+
+#: pyrone/templates/admin/settings.mako:43
+#, fuzzy
+#| msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link},
+#| {email}"
+msgid ""
+"Plain text, no HTML, allowed substitution symbols: {site_title}, "
+"{visitor}, {comment_title}, {answer_title}, {email}"
+msgstr ""
+"Простой текст, без HTML, допускаются символы подстановки {vrf_link}, "
+"{email}"
+
+#: pyrone/templates/admin/settings.mako:44
+#, fuzzy
+#| msgid "Email address verification message body template"
+msgid "Answer to comment notification message body template"
+msgstr "Шаблон тела письма о верификации адреса электропочты"
+
+#: pyrone/templates/admin/settings.mako:45
+msgid ""
+"Plain text, no HTML, allowed substitution symbols: {site_title}, "
+"{visitor}, {comment_title}, {comment_body}, {answer_title}, "
+"{answer_body}, {email}"
+msgstr ""
+
+#: pyrone/templates/blog/list_articles.mako:18
+#: pyrone/templates/blog/view_article.mako:19
+msgid "draft"
+msgstr "черновик"
+
+#: pyrone/templates/blog/list_articles.mako:23
+#: pyrone/templates/blog/view_article.mako:24
+#: pyrone/templates/widgets/comment.mako:25
+msgid "delete"
+msgstr "удалить"
+
+#: pyrone/templates/blog/list_articles.mako:26
+#, python-format
+msgid "Posted by %(author)s on %(date)s"
+msgstr "Написано %(author)s %(date)s"
+
+#: pyrone/templates/blog/list_articles.mako:31
+msgid "continue reading"
+msgstr "читать дальше"
+
+#: pyrone/templates/blog/list_articles.mako:33
+#: pyrone/templates/blog/view_article.mako:30
+msgid "Tags:"
+msgstr "Теги:"
+
+#: pyrone/templates/blog/list_articles.mako:35
+msgid "Comments:"
+msgstr "Комментарии:"
+
+#: pyrone/templates/blog/list_articles.mako:37
+msgid "not approved comments:"
+msgstr "ещё не одобренных комментариев"
+
+#: pyrone/templates/blog/list_articles.mako:48
+msgid "No articles here."
+msgstr "Ничего нет."
+
+#: pyrone/templates/blog/list_articles.mako:53
+msgid "←newer"
+msgstr "←новые"
+
+#: pyrone/templates/blog/list_articles.mako:54
+msgid "older→"
+msgstr "старые→"
+
+#: pyrone/templates/blog/local_login.mako:3
+msgid "Sign in"
+msgstr "Войти"
+
+#: pyrone/templates/blog/local_login.mako:12
+#: pyrone/templates/blog/my_profile.mako:11
+msgid "Login name"
+msgstr "Логин"
+
+#: pyrone/templates/blog/local_login.mako:14
+#: pyrone/templates/blog/my_profile.mako:13
+msgid "Password"
+msgstr "Пароль"
+
+#: pyrone/templates/blog/local_login.mako:16
+msgid "sign in"
+msgstr "войти"
+
+#: pyrone/templates/blog/my_profile.mako:4
+#, fuzzy
+#| msgid "My profile page"
+msgid "My profile"
+msgstr "Мой профиль на сайте"
+
+#: pyrone/templates/blog/my_profile.mako:14
+msgid "…and repeat password"
+msgstr ""
+
+#: pyrone/templates/blog/my_profile.mako:17
+#, fuzzy
+#| msgid "Base blog address"
+msgid "Email address"
+msgstr "Базовый URL блога"
+
+#: pyrone/templates/blog/view_article.mako:35
+msgid "Comments"
+msgstr "Комментарии"
+
+#: pyrone/templates/blog/view_article.mako:52
+msgid "Display name of the visitor"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:53
+#, fuzzy
+#| msgid "Publishing date and time"
+msgid "Comment date and time"
+msgstr "Дата-время публикации"
+
+#: pyrone/templates/blog/view_article.mako:54
+msgid "subscribed"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:56
+msgid "Email address of the visitor"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:57
+msgid "Visitor ip address"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:58
+msgid "Visitor X-Forwarded-For address"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:59
+#, fuzzy
+#| msgid "Your website"
+msgid "Visitor website"
+msgstr "Веб-сайт"
+
+#: pyrone/templates/blog/view_article.mako:64
+msgid "close"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:76
+msgid "leave comment"
+msgstr "оставить комментарий"
+
+#: pyrone/templates/blog/view_article.mako:83
+#, fuzzy
+#| msgid "" "Comment text (<a class=\"new-window\" target=\"_blank\"
+#| href=\"/comment-" "markup-tip-en.html\" title=\"Open in new
+#| window\">markup</a> is allowed)"
+msgid ""
+"Comment text (<a class=\"new-window\" target=\"_blank\" href=\"/comment-"
+"markup-tip-en.html\" title=\"Open in new window\">Markdown</a> is "
+"allowed)."
+msgstr ""
+"Текст комментария (допускается <a class=\"new-window\" target=\"blank\" "
+"href=\"/comment-markup-tip-ru.html\" title=\"Открыть в новом "
+"окне\">текстовая разметка</a>)"
+
+#: pyrone/templates/blog/view_article.mako:85
+msgid ""
+"<strong>Anonymous visitors, please pay attention that comments with more "
+"than one hyperlink (including field “website”) will be put on moderation."
+" Sign in to post without such limitations.</strong>"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:90
+#: pyrone/templates/blog/view_article.mako:101
+msgid "Subscribe to answers"
+msgstr ""
+
+#: pyrone/templates/blog/view_article.mako:96
+msgid "Your name (required, 50 characters or less)"
+msgstr "Имя (обязательно, 50 символов или меньше)"
+
+#: pyrone/templates/blog/view_article.mako:99
+#, fuzzy
+#| msgid "Your email (required if you want to receive answers)"
+msgid "Your email (won't be published, required if you want to receive answers)"
+msgstr "Email (обязательно, если хотите получать ответы)"
+
+#: pyrone/templates/blog/view_article.mako:103
+msgid "Your website"
+msgstr "Веб-сайт"
+
+#: pyrone/templates/blog/view_article.mako:106
+msgid "post comment"
+msgstr "отправить комментарий"
+
+#: pyrone/templates/blog/view_article.mako:111
+msgid "commenting is disabled"
+msgstr "комментирование отключено"
+
+#: pyrone/templates/blog/write_article.mako:5
+#: pyrone/templates/widgets/actions.mako:12
+msgid "Write new article"
+msgstr "Написать новую статью"
+
+#: pyrone/templates/blog/write_article.mako:7
+msgid "Edit article"
+msgstr "Править статью"
+
+#: pyrone/templates/blog/write_article.mako:14
+msgid "Subject (required)"
+msgstr "Тема (обязательно)"
+
+#: pyrone/templates/blog/write_article.mako:15
+msgid "Shortcut (required)"
+msgstr "Ярлык (обязательно)"
+
+#: pyrone/templates/blog/write_article.mako:15
+msgid ""
+"Short string (part of the URL), alphanumeric characters and “-” are "
+"recommended."
+msgstr ""
+"Короткая строка (часть URL), рекомендуются алфавитно-цифровые символы и "
+"«-»."
+
+#: pyrone/templates/blog/write_article.mako:16
+msgid "Publishing date and time"
+msgstr "Дата-время публикации"
+
+#: pyrone/templates/blog/write_article.mako:16
+msgid "Format: YYYY-MM-DD HH:MM"
+msgstr "Формат: ГГГГ-ММ-ДД ЧЧ:ММ"
+
+#: pyrone/templates/blog/write_article.mako:17
+msgid "Tags (comma separated)"
+msgstr ""
+
+#: pyrone/templates/blog/write_article.mako:18
+msgid ""
+"Article body (required, <a href=\"/article-markup-tip-en.html\" "
+"target=\"_blank\" class=\"new-window\">markup</a> is available)"
+msgstr ""
+"Тело статьи (обязательно, допускается <a href=\"/article-markup-tip-"
+"ru.html\" target=\"_blank\" class=\"new-window\">текстовая разметка</a> "
+"is available)"
+
+#: pyrone/templates/blog/write_article.mako:20
+msgid "draft article"
+msgstr "черновик"
+
+#: pyrone/templates/blog/write_article.mako:20
+msgid "if checked article will not be available to everyone"
+msgstr "если включено, сохранённая статья будет видна только вам"
+
+#: pyrone/templates/blog/write_article.mako:21
+msgid "allow visitors comments"
+msgstr "разрешить комментарии"
+
+#: pyrone/templates/blog/write_article.mako:23
+msgid "preview"
+msgstr "предварительный просмотр"
+
+#: pyrone/templates/widgets/account.mako:8
+msgid "<strong>Sign in</strong> using"
+msgstr "<strong>Войти на сайт</strong>, используя"
+
+#: pyrone/templates/widgets/account.mako:15
+msgid "You are logged in."
+msgstr "Вы уже в системе."
+
+#: pyrone/templates/widgets/account.mako:16
+msgid "My profile page"
+msgstr "Мой профиль на сайте"
+
+#: pyrone/templates/widgets/account.mako:17
+msgid "Logout"
+msgstr "Выйти из системы"
+
+#: pyrone/templates/widgets/actions.mako:10
+msgid "Actions"
+msgstr "Действия"
+
+#: pyrone/templates/widgets/actions.mako:15
+msgid "Settings"
+msgstr "Настройки"
+
+#: pyrone/templates/widgets/actions.mako:17
+msgid "Manage files"
+msgstr "Управление файлами"
+
+#: pyrone/templates/widgets/actions.mako:18
+msgid "Backup/restore"
+msgstr "Бэкап/восстановление"
+
+#: pyrone/templates/widgets/comment.mako:11
+#, fuzzy
+#| msgid "IP address: "
+msgid "IP address:"
+msgstr "IP адрес: "
+
+#: pyrone/templates/widgets/comment.mako:13
+msgid "X-Forwarded-For"
+msgstr "X-Forwarded-For"
+
+#: pyrone/templates/widgets/comment.mako:15
+#, fuzzy
+#| msgid "Email"
+msgid "Email:"
+msgstr "Электропочта"
+
+#: pyrone/templates/widgets/comment.mako:19
+msgid "reply to this comment"
+msgstr "ответить на этот комментарий"
+
+#: pyrone/templates/widgets/comment.mako:20
+msgid "link"
+msgstr ""
+
+#: pyrone/templates/widgets/comment.mako:23
+msgid "approve"
+msgstr "одобрить"
+
+#: pyrone/templates/widgets/tags_cloud.mako:2
+msgid "Tags cloud"
+msgstr ""
+
+#: pyrone/views/blog.py:20
+msgid "Latest articles"
+msgstr "Последние статьи"
+
+#~ msgid "Cannot create authorization Twitter URL"
+#~ msgstr "Не могу создать URL авторизации для Twitter"
+
+#~ msgid "Invalid value, must be positive numeric value"
+#~ msgstr "Некорректное значение, должно быть целое положительное число"
+
+#~ msgid "Backup file not found"
+#~ msgstr "Файл бэкапа не найден"
+
+#~ msgid "Backup file is broken!"
+#~ msgstr "Файл бэкапа повреждён!"
+
+#~ msgid "Backup file is broken, no catalog file inside!"
+#~ msgstr "Файл бэкапа некорректный: внутри нет индексного файла!"
+
+#~ msgid "Backup file is broken, XML catalog is broken!"
+#~ msgstr "Файл бэкапа некорректный: индексный файл повреждён!"
+
+#~ msgid "Unknown XML format of catalog file."
+#~ msgstr "Формат индексного файла не поддерживается."
+
+#~ msgid "Unsupported backup version: “%s”!"
+#~ msgstr "Версия бэкапа «%s» не поддерживается!"
+
+#~ msgid "Backup file is broken: settings block not found"
+#~ msgstr "Файл бэкапа повреждён: блок «settings» не найден"
+
+#~ msgid "Backup file is broken: users block not found"
+#~ msgstr "Файл бэкапа повреждён: блок «users» не найден"
+
+#~ msgid "Backup file is broken: articles block not found"
+#~ msgstr "Файл бэкапа повреждён: блок «articles» не найден"
+
+#~ msgid ""
+#~ "Unable to restore backup: database "
+#~ "error, maybe your backup file is "
+#~ "corrupted"
+#~ msgstr ""
+#~ "Не удалось восстановить бэкап: ошибка "
+#~ "базы данных, вероятно, файл бэкапа "
+#~ "повреждён."
+
+#~ msgid "field is required"
+#~ msgstr "это поле обязательно для заполнения"
+
+#~ msgid "invalid date and time format"
+#~ msgstr "некорректный формат даты или времени"
+
+#~ msgid "duplicated shortcut"
+#~ msgstr "такой ярлык уже используется, выберите другой"
+
+#~ msgid "<h2>Turn on javascript, you cannot post comment using plain HTML.</h2>"
+#~ msgstr ""
+#~ "<h2>Включить JavaScript, без этого вы не"
+#~ " сможете комментировать статьи.</h2>"
+
+#~ msgid "Answering to not approved comment"
+#~ msgstr "Ответ на неодобренный комментарий"
+
+#~ msgid "Tags"
+#~ msgstr "Теги"
+

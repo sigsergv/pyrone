@@ -7,7 +7,7 @@ The following packages are required, install the using ``easy_install``:
     
 The following packages are required for development:
 
-    nose coverage
+    nose coverage Babel
     
 Development
 ===========
@@ -34,7 +34,33 @@ Running the tests:
 Collecting coverage information:
 
     nosetests --cover-package=pyrone --cover-erase --with-coverage
-    
+   
+Localization and internationalization
+-------------------------------------
+
+Pyrone uses ``Babel`` package to maintain ``gettext``-translation file. Here are the most used
+commands.
+
+Collect messages from source files:
+
+    python setup.py extract_messages
+
+Start new language ("es", Spanish in this case):
+
+    python setup.py init_catalog -l es
+
+Update messages (using .pot-file created by ``extract_messages`` command):
+
+    python setup.py update_catalog
+
+Or collect and update in one step:
+
+    python setup.py extract_messages update_catalog
+
+Compile translation files:
+
+    python setup.py compile_catalog
+
 Running application
 -------------------
 

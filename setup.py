@@ -14,6 +14,7 @@ requires = [
     'repoze.tm2>=1.0b1', # default_commit_veto
     'zope.sqlalchemy',
     'WebError',
+    'Babel'
     ]
 
 if sys.version_info[:3] < (2,5,0):
@@ -38,6 +39,10 @@ setup(name='pyrone',
       zip_safe=False,
       test_suite='pyrone',
       install_requires = requires,
+      message_extractors = {'pyrone': [
+        ('**.py', 'python', None),
+        ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'})
+        ]},
       entry_points = """\
       [paste.app_factory]
       main = pyrone:main
