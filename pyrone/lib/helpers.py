@@ -201,3 +201,39 @@ def article_tags_links(article):
 
 def url(*args, **kwargs):
     pass
+
+_cache = dict()
+
+def get_public_tags_cloud(force_reload=False):
+    """
+    return tags cloud: list of tuples-pairs ("tag", "tag_weight"), tag_weight - is a number divisible by 5,
+    0 <= tag_weight <= 100
+    Only for published articles.
+    """
+    if 'tags_cloud' not in _cache or force_reload:
+        q = Session.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
+        items = list()
+        counts = list()
+        total = 0
+        for rec in q.all():
+            if rec[0] <= 0:
+                continue
+            total += rec[0]
+            items.append( (rec[1], int(rec[0])) )
+            counts.append(int(rec[0]))
+        
+        if len(counts) != 0:
+            min_count = min(counts)
+            max_counts = max(counts)
+            lmm = lg(max_counts) - lg(min_count)
+            
+            weights = [ ( x[0], (lg(x[1])-lg(min_count))/lmm ) for x in items ]
+            
+            weights = [ (x[0], 5*(int(100*x[1])/5)) for x in weights ]
+            
+            self._tags_cloud = weights
+        else:
+            self._tags_cloud = []
+    
+    return self._tags_cloud
+
