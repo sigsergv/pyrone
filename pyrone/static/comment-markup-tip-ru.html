@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Pyrone markup language for writing articles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style type="text/css">
+body, div, p, table {
+	font-family: sans-serif;
+}
+span.tt {
+	font-family: monospace;
+}
+div.pre-sample {
+	white-space: pre-wrap;
+	border: 1px dotted #585858;
+	width: 350px;
+	font-family: monospace;
+}
+div.sample {
+	width: 400px;
+	border: 1px dotted #585858;
+}
+</style>
+</head>
+<body>
+<div>You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> in the comment body. Some most often 
+used Markdown construction below.</div>
+
+<table>
+<tr><td>
+<div class="pre-sample">Use empty line
+
+to split text into paragraphs.
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample"><p>Use empty line</p>
+
+<p>to split text into paragraphs.</p>
+</div></td>
+</tr>
+</table>
+
+<table>
+<tr><td>
+<div class="pre-sample">You can also insert [hyperlinks](http://example.com).
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<p>You can also insert <a href="http://example.com">hyperlinks</a>.</p>
+</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">> this is a citing 
+> (html element blockquote is being 
+used for rendering) this element.
+Beginning characted “>” is required 
+in the first line
+of citation block.
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<blockquote>
+  <p>this is a citing (html element 
+blockquote is being used for rendering) this element.
+Beginning characted “>” is required in the first line
+of citation block.</p>
+</blockquote>
+
+</div></td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>Pyrone markup language for writing articles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style type="text/css">
+body, div, p, table {
+	font-family: sans-serif;
+}
+span.tt {
+	font-family: monospace;
+}
+div.pre-sample {
+	white-space: pre-wrap;
+	border: 1px dotted #585858;
+	width: 350px;
+	font-family: monospace;
+}
+div.sample {
+	width: 400px;
+	border: 1px dotted #585858;
+}
+</style>
+</head>
+<body>
+<h2>Markup</h2>
+
+<div>Pyrone uses Markdown based markup language, it supports complete core Markdown elements set and some 
+additional features (footnotes and pictures from internal storage).</div>
+
+<div>Please consult official Markdown <a href="http://daringfireball.net/projects/markdown/syntax">syntax documentation</a> for 
+complete language reference. In paragraphs below we are describing most used language construction.</div>
+
+<h2>Basic markup</h2>
+
+<table>
+<tr><td>
+<div class="pre-sample">Use empty line
+
+to split text into paragraphs.
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<p>Use empty line</p>
+
+<p>to split text into paragraphs.</p>
+</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample"># This is a first level header
+## Second level
+#### Fourth
+###### Sixth (there is no 7th level though)
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<h1>This is a first level header</h1>
+
+<h2>Second level</h2>
+
+<h4>Fourth</h4>
+
+<h6>Sixth (there is no 7th level though)</h6></div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">*Italic* and **bold** font. Monospaced font should be wrapped in `backticks`.
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<p><em>Italic</em> and <strong>bold</strong> font. Monospaced font should be wrapped in <code>backticks</code>.</p>
+</div></td>
+</tr>
+</table>
+
+<table>
+<tr><td>
+<div class="pre-sample">* simple list
+* each item on a new line prepended by asterisk
+  * indented list item
+  * and another one
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<ul>
+<li>simple list</li>
+<li>each item on a new line prepended by asterisk
+<ul>
+<li>indented list item</li>
+<li>and another one</li>
+</ul></li>
+</ul>
+</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">1. numbered list
+1. put number followed by period at the beginning of each line
+666. you can use any number, it doesn't affect resulting text
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<ol>
+<li>numbered list</li>
+<li>put number followed by period at the beginning of each line</li>
+<li>you can use any number, it doesn't affect resulting text</li>
+</ol>
+</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">You can also use [hyperlinks](http://example.com).
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<p>You can also use <a href="http://example.com">hyperlinks</a>.</p>
+</div></td>
+</tr>
+</table>
+
+
+<h2>Extended markup</h2>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">You can also use footnotes[^1]!
+
+[^1]: Really!
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+<div>You can also use footnotes<sup><a href="#">1</a></sup>!</div>
+
+<hr/>
+<div>1. Really <a href="#">↩</a></div>
+</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">Use construction “!![ALT-TEXT](FILENAME)” to insert full-sized image from the storage. 
+You can also insert reduced image that fits into the page: “!![ALT-TEXT](FILENAME\m)” (just add “\m” suffix to filename).
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+Use construction “<img src="aaa"/>” to insert full-sized image from the storage. You can also insert 
+reduced image that fits into the page: “<img src="aaa"/>” (just add “\m” suffix to filename).</div></td>
+</tr>
+</table>
+
+<h2>Splitting long articles</h2>
+<div>You can split large article into two parts using construction &lt;cut>. After rendering only the text 
+before &lt;cut> (“preview”) will be displayed in the articles list and after that preview hyperlink pointing to complete article will be
+place.
+</div>
+
+<!-- 
+<table>
+<tr><td>
+<div class="pre-sample">|
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+|</div></td>
+</tr>
+</table>
+
+
+<table>
+<tr><td>
+<div class="pre-sample">|
+</div>
+</td>
+<td>⇒</td>
+<td><div class="sample">
+|</div></td>
+</tr>
+</table>
+-->
+
+</body>
+</html>
