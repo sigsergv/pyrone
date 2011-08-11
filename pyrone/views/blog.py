@@ -17,9 +17,14 @@ def latest(request):
     show rendered previews, not complete articles
     """
     c = dict()
-    c['title'] = _('Latest articles')
+    c['page_title'] = _('Latest articles')
     c['articles'] = list()
     c['next_page'] = None
     c['prev_page'] = None
     
+    return c
+
+@view_config(route_name='blog_write_article', renderer='/blog/write_article.mako', permission='write_article')
+def write_article(request):
+    c = dict()
     return c

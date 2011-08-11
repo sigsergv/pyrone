@@ -11,13 +11,15 @@ import logging
 import datetime
 import pytz #@UnresolvedImport
 import time
+from math import log as lg
 
-from pyramid.url import route_url
-#from pylons.i18n.translation import _
+from pyramid.i18n import TranslationString as _
 from mako.filters import html_escape
 from hurry.filesize import size as hsize
+from sqlalchemy import func
 
 from pyrone.models.config import get as get_config
+from pyrone.models import DBSession, Article, Tag
 from pyrone.lib import auth, lang
 from pyrone.lib.lang import supported_langs
 
@@ -199,9 +201,6 @@ def article_tags_links(article):
     
     return ', '.join(res)
 
-def url(*args, **kwargs):
-    pass
-
 _cache = dict()
 
 def get_public_tags_cloud(force_reload=False):
@@ -211,7 +210,8 @@ def get_public_tags_cloud(force_reload=False):
     Only for published articles.
     """
     if 'tags_cloud' not in _cache or force_reload:
-        q = Session.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
+        dbsession = DBSession()
+        q = dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
         items = list()
         counts = list()
         total = 0
@@ -231,9 +231,9 @@ def get_public_tags_cloud(force_reload=False):
             
             weights = [ (x[0], 5*(int(100*x[1])/5)) for x in weights ]
             
-            self._tags_cloud = weights
+            _cache['tags_cloud'] = weights
         else:
-            self._tags_cloud = []
+            _cache['tags_cloud'] = []
     
-    return self._tags_cloud
+    return _cache['tags_cloud']
 

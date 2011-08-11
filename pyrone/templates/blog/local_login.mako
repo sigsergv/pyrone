@@ -2,11 +2,11 @@
 
 <%def name="title()">${_('Sign in')}</%def>
 
-% if c.error != '':
-<div class="warning">${c.error}</div>
+% if error != '':
+<div class="warning">${error}</div>
 % endif
 
-<form  action="${h.url(controller='account', action='login')}" method="POST">
+<form  action="${url('blog_login')}" method="POST">
 <div style="width: 300px;">
 <dl class="form">
 	<dt>${_('Login name')}:</dt>

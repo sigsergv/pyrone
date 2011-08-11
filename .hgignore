@@ -7,4 +7,5 @@ syntax:glob
 *.pot
 pyrone.db
 .coverage
+data
 .settings/org.eclipse.core.resources.prefs

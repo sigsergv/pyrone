@@ -1,8 +1,16 @@
 #import pyramid.threadlocal as threadlocal
 #from pyramid.i18n import get_localizer, TranslationStringFactory
 from pyramid.i18n import TranslationString
+from pyramid.url import route_url
 
 from pyrone.lib import helpers
+
+class url_generator():
+    def __init__(self, request):
+        self.request = request
+        
+    def __call__(self, route_name, **kwargs):
+        return route_url(route_name, self.request, **kwargs)
 
 def add_renderer_globals(event):
     #renderer_globals = event
@@ -13,6 +21,7 @@ def add_renderer_globals(event):
         return
     
     event['_'] = TranslationString
+    event['url'] = url_generator(request)
  
 #tsf = TranslationStringFactory('pyrone')
 

@@ -1,8 +1,12 @@
 from pyramid.config import Configurator
-from sqlalchemy import engine_from_config
+from pyramid.authentication import SessionAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid_beaker import session_factory_from_settings
+from sqlalchemy import engine_from_config
 
 from pyrone.models import initialize_sql
+from pyrone.lib.auth import principals_finder
+#from pyrone.resources import RootFactory
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -10,10 +14,25 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
-    config = Configurator(settings=settings, session_factory=session_factory)
+    authentication_policy = SessionAuthenticationPolicy(prefix='auth.', callback=principals_finder)
+    authorization_policy = ACLAuthorizationPolicy()
+    config = Configurator(settings=settings, session_factory=session_factory,
+        root_factory='pyrone.resources.RootFactory',
+        authentication_policy=authentication_policy,
+        authorization_policy=authorization_policy)
     config.scan()
     config.add_static_view('static', 'pyrone:static')
-    config.add_route('blog_latest', '/')
+    routes = [('blog_latest', '/'), 
+              ('blog_write_article', '/write'), 
+              ('blog_twitter_init', '/login/twitter/init'),
+              ('blog_my_profile', '/me'),
+              ('blog_login_form', '/login'),
+              ('blog_login', '/login'),
+              ('blog_logout', '/logout')
+              ]
+    for r in routes:
+        config.add_route(*r)
+        
     config.add_subscriber('pyrone.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
     #config.add_subscriber('pyrone.subscribers.add_localizer', 'pyramid.events.NewRequest')
     

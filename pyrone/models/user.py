@@ -6,7 +6,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relation, eagerload
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
-from . import Base
+from . import Base, DBSession
 from pyrone.lib import notifications
 
 class User(Base):
@@ -25,10 +25,13 @@ class User(Base):
     permissions = relation('Permission')
 
     def has_permission(self, p):
+        return p in self.get_permissions()
+    
+    def get_permissions(self):
         if self._str_permissions is None:
             self._str_permissions = [x.name for x in self.permissions]
             
-        return p in self._str_permissions
+        return self._str_permissions
 
 
 class Permission(Base):
@@ -58,7 +61,8 @@ class VerifiedEmail(Base):
         
 def find_local_user(login, password):
     hashed_password = md5(password).hexdigest()
-    q = Session.query(User).options(eagerload('permissions')).filter(User.kind=='local').\
+    dbsession = DBSession()
+    q = dbsession.query(User).options(eagerload('permissions')).filter(User.kind=='local').\
         filter(User.login==login).filter(User.password==hashed_password)
     user = q.first()
     return user

@@ -6,14 +6,14 @@
 <div class="widget">
 %if not authenticated:
 <div>${_('<strong>Sign in</strong> using')|n} 
-  <a href="#" onclick="Pyrone.account.loginTwitter('${h.url(controller='account', action='twitter_init')}');\
+  <a href="#" onclick="Pyrone.account.loginTwitter('${url('blog_twitter_init')}');\
   return false;">twitter</a>
   <a href="#">google</a>
-  <a href="${h.url(controller='account', action='login_form')}">local</a>
+  <a href="${url('blog_login_form')}">local</a>
   </div>
 %else:
     <div>${_('You are logged in.')}</div>
-    <div><a href="${h.url(controller='account', action='my_profile')}">${_('My profile page')}</a></div>
+    <div><a href="${url('my_profile')}">${_('My profile page')}</a></div>
     <div><a href="#" onclick="Pyrone.account.logout('${url(controller='account', action='logout', t=h.auth.get_logout_token())}'); return false;">${_('Logout')}</a></div>
 %endif
 

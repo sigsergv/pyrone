@@ -5,12 +5,11 @@
 %>
 
 
-<%def name="title()">${title}</%def>
+<%def name="title()">${page_title}</%def>
 
 <%def name="preview(article)">
 <%
-  article_url = h.url(controller='blog', action='view_article',\
-  shortcut=article.shortcut, shortcut_date=article.shortcut_date)
+  article_url = url('view_article', shortcut=article.shortcut, shortcut_date=article.shortcut_date)
 %>
 	<div class="article-preview">
 <div class="title"><a href="${article_url}">${article.title}</a>\
@@ -18,9 +17,9 @@
  <span class="warning">${_('draft')}</span>\
 %endif
 % if editor_permission:
- <a href="${h.url(controller='blog', action='edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone.article.deleteArticleReq('${h.url(controller='blog', action='delete_article_ajax', \
- article_id=article.id)}', '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
+ <a href="${url('edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
+ <a href="#" onclick="Pyrone.article.deleteArticleReq('${url('delete_article_ajax', article_id=article.id)}',\
+ '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published))}</div>
