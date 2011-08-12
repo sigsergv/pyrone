@@ -5,7 +5,7 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 
 from pyrone.models import initialize_sql
-from pyrone.lib.auth import principals_finder
+from pyrone.lib.auth import PyroneSessionAuthenticationPolicy
 #from pyrone.resources import RootFactory
 
 def main(global_config, **settings):
@@ -14,7 +14,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
-    authentication_policy = SessionAuthenticationPolicy(prefix='auth.', callback=principals_finder)
+    authentication_policy = PyroneSessionAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings, session_factory=session_factory,
         root_factory='pyrone.resources.RootFactory',
@@ -28,7 +28,12 @@ def main(global_config, **settings):
               ('blog_my_profile', '/me'),
               ('blog_login_form', '/login'),
               ('blog_login', '/login'),
-              ('blog_logout', '/logout')
+              ('blog_logout', '/logout'),
+              
+              ('admin_settings', '/admin/settings'),
+              ('admin_list_accounts', '/admin/accounts'),
+              ('admin_list_files', '/admin/files'),
+              ('admin_list_backups', '/admin/backups')
               ]
     for r in routes:
         config.add_route(*r)

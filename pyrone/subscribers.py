@@ -3,7 +3,7 @@
 from pyramid.i18n import TranslationString
 from pyramid.url import route_url
 
-from pyrone.lib import helpers
+from pyrone.lib import helpers, auth
 
 class url_generator():
     def __init__(self, request):
@@ -22,7 +22,7 @@ def add_renderer_globals(event):
     
     event['_'] = TranslationString
     event['url'] = url_generator(request)
- 
+    event['user'] = auth.get_user(request)
 #tsf = TranslationStringFactory('pyrone')
 
 #def add_localizer(event):

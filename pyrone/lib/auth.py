@@ -2,10 +2,16 @@
 Authentication and authorization functions
 """
 import logging
+import uuid
 
-import pyramid.threadlocal as threadlocal
+#import pyramid.threadlocal as threadlocal
+from pyramid.authentication import CallbackAuthenticationPolicy
+from pyramid.interfaces import IAuthenticationPolicy
+from zope.interface import implements
 #from pylons.controllers.util import abort, redirect
 from decorator import decorator
+
+from pyrone.models.user import anonymous as anonymous_user
 
 log = logging.getLogger(__name__)
 
@@ -14,24 +20,20 @@ def principals_finder(user, request):
     log.debug(principals)
     return principals
 
-def get_user():
-    request = threadlocal.get_current_request()
+def get_user(request):
     if 'user' in request.session:
         return request.session['user']
     else:
-        return None
+        return anonymous_user
     
-def has_permission(p):
-    user = get_user()
-    if user is None:
-        return False
-    else:
-        return user.has_permission(p)
+def has_permission(request, p):
+    get_user(request).has_permission(p)
     
-def get_logout_token():
+def get_logout_token(request):
+    s = request.session
     logout_token = '';
-    if 'logout_token' in s:
-        logout_token = s['logout_token']
+    if 'user.logout_token' in s:
+        logout_token = s['user.logout_token']
 
     return logout_token
 
@@ -61,3 +63,29 @@ def auth_required(f, self, *args, **kwargs):
         abort(403)
         
     return f(self, *args, **kwargs)
+
+class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
+    implements(IAuthenticationPolicy)
+    
+    def callback(self, request, userid):
+        log.debug('CALLING CALLBACK')
+    
+    def __init__(self):
+        self.user_key = 'user'
+        self.logout_token_key = 'user.logout_token'
+
+    def remember(self, request, userid, **kw):
+        """ Ignore userid and user kw argument ``user`` """
+        request.session[self.user_key] = kw['user']
+        request.session[self.logout_token_key] = str(uuid.uuid4())
+        request.session.save()
+        return []
+    
+    def forget(self, request):
+        """ Remove user from the session """
+        if self.user_key in request.session:
+            del request.session[self.user_key]
+            del request.session[self.logout_token_key]
+            request.session.save()
+        return []
+    

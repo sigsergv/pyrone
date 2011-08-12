@@ -1,5 +1,6 @@
 <%
-    authenticated = h.auth.get_user() is not None
+    authenticated = h.auth.get_user(request).kind != 'anonymous'
+    
     lang = h.lang.lang()
 %>
 
@@ -13,8 +14,8 @@
   </div>
 %else:
     <div>${_('You are logged in.')}</div>
-    <div><a href="${url('my_profile')}">${_('My profile page')}</a></div>
-    <div><a href="#" onclick="Pyrone.account.logout('${url(controller='account', action='logout', t=h.auth.get_logout_token())}'); return false;">${_('Logout')}</a></div>
+    <div><a href="${url('blog_my_profile')}">${_('My profile page')}</a></div>
+    <div><a href="#" onclick="Pyrone.account.logout('${url('blog_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
 %endif
 
 ## languages

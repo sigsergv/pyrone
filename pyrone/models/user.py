@@ -32,7 +32,14 @@ class User(Base):
             self._str_permissions = [x.name for x in self.permissions]
             
         return self._str_permissions
-
+    
+class AnonymousUser:
+    kind = 'anonymous'
+    
+    def has_permission(self, p):
+        return False
+    
+anonymous = AnonymousUser()
 
 class Permission(Base):
     __tablename__ = 'permission'

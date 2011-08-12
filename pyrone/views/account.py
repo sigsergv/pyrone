@@ -29,8 +29,9 @@ def login_form(request):
         if user is None:
             c['error'] = _('Incorrect login or password')
         else:
-            # actually we don't need actual headers
-            headers = remember(request, user)
+            # this method doesn't return any headers actually
+            headers = remember(request, None, user=user) #@UnusedVariable
+            # after this method execution "request.session['user']" should contain valid user object
             
     elif request.method == 'GET':
         log.debug(request.session)
@@ -39,6 +40,7 @@ def login_form(request):
 
 @view_config(route_name='blog_logout')    
 def logout(request):
-    forget(request)
-    return HTTPFound(location=route_url('blog_latest', request))
+    # "forget" method is also doesn't return any headers 
+    headers = forget(request)
+    return HTTPFound(location=route_url('blog_latest', request), headers=headers)
     
