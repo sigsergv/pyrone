@@ -67,9 +67,11 @@ def auth_required(f, self, *args, **kwargs):
 class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
     implements(IAuthenticationPolicy)
     
-    def callback(self, request, userid):
-        log.debug('CALLING CALLBACK')
-    
+    def callback(self, userid, request):
+        user = request.session.get(self.user_key)
+        if user is not None and user.id == userid:
+            return user.get_permissions()
+        
     def __init__(self):
         self.user_key = 'user'
         self.logout_token_key = 'user.logout_token'
@@ -88,4 +90,9 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
             del request.session[self.logout_token_key]
             request.session.save()
         return []
+
+    def unauthenticated_userid(self, request):
+        user = request.session.get(self.user_key)
+        if user is not None:
+            return user.id
     
