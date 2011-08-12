@@ -1,5 +1,5 @@
 <%
-    authenticated = h.auth.get_user(request).kind != 'anonymous'
+    authenticated = user.kind != 'anonymous'
     
     lang = h.lang.lang()
 %>

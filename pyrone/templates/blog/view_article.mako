@@ -1,42 +1,40 @@
 <%inherit file="/blog/base.mako"/>\
 <%namespace file="/widgets/comment.mako" name="cm"/>
-
 <%
-    editor_permission = h.auth.has_permission('edit_article') 
-    admin_permission = h.auth.has_permission('admin') 
-    authenticated = h.auth.get_user()
+	authenticated = user.kind != 'anonymous'
+	editor_permission = user.has_permission('edit_article') 
+	admin_permission = user.has_permission('admin') 
 %>
 <%def name="title()">\
-${c.article.title}
+${article.title}
 </%def>
 
 
 <div class="notify" style="display:none;" id="notify-block"></div>
 
 <div class="article">
-  <div class="title">${c.article.title}\
-% if c.article.is_draft:
+  <div class="title">${article.title}\
+% if article.is_draft:
  <span class="warning">${_('draft')}</span>\
 %endif
 % if editor_permission:
- <a href="${h.url(controller='blog', action='edit_article', article_id=c.article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone.article.deleteArticleReq('${h.url(controller='blog', action='delete_article_ajax',\
- article_id=c.article.id)}', '${c.article.id}'); return false;" class="border-icon" id="ad-${c.article.id}">${_('delete')}</a>\
+ <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
+ <a href="#" onclick="Pyrone.article.deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}', '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   
-  <div class="date">${h.timestamp_to_str(c.article.published)}</div>
-% if len(c.article.tags):
-  <div class="tags">${_('Tags:')} ${h.article_tags_links(c.article)|n}</div>
+  <div class="date">${h.timestamp_to_str(article.published)}</div>
+% if len(article.tags):
+  <div class="tags">${_('Tags:')} ${h.article_tags_links(article)|n}</div>
 % endif
-  <div class="body">${c.article.rendered_body|n}</div>
+  <div class="body">${article.rendered_body|n}</div>
 </div>
 
 <h4>${_('Comments')}</h4>
 
 <div class="article-comments">
   <!-- comments here -->
-% for comment in c.comments:
+% for comment in comments:
   <div class="article-comment${h.cond(comment.is_approved, '', ' not-approved')}" id="c-${comment.id}" style="margin-left: ${50*comment._indent}px">
     <div id="c-inner-${comment.id}">
     ${cm.render(comment, admin_permission)}
@@ -60,7 +58,7 @@ ${c.article.title}
   </div>
   
   <div><textarea id="c-edit-body" class="body"></textarea></div>
-  <div><input type="button" value="${_('save')}" onclick="Pyrone.article.submitEditCommentForm('${h.url(controller='blog', action='edit_comment_ajax', comment_id='666')}');"/> 
+  <div><input type="button" value="${_('save')}" onclick="Pyrone.article.submitEditCommentForm('${url('blog_edit_comment_ajax', comment_id='666')}');"/> 
     <a href="#" onclick="Pyrone.article.cancelEditCommentForm(); return false;">${_('close')}</a>
   </div>
   
@@ -68,15 +66,15 @@ ${c.article.title}
   </div>
 % endif
 
-% if c.article.is_commentable:
+% if article.is_commentable:
   
   <!-- new comment form here -->
   <div class="article-new-comment" id="c--1">
     <a name="leave-comment"></a>
     <a href="#" id="eid-leave-comment-link-bottom" style="display:none;" onclick="Pyrone.article.replyToComment(-1); return false;">${_('leave comment')}</a>
-    <form action="${h.url(controller='blog', action='add_article_comment', article_id=c.article.id)}" method="POST" id="eid-comment-form">
+    <form action="${url('blog_add_article_comment', article_id=article.id)}" method="POST" id="eid-comment-form">
       <input type="hidden" id="fid-parent-comment" value=""/>
-      <input type="hidden" id="fid-article_id" value="${c.signature}"/>
+      <input type="hidden" id="fid-article_id" value="${signature}"/>
       <dl class="form">
         <dd><div id="eid-comment-error" style="display: none;" class="error"></div></dd>
         <dd><div id="eid-comment-notify" style="display: none;" class="notify"></div></dd>
@@ -87,17 +85,17 @@ ${c.article.title}
         </dt>
         <dd><textarea name="body" class="small" id="fid-comment-body"></textarea></dd>
 % if authenticated is not None:
-        ${h.form_checkbox('is_subscribed', None, c.is_subscribed, dict(), None, _('Subscribe to answers'))|n}
+        ${h.form_checkbox('is_subscribed', None, is_subscribed, dict(), None, _('Subscribe to answers'))|n}
         <dd>${h.user_link(authenticated)|n}</dd>
         <input type="hidden" id="fid-comment-displayname" value=""/>
         <input type="hidden" id="fid-comment-email" value=""/>
         <input type="hidden" id="fid-comment-website" value=""/>
 %else:
         <dt>${_('Your name (required, 50 characters or less)')}</dt>
-        <dd><input type="text" id="fid-comment-displayname" value="${c.comment_display_name}"/></dd>
+        <dd><input type="text" id="fid-comment-displayname" value="${comment_display_name}"/></dd>
       
         <dt>${_("Your email (won't be published, required if you want to receive answers)")}</dt>
-        <dd><input type="text" id="fid-comment-email" value="${c.comment_email}"/></dd>
+        <dd><input type="text" id="fid-comment-email" value="${comment_email}"/></dd>
         ${h.form_checkbox('is_subscribed', None, c.is_subscribed, dict(), None, _('Subscribe to answers'))|n}
       
         <dt>${_('Your website')}</dt>

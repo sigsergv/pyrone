@@ -1,5 +1,6 @@
 """Config model, store site global options"""
 import logging
+import pytz
 
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText
@@ -33,7 +34,11 @@ def get(id):
         dbsession = DBSession()
         c = dbsession.query(Config).get(id)
         if c is not None:
-            _cache[id] = c.value
+            v = c.value
+            if id == 'timezone':
+                v = pytz.timezone(v)
+            _cache[id] = v
+                
         
     return _cache[id]
 

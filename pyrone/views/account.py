@@ -32,15 +32,21 @@ def login_form(request):
             # this method doesn't return any headers actually
             headers = remember(request, None, user=user) #@UnusedVariable
             # after this method execution "request.session['user']" should contain valid user object
+            return HTTPFound(location=route_url('blog_latest', request), headers=headers)
             
     elif request.method == 'GET':
         log.debug(request.session)
         
     return c
 
-@view_config(route_name='blog_logout')    
+@view_config(route_name='blog_logout', request_method='POST')    
 def logout(request):
     # "forget" method is also doesn't return any headers 
     headers = forget(request)
-    return HTTPFound(location=route_url('blog_latest', request), headers=headers)
+    # return to referer if possible
+    referer = request.headers.get('Referer')
+    if referer is None:
+        referer = route_url('blog_latest', request)
+        
+    return HTTPFound(location=referer, headers=headers)
     

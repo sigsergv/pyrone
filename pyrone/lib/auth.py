@@ -2,7 +2,6 @@
 Authentication and authorization functions
 """
 import logging
-import uuid
 
 #import pyramid.threadlocal as threadlocal
 from pyramid.authentication import CallbackAuthenticationPolicy
@@ -74,12 +73,12 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
         
     def __init__(self):
         self.user_key = 'user'
-        self.logout_token_key = 'user.logout_token'
+        #self.logout_token_key = 'user.logout_token'
 
     def remember(self, request, userid, **kw):
         """ Ignore userid and user kw argument ``user`` """
         request.session[self.user_key] = kw['user']
-        request.session[self.logout_token_key] = str(uuid.uuid4())
+        #request.session[self.logout_token_key] = str(uuid.uuid4())
         request.session.save()
         return []
     
@@ -87,7 +86,7 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
         """ Remove user from the session """
         if self.user_key in request.session:
             del request.session[self.user_key]
-            del request.session[self.logout_token_key]
+            #del request.session[self.logout_token_key]
             request.session.save()
         return []
 

@@ -29,6 +29,13 @@ def main(global_config, **settings):
               ('blog_login_form', '/login'),
               ('blog_login', '/login'),
               ('blog_logout', '/logout'),
+              ('blog_go_article', '/article/{article_id:\d+}'),
+              ('blog_view_article', '/{shortcut_date:\d\d\d\d/\d\d/\d\d}/{shortcut}'),
+              ('blog_edit_article', '/article/{article_id:\d+}/edit'),
+              ('blog_preview_article', '/preview/article'),
+              ('blog_article_delete_ajax', '/article/{article_id:\d+}/delete/ajax'),
+              ('blog_edit_comment_ajax', '/comment/{comment_id:\d+}/fetch/ajax'),
+              ('blog_add_article_comment', '/article/{article_id:\d+}/comment'),
               
               ('admin_settings', '/admin/settings'),
               ('admin_list_accounts', '/admin/accounts'),
