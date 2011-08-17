@@ -84,9 +84,9 @@ ${article.title}
         % endif
         </dt>
         <dd><textarea name="body" class="small" id="fid-comment-body"></textarea></dd>
-% if authenticated is not None:
+% if authenticated:
         ${h.form_checkbox('is_subscribed', None, is_subscribed, dict(), None, _('Subscribe to answers'))|n}
-        <dd>${h.user_link(authenticated)|n}</dd>
+        <dd>${h.user_link(user)|n}</dd>
         <input type="hidden" id="fid-comment-displayname" value=""/>
         <input type="hidden" id="fid-comment-email" value=""/>
         <input type="hidden" id="fid-comment-website" value=""/>
@@ -96,10 +96,10 @@ ${article.title}
       
         <dt>${_("Your email (won't be published, required if you want to receive answers)")}</dt>
         <dd><input type="text" id="fid-comment-email" value="${comment_email}"/></dd>
-        ${h.form_checkbox('is_subscribed', None, c.is_subscribed, dict(), None, _('Subscribe to answers'))|n}
+        ${h.form_checkbox('is_subscribed', None, is_subscribed, dict(), None, _('Subscribe to answers'))|n}
       
         <dt>${_('Your website')}</dt>
-        <dd><input type="text" id="fid-comment-website" value="${c.comment_website}"/></dd>
+        <dd><input type="text" id="fid-comment-website" value="${comment_website}"/></dd>
 %endif
         <dd><input type="button" value="${_('post comment')}" onclick="Pyrone.article.postComment();"></dd>
       </dl>

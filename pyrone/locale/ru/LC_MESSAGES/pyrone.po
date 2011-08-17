@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-08-11 01:39+0700\n"
+"POT-Creation-Date: 2011-08-17 18:17+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:166
+#: pyrone/lib/helpers.py:168
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -70,7 +70,7 @@ msgid "submit"
 msgstr "отправить"
 
 #: pyrone/templates/admin/list_accounts.mako:6
-#: pyrone/templates/widgets/actions.mako:16
+#: pyrone/templates/widgets/actions.mako:17
 msgid "Accounts"
 msgstr "Аккаунты"
 
@@ -202,8 +202,8 @@ msgid "Content type"
 msgstr "Тип файла"
 
 #: pyrone/templates/admin/list_files.mako:45
-#: pyrone/templates/blog/list_articles.mako:21
-#: pyrone/templates/blog/view_article.mako:22
+#: pyrone/templates/blog/list_articles.mako:20
+#: pyrone/templates/blog/view_article.mako:21
 #: pyrone/templates/widgets/comment.mako:26
 msgid "edit"
 msgstr "править"
@@ -220,7 +220,7 @@ msgstr "Настройки блога"
 #: pyrone/templates/admin/settings.mako:10
 #: pyrone/templates/admin/settings.mako:47
 #: pyrone/templates/blog/my_profile.mako:19
-#: pyrone/templates/blog/view_article.mako:63
+#: pyrone/templates/blog/view_article.mako:61
 #: pyrone/templates/blog/write_article.mako:23
 msgid "save"
 msgstr "сохранить"
@@ -348,14 +348,11 @@ msgstr "Шаблон тела письма о верификации адрес�
 
 #: pyrone/templates/admin/settings.mako:42
 #, fuzzy
-#| msgid "Email address verification message subject template"
 msgid "Answer to comment notification message subject template"
 msgstr "Шаблон темы письма о верификации адреса электропочты"
 
 #: pyrone/templates/admin/settings.mako:43
 #, fuzzy
-#| msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link},
-#| {email}"
 msgid ""
 "Plain text, no HTML, allowed substitution symbols: {site_title}, "
 "{visitor}, {comment_title}, {answer_title}, {email}"
@@ -365,7 +362,6 @@ msgstr ""
 
 #: pyrone/templates/admin/settings.mako:44
 #, fuzzy
-#| msgid "Email address verification message body template"
 msgid "Answer to comment notification message body template"
 msgstr "Шаблон тела письма о верификации адреса электропочты"
 
@@ -376,48 +372,48 @@ msgid ""
 "{answer_body}, {email}"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:18
-#: pyrone/templates/blog/view_article.mako:19
+#: pyrone/templates/blog/list_articles.mako:17
+#: pyrone/templates/blog/view_article.mako:18
 msgid "draft"
 msgstr "черновик"
 
-#: pyrone/templates/blog/list_articles.mako:23
-#: pyrone/templates/blog/view_article.mako:24
+#: pyrone/templates/blog/list_articles.mako:22
+#: pyrone/templates/blog/view_article.mako:22
 #: pyrone/templates/widgets/comment.mako:25
 msgid "delete"
 msgstr "удалить"
 
-#: pyrone/templates/blog/list_articles.mako:26
+#: pyrone/templates/blog/list_articles.mako:25
 #, python-format
 msgid "Posted by %(author)s on %(date)s"
 msgstr "Написано %(author)s %(date)s"
 
-#: pyrone/templates/blog/list_articles.mako:31
+#: pyrone/templates/blog/list_articles.mako:30
 msgid "continue reading"
 msgstr "читать дальше"
 
-#: pyrone/templates/blog/list_articles.mako:33
-#: pyrone/templates/blog/view_article.mako:30
+#: pyrone/templates/blog/list_articles.mako:32
+#: pyrone/templates/blog/view_article.mako:28
 msgid "Tags:"
 msgstr "Теги:"
 
-#: pyrone/templates/blog/list_articles.mako:35
+#: pyrone/templates/blog/list_articles.mako:34
 msgid "Comments:"
 msgstr "Комментарии:"
 
-#: pyrone/templates/blog/list_articles.mako:37
+#: pyrone/templates/blog/list_articles.mako:36
 msgid "not approved comments:"
 msgstr "ещё не одобренных комментариев"
 
-#: pyrone/templates/blog/list_articles.mako:48
+#: pyrone/templates/blog/list_articles.mako:47
 msgid "No articles here."
 msgstr "Ничего нет."
 
-#: pyrone/templates/blog/list_articles.mako:53
+#: pyrone/templates/blog/list_articles.mako:52
 msgid "←newer"
 msgstr "←новые"
 
-#: pyrone/templates/blog/list_articles.mako:54
+#: pyrone/templates/blog/list_articles.mako:53
 msgid "older→"
 msgstr "старые→"
 
@@ -441,7 +437,6 @@ msgstr "войти"
 
 #: pyrone/templates/blog/my_profile.mako:4
 #, fuzzy
-#| msgid "My profile page"
 msgid "My profile"
 msgstr "Мой профиль на сайте"
 
@@ -451,59 +446,53 @@ msgstr ""
 
 #: pyrone/templates/blog/my_profile.mako:17
 #, fuzzy
-#| msgid "Base blog address"
 msgid "Email address"
 msgstr "Базовый URL блога"
 
-#: pyrone/templates/blog/view_article.mako:35
+#: pyrone/templates/blog/view_article.mako:33
 msgid "Comments"
 msgstr "Комментарии"
 
-#: pyrone/templates/blog/view_article.mako:52
+#: pyrone/templates/blog/view_article.mako:50
 msgid "Display name of the visitor"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:53
+#: pyrone/templates/blog/view_article.mako:51
 #, fuzzy
-#| msgid "Publishing date and time"
 msgid "Comment date and time"
 msgstr "Дата-время публикации"
 
-#: pyrone/templates/blog/view_article.mako:54
+#: pyrone/templates/blog/view_article.mako:52
 msgid "subscribed"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:56
+#: pyrone/templates/blog/view_article.mako:54
 msgid "Email address of the visitor"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:57
+#: pyrone/templates/blog/view_article.mako:55
 msgid "Visitor ip address"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:58
+#: pyrone/templates/blog/view_article.mako:56
 msgid "Visitor X-Forwarded-For address"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:59
+#: pyrone/templates/blog/view_article.mako:57
 #, fuzzy
-#| msgid "Your website"
 msgid "Visitor website"
 msgstr "Веб-сайт"
 
-#: pyrone/templates/blog/view_article.mako:64
+#: pyrone/templates/blog/view_article.mako:62
 msgid "close"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:76
+#: pyrone/templates/blog/view_article.mako:74
 msgid "leave comment"
 msgstr "оставить комментарий"
 
-#: pyrone/templates/blog/view_article.mako:83
+#: pyrone/templates/blog/view_article.mako:81
 #, fuzzy
-#| msgid "" "Comment text (<a class=\"new-window\" target=\"_blank\"
-#| href=\"/comment-" "markup-tip-en.html\" title=\"Open in new
-#| window\">markup</a> is allowed)"
 msgid ""
 "Comment text (<a class=\"new-window\" target=\"_blank\" href=\"/comment-"
 "markup-tip-en.html\" title=\"Open in new window\">Markdown</a> is "
@@ -513,42 +502,41 @@ msgstr ""
 "href=\"/comment-markup-tip-ru.html\" title=\"Открыть в новом "
 "окне\">текстовая разметка</a>)"
 
-#: pyrone/templates/blog/view_article.mako:85
+#: pyrone/templates/blog/view_article.mako:83
 msgid ""
 "<strong>Anonymous visitors, please pay attention that comments with more "
 "than one hyperlink (including field “website”) will be put on moderation."
 " Sign in to post without such limitations.</strong>"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:90
-#: pyrone/templates/blog/view_article.mako:101
+#: pyrone/templates/blog/view_article.mako:88
+#: pyrone/templates/blog/view_article.mako:99
 msgid "Subscribe to answers"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:96
+#: pyrone/templates/blog/view_article.mako:94
 msgid "Your name (required, 50 characters or less)"
 msgstr "Имя (обязательно, 50 символов или меньше)"
 
-#: pyrone/templates/blog/view_article.mako:99
+#: pyrone/templates/blog/view_article.mako:97
 #, fuzzy
-#| msgid "Your email (required if you want to receive answers)"
 msgid "Your email (won't be published, required if you want to receive answers)"
 msgstr "Email (обязательно, если хотите получать ответы)"
 
-#: pyrone/templates/blog/view_article.mako:103
+#: pyrone/templates/blog/view_article.mako:101
 msgid "Your website"
 msgstr "Веб-сайт"
 
-#: pyrone/templates/blog/view_article.mako:106
+#: pyrone/templates/blog/view_article.mako:104
 msgid "post comment"
 msgstr "отправить комментарий"
 
-#: pyrone/templates/blog/view_article.mako:111
+#: pyrone/templates/blog/view_article.mako:109
 msgid "commenting is disabled"
 msgstr "комментирование отключено"
 
 #: pyrone/templates/blog/write_article.mako:5
-#: pyrone/templates/widgets/actions.mako:12
+#: pyrone/templates/widgets/actions.mako:13
 msgid "Write new article"
 msgstr "Написать новую статью"
 
@@ -609,41 +597,40 @@ msgstr "разрешить комментарии"
 msgid "preview"
 msgstr "предварительный просмотр"
 
-#: pyrone/templates/widgets/account.mako:8
+#: pyrone/templates/widgets/account.mako:9
 msgid "<strong>Sign in</strong> using"
 msgstr "<strong>Войти на сайт</strong>, используя"
 
-#: pyrone/templates/widgets/account.mako:15
+#: pyrone/templates/widgets/account.mako:16
 msgid "You are logged in."
 msgstr "Вы уже в системе."
 
-#: pyrone/templates/widgets/account.mako:16
+#: pyrone/templates/widgets/account.mako:17
 msgid "My profile page"
 msgstr "Мой профиль на сайте"
 
-#: pyrone/templates/widgets/account.mako:17
+#: pyrone/templates/widgets/account.mako:18
 msgid "Logout"
 msgstr "Выйти из системы"
 
-#: pyrone/templates/widgets/actions.mako:10
+#: pyrone/templates/widgets/actions.mako:11
 msgid "Actions"
 msgstr "Действия"
 
-#: pyrone/templates/widgets/actions.mako:15
+#: pyrone/templates/widgets/actions.mako:16
 msgid "Settings"
 msgstr "Настройки"
 
-#: pyrone/templates/widgets/actions.mako:17
+#: pyrone/templates/widgets/actions.mako:18
 msgid "Manage files"
 msgstr "Управление файлами"
 
-#: pyrone/templates/widgets/actions.mako:18
+#: pyrone/templates/widgets/actions.mako:19
 msgid "Backup/restore"
 msgstr "Бэкап/восстановление"
 
 #: pyrone/templates/widgets/comment.mako:11
 #, fuzzy
-#| msgid "IP address: "
 msgid "IP address:"
 msgstr "IP адрес: "
 
@@ -653,7 +640,6 @@ msgstr "X-Forwarded-For"
 
 #: pyrone/templates/widgets/comment.mako:15
 #, fuzzy
-#| msgid "Email"
 msgid "Email:"
 msgstr "Электропочта"
 
@@ -673,69 +659,25 @@ msgstr "одобрить"
 msgid "Tags cloud"
 msgstr ""
 
-#: pyrone/views/blog.py:20
+#: pyrone/views/account.py:30
+msgid "Incorrect login or password"
+msgstr ""
+
+#: pyrone/views/blog.py:24
 msgid "Latest articles"
 msgstr "Последние статьи"
 
-#~ msgid "Cannot create authorization Twitter URL"
-#~ msgstr "Не могу создать URL авторизации для Twitter"
+#: pyrone/views/blog.py:45 pyrone/views/blog.py:79
+msgid "field is required"
+msgstr ""
 
-#~ msgid "Invalid value, must be positive numeric value"
-#~ msgstr "Некорректное значение, должно быть целое положительное число"
+#: pyrone/views/blog.py:85
+#, fuzzy
+#| msgid "Publishing date and time"
+msgid "invalid date and time format"
+msgstr "Дата-время публикации"
 
-#~ msgid "Backup file not found"
-#~ msgstr "Файл бэкапа не найден"
-
-#~ msgid "Backup file is broken!"
-#~ msgstr "Файл бэкапа повреждён!"
-
-#~ msgid "Backup file is broken, no catalog file inside!"
-#~ msgstr "Файл бэкапа некорректный: внутри нет индексного файла!"
-
-#~ msgid "Backup file is broken, XML catalog is broken!"
-#~ msgstr "Файл бэкапа некорректный: индексный файл повреждён!"
-
-#~ msgid "Unknown XML format of catalog file."
-#~ msgstr "Формат индексного файла не поддерживается."
-
-#~ msgid "Unsupported backup version: “%s”!"
-#~ msgstr "Версия бэкапа «%s» не поддерживается!"
-
-#~ msgid "Backup file is broken: settings block not found"
-#~ msgstr "Файл бэкапа повреждён: блок «settings» не найден"
-
-#~ msgid "Backup file is broken: users block not found"
-#~ msgstr "Файл бэкапа повреждён: блок «users» не найден"
-
-#~ msgid "Backup file is broken: articles block not found"
-#~ msgstr "Файл бэкапа повреждён: блок «articles» не найден"
-
-#~ msgid ""
-#~ "Unable to restore backup: database "
-#~ "error, maybe your backup file is "
-#~ "corrupted"
-#~ msgstr ""
-#~ "Не удалось восстановить бэкап: ошибка "
-#~ "базы данных, вероятно, файл бэкапа "
-#~ "повреждён."
-
-#~ msgid "field is required"
-#~ msgstr "это поле обязательно для заполнения"
-
-#~ msgid "invalid date and time format"
-#~ msgstr "некорректный формат даты или времени"
-
-#~ msgid "duplicated shortcut"
-#~ msgstr "такой ярлык уже используется, выберите другой"
-
-#~ msgid "<h2>Turn on javascript, you cannot post comment using plain HTML.</h2>"
-#~ msgstr ""
-#~ "<h2>Включить JavaScript, без этого вы не"
-#~ " сможете комментировать статьи.</h2>"
-
-#~ msgid "Answering to not approved comment"
-#~ msgstr "Ответ на неодобренный комментарий"
-
-#~ msgid "Tags"
-#~ msgstr "Теги"
+#: pyrone/views/blog.py:97
+msgid "duplicated shortcut"
+msgstr ""
 

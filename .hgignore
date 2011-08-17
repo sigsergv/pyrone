@@ -8,4 +8,4 @@ syntax:glob
 pyrone.db
 .coverage
 data
-.settings/org.eclipse.core.resources.prefs
+.settings

@@ -37,6 +37,6 @@ def initialize_sql(engine):
         transaction.abort()
     
 from config import Config
-from article import Article, Tag
+from article import Article, Comment, Tag
 from .setup.config import setup as setup_config
 from .setup.user import setup as user_setup

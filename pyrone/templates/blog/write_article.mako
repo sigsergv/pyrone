@@ -13,7 +13,7 @@
 
   ${h.form_input_text('title', _('Subject (required)'), article.title, errors)|n}
   ${h.form_input_text('shortcut', _('Shortcut (required)'), article.shortcut, errors, _(u'Short string (part of the URL), alphanumeric characters and “-” are recommended.'))|n}
-  ${h.form_input_text('published', _('Publishing date and time'), h.timestamp_to_str(article.published), errors, _('Format: YYYY-MM-DD HH:MM'))|n}
+  ${h.form_input_text('published', _('Publishing date and time'), article_published_str, errors, _('Format: YYYY-MM-DD HH:MM'))|n}
   ${h.form_input_text('tags', _('Tags (comma separated)'), ', '.join(tags), errors)|n}
   ${h.form_textarea('body', _('Article body (required, <a href="/article-markup-tip-en.html" target="_blank" class="new-window">markup</a> is available)'), article.body, errors)|n}
   
