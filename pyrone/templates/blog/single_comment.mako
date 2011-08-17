@@ -1,5 +1,5 @@
 <%
-    admin_permission = h.auth.has_permission('admin') 
+    admin_permission = user.has_permission('admin') 
 %>\
 <%namespace file="/widgets/comment.mako" name="cm"/>\
-${cm.render(c.comment, admin_permission)|n}
+${cm.render(comment, admin_permission)|n}

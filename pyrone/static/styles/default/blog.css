@@ -256,6 +256,9 @@ div.article-comment div.body {
 div.article-comments div.not-approved {
 	border: 1px solid red;
 }
+div.article-comments div.active {
+	border: 1px solid #00f;
+}
 span.comment-ip-address {
 	font-style: italic;
 }

@@ -38,5 +38,6 @@ def initialize_sql(engine):
     
 from config import Config
 from article import Article, Comment, Tag
+from user import User
 from .setup.config import setup as setup_config
 from .setup.user import setup as user_setup

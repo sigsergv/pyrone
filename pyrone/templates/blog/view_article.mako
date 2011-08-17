@@ -9,6 +9,22 @@
 ${article.title}
 </%def>
 
+<script language="javascript">
+Ext.onReady(function() {
+	// scroll to needed position
+	var hash = window.location.hash, 
+		comment_id = -1;
+	// extract comment id
+	if (/#comment-([0-9]+)$/.test(hash)) {
+		comment_id = RegExp.$1;
+	}
+	
+	var cb = $e('c-'+comment_id);
+	if (cb) {
+		cb.addClass('active');
+	}
+});
+</script>
 
 <div class="notify" style="display:none;" id="notify-block"></div>
 

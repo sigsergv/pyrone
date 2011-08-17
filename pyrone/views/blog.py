@@ -11,8 +11,8 @@ from pyramid.i18n import TranslationString as _
 from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
-
-from pyrone.models import DBSession, Article, Comment, Tag
+from pyramid.renderers import render
+from pyrone.models import DBSession, Article, Comment, Tag, User
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth, markup
 
@@ -316,6 +316,12 @@ def view_article(request):
     shortcut_date = request.matchdict['shortcut_date']
     shortcut = request.matchdict['shortcut']
     
+    if 'commentid' in request.GET:
+        # redirect to comment URL, this trick is required because some 
+        # browsers don't reload page after changing page anchor (e.g. http://example.com/index#abc)
+        comment_url = '%s%s/%s#comment-%s' % (route_url('blog_latest', request), shortcut_date, shortcut, request.GET['commentid'])
+        return HTTPFound(location=comment_url)
+
     dbsession = DBSession()
     q = dbsession.query(Article).filter(Article.shortcut_date==shortcut_date).filter(Article.shortcut==shortcut)
     user = auth.get_user(request)
@@ -328,8 +334,8 @@ def view_article(request):
 @view_config(route_name='blog_add_article_comment_ajax', renderer='json', request_method='POST')
 def add_article_comment_ajax(request):
     article_id = int(request.matchdict['article_id'])
-
-    dbsession = DBSession(expire_on_commit=False)
+    
+    dbsession = DBSession()
     transaction.begin()
     q = dbsession.query(Article).filter(Article.id==article_id)
     user = auth.get_user(request)
@@ -432,15 +438,127 @@ def add_article_comment_ajax(request):
 
     dbsession.add(comment)
     dbsession.flush()
-    
+    dbsession.expunge(comment) # remove object from the session, object state is preserved
+    dbsession.expunge(article)
     transaction.commit()
     
     # cosntruct comment_id
     # we're not using route_url() for the article because stupid Pyramid urlencodes fragments
-    comment_url = '%s%s/%s#comment-%d' % (route_url('blog_latest', request), article.shortcut_date, article.shortcut, comment.id)
+    comment_url = '%s%s/%s?commentid=%d' % (route_url('blog_latest', request), article.shortcut_date, article.shortcut, comment.id)
     
     # return rendered comment
     data = dict(body=comment.rendered_body, approved=comment.is_approved, id=comment.id, url=comment_url)
 
     return data
+
+
+@view_config(route_name='blog_approve_comment_ajax', renderer='json', request_method='POST', permission='admin')
+def approve_article_comment_ajax(request):
+    comment_id = int(request.matchdict['comment_id'])
+    dbsession = DBSession()
+    comment = dbsession.query(Comment).get(comment_id)
+    if comment is None:
+        return HTTPNotFound()
+
+    # also find corresponding article
+    article = dbsession.query(Article).get(comment.article_id)
+
+    if article is None:
+        return HTTPNotFound()
+
+    orig = comment.is_approved
+    transaction.begin()
+    comment.is_approved = True
+
+    if not orig:
+        article.comments_approved += 1
+
+    transaction.commit()
+    data = dict()
+    return data
     
+@view_config(route_name='blog_delete_comment_ajax', renderer='json', request_method='POST', permission='admin')
+def delete_article_comment_ajax(request):
+    comment_id = int(request.matchdict['comment_id'])
+    dbsession = DBSession()
+    comment = dbsession.query(Comment).get(comment_id)
+    if comment is None:
+        return HTTPNotFound()
+    
+    transaction.begin()
+    dbsession.delete(comment)
+    transaction.commit()
+    
+    data = dict()
+    return data
+
+@view_config(route_name='blog_edit_comment_fetch_ajax', renderer='json', request_method='POST', permission='admin')
+def edit_fetch_comment_ajax(request):
+    """
+    Fetch comment details
+    """
+    comment_id = int(request.matchdict['comment_id'])
+    dbsession = DBSession()
+    
+    comment = dbsession.query(Comment).get(comment_id)
+    
+    attrs = ('display_name', 'email', 'website', 'body', 'ip_address', 'xff_ip_address')
+    data = dict()
+    for a in attrs:
+        data[a] = getattr(comment, a)
+
+    data['date'] = h.timestamp_to_str(comment.published)
+
+    return data
+    
+
+@view_config(route_name='blog_edit_comment_ajax', renderer='json', request_method='POST', permission='admin')
+def edit_article_comment_ajax(request):
+    """
+    Update comment and return updated and rendered data
+    """
+    comment_id = int(request.matchdict['comment_id'])
+    dbsession = DBSession()
+    
+    transaction.begin()
+    comment = dbsession.query(Comment).options(eagerload('user')).options(eagerload('user.permissions')).get(comment_id)
+
+    # passed POST parameters are: 'body', 'name', 'email', 'website', 'date', 'ip', 'xffip'
+    params = dict(body='body', name='display_name', email='email', website='website',
+                 ip='ip_address', xffip='xff_ip_address')
+
+    for k,v in params.iteritems():
+        value = request.POST[k]
+        if value == '':
+            value = None
+        setattr(comment, v, value)
+
+    comment.set_body(request.POST['body'])
+
+    comment.published = h.str_to_timestamp(request.POST['date'])
+    dbsession.flush()
+    
+    #comment_user = None
+    #if comment.user is not None:
+    #    comment_user = dbsession.query(User).options(eagerload('permissions')).get(comment.user)
+    
+    dbsession.expunge(comment)
+    dbsession.expunge(comment.user)
+    for p in comment.user.permissions:
+        dbsession.expunge(p)
+    transaction.commit()
+
+    data = dict()
+
+    # without "unicode" or "str" it generates broken HTML
+    # because render() returns webhelpers.html.builder.literal
+    renderer_dict = dict(comment=comment)
+    if comment.user is not None:
+        comment._real_email = comment.user.email
+    else:
+        comment._real_email = comment.email
+        
+    if comment._real_email == '':
+        comment._real_email = None
+    data['rendered'] = render('/blog/single_comment.mako', renderer_dict, request)
+    return data

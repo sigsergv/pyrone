@@ -20,10 +20,10 @@
     <a href="#comment-${comment.id}">${_('link')}</a>
     % if admin_permission:
       % if not comment.is_approved:
-      <a href="#" onclick="Pyrone.article.approveComment('${h.url(controller='blog', action='approve_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="ca-${comment.id}" class="border-icon">${_('approve')}</a>
+      <a href="#" onclick="Pyrone.article.approveComment('${url('blog_approve_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="ca-${comment.id}" class="border-icon">${_('approve')}</a>
       % endif
-      <a href="#" onclick="Pyrone.article.deleteCommentReq('${h.url(controller='blog', action='delete_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="cd-${comment.id}" class="border-icon">${_('delete')}</a>
-      <a href="#" onclick="Pyrone.article.showEditCommentForm('${h.url(controller='blog', action='edit_comment_ajax', comment_id=comment.id)}', '${h.url(controller='blog', action='edit_comment_fetch_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" class="border-icon">${_('edit')}</a>
+      <a href="#" onclick="Pyrone.article.deleteCommentReq('${url('blog_delete_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="cd-${comment.id}" class="border-icon">${_('delete')}</a>
+      <a href="#" onclick="Pyrone.article.showEditCommentForm('${url('blog_edit_comment_ajax', comment_id=comment.id)}', '${url('blog_edit_comment_fetch_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" class="border-icon">${_('edit')}</a>
     % endif
     </div>
 </%def>

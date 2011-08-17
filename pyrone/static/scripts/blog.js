@@ -254,7 +254,7 @@ Pyrone.article.postComment = function() {
 				Pyrone.notify($e('eid-comment-notify'), tr('COMMENT_IS_WAITING_FOR_APPROVAL'), Ext.emptyFn, 10000);
 				// display alert
 			} else {
-				window.location.href = json.url;
+				window.location.replace(json.url);
 			}
 		},
 		failure: function() {
@@ -317,6 +317,7 @@ Pyrone.article.deleteComment = function(url, comment_id) {
 		success: function(response, opts) {
 			// delete correspondig comment block
 			var c_el = $e('c-'+comment_id);
+			c_el.setStyle('background-color', '#f33');
 			c_el.setVisibilityMode(Ext.Element.DISPLAY);
 			c_el.hide(true);
 		},

@@ -34,7 +34,10 @@ def main(global_config, **settings):
               ('blog_edit_article', '/article/{article_id:\d+}/edit'),
               ('blog_preview_article', '/preview/article'),
               ('blog_article_delete_ajax', '/article/{article_id:\d+}/delete/ajax'),
-              ('blog_edit_comment_ajax', '/comment/{comment_id:\d+}/fetch/ajax'),
+              ('blog_edit_comment_ajax', '/comment/{comment_id:\d+}/edit/ajax'),
+              ('blog_approve_comment_ajax', '/comment/{comment_id:\d+}/approve/ajax'),
+              ('blog_delete_comment_ajax', '/comment/{comment_id:\d+}/delete/ajax'),
+              ('blog_edit_comment_fetch_ajax', '/comment/{comment_id:\d+}/fetch/ajax'),
               ('blog_add_article_comment', '/article/{article_id:\d+}/comment'),
               ('blog_add_article_comment_ajax', '/article/{article_id:\d+}/comment/ajax'),
               
