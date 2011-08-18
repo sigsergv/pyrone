@@ -5,8 +5,8 @@
 <h2>${_('Files management')}</h2>
 
 <div id="upload-file-form" style="display:none" class="inline-form">
-<form action="${h.url(controller='admin', action='upload_file')}" id="upload-form"\
-  method="post" onsubmit="return Pyrone.file.checkUploadForm('${h.url(controller='admin', action='upload_file_check_ajax')}','upload-form');"\
+<form action="${url('admin_upload_file')}" id="upload-form"\
+  method="post" onsubmit="return Pyrone.file.checkUploadForm('${url('admin_upload_file_check_ajax')}','upload-form');"\
   enctype="multipart/form-data">
   <dl class="form">
     <dt>${_('Choose file to upload"')}</dt>
@@ -39,12 +39,12 @@
     <th>${_('File size')}</th>
 </tr>
 
-% for f in c.files:
+% for f in files:
 <tr id="list-tr-${f.id}">
   <td><input type="checkbox" value="${f.id}" class="list-cb"/></td>
-  <td><a href="${h.url(controller='admin', action='edit_file_props', file_id=f.id)}" class="border-icon"/>${_('edit')}</a>
+  <td><a href="${url('admin_edit_file_props', file_id=f.id)}" class="border-icon"/>${_('edit')}</a>
   </td>
-  <td><a href="${h.url(controller='blog', action='download_file', filename=f.name)}" title="${_('file URL')}">${f.name}</a></td>
+  <td><a href="${url('blog_download_file', filename=f.name)}" title="${_('file URL')}">${f.name}</a></td>
   <td>${f.content_type}</td> 
   <td><acronym title="${_('%i bytes') % f.size}">${h.hsize(f.size)}</td>
 </tr>
@@ -52,5 +52,5 @@
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('files-table', '${h.url(controller='admin', action='delete_files')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('files-table', '${url('admin_delete_files')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>

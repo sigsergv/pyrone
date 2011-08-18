@@ -9,3 +9,4 @@ pyrone.db
 .coverage
 data
 .settings
+storage

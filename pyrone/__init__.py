@@ -6,6 +6,7 @@ from sqlalchemy import engine_from_config
 
 from pyrone.models import initialize_sql
 from pyrone.lib.auth import PyroneSessionAuthenticationPolicy
+from pyrone.models.file import init_storage_from_settings
 #from pyrone.resources import RootFactory
 
 def main(global_config, **settings):
@@ -14,6 +15,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
+    init_storage_from_settings(settings)
     authentication_policy = PyroneSessionAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings, session_factory=session_factory,
@@ -41,11 +43,24 @@ def main(global_config, **settings):
               ('blog_add_article_comment', '/article/{article_id:\d+}/comment'),
               ('blog_add_article_comment_ajax', '/article/{article_id:\d+}/comment/ajax'),
               
+              ('blog_download_file', '/files/f/{filename}'),
+              ('blog_download_file_preview', '/files/p/{filename}'),
+              
               ('admin_settings', '/admin/settings'),
               ('admin_settings_save_ajax', '/admin/settings/save/ajax'),
-              ('admin_list_accounts', '/admin/accounts'),
               ('admin_list_files', '/admin/files'),
-              ('admin_list_backups', '/admin/backups')
+              ('admin_upload_file', '/admin/file/upload'),
+              ('admin_upload_file_check_ajax', '/admin/file/upload/check'),
+              ('admin_edit_file_props', '/admin/file/{file_id:\d+}/edit'),
+              ('admin_edit_file_props_check_ajax', '/admin/file/{file_id:\d+}/edit/check'),
+              ('admin_delete_files', '/admin/files/delete'),
+              ('admin_list_accounts', '/admin/accounts'),
+              ('admin_delete_accounts', '/admin/accounts/delete'),
+              ('admin_list_backups', '/admin/backups'),
+              ('admin_upload_backup', '/admin/backups/upload'),
+              ('admin_delete_backups', '/admin/backups/delete'),
+              ('admin_restore_backup', '/admin/backup/{backup_id}/restore'),
+              ('admin_download_backup', '/admin/backup/{backup_id}/download')
               ]
     for r in routes:
         config.add_route(*r)

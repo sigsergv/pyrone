@@ -2,12 +2,15 @@
 from time import time
 import uuid
 import os
+import logging
 
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relation
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 
 from . import Base
+
+log = logging.getLogger(__name__)
 
 class File(Base):
     __tablename__ = 'storagefile'
@@ -26,17 +29,18 @@ class File(Base):
         self.updated = int(time())
         
 allowed_dltypes = ('auto', 'download')
-        
+
+_storage_directory = False
+
 def get_storage_dirs():
-    storage_dir = config['pyrone_storage_dir']
     # create if required
-    if not os.path.exists(storage_dir):
-        os.mkdir(storage_dir)
+    if not os.path.exists(_storage_directory):
+        os.mkdir(_storage_directory)
     
     subdirs = ('orig', 'img_preview_mid')
     res = dict()
     for s in subdirs:
-        path = os.path.join(storage_dir, s)
+        path = os.path.join(_storage_directory, s)
         res[s] = path
         if not os.path.exists(path):
             os.mkdir(path)
@@ -46,13 +50,22 @@ def get_storage_dirs():
     return res
 
 def get_backups_dir():
-    storage_dir = config['pyrone_storage_dir']
-    backups_dir = os.path.join(storage_dir, 'backups')
+    backups_dir = os.path.join(_storage_directory, 'backups')
     
-    if not os.path.exists(storage_dir):
-        os.mkdir(storage_dir)
+    if not os.path.exists(_storage_directory):
+        os.mkdir(_storage_directory)
         
     if not os.path.exists(backups_dir):
         os.mkdir(backups_dir)
     
     return backups_dir
+
+def init_storage_from_settings(settings):
+    global _storage_directory
+    # init storage directory settings['pyrone.storage_directory']
+    _storage_directory = settings['pyrone.storage_directory']
+    get_storage_dirs()
+    get_backups_dir()
+    
+    
+    
