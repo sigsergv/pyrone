@@ -4,7 +4,7 @@ import re
 import transaction
 import uuid
 
-from sqlalchemy.orm import eagerload, contains_eager
+from sqlalchemy.orm import eagerload
 
 from pyramid.response import Response
 from pyramid.i18n import TranslationString as _
@@ -12,7 +12,7 @@ from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
 from pyramid.renderers import render
-from pyrone.models import DBSession, Article, Comment, Tag, User
+from pyrone.models import DBSession, Article, Comment, Tag
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth, markup
 

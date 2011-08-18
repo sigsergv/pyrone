@@ -14,9 +14,12 @@ Ext.onReady(function() {
 	// scroll to needed position
 	var hash = window.location.hash, 
 		comment_id = -1;
+		
 	// extract comment id
 	if (/#comment-([0-9]+)$/.test(hash)) {
 		comment_id = RegExp.$1;
+	} else {
+		return;
 	}
 	
 	var cb = $e('c-'+comment_id);

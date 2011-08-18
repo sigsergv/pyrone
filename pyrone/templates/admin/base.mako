@@ -6,9 +6,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <script src="http://ajax.googleapis.com/ajax/libs/ext-core/3/ext-core.js" language="JavaScript"></script>
   <!-- insert language file here -->
-  <script language="javascript" src="/scripts/blog.js"></script>
-  <script language="javascript" src="/scripts/admin.js"></script>
-  <link rel="stylesheet" type="text/css" href="/styles/${h.get_config('site_style')}/blog.css"/>
+  <script language="javascript" src="/static/scripts/blog.js"></script>
+  <script language="javascript" src="/static/scripts/admin.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/styles/${h.get_config('site_style')}/blog.css"/>
   <title>${self.title()} — ${h.get_config('site_title')} — ${_('administration')}</title>
 </head>
 <body>

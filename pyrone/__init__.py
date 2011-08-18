@@ -42,6 +42,7 @@ def main(global_config, **settings):
               ('blog_add_article_comment_ajax', '/article/{article_id:\d+}/comment/ajax'),
               
               ('admin_settings', '/admin/settings'),
+              ('admin_settings_save_ajax', '/admin/settings/save/ajax'),
               ('admin_list_accounts', '/admin/accounts'),
               ('admin_list_files', '/admin/files'),
               ('admin_list_backups', '/admin/backups')

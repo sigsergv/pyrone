@@ -1,6 +1,7 @@
 """Config model, store site global options"""
 import logging
 import pytz
+import transaction
 
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText
@@ -42,15 +43,26 @@ def get(id):
         
     return _cache[id]
 
-def set(id, value, commit=True):
-    dbsession = DBSession()
+def set(id, value, dbsession=None):
+    is_transaction = False
+    
+    if dbsession is None:
+        dbsession = DBSession()
+        is_transaction = True
+        transaction.begin()
+        
     c = dbsession.query(Config).get(id)
     if c is None:
         c = Config(id, value)
         dbsession.add(c)
     else:
         c.value = value
-        
+    
+    if is_transaction:
+        transaction.commit()
+
     #if commit:
     #    Session.commit()
     
+def clear_cache():
+    _cache.clear()
