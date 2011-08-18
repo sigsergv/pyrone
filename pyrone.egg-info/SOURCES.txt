@@ -62,4 +62,5 @@ pyrone/templates/widgets/comment.mako
 pyrone/templates/widgets/tags_cloud.mako
 pyrone/views/__init__.py
 pyrone/views/account.py
+pyrone/views/admin.py
 pyrone/views/blog.py

@@ -25,6 +25,7 @@ def main(global_config, **settings):
     config.scan()
     config.add_static_view('static', 'pyrone:static')
     routes = [('blog_latest', '/'), 
+              ('blog_tag_articles', '/tag/{tag}'),
               ('blog_write_article', '/write'), 
               ('blog_twitter_init', '/login/twitter/init'),
               ('blog_my_profile', '/me'),
@@ -53,14 +54,15 @@ def main(global_config, **settings):
               ('admin_upload_file_check_ajax', '/admin/file/upload/check'),
               ('admin_edit_file_props', '/admin/file/{file_id:\d+}/edit'),
               ('admin_edit_file_props_check_ajax', '/admin/file/{file_id:\d+}/edit/check'),
-              ('admin_delete_files', '/admin/files/delete'),
+              ('admin_delete_files_ajax', '/admin/files/delete/ajax'),
               ('admin_list_accounts', '/admin/accounts'),
               ('admin_delete_accounts', '/admin/accounts/delete'),
               ('admin_list_backups', '/admin/backups'),
               ('admin_upload_backup', '/admin/backups/upload'),
-              ('admin_delete_backups', '/admin/backups/delete'),
+              ('admin_delete_backups_ajax', '/admin/backups/delete/ajax'),
               ('admin_restore_backup', '/admin/backup/{backup_id}/restore'),
-              ('admin_download_backup', '/admin/backup/{backup_id}/download')
+              ('admin_download_backup', '/admin/backup/{backup_id}/download'),
+              ('admin_backup_now', '/admin/backup/now')
               ]
     for r in routes:
         config.add_route(*r)

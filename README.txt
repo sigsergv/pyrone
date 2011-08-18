@@ -1,13 +1,17 @@
 Required packages
 =================
 
-The following packages are required, install the using ``easy_install``:
+The following packages are required, install using ``easy_install``:
 
     pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator
     
 The following packages are required for development:
 
     nose coverage Babel
+    
+You'll also need packages:
+
+    PIL lxml
     
 Development
 ===========
@@ -23,6 +27,7 @@ The same thing for ``easy_install`` executable.
 To make your life easy use script ``bin/activate`` from virtual environment to 
 update local environment variables (``PATH`` etc), in that case you can run executables
 like ``python`` and ``easy_install`` without using full paths to them.
+
 
 Tests and coverage
 ------------------

@@ -52,5 +52,5 @@
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('files-table', '${url('admin_delete_files')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('files-table', '${url('admin_delete_files_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>
