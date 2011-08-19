@@ -14,7 +14,8 @@
   ${h.form_input_text('password_2', _(u'…and repeat password'), '', dict())|n}
 % elif user.kind == 'twitter':
 % endif
-  ${h.form_input_text('email', _('Email address'), user.email, dict())|n}
+  <div>${_('You are signed in using twitter account %s.') % h.user_link(user)|n}</div>
+  ${h.form_input_text('email', _('Email address (for notifications)'), user.email, dict())|n}
   
   <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
   </dl>

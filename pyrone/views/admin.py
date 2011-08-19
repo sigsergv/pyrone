@@ -168,14 +168,13 @@ def delete_files(request):
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
-    data = dict(deleted=uids, failed=False)
+    c = dict(deleted=uids, failed=False)
     dbsession = DBSession()
     transaction.begin()
-    q = dbsession.query(File).filter(File.id.in_(uids)).delete(False);
+    dbsession.query(File).filter(File.id.in_(uids)).delete(False);
     transaction.commit()
     
-    return data
-
+    return c
 
 @view_config(route_name='admin_edit_file_props', renderer='/admin/edit_file_props.mako', permission='admin')
 def edit_file_props(request):
@@ -685,6 +684,13 @@ def list_accounts(request):
     
 @view_config(route_name='admin_delete_accounts_ajax', renderer='json', permission='admin')
 def delete_accounts_ajax(request):
-    c = dict()
-    return c
+    uids_raw = request.POST['uids']
+    uids = [int(s.strip()) for s in uids_raw.split(',')]
+
+    c = dict(deleted=uids, failed=False)
+    dbsession = DBSession()
+    transaction.begin()
+    dbsession.query(User).filter(User.id.in_(uids)).delete(False);
+    transaction.commit()
     
+    return c

@@ -117,6 +117,9 @@ Pyrone.createLinkNotifyBox = function(target_id, message) {
 window.$ev = function(field) {
 	if (typeof field == 'string') {
 		field = Ext.get(field);
+		if (!field) {
+			return false;
+		}
 	}
 	return field.getValue();
 };
@@ -470,7 +473,7 @@ Pyrone.account.saveMyProfile = function(url)
 	});
 	// first check params
 	var login_field = $e('fid-login'),
-		is_error = false;;
+		is_error = false;
 	if (login_field) {
 		var v = $ev(login_field),
 			e = $e('error-login'),
@@ -513,11 +516,13 @@ Pyrone.account.saveMyProfile = function(url)
 	var p1 = $ev('fid-password_1'),
 		p2 = $ev('fid-password_2');
 	
-	if (p1 != p2 && (p1 != '' || p2 != '')) {
-		is_error = true;
-		var e = $e('error-password_1');
-		e.dom.innerHTML = tr('PASSWORDS_DONT_MATCH');
-		$show(e);
+	if (p1 && p2) {
+		if (p1 != p2 && (p1 != '' || p2 != '')) {
+			is_error = true;
+			var e = $e('error-password_1');
+			e.dom.innerHTML = tr('PASSWORDS_DONT_MATCH');
+			$show(e);
+		}
 	}
 	
 	var params = {};

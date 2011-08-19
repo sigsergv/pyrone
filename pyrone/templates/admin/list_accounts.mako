@@ -14,10 +14,10 @@
 </tr>
 
 % for u in users:
-<tr>
-  <td><input type="checkbox" class="user-cb" value="${u.id}" ${h.cond(u.id==user.id, ' disabled="disabled" \
+<tr id="list-tr-${u.id}">
+  <td><input type="checkbox" class="list-cb" value="${u.id}" ${h.cond(u.id==user.id, ' disabled="disabled" \
   title="'+_('You cannot delete current user')+'"', '')|n} /></td>
-  <td>${h.user_link(user)|n}</td>
+  <td>${h.user_link(u)|n}</td>
   <td>${u.display_name or '-'}</td>
   <td>${u.email or '-'}</td>
   <td>${h.cond(u.has_permission('admin'), h.span_info(_('admin')), '')|n}</td>
