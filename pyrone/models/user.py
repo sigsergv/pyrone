@@ -76,34 +76,6 @@ def find_local_user(login, password):
     user = q.first()
     return user
 
-def verify_email(email):
-    """
-    Send email verification message if required
-    """
-    email = normalize_email(email)
-    send = False
-    
-    dbsession = DBSession()
-    transaction.begin()
-    
-    vf = dbsession.query(VerifiedEmail).get(email)
-    if vf is not None:
-        diff = time() - vf.last_verify_date
-        if diff > 86400:
-            # delay between verifications requests must be more than 24 hours
-            send = True
-        vf.last_verify_date = time()
-        transaction.commit()
-        
-    else:
-        send = True
-        vf = VerifiedEmail(email)
-        dbsession.add(vf)
-        transaction.commit()
-    
-    if send:
-        notifications.gen_email_verification_notification(email)
-
 def normalize_email(email):
     return email
 

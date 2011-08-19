@@ -7,6 +7,7 @@ import os
 
 from PIL import Image
 from sqlalchemy.orm import eagerload
+from time import time
 
 from pyramid.response import Response
 from pyramid.i18n import TranslationString as _
@@ -17,9 +18,9 @@ from pyramid.renderers import render
 
 from pyrone.models import DBSession, Article, Comment, Tag, File, VerifiedEmail
 from pyrone.models.config import get as get_config
-from pyrone.lib import helpers as h, auth, markup
+from pyrone.lib import helpers as h, auth, markup, notifications
 from pyrone.models.file import get_storage_dirs, allowed_dltypes
-from pyrone.models.user import verify_email, normalize_email
+from pyrone.models.user import normalize_email
 
 log = logging.getLogger(__name__)
 
@@ -460,7 +461,24 @@ def add_article_comment_ajax(request):
         
     # if user entered email then verify it
     if request.POST[email_ind]:
-        verify_email(request.POST[email_ind])
+        email = normalize_email(request.POST[email_ind])
+        send = False
+        
+        vf = dbsession.query(VerifiedEmail).get(email)
+        if vf is not None:
+            diff = time() - vf.last_verify_date
+            if diff > 86400:
+                # delay between verifications requests must be more than 24 hours
+                send = True
+            vf.last_verify_date = time()
+            
+        else:
+            send = True
+            vf = VerifiedEmail(email)
+            dbsession.add(vf)
+        
+        if send:
+            notifications.gen_email_verification_notification(email)
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
@@ -484,17 +502,15 @@ def add_article_comment_ajax(request):
     comment.ip_address = request.environ.get('REMOTE_ADDR', 'unknown')
     comment.xff_ip_address = request.environ.get('X_FORWARDED_FOR', None)
 
-    log.debug('=======================')
-    log.debug(article)
     dbsession.add(comment)
     dbsession.flush()
     dbsession.expunge(comment) # remove object from the session, object state is preserved
     dbsession.expunge(article)
     transaction.commit()
     
-    transaction.begin()
     # comment added, now send notifications
     cylce_limit = 100
+    comment = dbsession.query(Comment).get(comment.id)
     parent = comment.parent
     notifications = list()
     admin_email = get_config('admin_notifications_email')
