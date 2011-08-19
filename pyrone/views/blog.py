@@ -63,6 +63,44 @@ def latest(request):
     
     return c
 
+@view_config(route_name='blog_tag_articles', renderer='/blog/list_articles.mako')
+def tag_articles(request):
+    tag = request.matchdict['tag']
+    
+    page_size = int(get_config('elements_on_page'))
+    start_page = 0
+    if 'start' in request.GET:
+        try:
+            start_page = int(request.GET['start'])
+        except ValueError:
+            start_page = 0
+            
+    user = auth.get_user(request)
+    dbsession= DBSession()
+    q = dbsession.query(Article).join(Tag).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
+    if not user.has_permission('edit_article'):
+        q = q.filter(Article.is_draft==False)
+    
+    c = dict()
+    c['articles'] = q.filter(Tag.tag==tag)[(start_page * page_size) : (start_page+1) * page_size + 1]
+    
+    for article in c['articles']:
+        log.debug(article.shortcut_date)
+    
+    c['prev_page'] = None
+    if len(c['articles']) > page_size:
+        c['prev_page'] = route_url('blog_latest', request, _query=[('start', start_page+1)])
+        c['articles'].pop()
+        
+    c['next_page'] = None
+    if start_page > 0:
+        c['next_page'] = route_url('blog_latest', request, _query=[('start', start_page-1)])
+    
+    c['page_title'] = _(u'Articles labeled with tag “%s”' % tag)
+    
+    return c
+    
+
 def _check_article_fields(article, request):
     """
     Read article from the POST request, also validate data
