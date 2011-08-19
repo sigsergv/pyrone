@@ -1,4 +1,5 @@
 CHANGES.txt
+DEVELOPMENT.txt
 MANIFEST.in
 README.txt
 development.ini
@@ -53,7 +54,6 @@ pyrone/templates/blog/list_articles.mako
 pyrone/templates/blog/local_login.mako
 pyrone/templates/blog/my_profile.mako
 pyrone/templates/blog/single_comment.mako
-pyrone/templates/blog/test.mako
 pyrone/templates/blog/view_article.mako
 pyrone/templates/blog/write_article.mako
 pyrone/templates/widgets/account.mako
