@@ -1,4 +1,6 @@
 """User model"""
+import transaction
+
 from hashlib import md5
 from time import time
 
@@ -81,20 +83,23 @@ def verify_email(email):
     email = normalize_email(email)
     send = False
     
-    vf = Session.query(VerifiedEmail).get(email)
+    dbsession = DBSession()
+    transaction.begin()
+    
+    vf = dbsession.query(VerifiedEmail).get(email)
     if vf is not None:
-        diff = time.time() - vf.last_verify_date
+        diff = time() - vf.last_verify_date
         if diff > 86400:
             # delay between verifications requests must be more than 24 hours
             send = True
         vf.last_verify_date = time()
-        Session.commit()
+        transaction.commit()
         
     else:
         send = True
         vf = VerifiedEmail(email)
-        Session.add(vf)
-        Session.commit()
+        dbsession.add(vf)
+        transaction.commit()
     
     if send:
         notifications.gen_email_verification_notification(email)
@@ -102,12 +107,13 @@ def verify_email(email):
 def normalize_email(email):
     return email
 
-def get_user(user_id):
-    user = Session.query(User).options(eagerload('permissions')).get(user_id)
-    return user
+#def get_user(user_id):
+#    user = Session.query(User).options(eagerload('permissions')).get(user_id)
+#    return user
     
 def find_twitter_user(username):
-    q = Session.query(User).options(eagerload('permissions')).filter(User.kind=='twitter').\
+    dbsession = DBSession()
+    q = dbsession.query(User).options(eagerload('permissions')).filter(User.kind=='twitter').\
         filter(User.login==username)
     user = q.first()
     return user

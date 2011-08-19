@@ -15,10 +15,11 @@ from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError
 from pyramid.renderers import render
 
-from pyrone.models import DBSession, Article, Comment, Tag, File
+from pyrone.models import DBSession, Article, Comment, Tag, File, VerifiedEmail
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth, markup
 from pyrone.models.file import get_storage_dirs, allowed_dltypes
+from pyrone.models.user import verify_email, normalize_email
 
 log = logging.getLogger(__name__)
 
@@ -379,6 +380,7 @@ def add_article_comment_ajax(request):
     
     dbsession = DBSession()
     transaction.begin()
+    
     q = dbsession.query(Article).filter(Article.id==article_id)
     user = auth.get_user(request)
     if not user.has_permission('edit_article') or not user.has_permission('admin'):
@@ -455,6 +457,10 @@ def add_article_comment_ajax(request):
     
     if is_subscribed_ind in request.POST:
         comment.is_subscribed = True
+        
+    # if user entered email then verify it
+    if request.POST[email_ind]:
+        verify_email(request.POST[email_ind])
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
@@ -478,12 +484,53 @@ def add_article_comment_ajax(request):
     comment.ip_address = request.environ.get('REMOTE_ADDR', 'unknown')
     comment.xff_ip_address = request.environ.get('X_FORWARDED_FOR', None)
 
+    log.debug('=======================')
+    log.debug(article)
     dbsession.add(comment)
     dbsession.flush()
     dbsession.expunge(comment) # remove object from the session, object state is preserved
     dbsession.expunge(article)
     transaction.commit()
     
+    transaction.begin()
+    # comment added, now send notifications
+    cylce_limit = 100
+    parent = comment.parent
+    notifications = list()
+    admin_email = get_config('admin_notifications_email')
+    vf_q = dbsession.query(VerifiedEmail)
+    notifications_emails = list()
+    
+    while parent is not None and cylce_limit > 0:
+        cylce_limit -= 1
+        c = parent
+        parent = c.parent
+        # walk up the tree
+        if not c.is_subscribed:
+            continue
+        # find email
+        email = None
+        if c.user is None:
+            email = c.email
+        else:
+            email = c.user.email
+            
+        if email is None or email == admin_email:
+            continue
+        
+        email = normalize_email(email)
+        
+        if email in notifications_emails:
+            continue
+        
+        vf = vf_q.get(email)
+        if vf is not None and vf.is_verified:
+            # send notification to "email"
+            notifications.append(notifications.gen_comment_response_notification(email, c, comment))
+    
+    log.debug('TTTTTTTTTTTTTTTTTTT')
+    log.debug(notifications)
+        
     # cosntruct comment_id
     # we're not using route_url() for the article because stupid Pyramid urlencodes fragments
     comment_url = '%s%s/%s?commentid=%d' % (route_url('blog_latest', request), article.shortcut_date, article.shortcut, comment.id)
