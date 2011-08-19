@@ -342,6 +342,9 @@ def _view_article(request, article_id=None, article=None):
             c[cn] = request.cookies[cn]
         else:
             c[cn] = ''
+            
+    if 'is_subscribed' in request.cookies and request.cookies['is_subscribed'] == 'true':
+        is_subscribed = True
     
     c['article'] = article
     c['signature'] = signature
@@ -360,12 +363,6 @@ def view_article(request):
     shortcut_date = request.matchdict['shortcut_date']
     shortcut = request.matchdict['shortcut']
     
-    if 'commentid' in request.GET:
-        # redirect to comment URL, this trick is required because some 
-        # browsers don't reload page after changing page anchor (e.g. http://example.com/index#abc)
-        comment_url = '%s%s/%s#comment-%s' % (route_url('blog_latest', request), shortcut_date, shortcut, request.GET['commentid'])
-        return HTTPFound(location=comment_url)
-
     dbsession = DBSession()
     q = dbsession.query(Article).filter(Article.shortcut_date==shortcut_date).filter(Article.shortcut==shortcut)
     user = auth.get_user(request)
@@ -373,6 +370,12 @@ def view_article(request):
         q = q.filter(Article.is_draft==False)
     article = q.first()
     
+    if 'commentid' in request.GET:
+        # redirect to comment URL, this trick is required because some 
+        # browsers don't reload page after changing page anchor (e.g. http://example.com/index#abc)
+        comment_url = h.article_url(request, article) + '#comment-' + request.GET['commentid']
+        return HTTPFound(location=comment_url)
+
     return _view_article(request, article=article)
 
 @view_config(route_name='blog_add_article_comment_ajax', renderer='json', request_method='POST')
@@ -458,27 +461,40 @@ def add_article_comment_ajax(request):
     
     if is_subscribed_ind in request.POST:
         comment.is_subscribed = True
-        
-    # if user entered email then verify it
-    if request.POST[email_ind]:
-        email = normalize_email(request.POST[email_ind])
-        send = False
-        
-        vf = dbsession.query(VerifiedEmail).get(email)
-        if vf is not None:
-            diff = time() - vf.last_verify_date
-            if diff > 86400:
-                # delay between verifications requests must be more than 24 hours
-                send = True
-            vf.last_verify_date = time()
+    
+    # this list contains notifications    
+    ns = list()
+    
+    # if user has subscribed to answer then check is his/her email verified
+    # if doesn't send verification message to the email
+    if is_subscribed_ind in request.POST:
+        vrf_email = ''
+        if user.kind != 'anonymous':
+            vrf_email = user.email
+        elif request.POST[email_ind]:
+            vrf_email = request.POST[email_ind]
             
-        else:
-            send = True
-            vf = VerifiedEmail(email)
-            dbsession.add(vf)
+        vrf_email = normalize_email(vrf_email)
+        if vrf_email:
+            # email looks ok so proceed
+            
+            send_evn = False
         
-        if send:
-            notifications.gen_email_verification_notification(email)
+            vf = dbsession.query(VerifiedEmail).get(vrf_email)
+            if vf is not None:
+                diff = time() - vf.last_verify_date
+                if diff > 86400:
+                    # delay between verifications requests must be more than 24 hours
+                    send_evn = True
+                vf.last_verify_date = time()
+                
+            else:
+                send_evn = True
+                vf = VerifiedEmail(vrf_email)
+                dbsession.add(vf)
+            
+            if send_evn:
+                ns.append(notifications.gen_email_verification_notification(vrf_email))
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
@@ -512,7 +528,6 @@ def add_article_comment_ajax(request):
     cylce_limit = 100
     comment = dbsession.query(Comment).get(comment.id)
     parent = comment.parent
-    notifications = list()
     admin_email = get_config('admin_notifications_email')
     vf_q = dbsession.query(VerifiedEmail)
     notifications_emails = list()
@@ -542,14 +557,23 @@ def add_article_comment_ajax(request):
         vf = vf_q.get(email)
         if vf is not None and vf.is_verified:
             # send notification to "email"
-            notifications.append(notifications.gen_comment_response_notification(email, c, comment))
+            ns.append(notifications.gen_comment_response_notification(email, c, comment))
     
-    log.debug('TTTTTTTTTTTTTTTTTTT')
-    log.debug(notifications)
+    admin_notifications_email = normalize_email(get_config('admin_notifications_email'))
+    
+    for nfn in ns:
+        if nfn.to == admin_notifications_email:
+            continue
+        nfn.send()
         
+    # create special notification for the administrator
+    nfn = notifications.gen_new_comment_admin_notification(request, article, comment)
+    if nfn is not None:
+        nfn.send()
+            
     # cosntruct comment_id
     # we're not using route_url() for the article because stupid Pyramid urlencodes fragments
-    comment_url = '%s%s/%s?commentid=%d' % (route_url('blog_latest', request), article.shortcut_date, article.shortcut, comment.id)
+    comment_url = h.article_url(request, article) + '?commentid=' + str(comment.id)
     
     # return rendered comment
     data = dict(body=comment.rendered_body, approved=comment.is_approved, id=comment.id, url=comment_url)

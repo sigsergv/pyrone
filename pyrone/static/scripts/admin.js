@@ -140,6 +140,8 @@ Pyrone.settings.saveSettings = function(url) {
 	              'admin_notifications_email', 'verification_msg_sibject_tpl',
 	              'comment_answer_msg_subject_tpl', 'comment_answer_msg_body_tpl',
 	              'verification_msg_body_tpl', 'image_preview_width',
+	              'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
+	              'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
 	              'tw_consumer_key', 'tw_consumer_secret'];
 	var bool_field_names = ['admin_notify_new_comments', 'admin_notify_new_user']
 	var params = {};

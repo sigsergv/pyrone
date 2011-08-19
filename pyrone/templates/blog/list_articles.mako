@@ -9,7 +9,7 @@
 
 <%def name="preview(article)">
 <%
-  article_url = '%s%s/%s' % ( url('blog_latest'), article.shortcut_date, article.shortcut)
+  article_url = h.article_url(request, article)
 %>
 	<div class="article-preview">
 <div class="title"><a href="${article_url}">${article.title}</a>\

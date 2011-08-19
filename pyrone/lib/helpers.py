@@ -14,6 +14,7 @@ import time
 from math import log as lg
 
 from pyramid.i18n import TranslationString as _
+from pyramid.url import route_url
 from mako.filters import html_escape
 from hurry.filesize import size as hsize
 from sqlalchemy import func
@@ -174,6 +175,9 @@ def user_link(user):
         link = name
         
     return link
+
+def article_url(request, article):
+    return '%s%s/%s' % ( route_url('blog_latest', request), article.shortcut_date, article.shortcut )
 
 def article_tags(article):
     """

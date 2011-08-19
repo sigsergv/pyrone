@@ -64,6 +64,8 @@ def save_settings_ajax(request):
         settings = ('site_title', 'site_base_url', 'site_copyright', 'elements_on_page',
               'admin_notifications_email', 'verification_msg_sibject_tpl',
               'comment_answer_msg_subject_tpl', 'comment_answer_msg_body_tpl',
+              'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
+              'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
               'verification_msg_body_tpl', 'image_preview_width',
               'tw_consumer_key', 'tw_consumer_secret')
         for id in settings:

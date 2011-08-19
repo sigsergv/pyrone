@@ -1,5 +1,5 @@
 """User model"""
-import transaction
+import uuid
 
 from hashlib import md5
 from time import time
@@ -9,7 +9,6 @@ from sqlalchemy.orm import relation, eagerload
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
 from . import Base, DBSession
-from pyrone.lib import notifications
 
 class User(Base):
     __tablename__ = 'user'
@@ -62,11 +61,13 @@ class VerifiedEmail(Base):
     id = Column(Unicode, primary_key=True)
     is_verified = Column(Boolean)
     last_verify_date = Column(Integer)
+    verification_code = Column(String)
     
     def __init__(self, email):
-        self.last_verify_date = time()
+        self.last_verify_date = int(time())
         self.id = email
-        is_verified = False
+        self.is_verified = False
+        self.verification_code = str(uuid.uuid4())
         
 def find_local_user(login, password):
     hashed_password = md5(password).hexdigest()

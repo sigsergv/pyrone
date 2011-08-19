@@ -38,11 +38,31 @@
   ${h.form_input_text('verification_msg_sibject_tpl', _('Email address verification message subject template'), settings['verification_msg_sibject_tpl'],
     errors, help=_('Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}'))|n}
   ${h.form_textarea('verification_msg_body_tpl', _('Email address verification message body template'), settings['verification_msg_body_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}'), height=200)|n}
-  ${h.form_input_text('comment_answer_msg_subject_tpl', _('Answer to comment notification message subject template'), settings['comment_answer_msg_subject_tpl'],
+    errors, help=_('Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}'), height=150)|n}
+    
+  ${h.form_input_text('comment_answer_msg_subject_tpl', _('Answer to comment notification message subject template'),\
+  	settings['comment_answer_msg_subject_tpl'],
     errors, help=_('Plain text, no HTML, allowed substitution symbols: {site_title}, {visitor}, {comment_title}, {answer_title}, {email}'))|n}
-  ${h.form_textarea('comment_answer_msg_body_tpl', _('Answer to comment notification message body template'), settings['comment_answer_msg_body_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols: {site_title}, {visitor}, {comment_title}, {comment_body}, {answer_title}, {answer_body}, {email}'), height=200)|n}
+  ${h.form_textarea('comment_answer_msg_body_tpl', _('Answer to comment notification message body template'), 
+  	settings['comment_answer_msg_body_tpl'], errors, \
+  	help=_('Plain text, no HTML, allowed substitution symbols: {site_title}, {visitor}, {comment_title}, {comment_body}, \
+    {answer_title}, {answer_body}, {email}'), height=150)|n}
+    
+  ${h.form_input_text('admin_notify_new_comment_subject_tpl', _('Admin notification subject template: new comment'),\
+  	settings['admin_notify_new_comment_subject_tpl'],
+    errors, help=_('Plain text, no HTML, allowed substitution symbols: {site_title}, {visitor}, {comment_title}, {answer_title}, {email}'))|n}
+  ${h.form_textarea('admin_notify_new_comment_body_tpl', _('Admin notification body template: new comment'), 
+  	settings['admin_notify_new_comment_body_tpl'], errors, \
+  	help=_('Plain text, no HTML, allowed substitution symbols: {site_title}, {visitor}, {comment_title}, {comment_body}, \
+    {answer_title}, {answer_body}, {email}'), height=150)|n}
+    
+  ${h.form_input_text('admin_notify_new_user_subject_tpl', _('Admin notification subject template: new user registered'),\
+  	settings['admin_notify_new_user_subject_tpl'],
+    errors, help=_('Plain text, no HTML, allowed substitution symbols: {user}'))|n}
+  ${h.form_textarea('admin_notify_new_user_body_tpl', _('Admin notification body template: new user registered'), 
+  	settings['admin_notify_new_user_body_tpl'], errors, \
+  	help=_('Plain text, no HTML, allowed substitution symbols: {user}, \
+    {answer_title}, {answer_body}, {email}'), height=150)|n}
     
   <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
     
