@@ -22,12 +22,47 @@ Virtual environment
 It's strongly recommended to use virtual python environment with locally 
 installed ``pyramid`` and other required packages. Further in this README.txt
 it's assumed that ``python`` binary is located in your virtual environment.
-The same thing for ``easy_install`` executable.
+The same thing for ``easy_install`` and ``pip`` executables.
 
-To make your life easy use script ``bin/activate`` from virtual environment to 
-update local environment variables (``PATH`` etc), in that case you can run executables
-like ``python`` and ``easy_install`` without using full paths to them.
+To make your life easier use script ``bin/activate`` from virtual environment to 
+update local environment variables (``PATH`` etc), in that case you will be able
+to execute binaries like ``python`` and ``easy_install`` without specifying full path.
 
+Preparing virtual environment
+---------------------------
+
+It's assumed here and later that you're using Debian/Ubuntu linux distribution. So open
+terminal now and proceed.
+
+First you need to install ``python`` (version 2.6 is recommended), you'll also
+need python package ``virtualenv``, you can install them using command
+
+    sudo apt-get install python2.6 python-virtualenv
+    
+Now you have to choose directory where you'll install virtual environment for ``pyramid``,
+it should be somewhere in your home directory, don't install it in the system directories.
+
+Go to selected directory (create it if required) and issue the following command:
+
+    virtualenv --no-site-packages ./env
+
+You'll get directory ``env`` with new virtual environment, now you should *activate* it, after 
+activation all required commands will be executed from your virtual environment, not from the
+system. Required commands are: ``python``, ``pip`` etc. So activate:
+
+    source ./env/bin/activate
+
+Install packages required for the application:
+
+    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
+    
+Wait until it finish downloading and installing the packages.
+
+Also you'll need to install additional binary packages:
+
+    pip install lxml PIL
+
+The require install ``gcc`` and other stuff like ``libxml2-dev``.
 
 Tests and coverage
 ------------------
