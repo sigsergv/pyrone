@@ -3,18 +3,22 @@ import logging
 import re
 import transaction
 import uuid
+import os
 
+from PIL import Image
 from sqlalchemy.orm import eagerload
 
 from pyramid.response import Response
 from pyramid.i18n import TranslationString as _
 from pyramid.view import view_config
 from pyramid.url import route_url
-from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError
 from pyramid.renderers import render
-from pyrone.models import DBSession, Article, Comment, Tag
+
+from pyrone.models import DBSession, Article, Comment, Tag, File
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth, markup
+from pyrone.models.file import get_storage_dirs, allowed_dltypes
 
 log = logging.getLogger(__name__)
 
@@ -562,3 +566,105 @@ def edit_article_comment_ajax(request):
         comment._real_email = None
     data['rendered'] = render('/blog/single_comment.mako', renderer_dict, request)
     return data
+
+@view_config(route_name='blog_download_file')
+def download_file(request):
+    filename = request.matchdict['filename']
+    
+    dbsession = DBSession()
+    file = dbsession.query(File).filter(File.name==filename).first()
+    
+    if file is None:
+        return HTTPNotFound()
+    
+    #headers = [('Content-Type', file.content_type), ('Content-Length', str(file.size))]
+    headers = []
+    dltype = file.dltype
+    
+    if 'dltype' in request.GET and request.GET['dltype'] in allowed_dltypes:
+        dltype = request.GET['dltype']
+        
+    if dltype == 'download':
+        headers.append( ('Content-Disposition', 'attachment; filename=%s' % file.name) )
+    else: #if file.dltype == 'auto':
+        pass
+    
+    storage_dirs = get_storage_dirs()
+    full_path = os.path.join(storage_dirs['orig'], filename)
+    try:
+        content_length = os.path.getsize(full_path)
+        headers += [('Content-Length', content_length)]
+    except IOError:
+        return HTTPNotFound()
+    
+    response = Response(content_type=file.content_type)
+    try:
+        response.app_iter = open(full_path, 'rb')
+    except IOError:
+        return HTTPNotFound()
+    response.headerlist += headers
+    
+    return response
+
+@view_config(route_name='blog_download_file_preview')
+def download_file_preview(request):
+    filename = request.matchdict['filename']
+    
+    dbsession = DBSession()
+    file = dbsession.query(File).filter(File.name==filename).first()
+    
+    if file is None:
+        return HTTPNotFound()
+
+    if file.content_type not in ('image/jpeg', 'image/png', 'image/jpg'):
+        return HTTPNotFound()
+
+    headers = []
+    dltype = file.dltype
+
+    if 'dltype' in request.GET and request.GET['dltype'] in allowed_dltypes:
+        dltype = request.GET['dltype']
+        
+    if dltype == 'download':
+        headers.append( ('Content-Disposition', 'attachment; filename=preview_%s' % file.name) )
+
+    storage_dirs = get_storage_dirs()
+    full_path = os.path.join(storage_dirs['orig'], filename)
+    preview_path = os.path.join(storage_dirs['img_preview_mid'], filename)
+    preview_path += '.png' # always save preview in PNG format
+
+    if os.path.exists(preview_path) and not os.path.isfile(preview_path):
+        log.error('Path to preview image "%s" must be a regular file!' % preview_path)
+        return HTTPServerError()
+    
+    # make preview image if required
+    if not os.path.exists(preview_path):
+        try:
+            preview_max_width = int(get_config('image_preview_width', 300))
+        except ValueError:
+            preview_max_width = 300
+        except TypeError:
+            preview_max_width = 300
+        im = Image.open(full_path)
+        if im.size[0] <= preview_max_width:
+            # don't need a resize
+            preview_path = full_path
+        else:
+            h = (im.size[1] * preview_max_width) / im.size[0]
+            resized = im.resize((preview_max_width, int(h)), Image.BILINEAR)
+            resized.save(preview_path)
+    
+    try:
+        content_length = os.path.getsize(preview_path)
+        headers += [('Content-Length', content_length)]
+    except IOError:
+        return HTTPNotFound()
+    
+    response = Response(content_type=file.content_type)
+    try:
+        response.app_iter = open(preview_path, 'rb')
+    except IOError:
+        return HTTPNotFound()
+    response.headerlist += headers
+    
+    return response

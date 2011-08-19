@@ -22,8 +22,6 @@ from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltype
 
 log = logging.getLogger(__name__)
 
-
-
 @view_config(route_name='admin_settings', renderer='/admin/settings.mako', permission='admin', request_method='GET')
 def view_settings(request):
     """
