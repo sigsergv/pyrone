@@ -675,3 +675,16 @@ def delete_backups(request):
     
     return c
     
+@view_config(route_name='admin_list_accounts', renderer='/admin/list_accounts.mako', permission='admin')
+def list_accounts(request):
+    c = dict()
+    
+    dbsession = DBSession()
+    c['users'] = dbsession.query(User).all()
+    return c
+    
+@view_config(route_name='admin_delete_accounts_ajax', renderer='json', permission='admin')
+def delete_accounts_ajax(request):
+    c = dict()
+    return c
+    

@@ -16,7 +16,6 @@ log = logging.getLogger(__name__)
 
 def principals_finder(user, request):
     principals = user.get_permissions()
-    log.debug(principals)
     return principals
 
 def get_user(request):

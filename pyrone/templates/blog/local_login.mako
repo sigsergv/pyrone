@@ -6,7 +6,7 @@
 <div class="warning">${error}</div>
 % endif
 
-<form  action="${url('blog_login')}" method="POST">
+<form  action="${url('account_login')}" method="POST">
 <div style="width: 300px;">
 <dl class="form">
 	<dt>${_('Login name')}:</dt>

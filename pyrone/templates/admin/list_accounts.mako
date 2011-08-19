@@ -1,6 +1,3 @@
-<%
-    authenticated = h.auth.get_user()
-%>
 <%inherit file="/admin/base.mako"/>
 
 <%def name="title()">${_('Accounts')}</%def>
@@ -16,18 +13,18 @@
   <th>${_('Information')}</th>
 </tr>
 
-% for user in c.users:
+% for u in users:
 <tr>
-  <td><input type="checkbox" class="user-cb" value="${user.id}" ${h.cond(authenticated.id==user.id, ' disabled="disabled" \
+  <td><input type="checkbox" class="user-cb" value="${u.id}" ${h.cond(u.id==user.id, ' disabled="disabled" \
   title="'+_('You cannot delete current user')+'"', '')|n} /></td>
   <td>${h.user_link(user)|n}</td>
-  <td>${user.display_name or '-'}</td>
-  <td>${user.email or '-'}</td>
-  <td>${h.cond(user.has_permission('admin'), h.span_info(_('admin')), '')|n}</td>
+  <td>${u.display_name or '-'}</td>
+  <td>${u.email or '-'}</td>
+  <td>${h.cond(u.has_permission('admin'), h.span_info(_('admin')), '')|n}</td>
 </tr>
 % endfor
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.account.listDeleteSelectedReq('accounts-table', '${h.url(controller='admin', action='delete_accounts')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone.account.listDeleteSelectedReq('accounts-table', '${url('admin_delete_accounts_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>

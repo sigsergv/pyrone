@@ -7,15 +7,15 @@
 <div class="widget">
 %if not authenticated:
 <div>${_('<strong>Sign in</strong> using')|n} 
-  <a href="#" onclick="Pyrone.account.loginTwitter('${url('blog_twitter_init')}');\
+  <a href="#" onclick="Pyrone.account.loginTwitter('${url('account_twitter_init')}');\
   return false;">twitter</a>
   <a href="#">google</a>
-  <a href="${url('blog_login_form')}">local</a>
+  <a href="${url('account_login_form')}">local</a>
   </div>
 %else:
     <div>${_('You are logged in.')}</div>
-    <div><a href="${url('blog_my_profile')}">${_('My profile page')}</a></div>
-    <div><a href="#" onclick="Pyrone.account.logout('${url('blog_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
+    <div><a href="${url('account_my_profile')}">${_('My profile page')}</a></div>
+    <div><a href="#" onclick="Pyrone.account.logout('${url('account_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
 %endif
 
 ## languages
