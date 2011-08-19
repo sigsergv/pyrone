@@ -648,9 +648,10 @@ def edit_article_comment_ajax(request):
     #    comment_user = dbsession.query(User).options(eagerload('permissions')).get(comment.user)
     
     dbsession.expunge(comment)
-    dbsession.expunge(comment.user)
-    for p in comment.user.permissions:
-        dbsession.expunge(p)
+    if comment.user is not None:
+        dbsession.expunge(comment.user)
+        for p in comment.user.permissions:
+            dbsession.expunge(p)
     transaction.commit()
 
     data = dict()
