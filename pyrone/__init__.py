@@ -46,6 +46,7 @@ def main(global_config, **settings):
               ('account_logout', '/logout'),
               ('account_twitter_init', '/login/twitter/init'),
               ('account_twitter_finish', '/login/twitter/finish'),
+              ('account_my_subscriptions', '/me/subscriptions'),
               
               ('blog_download_file', '/files/f/{filename}'),
               ('blog_download_file_preview', '/files/p/{filename}'),
