@@ -17,7 +17,7 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
 from sqlalchemy.exc import IntegrityError
 
 from pyrone.lib import helpers as h, auth, markup
-from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Permission
+from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Permission, VerifiedEmail
 from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltypes
 
 log = logging.getLogger(__name__)
@@ -95,6 +95,45 @@ def list_files(request):
     
     dbsession = DBSession()
     c['files'] = dbsession.query(File).all()
+    return c
+
+@view_config(route_name='admin_list_visitors_emails', renderer='/admin/list_visitors_emails.mako', permission='admin')
+def list_visitors_emails(request):
+    c = dict()
+    
+    dbsession = DBSession()
+    c['emails'] = dbsession.query(VerifiedEmail).all()
+    return c
+
+@view_config(route_name='admin_visitor_email_edit_ajax', renderer='json', permission='admin', request_method='POST')
+def visitor_email_edit_ajax(request):
+    c = dict()
+    
+    id = int(request.POST['id'])
+    is_verified = request.POST['is_verified'] == 'true'
+    
+    dbsession = DBSession()
+    transaction.begin()
+    vf = dbsession.query(VerifiedEmail).get(id)
+    if vf is None:
+        transaction.abort()
+        return HTTPNotFound()
+    
+    vf.is_verified = is_verified
+    transaction.commit()
+    return c
+    
+@view_config(route_name='admin_visitors_emails_delete_ajax', renderer='json', permission='admin', request_method='POST')
+def visitors_emails_delete_ajax(request):
+    c = dict(deleted=list(), failed=False)
+    uids_raw = request.POST['uids']
+    uids = [int(s.strip()) for s in uids_raw.split(',')]
+    
+    dbsession = DBSession()
+    transaction.begin()
+    dbsession.query(VerifiedEmail).filter(VerifiedEmail.id.in_(uids)).delete(False);
+    c['deleted'] = uids
+    transaction.commit()
     return c
 
 @view_config(route_name='admin_upload_file', permission='admin')

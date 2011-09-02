@@ -199,7 +199,7 @@ def verify_email(request):
         verification_code = request.GET['token']
         dbsession = DBSession()
         transaction.begin()
-        vf = dbsession.query(VerifiedEmail).get(email)
+        vf = dbsession.query(VerifiedEmail).filter(VerifiedEmail.email==email).first()
         if vf is None or vf.verification_code != verification_code or vf.is_verified:
             fail = True
         else:

@@ -58,14 +58,15 @@ class VerifiedEmail(Base):
     __tablename__ = 'verifiedemail'
     
     # stripperd lowcased email address
-    id = Column(Unicode, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    email = Column(Unicode, unique=True)
     is_verified = Column(Boolean)
     last_verify_date = Column(Integer)
     verification_code = Column(String)
     
     def __init__(self, email):
         self.last_verify_date = int(time())
-        self.id = email
+        self.email = email
         self.is_verified = False
         self.verification_code = str(uuid.uuid4())
         

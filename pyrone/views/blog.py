@@ -480,9 +480,8 @@ def add_article_comment_ajax(request):
             
             send_evn = False
         
-            vf = dbsession.query(VerifiedEmail).get(vrf_email)
+            vf = dbsession.query(VerifiedEmail).filter(VerifiedEmail.email==vrf_email).first()
             vf_token = ''
-            log.debug(vf.is_verified)
             if vf is not None:
                 if not vf.is_verified:
                     diff = time() - vf.last_verify_date

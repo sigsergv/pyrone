@@ -232,6 +232,23 @@ Pyrone.account.listDeleteSelectedReq = function(table_id, url) {
 	Pyrone.createConfirmLink('delete-selected-btn', function() {Pyrone.file.listDeleteSelected(table_id, url);});
 };
 
+Pyrone.account.changeEmailVerified = function(email_id, new_state/*true|false*/, url) {
+	Ext.Ajax.request({
+		url: url,
+		method: 'POST',
+		params: {
+			id: email_id,
+			is_verified: new_state ? 'true' : 'false'
+		},
+		success: function(response, opts) {
+			//var json = Ext.decode(response.responseText);
+		},
+		failure: function() {
+			alert(tr('AJAX_REQUEST_ERROR'));
+		}
+	});
+};
+
 Pyrone.backup.listDeleteSelectedReq = function(table_id, url) {
 	var selected_uids = Pyrone.getSelectedRows(table_id);
 	if (selected_uids.length == 0) {
