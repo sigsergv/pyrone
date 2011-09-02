@@ -30,12 +30,15 @@
   ${h.form_input_text('admin_notifications_email', _('Email address for system notifications'), settings['admin_notifications_email'], errors,
     help=_('Email address for the system notification: user added, comment added for moderation etc'))|n}
   
+  ${h.form_input_text('notifications_from_email', _('Email address to be used as sender address'), settings['notifications_from_email'], errors,
+    help=_('This email will be used as FROM address for notification messages'))|n}
+    
   <dt>${_('Select notifications you want to receive')}</dt>
   ${h.form_checkbox('admin_notify_new_comments', None, settings['admin_notify_new_comments'], errors, 
   	label=_('new comment added (including comment moderation requests)'))|n}
   ${h.form_checkbox('admin_notify_new_user', None, settings['admin_notify_new_user'], errors, 
   	label=_('new user registered'))|n}
-  ${h.form_input_text('verification_msg_sibject_tpl', _('Email address verification message subject template'), settings['verification_msg_sibject_tpl'],
+  ${h.form_input_text('verification_msg_subject_tpl', _('Email address verification message subject template'), settings['verification_msg_subject_tpl'],
     errors, help=_('Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}'))|n}
   ${h.form_textarea('verification_msg_body_tpl', _('Email address verification message body template'), settings['verification_msg_body_tpl'],
     errors, help=_('Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}'), height=150)|n}

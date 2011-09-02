@@ -481,20 +481,26 @@ def add_article_comment_ajax(request):
             send_evn = False
         
             vf = dbsession.query(VerifiedEmail).get(vrf_email)
+            vf_token = ''
+            log.debug(vf.is_verified)
             if vf is not None:
-                diff = time() - vf.last_verify_date
-                if diff > 86400:
-                    # delay between verifications requests must be more than 24 hours
-                    send_evn = True
-                vf.last_verify_date = time()
+                if not vf.is_verified:
+                    diff = time() - vf.last_verify_date
+                    #if diff > 86400:
+                    if diff > 1:
+                        # delay between verifications requests must be more than 24 hours
+                        send_evn = True
+                    vf.last_verify_date = time()
+                    vf_token = vf.verification_code
                 
             else:
                 send_evn = True
                 vf = VerifiedEmail(vrf_email)
+                vf_token = vf.verification_code
                 dbsession.add(vf)
             
             if send_evn:
-                ns.append(notifications.gen_email_verification_notification(vrf_email))
+                ns.append(notifications.gen_email_verification_notification(vrf_email, vf_token))
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
@@ -557,7 +563,7 @@ def add_article_comment_ajax(request):
         vf = vf_q.get(email)
         if vf is not None and vf.is_verified:
             # send notification to "email"
-            ns.append(notifications.gen_comment_response_notification(email, c, comment))
+            ns.append(notifications.gen_comment_response_notification(request, article, comment, c, email))
     
     admin_notifications_email = normalize_email(get_config('admin_notifications_email'))
     

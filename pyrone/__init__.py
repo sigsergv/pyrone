@@ -44,6 +44,7 @@ def main(global_config, **settings):
               ('account_login_form', '/login'),
               ('account_login', '/login'),
               ('account_logout', '/logout'),
+              ('account_verify_email', '/verify-email'),
               ('account_twitter_init', '/login/twitter/init'),
               ('account_twitter_finish', '/login/twitter/finish'),
               ('account_my_subscriptions', '/me/subscriptions'),

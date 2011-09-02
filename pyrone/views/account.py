@@ -16,7 +16,8 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTP
 
 from pyrone.models import DBSession
 from pyrone.models import User
-from pyrone.models.user import find_local_user, find_twitter_user
+from pyrone.models.user import find_local_user, find_twitter_user,\
+    normalize_email, VerifiedEmail
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth
 
@@ -188,3 +189,29 @@ def login_twitter_finish(request):
 
     return HTTPFound(location=request.GET['pyrone_url'])    
     
+@view_config(route_name='account_verify_email', renderer='/blog/verify_email.mako')
+def verify_email(request):
+    c = dict()
+    
+    fail = False
+    try:
+        email = normalize_email(request.GET['email'])
+        verification_code = request.GET['token']
+        dbsession = DBSession()
+        transaction.begin()
+        vf = dbsession.query(VerifiedEmail).get(email)
+        if vf is None or vf.verification_code != verification_code or vf.is_verified:
+            fail = True
+        else:
+            vf.is_verified = True
+            transaction.commit()
+    except KeyError:
+        transaction.abort()
+        fail = True
+        
+    if fail:
+        c['result'] = _('Verification failed: email not found.')
+    else:
+        c['result'] = _('Email `%s` has confirmed.') % 'aaa'
+        
+    return c
