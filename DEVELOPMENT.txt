@@ -111,17 +111,14 @@ To start development server use the following command:
 Release and packaging
 =====================
 
-Prepare application source distribution
----------------------------------------
+Prepare nginx runtime environment
+---------------------------------
 
-To create source distribution in tar.gz package execute the following command:
+You need ``supervisord`` package:
 
-    python setup.py sdist
+    pip install supervisor
 
-resulting tar fall will be placed in the directory ``dist`` (it'll look 
-like ``Pyrone-1.0.tar.gz``)
-
-Running application
+Prepare application package
 ---------------------------
 
 * https://docs.pylonsproject.org/projects/pyramid_cookbook/dev/deployment.html

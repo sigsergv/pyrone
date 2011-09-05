@@ -1,2 +1,3 @@
 include *.txt *.ini *.cfg *.rst
+include supervisord.conf
 recursive-include pyrone *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml

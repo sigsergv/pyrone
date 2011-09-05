@@ -8,7 +8,17 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
+    # binary packages require some additional packages installed on your system like gcc
+    'PIL',
+    'lxml',
     'pyramid',
+    'pyramid_beaker',
+    'pytz',
+    'tweepy',
+    'markdown',
+    'decorator',
+    'hurry.filesize',
+    'TurboMail',
     'SQLAlchemy',
     'transaction',
     'repoze.tm2>=1.0b1', # default_commit_veto
@@ -33,6 +43,9 @@ setup(name='pyrone',
       author='Sergei Stolyarov',
       author_email='sergei.stolyarov@regolit.com',
       url='https://bitbucket.org/cancel/pyrone',
+      data_files=[
+        ('share/pyrone/sample-config', ['production.ini', 'supervisord.conf'])
+      ],
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
