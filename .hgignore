@@ -1,6 +1,7 @@
 syntax:glob
 pyrone.egg-info
 dist
+build
 .project
 .pydevproject
 *.pyc
