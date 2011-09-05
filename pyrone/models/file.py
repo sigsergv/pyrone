@@ -16,11 +16,11 @@ class File(Base):
     __tablename__ = 'storagefile'
     
     id = Column(Integer, primary_key=True)
-    name = Column(Unicode, unique=True)
-    content_type = Column(String)
+    name = Column(Unicode(255), unique=True)
+    content_type = Column(String(50))
     size = Column(Integer)
-    dltype = Column(String) # "download"|"auto"
-    etag = Column(String)
+    dltype = Column(String(10)) # "download"|"auto"
+    etag = Column(String(50))
     updated = Column(Integer)
     
     def __init__(self):

@@ -16,12 +16,12 @@ class User(Base):
     _str_permissions = None
     
     id = Column(Integer, primary_key=True)
-    login = Column(String)
-    password = Column(String)
-    display_name = Column(Unicode)
-    email = Column(Unicode)
+    login = Column(String(255))
+    password = Column(String(255))
+    display_name = Column(Unicode(255))
+    email = Column(Unicode(255))
     # user kind (class, type), possible values: "local", "twitter"
-    kind = Column(String)
+    kind = Column(String(20))
     
     permissions = relation('Permission')
 
@@ -47,7 +47,7 @@ class Permission(Base):
     
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    name = Column(String)
+    name = Column(String(50))
     
     def __init__(self, id, user_id, name):
         self.id = id
@@ -59,10 +59,10 @@ class VerifiedEmail(Base):
     
     # stripperd lowcased email address
     id = Column(Integer, primary_key=True)
-    email = Column(Unicode, unique=True)
+    email = Column(Unicode(255), unique=True)
     is_verified = Column(Boolean)
     last_verify_date = Column(Integer)
-    verification_code = Column(String)
+    verification_code = Column(String(255))
     
     def __init__(self, email):
         self.last_verify_date = int(time())

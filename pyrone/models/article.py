@@ -13,9 +13,9 @@ class Article(Base):
     
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
-    shortcut_date = Column(Unicode) # somethig like "2011/03/29"
-    shortcut = Column(Unicode) # somrthing like "test-post-subject"
-    title = Column(Unicode)
+    shortcut_date = Column(Unicode(50)) # somethig like "2011/03/29"
+    shortcut = Column(Unicode(255)) # somrthing like "test-post-subject"
+    title = Column(Unicode(255))
     body = Column(UnicodeText)
     rendered_preview = Column(UnicodeText)
     rendered_body = Column(UnicodeText)
@@ -64,7 +64,7 @@ class Tag(Base):
     
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey(Article.id))
-    tag = Column(Unicode)
+    tag = Column(Unicode(255))
     
     # we don't need explict reference to article
     
@@ -79,14 +79,14 @@ class Comment(Base):
     user_id = Column(Integer, ForeignKey(User.id))
     article_id = Column(Integer, ForeignKey(Article.id))
     parent_id = Column(Integer, ForeignKey(__tablename__+'.id'))
-    display_name = Column(Unicode)
-    email = Column(Unicode)
-    website = Column(Unicode)
+    display_name = Column(Unicode(255))
+    email = Column(Unicode(255))
+    website = Column(Unicode(255))
     body = Column(UnicodeText)
     rendered_body = Column(UnicodeText)
     published = Column(Integer)
-    ip_address = Column(String)
-    xff_ip_address = Column(String)
+    ip_address = Column(String(30))
+    xff_ip_address = Column(String(30))
     is_approved = Column(Boolean, default=False)
     # uf True then all answers to this comment will be send to email
     is_subscribed = Column(Boolean, default=False)
