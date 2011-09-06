@@ -33,6 +33,10 @@ Now you have to *activate* just installed environment:
 
     source $BLOG/env/bin/activate
 
+Before installing Pyrone you have to install binary packages from your distribution that required to
+compile binary python packages: ``libxslt1-dev gcc python2.6-dev``. Instead of ``python2.6-dev`` you should
+install ``python2.7-dev`` if you're using Python version 2.7.
+
 Download Pyrone distribution package (e.g. ``pyrone-1.0.tar.gz``) and install it:
 
     pip install pyrone-0.1.tar.gz
