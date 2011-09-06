@@ -33,6 +33,7 @@ if sys.version_info[:3] < (2,5,0):
 
 setup(name='pyrone',
       version='0.1',
+      license='BSD License',
       description='pyrone',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
