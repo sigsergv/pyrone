@@ -13,7 +13,8 @@ from . import Base
 log = logging.getLogger(__name__)
 
 class File(Base):
-    __tablename__ = 'storagefile'
+    __tablename__ = 'pbstoragefile'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), unique=True)

@@ -9,8 +9,9 @@ from user import User
 from pyrone.lib import markup
 
 class Article(Base):
-    __tablename__ = 'article'
-    
+    __tablename__ = 'pbarticle'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+        
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
     shortcut_date = Column(Unicode(50)) # somethig like "2011/03/29"
@@ -60,7 +61,8 @@ class Article(Base):
             return self.rendered_preview
         
 class Tag(Base):
-    __tablename__ = 'tag'
+    __tablename__ = 'pbtag'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey(Article.id))
@@ -73,7 +75,8 @@ class Tag(Base):
         self.article_id = article.id
     
 class Comment(Base):
-    __tablename__ = 'articlecomment'
+    __tablename__ = 'pbarticlecomment'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))

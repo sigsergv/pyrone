@@ -11,7 +11,8 @@ from sqlalchemy.types import String, Unicode, Integer, Boolean
 from . import Base, DBSession
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'pbuser'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     _str_permissions = None
     
@@ -43,10 +44,11 @@ class AnonymousUser:
 anonymous = AnonymousUser()
 
 class Permission(Base):
-    __tablename__ = 'permission'
+    __tablename__ = 'pbpermission'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('pbuser.id'))
     name = Column(String(50))
     
     def __init__(self, id, user_id, name):
@@ -55,7 +57,8 @@ class Permission(Base):
         self.name = name
         
 class VerifiedEmail(Base):
-    __tablename__ = 'verifiedemail'
+    __tablename__ = 'pbverifiedemail'
+    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     # stripperd lowcased email address
     id = Column(Integer, primary_key=True)
