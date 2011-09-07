@@ -32,6 +32,11 @@ def latest(request):
     """
     c = dict(articles=list())
     
+    h = []
+    for x in request.headers.iteritems():
+        h.append('%s: %s' % x )
+    log.debug('\n'.join(h))
+    
     page_size = int(get_config('elements_on_page'))
     start_page = 0
     if 'start' in request.GET:
