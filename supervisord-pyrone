@@ -8,7 +8,7 @@
 #SUPERVISORCTL=/usr/local/bin/supervisorctl
 
 # REMEMBER TO CHANGE THIS VARIABLE!
-BLOG=/home/cancel/pyrone-blog
+BLOG=/home/user/pyrone-blog
 
 SUPERVISORD=$BLOG/env/bin/supervisord
 SUPERVISORCTL=$BLOG/env/bin/supervisorctl
