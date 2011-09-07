@@ -136,7 +136,7 @@ Using supervisord to automate application execution
 
 Sample ``supervisord.conf`` is provided in the distribution package, find in at 
 ``$BLOG/env/share/pyrone/sample-config/supervisord.conf``. Just copy to the directory
-``$BLOG``, usually you don't need to edit it because it contains proper configuration data.
+``$BLOG``. You have to edit this file and set valid system user name there.
 
 Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
 Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
