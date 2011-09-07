@@ -1,7 +1,7 @@
 .. include:: ../README.txt
 
-Installing for nginx uWSGI
-==========================
+Installing for nginx in simple proxy mode
+=========================================
 
 Prepare runtime directory
 -------------------------
@@ -140,6 +140,40 @@ Sample ``supervisord.conf`` is provided in the distribution package, find in at
 
 Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
 Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
+
+Installing for nginx+uWSGI
+==========================
+
+First you need to install ``uWSGI`` packages:
+
+::
+
+    sudo apt-get install uwsgi uwsgi-plugin-python
+
+Then you have to create nginx configuration file, something like this:
+
+::
+
+    server {
+            listen 81;
+            location / {
+                    include uwsgi_params;
+                    uwsgi_pass 127.0.0.1:5000;
+            }
+    }
+
+
+File ``production.ini`` (part of the distribution) already contains configuration section
+for ``uWSGI``, the only option you need to change is ``home`` in the section ``[uwsgi]``.
+Full path to virtual environment must be specified there.
+
+To check configuration issue the following command (it will start ``uWSGI`` server instance)::
+
+    uwsgi --plugins python --ini-paste production.ini
+
+Start/stop script ``uwsgi-pyrone`` is also included in the distribution, look in the sample
+configs directory.
+
 
 Development
 ===========

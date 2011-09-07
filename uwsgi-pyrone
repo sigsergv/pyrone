@@ -1,0 +1,58 @@
+#!/bin/bash -e
+
+# Pyrone uwsgi start/stop script
+# suitable for all init.d-base distributions
+
+# REMEMBER TO SET PATH AND USER!
+BLOG=/home/user/pyrone-blog
+USER=user
+
+UWSGI=/usr/bin/uwsgi
+PIDFILE=$BLOG/env/uwsgi.pid
+LOGFILE=$BLOG/env/uwsgi.log
+
+OPTS="--uid $USER --daemonize $LOGFILE --plugins python --ini-paste $BLOG/production.ini --pidfile $BLOG/env/uwsgi.pid"
+
+test -x $UWSGI || exit 0
+
+. /lib/lsb/init-functions
+
+export PATH="${PATH:+$PATH:}/usr/local/bin:/usr/sbin:/sbin"
+
+start () {
+    if test -f $PIDFILE; then
+        # check is process with that PID is exists
+        if read pid < "$PIDFILE" && ps -p "$pid" > /dev/null 2>&1; then
+            log_failure_msg "already running: PID file exists and valid"
+            exit 1
+        fi
+    fi
+
+	log_begin_msg "Starting Supervisor daemon manager..."
+	$UWSGI $OPTS || log_end_msg 1
+	log_end_msg 0
+}
+
+stop () {
+	log_begin_msg "Stopping Supervisor daemon manager..."
+    kill -INT `cat "$PIDFILE"` || log_end_msg 1
+	log_end_msg 0
+}
+
+case "$1" in
+  start)
+    start
+	;;
+
+  stop)
+    stop
+	;;
+
+  restart|reload|force-reload)
+    stop
+    start
+    ;;
+
+esac
+
+exit 0
