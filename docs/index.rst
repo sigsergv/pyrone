@@ -131,6 +131,16 @@ the distribution package and could be found by the path ``$BLOG/env/share/pyrone
 
 Edit the file using real data (your path instead of ``/home/user/pyrone-blog`` etc) and put it into the nginx sites directory.
 
+Using supervisord to automate application execution
+---------------------------------------------------
+
+Sample ``supervisord.conf`` is provided in the distribution package, find in at 
+``$BLOG/env/share/pyrone/sample-config/supervisord.conf``. Just copy to the directory
+``$BLOG``, usually you don't need to edit it because it contains proper configuration data.
+
+Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
+Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
+
 Development
 ===========
 

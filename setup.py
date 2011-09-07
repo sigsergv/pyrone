@@ -53,7 +53,8 @@ setup(name='pyrone',
       author_email='sergei.stolyarov@regolit.com',
       url='https://bitbucket.org/cancel/pyrone',
       data_files=[
-        ('share/pyrone/sample-config', ['production.ini', 'supervisord.conf', 'pyrone-blog-nginx.conf'])
+        ('share/pyrone/sample-config', ['production.ini', 'supervisord.conf', 
+            'pyrone-blog-nginx.conf', 'supervisord-pyrone'])
       ],
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
