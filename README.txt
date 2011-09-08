@@ -9,9 +9,9 @@ Features
 
 * basic blog functions: writing new articles, article discussions;
 * internal files storage;
-* backup & restore functions
-* Markdown language support for articles and discussions
-* external authentication: twitter, openid etc
+* backup & restore functions;
+* Markdown language support for articles and discussions;
+* external authentication: twitter, openid etc.
 
 License
 -------
