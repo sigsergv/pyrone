@@ -16,6 +16,22 @@ from pyrone.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
+tm_mail_on = False
+tm_mail_transport = 'debug'
+tm_mail_smtp_server = ''
+
+def init_notifications_from_settings(settings):
+    global tm_mail_on, tm_mail_smtp_server, tm_mail_transport
+    
+    if 'pyrone.notifications.mail' in settings:
+        tm_mail_on = settings['pyrone.notifications.mail'] == 'true'
+        
+    if tm_mail_on:
+        if 'pyrone.notifications.mail_transport' in settings:
+            tm_mail_transport = settings['pyrone.notifications.mail_transport']
+        if 'pyrone.notifications.mail_smtp_server' in settings:
+            tm_mail_smtp_server = settings['pyrone.notifications.mail_smtp_server']
+
 class Notification:
     """
     Object represents notification object
@@ -36,16 +52,19 @@ class Notification:
         log.debug(debug_data)
         log.debug('--------------------------------------------------')
         sender = get_config('notifications_from_email')
-        conf = {'mail.on': True, 'mail.transport': 'smtp', 'mail.smtp.server': '127.0.0.1:25'}
-        turbomail.interface.start(conf)
-        body = self.body
-        body = re.sub('\r', '', body)
-        body = re.sub('\n', '<br>\n', body)
-        
-        message = turbomail.Message(author=sender, to=self.to, subject=self.subject,
-                                    plain='HTML email', rich=body, encoding='utf-8')
-        message.send()
-        turbomail.interface.stop()
+        if tm_mail_on:
+            conf = {'mail.on': True, 'mail.transport': tm_mail_transport, 'mail.smtp.server': tm_mail_smtp_server}
+            turbomail.interface.start(conf)
+            body = self.body
+            body = re.sub('\r', '', body)
+            body = re.sub('\n', '<br>\n', body)
+            
+            message = turbomail.Message(author=sender, to=self.to, subject=self.subject,
+                                        plain='HTML email', rich=body, encoding='utf-8')
+            message.send()
+            turbomail.interface.stop()
+        else:
+            log.debug('actual mail sending is not allowed in config')
     
     def __init__(self, to, subject, body):
         self.subject = subject

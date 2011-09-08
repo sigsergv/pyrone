@@ -7,6 +7,7 @@ from sqlalchemy import engine_from_config
 from pyrone.models import initialize_sql
 from pyrone.lib.auth import PyroneSessionAuthenticationPolicy
 from pyrone.models.file import init_storage_from_settings
+from pyrone.lib.notifications import init_notifications_from_settings
 #from pyrone.resources import RootFactory
 
 def main(global_config, **settings):
@@ -16,6 +17,7 @@ def main(global_config, **settings):
     initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
     init_storage_from_settings(settings)
+    init_notifications_from_settings(settings)
     authentication_policy = PyroneSessionAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings, session_factory=session_factory,
