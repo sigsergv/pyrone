@@ -1,6 +1,7 @@
 include *.txt *.ini *.cfg *.rst
 include supervisord.conf
 include pyrone-blog-nginx.conf
+include pyrone-blog-nginx-uwsgi.conf
 include supervisord-pyrone
 include uwsgi-pyrone
 recursive-include pyrone *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml

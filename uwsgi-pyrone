@@ -4,8 +4,8 @@
 # suitable for all init.d-base distributions
 
 # REMEMBER TO SET PATH AND USER!
-BLOG=/home/user/pyrone-blog
-USER=user
+BLOG=/home/cancel/pyrone-blog
+USER=cancel
 
 UWSGI=/usr/bin/uwsgi
 PIDFILE=$BLOG/env/uwsgi.pid

@@ -141,8 +141,8 @@ Sample ``supervisord.conf`` is provided in the distribution package, find in at
 Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
 Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
 
-Installing for nginx+uWSGI
-==========================
+Installing for nginx+uWSGI (ububtu/debian only)
+===============================================
 
 First you need to install ``uWSGI`` packages:
 
@@ -155,24 +155,41 @@ Then you have to create nginx configuration file, something like this:
 ::
 
     server {
-            listen 81;
+            listen 80;
+            server_name blog.example.com;
+            access_log /home/user/pyrone-blog/nginx-access.log;
+
             location / {
                     include uwsgi_params;
                     uwsgi_pass 127.0.0.1:5000;
             }
+            
+            # uncomment lines below to allow processing of static files by nginx 
+            #location /static {
+            #    root                    /home/user/pyrone-blog/env/lib/python2.6/site-packages/pyrone/;
+            #    expires                 30d;
+            #    add_header              Cache-Control public;
+            #    #access_log              off;
+            #}
+
     }
 
 
-File ``production.ini`` (part of the distribution) already contains configuration section
-for ``uWSGI``, the only option you need to change is ``home`` in the section ``[uwsgi]``.
-Full path to virtual environment must be specified there.
 
-To check configuration issue the following command (it will start ``uWSGI`` server instance)::
+Now create uwsgi config file for the blog application, it looks like::
 
-    uwsgi --plugins python --ini-paste production.ini
+    [uwsgi]
+    uid = user
+    gid = usergroup
+    socket = 127.0.0.1:5000
+    home = /home/user/pyrone-blog/env/
+    plugins = python
+    paste = config:/home/user/pyrone-blog/production.ini
 
-Start/stop script ``uwsgi-pyrone`` is also included in the distribution, look in the sample
-configs directory.
+Don't forget to edit this file and replace default values (user, usergroup) with real ones. Place file to the
+directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the directory ``/etc/uwsgi/apps-enabled``::
+
+    sudo ln -s /etc/uwsgi/apps-available/blog.ini /etc/uwsgi/apps-enabled
 
 
 Development

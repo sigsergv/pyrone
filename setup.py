@@ -54,7 +54,8 @@ setup(name='pyrone',
       url='https://bitbucket.org/cancel/pyrone',
       data_files=[
         ('share/pyrone/sample-config', ['production.ini', 'supervisord.conf', 
-            'pyrone-blog-nginx.conf', 'supervisord-pyrone'])
+            'pyrone-blog-nginx.conf', 'supervisord-pyrone', 'uwsgi-pyrone',
+            'pyrone-blog-nginx-uwsgi.conf'])
       ],
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
