@@ -35,7 +35,6 @@ def latest(request):
     h = []
     for x in request.headers.iteritems():
         h.append('%s: %s' % x )
-    log.debug('\n'.join(h))
     
     page_size = int(get_config('elements_on_page'))
     start_page = 0
@@ -54,8 +53,8 @@ def latest(request):
         
     c['articles'] = q[(start_page * page_size) : (start_page+1) * page_size + 1]
     
-    for article in c['articles']:
-        log.debug(article.shortcut_date)
+    #for article in c['articles']:
+    #    log.debug(article.shortcut_date)
     
     c['prev_page'] = None
     if len(c['articles']) > page_size:
@@ -91,8 +90,8 @@ def tag_articles(request):
     c = dict()
     c['articles'] = q.filter(Tag.tag==tag)[(start_page * page_size) : (start_page+1) * page_size + 1]
     
-    for article in c['articles']:
-        log.debug(article.shortcut_date)
+    #for article in c['articles']:
+    #    log.debug(article.shortcut_date)
     
     c['prev_page'] = None
     if len(c['articles']) > page_size:
