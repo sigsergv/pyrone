@@ -4,8 +4,6 @@ Languages (i18n)
 """
 import logging
 
-import pyramid.threadlocal as threadlocal
-
 log = logging.getLogger(__name__)
 
 # DO NOT TRANSLATE! 
@@ -20,9 +18,10 @@ def lang_title(lang_code):
 def fallback_lang():
     return 'en'
 
-def lang():
+def locale_negotiator(request):
     lang = fallback_lang()
-    request = threadlocal.get_current_request()
     if 'ui_lang' in request.cookies:
         lang = request.cookies['ui_lang']
     return lang
+
+lang = locale_negotiator

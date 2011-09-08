@@ -8,6 +8,7 @@ from pyrone.models import initialize_sql
 from pyrone.lib.auth import PyroneSessionAuthenticationPolicy
 from pyrone.models.file import init_storage_from_settings
 from pyrone.lib.notifications import init_notifications_from_settings
+from pyrone.lib.lang import locale_negotiator
 #from pyrone.resources import RootFactory
 
 def main(global_config, **settings):
@@ -23,7 +24,9 @@ def main(global_config, **settings):
     config = Configurator(settings=settings, session_factory=session_factory,
         root_factory='pyrone.resources.RootFactory',
         authentication_policy=authentication_policy,
-        authorization_policy=authorization_policy)
+        authorization_policy=authorization_policy,
+        locale_negotiator=locale_negotiator)
+    config.add_translation_dirs('pyrone:locale/')
     config.scan()
     config.add_static_view('static', 'pyrone:static')
     routes = [('blog_latest', '/'), 
@@ -78,7 +81,7 @@ def main(global_config, **settings):
         config.add_route(*r)
         
     config.add_subscriber('pyrone.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
-    #config.add_subscriber('pyrone.subscribers.add_localizer', 'pyramid.events.NewRequest')
+    config.add_subscriber('pyrone.subscribers.add_localizer', 'pyramid.events.NewRequest')
     
     #config.add_view('pyrone.views.latest',
     #                route_name='latest',

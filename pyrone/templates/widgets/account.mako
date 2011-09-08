@@ -1,7 +1,7 @@
 <%
     authenticated = user.kind != 'anonymous'
     
-    lang = h.lang.lang()
+    lang = h.lang.lang(request)
 %>
 
 <div class="widget">

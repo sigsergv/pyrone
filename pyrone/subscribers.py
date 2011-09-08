@@ -1,6 +1,6 @@
 #import pyramid.threadlocal as threadlocal
-#from pyramid.i18n import get_localizer, TranslationStringFactory
-from pyramid.i18n import TranslationString
+from pyramid.i18n import get_localizer, TranslationStringFactory
+#from pyramid.i18n import TranslationString
 from pyramid.url import route_url
 
 from pyrone.lib import helpers, auth
@@ -20,10 +20,16 @@ def add_renderer_globals(event):
     if not request:
         return
     
-    event['_'] = TranslationString
+    event['_'] = request.translate
     event['url'] = url_generator(request)
     event['user'] = auth.get_user(request)
-#tsf = TranslationStringFactory('pyrone')
 
-#def add_localizer(event):
-#    
+tsf = TranslationStringFactory('pyrone')
+
+def add_localizer(event):
+    request = event.request
+    localizer = get_localizer(request)
+    def auto_translate(string):
+        return localizer.translate(tsf(string))
+    #request.localizer = localizer
+    request.translate = auto_translate
