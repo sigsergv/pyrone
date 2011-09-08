@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-08-19 19:27+0600\n"
+"POT-Creation-Date: 2011-09-08 15:47+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:168
+#: pyrone/lib/helpers.py:169
 msgid "Administrator"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgid "submit"
 msgstr ""
 
 #: pyrone/templates/admin/list_accounts.mako:3
-#: pyrone/templates/widgets/actions.mako:17
+#: pyrone/templates/widgets/actions.mako:16
 msgid "Accounts"
 msgstr ""
 
@@ -107,6 +107,7 @@ msgstr ""
 #: pyrone/templates/admin/list_accounts.mako:29
 #: pyrone/templates/admin/list_backups.mako:32
 #: pyrone/templates/admin/list_files.mako:55
+#: pyrone/templates/admin/list_visitors_emails.mako:32
 msgid "delete selected"
 msgstr ""
 
@@ -128,6 +129,7 @@ msgstr ""
 
 #: pyrone/templates/admin/list_backups.mako:15
 #: pyrone/templates/admin/list_files.mako:35
+#: pyrone/templates/admin/list_visitors_emails.mako:16
 msgid "Select/deselect all files"
 msgstr ""
 
@@ -209,13 +211,27 @@ msgstr ""
 msgid "file URL"
 msgstr ""
 
+#: pyrone/templates/admin/list_visitors_emails.mako:3
+#: pyrone/templates/admin/list_visitors_emails.mako:5
+#: pyrone/templates/widgets/actions.mako:17
+msgid "Visitors' emails"
+msgstr ""
+
+#: pyrone/templates/admin/list_visitors_emails.mako:17
+msgid "E-mail"
+msgstr ""
+
+#: pyrone/templates/admin/list_visitors_emails.mako:18
+msgid "Verified"
+msgstr ""
+
 #: pyrone/templates/admin/settings.mako:3
 #: pyrone/templates/admin/settings.mako:5
 msgid "Blog settings"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:10
-#: pyrone/templates/admin/settings.mako:47
+#: pyrone/templates/admin/settings.mako:70
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
 #: pyrone/templates/blog/write_article.mako:23
@@ -306,49 +322,85 @@ msgid ""
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:33
+msgid "Email address to be used as sender address"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:34
+msgid "This email will be used as FROM address for notification messages"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:36
 msgid "Select notifications you want to receive"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:35
+#: pyrone/templates/admin/settings.mako:38
 msgid "new comment added (including comment moderation requests)"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:37
+#: pyrone/templates/admin/settings.mako:40
 msgid "new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:38
+#: pyrone/templates/admin/settings.mako:41
 msgid "Email address verification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:39
-#: pyrone/templates/admin/settings.mako:41
+#: pyrone/templates/admin/settings.mako:42
+#: pyrone/templates/admin/settings.mako:44
 msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:40
+#: pyrone/templates/admin/settings.mako:43
 msgid "Email address verification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:42
+#: pyrone/templates/admin/settings.mako:46
 msgid "Answer to comment notification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:43
+#: pyrone/templates/admin/settings.mako:48
+#: pyrone/templates/admin/settings.mako:56
 msgid ""
 "Plain text, no HTML, allowed substitution symbols: {site_title}, "
 "{visitor}, {comment_title}, {answer_title}, {email}"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:44
+#: pyrone/templates/admin/settings.mako:49
 msgid "Answer to comment notification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:45
+#: pyrone/templates/admin/settings.mako:51
+#: pyrone/templates/admin/settings.mako:59
 msgid ""
 "Plain text, no HTML, allowed substitution symbols: {site_title}, "
-"{visitor}, {comment_title}, {comment_body}, {answer_title}, "
+"{visitor}, {comment_title}, {comment_body},     {answer_title}, "
 "{answer_body}, {email}"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:54
+msgid "Admin notification subject template: new comment"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:57
+msgid "Admin notification body template: new comment"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:62
+msgid "Admin notification subject template: new user registered"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:64
+msgid "Plain text, no HTML, allowed substitution symbols: {user}"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:65
+msgid "Admin notification body template: new user registered"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:67
+msgid ""
+"Plain text, no HTML, allowed substitution symbols: {user},     "
+"{answer_title}, {answer_body}, {email}"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:17
@@ -429,6 +481,10 @@ msgstr ""
 
 #: pyrone/templates/blog/my_profile.mako:18
 msgid "Email address (for notifications)"
+msgstr ""
+
+#: pyrone/templates/blog/verify_email.mako:4
+msgid "Email verification and confirmation"
 msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:52
@@ -580,15 +636,15 @@ msgid "My profile page"
 msgstr ""
 
 #: pyrone/templates/widgets/account.mako:18
+msgid "My subscriptions"
+msgstr ""
+
+#: pyrone/templates/widgets/account.mako:19
 msgid "Logout"
 msgstr ""
 
 #: pyrone/templates/widgets/actions.mako:11
 msgid "Actions"
-msgstr ""
-
-#: pyrone/templates/widgets/actions.mako:16
-msgid "Settings"
 msgstr ""
 
 #: pyrone/templates/widgets/actions.mako:18
@@ -597,6 +653,10 @@ msgstr ""
 
 #: pyrone/templates/widgets/actions.mako:19
 msgid "Backup/restore"
+msgstr ""
+
+#: pyrone/templates/widgets/actions.mako:20
+msgid "Settings"
 msgstr ""
 
 #: pyrone/templates/widgets/comment.mako:11
@@ -627,91 +687,104 @@ msgstr ""
 msgid "Tags cloud"
 msgstr ""
 
-#: pyrone/views/account.py:36
+#: pyrone/views/account.py:37
 msgid "Incorrect login or password"
 msgstr ""
 
-#: pyrone/views/account.py:135
+#: pyrone/views/account.py:136
 msgid "Cannot create authorization Twitter URL"
+msgstr ""
+
+#: pyrone/views/account.py:213
+msgid "Verification failed: email not found."
+msgstr ""
+
+#: pyrone/views/account.py:215
+#, python-format
+msgid "Email `%s` has confirmed."
 msgstr ""
 
 #: pyrone/views/admin.py:49 pyrone/views/admin.py:55
 msgid "Invalid value, must be positive numeric value"
 msgstr ""
 
-#: pyrone/views/admin.py:255
+#: pyrone/views/admin.py:296
 msgid "Backup file not found"
 msgstr ""
 
-#: pyrone/views/admin.py:262
+#: pyrone/views/admin.py:303
 msgid "Backup file is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:268
+#: pyrone/views/admin.py:309
 msgid "Backup file is broken, no catalog file inside!"
 msgstr ""
 
-#: pyrone/views/admin.py:273
+#: pyrone/views/admin.py:314
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:294
+#: pyrone/views/admin.py:335
 msgid "Unknown XML format of catalog file."
 msgstr ""
 
-#: pyrone/views/admin.py:297
+#: pyrone/views/admin.py:338
 #, python-format
 msgid "Unsupported backup version: “%s”!"
 msgstr ""
 
-#: pyrone/views/admin.py:316
+#: pyrone/views/admin.py:359
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:329
+#: pyrone/views/admin.py:372
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:362 pyrone/views/admin.py:465
+#: pyrone/views/admin.py:417 pyrone/views/admin.py:520
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:511
+#: pyrone/views/admin.py:566
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
 msgstr ""
 
-#: pyrone/views/blog.py:64
+#: pyrone/views/blog.py:69
 msgid "Latest articles"
 msgstr ""
 
-#: pyrone/views/blog.py:101
+#: pyrone/views/blog.py:106
 #, python-format
 msgid "Articles labeled with tag “%s”"
 msgstr ""
 
-#: pyrone/views/blog.py:120
+#: pyrone/views/blog.py:125
 msgid "field is required"
 msgstr ""
 
-#: pyrone/views/blog.py:156 pyrone/views/blog.py:162 pyrone/views/blog.py:236
-#: pyrone/views/blog.py:242
+#: pyrone/views/blog.py:161 pyrone/views/blog.py:167 pyrone/views/blog.py:241
+#: pyrone/views/blog.py:247
 msgid "invalid date and time format"
 msgstr ""
 
-#: pyrone/views/blog.py:174 pyrone/views/blog.py:255
+#: pyrone/views/blog.py:179 pyrone/views/blog.py:260
 msgid "duplicated shortcut"
 msgstr ""
 
-#: pyrone/views/blog.py:420
+#: pyrone/views/blog.py:428
 msgid "Empty comment body is not allowed."
 msgstr ""
 
-#: pyrone/views/blog.py:453
+#: pyrone/views/blog.py:461
 msgid "Answering to not approved comment"
 msgstr ""
 
-#~ msgid "Email address"
+#~ msgid ""
+#~ "Plain text, no HTML, allowed "
+#~ "substitution symbols: {site_title}, {visitor}, "
+#~ "{comment_title}, {comment_body}, {answer_title}, "
+#~ "{answer_body}, {email}"
 #~ msgstr ""
 
