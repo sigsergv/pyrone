@@ -345,38 +345,40 @@ def restore_backup(request):
     dbsession.query(Tag).delete()
     dbsession.query(Article).delete()
     dbsession.query(User).delete()
+    dbsession.query(VerifiedEmail).delete()
     dbsession.query(Permission).delete()
     dbsession.query(File).delete() # also remove files from the storage dir
     dbsession.query(Config).delete()
+    namespaces = dict(b=NS)
     
     # first restore config
-    nodes = xmldoc.xpath('//b:backup/b:settings', namespaces=dict(b=NS))
+    nodes = xmldoc.xpath('//b:backup/b:settings', namespaces=namespaces)
     
     if len(nodes) == 0:
         transaction.abort()
         return dict(error=_('Backup file is broken: settings block not found'))
     
     node = nodes[0]
-    nodes = node.xpath('//b:config', namespaces=dict(b=NS))
+    nodes = node.xpath('//b:config', namespaces=namespaces)
     
     for node in nodes:
         c = Config(node.get('id'), node.text)
         dbsession.add(c)
         
     # now restore users
-    nodes = xmldoc.xpath('//b:backup/b:users', namespaces=dict(b=NS))
+    nodes = xmldoc.xpath('//b:backup/b:users', namespaces=namespaces)
     if len(nodes) == 0:
         transaction.abort()
         return dict(error=_('Backup file is broken: users block not found'))
     
     node = nodes[0]
-    nodes = node.xpath('./b:user', namespaces=dict(b=NS))
+    nodes = node.xpath('./b:user', namespaces=namespaces)
     
     for node in nodes:
         u = User()
         u.id = int(node.get('id'))
         
-        subnodes = node.xpath('./*', namespaces=dict(b=NS))
+        subnodes = node.xpath('./*', namespaces=namespaces)
         m = dict()
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
@@ -390,27 +392,39 @@ def restore_backup(request):
         dbsession.add(u)
         
         # restore permissions now
-        subnodes = node.xpath('./b:permissions/b:permission', namespaces=dict(b=NS))
+        subnodes = node.xpath('./b:permissions/b:permission', namespaces=namespaces)
         for sn in subnodes:
             p = Permission(None, u.id, sn.text)
             dbsession.add(p)
             
+    # restore verified emails
+    nodes = xmldoc.xpath('//b:backup/b:verified-emails', namespaces=namespaces)
+    if len(nodes) != 0:
+        # block is optional
+        node = nodes[0]
+        nodes = node.xpath('./b:email', namespaces=namespaces)
+        for node in nodes:
+            vf = VerifiedEmail(node.text)
+            vf.last_verify_date = int(node.get('last-verification-date'))
+            vf.is_verified = node.get('verified') == 'true'
+            vf.verification_code = node.get('verification-code')
+            dbsession.add(vf)
+    
     # now restore articles
-            
-    nodes = xmldoc.xpath('//b:backup/b:articles', namespaces=dict(b=NS))
+    nodes = xmldoc.xpath('//b:backup/b:articles', namespaces=namespaces)
     if len(nodes) == 0:
         transaction.abort()
         return dict(error=_('Backup file is broken: articles block not found'))
     
     node = nodes[0]
-    nodes = node.xpath('./b:article', namespaces=dict(b=NS))
+    nodes = node.xpath('./b:article', namespaces=namespaces)
     
     for node in nodes:
         article = Article()
         article.id = int(node.get('id'))
         article.user_id = int(node.get('user-id'))
         
-        subnodes = node.xpath('./*', namespaces=dict(b=NS))
+        subnodes = node.xpath('./*', namespaces=namespaces)
         m = dict()
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
@@ -440,7 +454,7 @@ def restore_backup(request):
         article.comments_approved = 0
         
         # now restore tags
-        subnodes = node.xpath('./b:tags/b:tag', namespaces=dict(b=NS))
+        subnodes = node.xpath('./b:tags/b:tag', namespaces=namespaces)
         tags_set = set()
         for sn in subnodes:
             tags_set.add(sn.text.strip())
@@ -451,7 +465,7 @@ def restore_backup(request):
             dbsession.add(tag)
             
         # now process comments
-        subnodes = node.xpath('./b:comments/b:comment', namespaces=dict(b=NS))
+        subnodes = node.xpath('./b:comments/b:comment', namespaces=namespaces)
         for sn in subnodes:
             comment = Comment()
             comment.article_id = article.id
@@ -470,7 +484,7 @@ def restore_backup(request):
             except KeyError:
                 pass
             
-            subsubnodes = sn.xpath('./*', namespaces=dict(b=NS))
+            subsubnodes = sn.xpath('./*', namespaces=namespaces)
             m = dict()
             for sn in subsubnodes:
                 m[unt(sn.tag)] = sn.text
@@ -500,13 +514,13 @@ def restore_backup(request):
         dbsession.add(article)
         
     # now process files
-    nodes = xmldoc.xpath('//b:backup/b:files', namespaces=dict(b=NS))
+    nodes = xmldoc.xpath('//b:backup/b:files', namespaces=namespaces)
     if len(nodes) == 0:
         transaction.abort()
         return dict(error=_('Backup file is broken: articles block not found'))
     
     node = nodes[0]
-    nodes = node.xpath('./b:file', namespaces=dict(b=NS))
+    nodes = node.xpath('./b:file', namespaces=namespaces)
     
     storage_dirs = get_storage_dirs()
     for node in nodes:
@@ -514,7 +528,7 @@ def restore_backup(request):
         src = node.get('src')
         # read "name", "dltype", "updated", "content_type"
         
-        subnodes = node.xpath('./*', namespaces=dict(b=NS))
+        subnodes = node.xpath('./*', namespaces=namespaces)
         m = dict()
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
@@ -583,6 +597,7 @@ def backup_now(request):
     
     info_el = e(root, 'info')
     articles_el = e(root, 'articles')
+    vf_el = e(root, 'verified-emails')
     files_el = e(root, 'files')
     settings_el = e(root, 'settings')
     users_el = e(root, 'users')
@@ -623,7 +638,14 @@ def backup_now(request):
             if comment.xff_ip_address is not None:
                 e(comment_el, 'xff-ip-address', comment.xff_ip_address)
             e(comment_el, 'is-approved', str(comment.is_approved))
-            
+
+    # dump verified emails
+    for vf in dbsession.query(VerifiedEmail).all():
+        s = e(vf_el, 'email', vf.email)
+        s.set('verified', 'true' if vf.is_verified else 'false')
+        s.set('last-verification-date', str(int(vf.last_verify_date)))
+        s.set('verification-code', vf.verification_code)
+                
     # dump settings
     for setting in dbsession.query(Config).all():
         s = e(settings_el, 'config', setting.value)
