@@ -728,7 +728,7 @@ def download_file(request):
     full_path = os.path.join(storage_dirs['orig'], filename)
     try:
         content_length = os.path.getsize(full_path)
-        headers += [('Content-Length', content_length)]
+        headers += [('Content-Length', str(content_length))]
     except IOError:
         return HTTPNotFound()
     
@@ -737,6 +737,7 @@ def download_file(request):
         response.app_iter = open(full_path, 'rb')
     except IOError:
         return HTTPNotFound()
+    
     response.headerlist += headers
     
     return response
