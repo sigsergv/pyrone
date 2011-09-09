@@ -185,6 +185,8 @@ Now create uwsgi config file for the blog application, it looks like::
     home = /home/user/pyrone-blog/env/
     plugins = python
     paste = config:/home/user/pyrone-blog/production.ini
+    # uncomment to enable web debugger
+    # processes = 1
 
 Don't forget to edit this file and replace default values (user, usergroup) with real ones. Place file to the
 directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the directory ``/etc/uwsgi/apps-enabled``::
