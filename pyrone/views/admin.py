@@ -344,11 +344,11 @@ def restore_backup(request):
     dbsession.query(Comment).delete()
     dbsession.query(Tag).delete()
     dbsession.query(Article).delete()
-    dbsession.query(User).delete()
     dbsession.query(VerifiedEmail).delete()
     dbsession.query(Permission).delete()
     dbsession.query(File).delete() # also remove files from the storage dir
     dbsession.query(Config).delete()
+    dbsession.query(User).delete()
     namespaces = dict(b=NS)
     
     # first restore config
