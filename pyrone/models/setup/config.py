@@ -21,6 +21,7 @@ data = [
     ['admin_notify_new_user_subject_tpl', 'New user just registered on the site'],
     ['admin_notify_new_user_body_tpl', 'New user {user} just registered on the site!'],
     ['image_preview_width', '300'],
+    ['google_analytics_id', ''],
     ['tw_consumer_key', 'XXXXXXXXXXXXXXXXX'],
     ['tw_consumer_secret', 'YYYYYYYYYYYYYYYYYY']
     ]

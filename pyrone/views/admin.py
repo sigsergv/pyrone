@@ -66,7 +66,7 @@ def save_settings_ajax(request):
               'comment_answer_msg_subject_tpl', 'comment_answer_msg_body_tpl',
               'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
               'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
-              'verification_msg_body_tpl', 'image_preview_width',
+              'verification_msg_body_tpl', 'image_preview_width', 'google_analytics_id',
               'tw_consumer_key', 'tw_consumer_secret')
         for id in settings:
             try:

@@ -9,6 +9,7 @@
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/styles/${h.get_config('site_style')}/blog.css"/>
   <title>${self.title()} — ${h.get_config('site_title')}</title>
+  <%include file="/widgets/google_analytics.mako"/>
 </head>
 <body>
 <div id="topbar"><div class="title"><a href="/">${h.get_config('site_title')}</a></div></div>

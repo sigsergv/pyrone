@@ -20,6 +20,8 @@
   ${h.form_input_text('site_style', _('Blog style (skin)'), settings['site_style'], errors)|n}
   ${h.form_input_text('image_preview_width', _('Picture preview width'), settings['image_preview_width'], errors,\
     help=_(u'Width of automatically generated preview to be used as smaller copy of original picture.'))|n}
+  ${h.form_input_text('google_analytics_id', _(u'Google Analytics™ ID'), settings['google_analytics_id'], errors,\
+    help=_(u'Your google analytics ID, value like “UA-12345678-9”, to disable Google Analytics just clear the field'))|n}
   
   <h3>${_('Twitter Auth')}</h3>
   <dt><strong>${_('To use Twitter authentication you MUST <a href="https://dev.twitter.com/apps">register</a> a new twitter application and obtain consumer key and secret.')|n}</strong></dt>
