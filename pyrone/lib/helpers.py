@@ -192,12 +192,12 @@ def article_tags(article):
     res = ', '.join(res)
     return res
 
-def article_tags_links(article):
+def article_tags_links(request, article):
     """
     Generate comma separated list of tag hyperlinks
     """
     res = []
-    url_template = '<a href="%s">__TAG__</a>'# % url(controller='blog', action='tag_articles', tag='__TAG__')
+    url_template = '<a href="%s">__TAG__</a>' % route_url('blog_tag_articles', request, tag='__TAG__')
     for tag in article.tags:
         if tag.tag is None:
             continue

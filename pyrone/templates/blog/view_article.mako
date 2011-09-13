@@ -44,7 +44,7 @@ Ext.onReady(function() {
   
   <div class="date">${h.timestamp_to_str(article.published)}</div>
 % if len(article.tags):
-  <div class="tags">${_('Tags:')} ${h.article_tags_links(article)|n}</div>
+  <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
 % endif
   <div class="body">${article.rendered_body|n}</div>
 </div>

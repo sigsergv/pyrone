@@ -32,7 +32,7 @@ if sys.version_info[:3] < (2,5,0):
     requires.append('pysqlite')
 
 setup(name='pyrone',
-      version='0.2.1',
+      version='0.2.2',
       license='New BSD License',
       description='pyrone',
       long_description=README + '\n\n' +  CHANGES,

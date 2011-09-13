@@ -29,7 +29,7 @@
 %if article.is_splitted:
   <div class="splitter"><a href="${article_url}">${_('continue reading')}</a></div>
 %endif
-  <div class="tags">${_('Tags:')} ${h.article_tags_links(article)|n}</div>
+  <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
 <div class="footer"> 
 ${_('Comments:')} ${article.comments_approved}
 % if admin_permission:
