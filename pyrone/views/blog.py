@@ -8,6 +8,7 @@ import os
 from PIL import Image
 from sqlalchemy.orm import eagerload
 from time import time
+from webhelpers.feedgenerator import Rss201rev2Feed
 
 from pyramid.response import Response
 from pyramid.i18n import TranslationString as _
@@ -803,4 +804,32 @@ def download_file_preview(request):
         return HTTPNotFound()
     response.headerlist += headers
     
+    return response
+
+@view_config(route_name='blog_latest_rss')
+def latest_rss(request):
+    """
+    Create rss feed with the latest published articles and return them as the atom feed
+    """
+    dbsession= DBSession()
+    
+    q = dbsession.query(Article).options(eagerload('tags')).options(eagerload('user')).filter(Article.is_draft==False).order_by(Article.updated.desc())
+    articles = q[0:10]
+    rss_title = get_config('site_title') + ' - ' + _('Latest articles feed')
+    site_base_url = get_config('site_base_url')
+    feed = Rss201rev2Feed(
+        title=rss_title, 
+        link=site_base_url,
+        description='',
+        language='en')
+    
+    for a in articles:
+        link = h.article_url(request, a)
+        tags_list = []
+        for t in a.tags:
+            tags_list.append(t.tag)
+        feed.add_item(title=a.title, link=link, description=a.rendered_preview, pubdate=h.timestamp_to_dt(a.published),
+            unique_id=str(a.id), categories=tags_list)
+        
+    response = Response(body=feed.writeString('utf-8'), content_type='application/rss+xml')
     return response

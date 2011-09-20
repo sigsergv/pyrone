@@ -8,6 +8,7 @@
   <!-- insert language file here -->
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/styles/${h.get_config('site_style')}/blog.css"/>
+  <link rel="alternate" type="application/atom+xml" title="${h.get_config('site_title')} - ${_('Latest articles feed')}" href="${url('blog_latest_rss')}"/>
   <title>${self.title()} — ${h.get_config('site_title')}</title>
   <%include file="/widgets/google_analytics.mako"/>
 </head>

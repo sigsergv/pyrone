@@ -29,7 +29,8 @@ def main(global_config, **settings):
     config.add_translation_dirs('pyrone:locale/')
     config.scan()
     config.add_static_view('static', 'pyrone:static')
-    routes = [('blog_latest', '/'), 
+    routes = [('blog_latest', '/'),
+              ('blog_latest_rss', '/rss/latest'),
               ('blog_tag_articles', '/tag/{tag}'),
               ('blog_write_article', '/write'), 
               ('blog_go_article', '/article/{article_id:\d+}'),

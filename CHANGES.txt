@@ -1,3 +1,8 @@
+0.2.3
+-----
+
+* issue #10: RSS support added
+
 0.2.2
 -----
 

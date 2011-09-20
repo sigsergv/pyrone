@@ -127,6 +127,15 @@ def form_checkbox(name, title, value, errors, help=None, label=None, label_help=
     html += '<dd>%(cb)s</dd>' % dict(cb=cb)
     return html
 
+def timestamp_to_dt(ts):
+    """
+    Convert UTC seconds to datetime object
+    """
+    tz = get_config('timezone') 
+    tts = datetime.datetime.utcfromtimestamp(ts) # seconds -> time_struct
+    utc_dt = pytz.utc.localize(tts).astimezone(tz) # utc time -> local time
+    return utc_dt
+
 def timestamp_to_str(ts):
     """
     Convert UTC seconds to time string in local timezone
