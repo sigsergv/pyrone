@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-09-08 15:47+0600\n"
+"POT-Creation-Date: 2011-09-20 12:29+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:169
+#: pyrone/lib/helpers.py:178
 msgid "Administrator"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "administration"
 msgstr ""
 
-#: pyrone/templates/admin/base.mako:20 pyrone/templates/blog/base.mako:19
+#: pyrone/templates/admin/base.mako:20 pyrone/templates/blog/base.mako:21
 msgid "Powered by Pyrone"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgid "Blog settings"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:10
-#: pyrone/templates/admin/settings.mako:70
+#: pyrone/templates/admin/settings.mako:72
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
 #: pyrone/templates/blog/write_article.mako:23
@@ -288,119 +288,114 @@ msgid ""
 "original picture."
 msgstr ""
 
+#: pyrone/templates/admin/settings.mako:23
+msgid "Google Analytics™ ID"
+msgstr ""
+
 #: pyrone/templates/admin/settings.mako:24
+msgid ""
+"Your google analytics ID, value like “UA-12345678-9”, to disable Google "
+"Analytics just clear the field"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:26
 msgid "Twitter Auth"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:25
+#: pyrone/templates/admin/settings.mako:27
 msgid ""
 "To use Twitter authentication you MUST <a "
 "href=\"https://dev.twitter.com/apps\">register</a> a new twitter "
 "application and obtain consumer key and secret."
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:26
+#: pyrone/templates/admin/settings.mako:28
 msgid "Consumer key"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:27
+#: pyrone/templates/admin/settings.mako:29
 msgid "Consumer secret"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:29
+#: pyrone/templates/admin/settings.mako:31
 msgid "Notifications"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:30
+#: pyrone/templates/admin/settings.mako:32
 msgid "Email address for system notifications"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:31
+#: pyrone/templates/admin/settings.mako:33
 msgid ""
 "Email address for the system notification: user added, comment added for "
 "moderation etc"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:33
+#: pyrone/templates/admin/settings.mako:35
 msgid "Email address to be used as sender address"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:34
+#: pyrone/templates/admin/settings.mako:36
 msgid "This email will be used as FROM address for notification messages"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:36
+#: pyrone/templates/admin/settings.mako:38
 msgid "Select notifications you want to receive"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:38
+#: pyrone/templates/admin/settings.mako:40
 msgid "new comment added (including comment moderation requests)"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:40
+#: pyrone/templates/admin/settings.mako:42
 msgid "new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:41
+#: pyrone/templates/admin/settings.mako:43
 msgid "Email address verification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:42
 #: pyrone/templates/admin/settings.mako:44
-msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}"
+#: pyrone/templates/admin/settings.mako:46
+#: pyrone/templates/admin/settings.mako:50
+#: pyrone/templates/admin/settings.mako:53
+#: pyrone/templates/admin/settings.mako:58
+#: pyrone/templates/admin/settings.mako:61
+#: pyrone/templates/admin/settings.mako:66
+#: pyrone/templates/admin/settings.mako:69
+msgid "Plain text, no HTML, allowed substitution symbols:"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:43
+#: pyrone/templates/admin/settings.mako:45
 msgid "Email address verification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:46
+#: pyrone/templates/admin/settings.mako:48
 msgid "Answer to comment notification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:48
-#: pyrone/templates/admin/settings.mako:56
-msgid ""
-"Plain text, no HTML, allowed substitution symbols: {site_title}, "
-"{visitor}, {comment_title}, {answer_title}, {email}"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:49
+#: pyrone/templates/admin/settings.mako:51
 msgid "Answer to comment notification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:51
-#: pyrone/templates/admin/settings.mako:59
-msgid ""
-"Plain text, no HTML, allowed substitution symbols: {site_title}, "
-"{visitor}, {comment_title}, {comment_body},     {answer_title}, "
-"{answer_body}, {email}"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:54
+#: pyrone/templates/admin/settings.mako:56
 msgid "Admin notification subject template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:57
+#: pyrone/templates/admin/settings.mako:59
 msgid "Admin notification body template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:62
+#: pyrone/templates/admin/settings.mako:64
 msgid "Admin notification subject template: new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:64
-msgid "Plain text, no HTML, allowed substitution symbols: {user}"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:65
+#: pyrone/templates/admin/settings.mako:67
 msgid "Admin notification body template: new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:67
-msgid ""
-"Plain text, no HTML, allowed substitution symbols: {user},     "
-"{answer_title}, {answer_body}, {email}"
+#: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:818
+msgid "Latest articles feed"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:17
@@ -781,10 +776,28 @@ msgstr ""
 msgid "Answering to not approved comment"
 msgstr ""
 
+#~ msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}"
+#~ msgstr ""
+
 #~ msgid ""
 #~ "Plain text, no HTML, allowed "
 #~ "substitution symbols: {site_title}, {visitor}, "
-#~ "{comment_title}, {comment_body}, {answer_title}, "
+#~ "{comment_title}, {answer_title}, {email}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Plain text, no HTML, allowed "
+#~ "substitution symbols: {site_title}, {visitor}, "
+#~ "{comment_title}, {comment_body},     {answer_title}, "
 #~ "{answer_body}, {email}"
+#~ msgstr ""
+
+#~ msgid "Plain text, no HTML, allowed substitution symbols: {user}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Plain text, no HTML, allowed "
+#~ "substitution symbols: {user},     {answer_title},"
+#~ " {answer_body}, {email}"
 #~ msgstr ""
 

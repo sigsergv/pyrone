@@ -2,6 +2,7 @@
 -----
 
 * issue #10: RSS support added
+* translations updated
 
 0.2.2
 -----
