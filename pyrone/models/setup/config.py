@@ -23,7 +23,8 @@ data = [
     ['image_preview_width', '300'],
     ['google_analytics_id', ''],
     ['tw_consumer_key', 'XXXXXXXXXXXXXXXXX'],
-    ['tw_consumer_secret', 'YYYYYYYYYYYYYYYYYY']
+    ['tw_consumer_secret', 'YYYYYYYYYYYYYYYYYY'],
+    ['widget_pages_pages_spec', '']
     ]
 
 def setup(dbsession):

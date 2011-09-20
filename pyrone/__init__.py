@@ -60,6 +60,8 @@ def main(global_config, **settings):
               
               ('admin_settings', '/admin/settings'),
               ('admin_settings_save_ajax', '/admin/settings/save/ajax'),
+              ('admin_settings_widget_pages', '/admin/settings/widget/pages'),
+              ('admin_settings_widget_pages_save_ajax', '/admin/settings/widget/pages/save/ajax'),
               ('admin_list_files', '/admin/files'),
               ('admin_upload_file', '/admin/file/upload'),
               ('admin_upload_file_check_ajax', '/admin/file/upload/check'),

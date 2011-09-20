@@ -2,6 +2,7 @@
 -----
 
 * issue #10: RSS support added
+* issue #17: new widget: pages
 * translations updated
 
 0.2.2

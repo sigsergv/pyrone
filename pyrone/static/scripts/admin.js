@@ -2,6 +2,7 @@ Ext.ns('Pyrone.file');
 Ext.ns('Pyrone.backup');
 Ext.ns('Pyrone.account');
 Ext.ns('Pyrone.settings');
+Ext.ns('Pyrone.settings.widgets');
 
 Pyrone.file.formAllowUpload = false;
 
@@ -148,7 +149,6 @@ Pyrone.settings.saveSettings = function(url) {
 	
 	Ext.each(field_names, function(field_name) {
 		var e = $e('fid-'+field_name);
-		console.log(field_name);
 		params[field_name] = e.getValue();
 	});
 	Ext.each(bool_field_names, function(field_name) {
@@ -181,6 +181,31 @@ Pyrone.settings.saveSettings = function(url) {
 				if (focus_el) {
 					focus_el.focus();
 				}
+			} else {
+				Pyrone.notify($e('eid-notify'), tr('SETTINGS_SAVED'), false, 20000);
+			}
+		},
+		failure: function() {
+			alert(tr('AJAX_REQUEST_ERROR'));
+		}
+	});	
+};
+
+Pyrone.settings.widgets.pagesSave = function(url) {
+	var e = $e('fid-widget_pages_pages_spec')
+		widget_pages_pages_spec = e.getValue();
+	
+	var params = {
+		widget_pages_pages_spec: widget_pages_pages_spec
+	};
+	
+	Ext.Ajax.request({
+		url: url,
+		method: 'POST',
+		params: params,
+		success: function(response, opts) {
+			var json = Ext.decode(response.responseText);
+			if (json.errors) {
 			} else {
 				Pyrone.notify($e('eid-notify'), tr('SETTINGS_SAVED'), false, 20000);
 			}

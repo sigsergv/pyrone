@@ -757,3 +757,23 @@ def delete_accounts_ajax(request):
     transaction.commit()
     
     return c
+
+@view_config(route_name='admin_settings_widget_pages', renderer='/admin/settings_widget_pages.mako', permission='admin', request_method='GET')
+def view_pages_widget_settings(request):
+    c = dict(errors=dict(), settings=dict())
+    
+    widget_pages_pages_spec = config.get('widget_pages_pages_spec')
+    
+    c['settings']['widget_pages_pages_spec'] = widget_pages_pages_spec;
+    
+    return c
+
+@view_config(route_name='admin_settings_widget_pages_save_ajax', renderer='json', permission='admin', request_method='POST')
+def save_pages_widget_settings_ajax(request):
+    c = dict()
+    
+    widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
+    log.debug(widget_pages_pages_spec)
+    config.set('widget_pages_pages_spec', widget_pages_pages_spec)
+    config.clear_cache()
+    return c

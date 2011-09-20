@@ -23,6 +23,7 @@
   </div>
 
   <div id="sidebar">
+    <%include file="/widgets/pages.mako"/>
     <%include file="/widgets/account.mako"/>
     <%include file="/widgets/actions.mako"/>
     <%include file="/widgets/tags_cloud.mako"/>
