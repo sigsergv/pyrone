@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <script src="http://ajax.googleapis.com/ajax/libs/ext-core/3/ext-core.js" language="JavaScript"></script>
-  <!-- insert language file here -->
+  <script language="javascript" src="/static/lang/${h.lang.lang(request)}.js"></script>
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/styles/${h.get_config('site_style')}/blog.css"/>
   <link rel="alternate" type="application/atom+xml" title="${h.get_config('site_title')} - ${_('Latest articles feed')}" href="${url('blog_latest_rss')}"/>

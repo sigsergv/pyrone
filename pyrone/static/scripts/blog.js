@@ -2,6 +2,7 @@ function tr(phrase_id) {
 	if (Pyrone.tr && Pyrone.tr[phrase_id]) {
 		return Pyrone.tr[phrase_id];
 	} else {
+		console.log('fail');
 		return phrase_id;
 	}
 }

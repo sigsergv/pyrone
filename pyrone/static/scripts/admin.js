@@ -17,6 +17,7 @@ Pyrone.file.checkUploadForm = function(url, form_id) {
 	
 	// forbid empty form submission
 	if (fdf && fdf.getValue() == '') {
+		var x = _('aaa');
 		var msg = tr('SELECT_FILE_TO_UPLOAD'),
 			e = $e('error-filename');
 		Pyrone.notify(e, msg);

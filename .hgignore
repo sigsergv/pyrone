@@ -3,6 +3,7 @@ pyrone.egg-info
 dist
 build
 docs/build
+pyrone/locale-js/*/LC_MESSAGES/*.js
 .project
 .pydevproject
 *.pyc

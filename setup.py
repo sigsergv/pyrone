@@ -2,6 +2,8 @@ import os
 import sys
 
 from setuptools import setup, find_packages
+from setupcommands import ExtractMessagesJs, CompileCatalogJs
+from babel.messages.frontend import init_catalog, update_catalog
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
@@ -72,6 +74,12 @@ setup(name='pyrone',
       [paste.app_factory]
       main = pyrone:main
       """,
+      cmdclass = {
+        'extract_messages_js': ExtractMessagesJs,
+        'init_catalog_js': init_catalog,
+        'update_catalog_js': update_catalog,
+        'compile_catalog_js': CompileCatalogJs
+      },
       paster_plugins=['pyramid'],
       )
 

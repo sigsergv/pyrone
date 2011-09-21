@@ -282,29 +282,40 @@ Collect messages from source files:
 
     python setup.py extract_messages
 
-Start new language ("es", Spanish in this case):
+Start new language ("es", Spanish in this case, both for python and javascript code):
 
 ::
 
     python setup.py init_catalog -l es
+    python setup.py init_catalog_js -l es
 
 Update messages (using .pot-file created by ``extract_messages`` command):
 
 ::
 
     python setup.py update_catalog
+    python setup.py update_catalog_js
 
 Or collect and update in one step:
 
 ::
 
-    python setup.py extract_messages update_catalog
+    python setup.py extract_messages update_catalog extract_messages_js update_catalog_js
 
-Compile translation files:
+Compile translation files (for python code):
 
 ::
 
     python setup.py compile_catalog
+
+JavaScript code a bit tricky, compiled js files are immediately placed into the 
+``pyrone/static/lang`` directory so after compiling these files have to be
+commited:
+
+::
+
+    python setup.py compile_catalog_js
+
 
 Running application
 -------------------
