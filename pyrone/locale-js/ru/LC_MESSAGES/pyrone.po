@@ -34,29 +34,29 @@ msgid "BACKUP_RESTORE_COMPLETE"
 msgstr "Бэкап успешно восстановлен"
 
 msgid "FIELD_MUST_BE_ALPHA_NUM"
-msgstr ""
+msgstr "Поле должно содержать только буквенно-цифровые символы"
 
 msgid "TWITTER_AUTH_IS_NOT_WORKING"
-msgstr ""
+msgstr "Аутентификация через Twitter не работает"
 
 msgid "PASSWORDS_DONT_MATCH"
-msgstr ""
+msgstr "Пароли не совпадают"
 
 msgid "SETTINGS_SAVED"
-msgstr ""
+msgstr "Настройки успешно сохранены"
 
 msgid "SELECT_ITEMS_FIRST"
-msgstr ""
+msgstr "Сначала выберите элементы"
 
 msgid "AJAX_REQUEST_ERROR"
 msgstr "Ошибка выполнения AJAX-запроса"
 
 msgid "SELECT_FILE_TO_UPLOAD"
-msgstr ""
+msgstr "Выберите файл для загрузки"
 
 msgid "YOUR_PROFILE_HAS_BEEN_UPDATED"
-msgstr ""
+msgstr "Ваш профиль был успешно обновлён"
 
 msgid "COMMENT_BODY_IS_REQUIRED"
-msgstr ""
+msgstr "Текст комментария обязателен"
 

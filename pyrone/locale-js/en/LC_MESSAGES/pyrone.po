@@ -18,44 +18,44 @@ msgstr ""
 "Generated-By: Babel 0.9.6\n"
 
 msgid "COMMENT_IS_WAITING_FOR_APPROVAL"
-msgstr ""
+msgstr "Comment is waiting for approval"
 
 msgid "FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE"
-msgstr ""
+msgstr "File with the same name already exists in the storage"
 
 msgid "FIELD_IS_REQUIRED"
-msgstr ""
+msgstr "Field is required"
 
 msgid "COMMENT_DISPLAY_NAME_IS_REQUIRED"
-msgstr ""
+msgstr "Display name is required"
 
 msgid "BACKUP_RESTORE_COMPLETE"
-msgstr ""
+msgstr "Backup restore complete"
 
 msgid "FIELD_MUST_BE_ALPHA_NUM"
-msgstr ""
+msgstr "Field must contain alphanumeric characters"
 
 msgid "TWITTER_AUTH_IS_NOT_WORKING"
-msgstr ""
+msgstr "Twitter authentication is not working"
 
 msgid "PASSWORDS_DONT_MATCH"
-msgstr ""
+msgstr "Passwords don't match"
 
 msgid "SETTINGS_SAVED"
-msgstr ""
+msgstr "Settings have been saved"
 
 msgid "SELECT_ITEMS_FIRST"
-msgstr ""
+msgstr "Select items first"
 
 msgid "AJAX_REQUEST_ERROR"
-msgstr ""
+msgstr "AJAX request error"
 
 msgid "SELECT_FILE_TO_UPLOAD"
-msgstr ""
+msgstr "Select file to upload"
 
 msgid "YOUR_PROFILE_HAS_BEEN_UPDATED"
-msgstr ""
+msgstr "Your profile has been updated"
 
 msgid "COMMENT_BODY_IS_REQUIRED"
-msgstr ""
+msgstr "Comment body is required"
 
