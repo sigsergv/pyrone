@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-09-20 12:29+0600\n"
+"POT-Creation-Date: 2011-09-23 15:20+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,7 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:178
+#: pyrone/lib/helpers.py:148
+msgid "DATE_TIME_SHORT"
+msgstr "%Y-%m-%d в %H:%M"
+
+#: pyrone/lib/helpers.py:186
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -70,7 +74,7 @@ msgid "submit"
 msgstr "отправить"
 
 #: pyrone/templates/admin/list_accounts.mako:3
-#: pyrone/templates/widgets/actions.mako:16
+#: pyrone/templates/widgets/actions.mako:17
 msgid "Accounts"
 msgstr "Аккаунты"
 
@@ -207,6 +211,7 @@ msgstr "Тип файла"
 #: pyrone/templates/blog/list_articles.mako:20
 #: pyrone/templates/blog/view_article.mako:40
 #: pyrone/templates/widgets/comment.mako:26
+#: pyrone/templates/widgets/pages.mako:8
 msgid "edit"
 msgstr "править"
 
@@ -216,11 +221,12 @@ msgstr "URL файла"
 
 #: pyrone/templates/admin/list_visitors_emails.mako:3
 #: pyrone/templates/admin/list_visitors_emails.mako:5
-#: pyrone/templates/widgets/actions.mako:17
+#: pyrone/templates/widgets/actions.mako:18
 msgid "Visitors' emails"
 msgstr "Емейлы посетителей"
 
 #: pyrone/templates/admin/list_visitors_emails.mako:17
+#: pyrone/templates/blog/comments-moderation.mako:17
 msgid "E-mail"
 msgstr "Электропочта"
 
@@ -235,6 +241,7 @@ msgstr "Настройки блога"
 
 #: pyrone/templates/admin/settings.mako:10
 #: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings_widget_pages.mako:21
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
 #: pyrone/templates/blog/write_article.mako:23
@@ -305,8 +312,10 @@ msgstr "Google Analytics™ ID"
 msgid ""
 "Your google analytics ID, value like “UA-12345678-9”, to disable Google "
 "Analytics just clear the field"
-msgstr "Идентификатор вашего аккаунта в системе Google Analytics™, значение типа"
-"«UA-12345678-9», чтобы отключить аналитику, очистите это поле"
+msgstr ""
+"Идентификатор вашего аккаунта в системе Google Analytics™, значение "
+"типа\"\n"
+"\"«UA-12345678-9», чтобы отключить аналитику, очистите это поле"
 
 #: pyrone/templates/admin/settings.mako:26
 msgid "Twitter Auth"
@@ -348,7 +357,9 @@ msgstr ""
 
 #: pyrone/templates/admin/settings.mako:35
 msgid "Email address to be used as sender address"
-msgstr "Адрес электропочты, который будет использоваться в качестве адреса отправителя"
+msgstr ""
+"Адрес электропочты, который будет использоваться в качестве адреса "
+"отправителя"
 
 #: pyrone/templates/admin/settings.mako:36
 msgid "This email will be used as FROM address for notification messages"
@@ -403,26 +414,94 @@ msgstr "Шаблон тела уведомления администратор�
 
 #: pyrone/templates/admin/settings.mako:64
 msgid "Admin notification subject template: new user registered"
-msgstr "Шаблон темы уведомления администратора о новом зарегистрированном пользователе"
+msgstr ""
+"Шаблон темы уведомления администратора о новом зарегистрированном "
+"пользователе"
 
 #: pyrone/templates/admin/settings.mako:67
 msgid "Admin notification body template: new user registered"
-msgstr "Шаблон тела уведомления администратора о новом зарегистрированном пользователе"
+msgstr ""
+"Шаблон тела уведомления администратора о новом зарегистрированном "
+"пользователе"
+
+#: pyrone/templates/admin/settings_widget_pages.mako:3
+#: pyrone/templates/admin/settings_widget_pages.mako:5
+msgid "Widget “Pages” parameters"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:12
+msgid "Pages list"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:14
+msgid ""
+"One site definition per line, empty lines are ignored. Incorrect lines "
+"are ignored."
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:16
+msgid ""
+"Every line defines one site, site definition line format is the "
+"following: "
+"<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
+" description</em></code>"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:18
+msgid ""
+"You may use any character as <strong>delim</strong>, e.g. pipe “|” or "
+"exclamation mark “!”."
+msgstr ""
 
 #: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:818
 msgid "Latest articles feed"
 msgstr "Лента последних статей"
 
-#: pyrone/templates/blog/list_articles.mako:17
-#: pyrone/templates/blog/view_article.mako:37
-msgid "draft"
-msgstr "черновик"
+#: pyrone/templates/blog/comments-moderation.mako:3
+#: pyrone/templates/blog/comments-moderation.mako:5
+msgid "Comments moderation"
+msgstr ""
 
+#: pyrone/templates/blog/comments-moderation.mako:18
+#: pyrone/templates/blog/view_article.mako:76
+msgid "Visitor website"
+msgstr "Веб-сайт"
+
+#: pyrone/templates/blog/comments-moderation.mako:19
+#: pyrone/templates/widgets/comment.mako:11
+msgid "IP address:"
+msgstr "IP адрес:"
+
+#: pyrone/templates/blog/comments-moderation.mako:21
+#: pyrone/templates/widgets/comment.mako:13
+msgid "X-Forwarded-For"
+msgstr "X-Forwarded-For"
+
+#: pyrone/templates/blog/comments-moderation.mako:23
+#: pyrone/templates/widgets/comment.mako:20
+msgid "link"
+msgstr "ссылка"
+
+#: pyrone/templates/blog/comments-moderation.mako:27
+#: pyrone/templates/widgets/comment.mako:23
+msgid "approve"
+msgstr "одобрить"
+
+#: pyrone/templates/blog/comments-moderation.mako:28
 #: pyrone/templates/blog/list_articles.mako:22
 #: pyrone/templates/blog/view_article.mako:41
 #: pyrone/templates/widgets/comment.mako:25
 msgid "delete"
 msgstr "удалить"
+
+#: pyrone/templates/blog/comments-moderation.mako:32
+msgid "expand…"
+msgstr ""
+
+#: pyrone/templates/blog/list_articles.mako:17
+#: pyrone/templates/blog/view_article.mako:37
+msgid "draft"
+msgstr "черновик"
 
 #: pyrone/templates/blog/list_articles.mako:25
 #, python-format
@@ -525,10 +604,6 @@ msgstr "IP-адрес посетителя"
 msgid "Visitor X-Forwarded-For address"
 msgstr "Адрес из заголовка X-Forwarded-For"
 
-#: pyrone/templates/blog/view_article.mako:76
-msgid "Visitor website"
-msgstr "Веб-сайт"
-
 #: pyrone/templates/blog/view_article.mako:81
 msgid "close"
 msgstr "закрыть"
@@ -544,18 +619,21 @@ msgid ""
 "allowed)."
 msgstr ""
 "Текст комментария (допускается <a class=\"new-window\" target=\"blank\" "
-"href=\"/markup-tip-ru.html\" title=\"Открыть в новом "
-"окне\">текстовая разметка</a>)"
+"href=\"/markup-tip-ru.html\" title=\"Открыть в новом окне\">текстовая "
+"разметка</a>)"
 
 #: pyrone/templates/blog/view_article.mako:102
 msgid ""
 "<strong>Anonymous visitors, please pay attention that comments with more "
 "than one hyperlink (including field “website”) will be put on moderation."
 " Sign in to post without such limitations.</strong>"
-msgstr "Посетители-анонимы, обратите внимение, что более чем одна гиперссылка "
-"в тексте (включая оную из поля «веб-сайт») приведёт к блокировке комментария "
-"для модерации. Зайдите на сайта с использованием аккаунта на twitter, например, "
-"чтобы посылать комментарии без этого ограничения."
+msgstr ""
+"Посетители-анонимы, обратите внимение, что более чем одна гиперссылка \"\n"
+"\"в тексте (включая оную из поля «веб-сайт») приведёт к блокировке "
+"комментария \"\n"
+"\"для модерации. Зайдите на сайта с использованием аккаунта на twitter, "
+"например, \"\n"
+"\"чтобы посылать комментарии без этого ограничения."
 
 #: pyrone/templates/blog/view_article.mako:107
 #: pyrone/templates/blog/view_article.mako:118
@@ -668,25 +746,23 @@ msgstr "Выйти из системы"
 msgid "Actions"
 msgstr "Действия"
 
-#: pyrone/templates/widgets/actions.mako:18
+#: pyrone/templates/widgets/actions.mako:16
+#, fuzzy
+#| msgid "not approved comments:"
+msgid "Not approved comments"
+msgstr "ещё не одобренных комментариев"
+
+#: pyrone/templates/widgets/actions.mako:19
 msgid "Manage files"
 msgstr "Управление файлами"
 
-#: pyrone/templates/widgets/actions.mako:19
+#: pyrone/templates/widgets/actions.mako:20
 msgid "Backup/restore"
 msgstr "Бэкап/восстановление"
 
-#: pyrone/templates/widgets/actions.mako:20
+#: pyrone/templates/widgets/actions.mako:21
 msgid "Settings"
 msgstr "Настройки"
-
-#: pyrone/templates/widgets/comment.mako:11
-msgid "IP address:"
-msgstr "IP адрес:"
-
-#: pyrone/templates/widgets/comment.mako:13
-msgid "X-Forwarded-For"
-msgstr "X-Forwarded-For"
 
 #: pyrone/templates/widgets/comment.mako:15
 msgid "Email:"
@@ -696,13 +772,11 @@ msgstr "Электропочта:"
 msgid "reply to this comment"
 msgstr "ответить на этот комментарий"
 
-#: pyrone/templates/widgets/comment.mako:20
-msgid "link"
-msgstr "ссылка"
-
-#: pyrone/templates/widgets/comment.mako:23
-msgid "approve"
-msgstr "одобрить"
+#: pyrone/templates/widgets/pages.mako:6
+#, fuzzy
+#| msgid "Tags:"
+msgid "Pages"
+msgstr "Теги:"
 
 #: pyrone/templates/widgets/tags_cloud.mako:2
 msgid "Tags cloud"
@@ -758,20 +832,21 @@ msgstr "Версия бэкапа «%s» не поддерживается!"
 msgid "Backup file is broken: settings block not found"
 msgstr "Файл бэкапа повреждён, блок «settings» не обнаружен"
 
-#: pyrone/views/admin.py:372
+#: pyrone/views/admin.py:380
 msgid "Backup file is broken: users block not found"
 msgstr "Файл бэкапа повреждён, блок «users» не обнаружен"
 
-#: pyrone/views/admin.py:417 pyrone/views/admin.py:520
+#: pyrone/views/admin.py:425 pyrone/views/admin.py:528
 msgid "Backup file is broken: articles block not found"
 msgstr "Файл бэкапа повреждён, блок «articles» не обнаружен"
 
-#: pyrone/views/admin.py:566
+#: pyrone/views/admin.py:574
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
-msgstr "Не удалось восстановить бэкап, ошибка базы данных, вероятно файл "
-"бэкапа повреждён"
+msgstr ""
+"Не удалось восстановить бэкап, ошибка базы данных, вероятно файл \"\n"
+"\"бэкапа повреждён"
 
 #: pyrone/views/blog.py:69
 msgid "Latest articles"
@@ -802,3 +877,4 @@ msgstr "Пустое поле комментария не допускается
 #: pyrone/views/blog.py:461
 msgid "Answering to not approved comment"
 msgstr "Нельзя ответить на неподтверждённый комментарий"
+

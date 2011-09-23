@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-09-20 12:29+0600\n"
+"POT-Creation-Date: 2011-09-23 15:20+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -17,7 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:178
+#: pyrone/lib/helpers.py:148
+msgid "DATE_TIME_SHORT"
+msgstr "%Y-%m-%d in %H:%M"
+
+#: pyrone/lib/helpers.py:186
 msgid "Administrator"
 msgstr ""
 
@@ -67,7 +71,7 @@ msgid "submit"
 msgstr ""
 
 #: pyrone/templates/admin/list_accounts.mako:3
-#: pyrone/templates/widgets/actions.mako:16
+#: pyrone/templates/widgets/actions.mako:17
 msgid "Accounts"
 msgstr ""
 
@@ -204,6 +208,7 @@ msgstr ""
 #: pyrone/templates/blog/list_articles.mako:20
 #: pyrone/templates/blog/view_article.mako:40
 #: pyrone/templates/widgets/comment.mako:26
+#: pyrone/templates/widgets/pages.mako:8
 msgid "edit"
 msgstr ""
 
@@ -213,11 +218,12 @@ msgstr ""
 
 #: pyrone/templates/admin/list_visitors_emails.mako:3
 #: pyrone/templates/admin/list_visitors_emails.mako:5
-#: pyrone/templates/widgets/actions.mako:17
+#: pyrone/templates/widgets/actions.mako:18
 msgid "Visitors' emails"
 msgstr ""
 
 #: pyrone/templates/admin/list_visitors_emails.mako:17
+#: pyrone/templates/blog/comments-moderation.mako:17
 msgid "E-mail"
 msgstr ""
 
@@ -232,6 +238,7 @@ msgstr ""
 
 #: pyrone/templates/admin/settings.mako:10
 #: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings_widget_pages.mako:21
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
 #: pyrone/templates/blog/write_article.mako:23
@@ -394,19 +401,83 @@ msgstr ""
 msgid "Admin notification body template: new user registered"
 msgstr ""
 
+#: pyrone/templates/admin/settings_widget_pages.mako:3
+#: pyrone/templates/admin/settings_widget_pages.mako:5
+msgid "Widget “Pages” parameters"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:12
+msgid "Pages list"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:14
+msgid ""
+"One site definition per line, empty lines are ignored. Incorrect lines "
+"are ignored."
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:16
+msgid ""
+"Every line defines one site, site definition line format is the "
+"following: "
+"<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
+" description</em></code>"
+msgstr ""
+
+#: pyrone/templates/admin/settings_widget_pages.mako:18
+msgid ""
+"You may use any character as <strong>delim</strong>, e.g. pipe “|” or "
+"exclamation mark “!”."
+msgstr ""
+
 #: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:818
 msgid "Latest articles feed"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:3
+#: pyrone/templates/blog/comments-moderation.mako:5
+msgid "Comments moderation"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:18
+#: pyrone/templates/blog/view_article.mako:76
+msgid "Visitor website"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:19
+#: pyrone/templates/widgets/comment.mako:11
+msgid "IP address:"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:21
+#: pyrone/templates/widgets/comment.mako:13
+msgid "X-Forwarded-For"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:23
+#: pyrone/templates/widgets/comment.mako:20
+msgid "link"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:27
+#: pyrone/templates/widgets/comment.mako:23
+msgid "approve"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:28
+#: pyrone/templates/blog/list_articles.mako:22
+#: pyrone/templates/blog/view_article.mako:41
+#: pyrone/templates/widgets/comment.mako:25
+msgid "delete"
+msgstr ""
+
+#: pyrone/templates/blog/comments-moderation.mako:32
+msgid "expand…"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:17
 #: pyrone/templates/blog/view_article.mako:37
 msgid "draft"
-msgstr ""
-
-#: pyrone/templates/blog/list_articles.mako:22
-#: pyrone/templates/blog/view_article.mako:41
-#: pyrone/templates/widgets/comment.mako:25
-msgid "delete"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:25
@@ -508,10 +579,6 @@ msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:75
 msgid "Visitor X-Forwarded-For address"
-msgstr ""
-
-#: pyrone/templates/blog/view_article.mako:76
-msgid "Visitor website"
 msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:81
@@ -642,24 +709,20 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: pyrone/templates/widgets/actions.mako:18
-msgid "Manage files"
+#: pyrone/templates/widgets/actions.mako:16
+msgid "Not approved comments"
 msgstr ""
 
 #: pyrone/templates/widgets/actions.mako:19
-msgid "Backup/restore"
+msgid "Manage files"
 msgstr ""
 
 #: pyrone/templates/widgets/actions.mako:20
+msgid "Backup/restore"
+msgstr ""
+
+#: pyrone/templates/widgets/actions.mako:21
 msgid "Settings"
-msgstr ""
-
-#: pyrone/templates/widgets/comment.mako:11
-msgid "IP address:"
-msgstr ""
-
-#: pyrone/templates/widgets/comment.mako:13
-msgid "X-Forwarded-For"
 msgstr ""
 
 #: pyrone/templates/widgets/comment.mako:15
@@ -670,12 +733,8 @@ msgstr ""
 msgid "reply to this comment"
 msgstr ""
 
-#: pyrone/templates/widgets/comment.mako:20
-msgid "link"
-msgstr ""
-
-#: pyrone/templates/widgets/comment.mako:23
-msgid "approve"
+#: pyrone/templates/widgets/pages.mako:6
+msgid "Pages"
 msgstr ""
 
 #: pyrone/templates/widgets/tags_cloud.mako:2
@@ -732,15 +791,15 @@ msgstr ""
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:372
+#: pyrone/views/admin.py:380
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:417 pyrone/views/admin.py:520
+#: pyrone/views/admin.py:425 pyrone/views/admin.py:528
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:566
+#: pyrone/views/admin.py:574
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
@@ -775,29 +834,4 @@ msgstr ""
 #: pyrone/views/blog.py:461
 msgid "Answering to not approved comment"
 msgstr ""
-
-#~ msgid "Plain text, no HTML, allowed substitution symbols: {vrf_link}, {email}"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Plain text, no HTML, allowed "
-#~ "substitution symbols: {site_title}, {visitor}, "
-#~ "{comment_title}, {answer_title}, {email}"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Plain text, no HTML, allowed "
-#~ "substitution symbols: {site_title}, {visitor}, "
-#~ "{comment_title}, {comment_body},     {answer_title}, "
-#~ "{answer_body}, {email}"
-#~ msgstr ""
-
-#~ msgid "Plain text, no HTML, allowed substitution symbols: {user}"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Plain text, no HTML, allowed "
-#~ "substitution symbols: {user},     {answer_title},"
-#~ " {answer_body}, {email}"
-#~ msgstr ""
 
