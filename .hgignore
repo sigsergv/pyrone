@@ -15,3 +15,4 @@ pyrone.db
 data
 .settings
 storage
+mysql.sh
