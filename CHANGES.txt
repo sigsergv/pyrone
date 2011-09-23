@@ -4,6 +4,7 @@
 * issue #10: RSS support added
 * issue #17: new widget: pages
 * issue #14: added javascript localization
+* issue #1: comments moderation queue added
 * translations updated
 * default local login and password are now configurable via .ini file (see development.ini for details)
 
