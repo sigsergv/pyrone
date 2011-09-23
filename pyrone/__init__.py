@@ -35,6 +35,7 @@ def main(global_config, **settings):
               ('blog_write_article', '/write'), 
               ('blog_go_article', '/article/{article_id:\d+}'),
               ('blog_view_article', '/{shortcut_date:\d\d\d\d/\d\d/\d\d}/{shortcut}'),
+              ('blog_view_moderation_queue', '/comments/moderation'),
               ('blog_edit_article', '/article/{article_id:\d+}/edit'),
               ('blog_preview_article', '/preview/article'),
               ('blog_article_delete_ajax', '/article/{article_id:\d+}/delete/ajax'),

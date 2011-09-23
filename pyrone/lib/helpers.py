@@ -280,3 +280,8 @@ def get_pages_widget_links(lang_code, force_reload=False):
         _cache['pages_links'] = pages_links
     
     return [x for x in _cache['pages_links'] if x['lang']==lang_code]
+
+def get_not_approved_comments_count():
+    dbsession = DBSession()
+    cnt = dbsession.query(func.count(Comment.id)).filter(Comment.is_approved==False).scalar()
+    return cnt

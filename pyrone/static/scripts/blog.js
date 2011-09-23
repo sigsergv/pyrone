@@ -331,6 +331,11 @@ Pyrone.article.deleteComment = function(url, comment_id) {
 	});
 };
 
+Pyrone.article.deleteCommentReq = function(url, comment_id) {
+	Pyrone.createConfirmLink('cd-'+comment_id, function() { Pyrone.article.deleteComment(url, comment_id); });
+};
+
+
 /**
  * Display comment editing form
  */
@@ -420,10 +425,6 @@ Pyrone.article.cancelEditCommentForm = function() {
 	inner.show();
 };
 
-Pyrone.article.deleteCommentReq = function(url, comment_id) {
-	Pyrone.createConfirmLink('cd-'+comment_id, function() { Pyrone.article.deleteComment(url, comment_id); });
-};
-
 Pyrone.account.logout = function(url) {
 	Ext.Ajax.request({
 		url: url,
@@ -464,6 +465,39 @@ Pyrone.account.loginTwitter = function(url) {
 			alert(tr('AJAX_REQUEST_ERROR'));
 		}
 	});
+};
+
+Pyrone.article.expandModeratedComment = function (comment_id) {
+	var collapsed_el = $e('c-c-'+comment_id),
+		expanded_el = $e('c-e-'+comment_id);
+	if (!collapsed_el && !expanded_el) {
+		return;
+	}
+	$hide(collapsed_el);
+	$show(expanded_el);
+};
+
+Pyrone.article.approveModeratedComment = function(url, comment_id) {
+	var comment_el = $e('c-'+comment_id);
+	Ext.Ajax.request({
+		url: url,
+		method: 'POST',
+		success: function(response, opts) {
+			// delete approved comment from the list
+			if (comment_el) {
+				$hide(comment_el);
+			}
+		},
+		failure: function() {
+			alert(tr('AJAX_REQUEST_ERROR'));
+		}
+	});
+};
+
+Pyrone.article.deleteModeratedComment = Pyrone.article.deleteComment;
+
+Pyrone.article.deleteModeratedCommentReq = function(url, comment_id) {
+	Pyrone.createConfirmLink('cd-'+comment_id, function() { Pyrone.article.deleteModeratedComment(url, comment_id); });
 };
 
 Pyrone.account.saveMyProfile = function(url)
@@ -554,3 +588,4 @@ Pyrone.account.saveMyProfile = function(url)
 		}
 	});
 };
+

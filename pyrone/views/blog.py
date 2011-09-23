@@ -595,6 +595,7 @@ def add_article_comment_ajax(request):
 def approve_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
     dbsession = DBSession()
+    transaction.begin()
     comment = dbsession.query(Comment).get(comment_id)
     if comment is None:
         return HTTPNotFound()
@@ -606,7 +607,6 @@ def approve_article_comment_ajax(request):
         return HTTPNotFound()
 
     orig = comment.is_approved
-    transaction.begin()
     comment.is_approved = True
 
     if not orig:
@@ -833,3 +833,29 @@ def latest_rss(request):
         
     response = Response(body=feed.writeString('utf-8'), content_type='application/rss+xml')
     return response
+
+@view_config(route_name='blog_view_moderation_queue', renderer='/blog/comments-moderation.mako', permission='admin')
+def view_moderation_queue(request):
+    c = dict(comments=list())
+    
+    dbsession = DBSession()
+    comments = dbsession.query(Comment).filter(Comment.is_approved==False).all()
+    
+    for x in comments:
+        # set real email
+        if x.user is not None:
+            x._real_email = x.user.email
+        else:
+            x._real_email = x.email
+        if x._real_email == '':
+            x._real_email = None
+        
+        # truncate comment text
+        trunc_pos = 200
+        x._truncated_body = None
+        if len(x.rendered_body) > trunc_pos:
+            x._truncated_body = x.rendered_body[0:trunc_pos]
+            
+        c['comments'].append(x)
+    
+    return c
