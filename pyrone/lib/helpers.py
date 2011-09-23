@@ -20,7 +20,7 @@ from hurry.filesize import size as hsize
 from sqlalchemy import func
 
 from pyrone.models.config import get as get_config
-from pyrone.models import DBSession, Article, Tag
+from pyrone.models import DBSession, Article, Tag, Comment
 from pyrone.lib import auth, lang
 from pyrone.lib.lang import supported_langs
 
@@ -257,7 +257,7 @@ def get_public_tags_cloud(force_reload=False):
     
     return _cache['tags_cloud']
 
-def get_pages_widget_links(lang_code, force_reload=True):
+def get_pages_widget_links(lang_code, force_reload=False):
     
     if 'pages_links' not in _cache or force_reload:
         pages_links = list()
@@ -265,6 +265,8 @@ def get_pages_widget_links(lang_code, force_reload=True):
         raw = get_config('widget_pages_pages_spec')
         for line in raw.split('\n'):
             line = line.strip()
+            if len(line) == 0:
+                continue
             # take first char - it will be delimiter
             delim = line[0]
             components = line[1:].split(delim)
