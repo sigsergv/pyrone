@@ -22,7 +22,7 @@
  '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
 %endif
   </div>
-  <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published))}</div>
+  <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
   <div class="before-preview"></div>
   <div class="preview">${article.get_html_preview()|n}</div>
   <div class="after-preview"></div>
@@ -30,13 +30,19 @@
   <div class="splitter"><a href="${article_url}">${_('continue reading')}</a></div>
 %endif
   <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
-<div class="footer"> 
-${_('Comments:')} ${article.comments_approved}
+<div class="footer">
+
+% if article.comments_approved > 0:
+<a href="${article_url}#comments">${_('Comments:')} ${article.comments_approved}</a>
+% else:
+${_('Comments:')} 0
+% endif
 % if admin_permission:
 / ${_('not approved comments:')} <span class="hint">${h.cond(article.comments_total-article.comments_approved == 0, '0', article.comments_total-article.comments_approved)}</span>
 % endif
 </div>
 </div>
+<div class="article-preview-after"></div>
 </%def>
 
 % if len(articles):

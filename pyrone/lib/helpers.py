@@ -136,7 +136,7 @@ def timestamp_to_dt(ts):
     utc_dt = pytz.utc.localize(tts).astimezone(tz) # utc time -> local time
     return utc_dt
 
-def timestamp_to_str(ts):
+def timestamp_to_str(ts, fmt='%Y-%m-%d %H:%M'):
     """
     Convert UTC seconds to time string in local timezone
     """
@@ -144,7 +144,7 @@ def timestamp_to_str(ts):
     tts = datetime.datetime.utcfromtimestamp(ts) # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz) # utc time -> local time
     
-    t_str = utc_dt.strftime('%Y-%m-%d %H:%M') # '%Z%z'
+    t_str = utc_dt.strftime(fmt.encode('utf-8')).decode('utf-8')
     
     return t_str
 

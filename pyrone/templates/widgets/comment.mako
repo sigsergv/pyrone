@@ -6,13 +6,13 @@
     % else:
     <span class="name">${comment.display_name}</span>
     % endif
-    <span class="date">[${h.timestamp_to_str(comment.published)}]</span>
+    | <span class="date">${h.timestamp_to_str(comment.published, _('DATE_TIME_SHORT'))}</span>
     % if admin_permission:
-    ${_('IP address:')} <span class="name comment-ip-address">${comment.ip_address}</span>
+    | ${_('IP address:')} <span class="name comment-ip-address">${comment.ip_address}</span>
       % if comment.xff_ip_address is not None:
         (${_('X-Forwarded-For')} <span class="name comment-ip-address">${comment.xff_ip_address}</span>)
       %endif 
-    ${_('Email:')} <span class="name comment-email">${h.cond(comment._real_email is None, u'∅', comment._real_email)}</span>
+    | ${_('Email:')} <span class="name comment-email">${h.cond(comment._real_email is None, u'∅', comment._real_email)}</span>
     %endif 
     </div>
     <div class="body">${comment.rendered_body|n}</div>

@@ -49,7 +49,7 @@ Ext.onReady(function() {
   <div class="body">${article.rendered_body|n}</div>
 </div>
 
-<h4>${_('Comments')}</h4>
+<h4><a name="comments"></a>${_('Comments')}</h4>
 
 <div class="article-comments">
   <!-- comments here -->
