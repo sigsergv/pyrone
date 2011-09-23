@@ -88,14 +88,13 @@ div#content {
 }
 div#sidebar {
 	border: dotted #f6f6ee;
-	border-width: 0 0 0 3px;
+	border-width: 0 0 3px 3px;
 	position: absolute;
 	width: 255px;
 	background-color: #fff;
 	right: 0;
 	top: 50px;
-	padding: 15px 0 0 15px;
-	bottom: 0;
+	padding: 15px 0 10px 15px;
 }
 div#sidebar div.section {
 	font-weight: bolder;
@@ -140,7 +139,7 @@ div.article-preview-after {
 	height: 1px;
 	border-style: dotted none none none;
 	border-color: #f6f6ee;
-	border-width: 2px;
+	border-width: 3px;
 	margin: 0 -5px 0 -5px;
 }
 div.article-preview div.title {
