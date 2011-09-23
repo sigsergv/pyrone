@@ -5,6 +5,7 @@
 * issue #17: new widget: pages
 * issue #14: added javascript localization
 * translations updated
+* default local login and password are now configurable via .ini file (see development.ini for details)
 
 0.2.2
 -----
