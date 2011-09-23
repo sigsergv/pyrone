@@ -361,9 +361,17 @@ def restore_backup(request):
     node = nodes[0]
     nodes = node.xpath('//b:config', namespaces=namespaces)
     
+    # we also have to set default config values
+    from pyrone.models.setup.config import setup as config_setup
+    config_setup(dbsession)
+        
     for node in nodes:
-        c = Config(node.get('id'), node.text)
-        dbsession.add(c)
+        c = dbsession.query(Config).get(node.get('id'))
+        if c is None:
+            c = Config(node.get('id'), node.text)
+            dbsession.add(c)
+        else:
+            c.value = node.text
         
     # now restore users
     nodes = xmldoc.xpath('//b:backup/b:users', namespaces=namespaces)
