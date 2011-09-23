@@ -167,6 +167,13 @@ def span_info(text, escape=True):
 def cond(condition, true_val, false_val):
     return true_val if condition else false_val
 
+def get_setting(request, id, default_value=None):
+    s = request.registry.settings
+    if id in s:
+        return s[id]
+    else:
+        return default_value
+    
 def user_link(user):
     """
     Generate URL for the user, it could be URL pointing to local user account or to 
