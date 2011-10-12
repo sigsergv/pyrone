@@ -1,4 +1,4 @@
-# Russian translations for pyrone.
+# English translations for pyrone.
 # Copyright (C) 2011 Sergei Stolyarov
 # This file is distributed under the same license as the pyrone project.
 # Sergei Stolyarov <sergei.stolyarov@regolit.com>, 2011.

@@ -1,7 +1,7 @@
 # Russian translations for pyrone.
-# Copyright (C) 2011 ORGANIZATION
+# Copyright (C) 2011 Sergei Stolyarov
 # This file is distributed under the same license as the pyrone project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# Sergei Stolyarov <sergei.stolyarov@regolit.com>, 2011.
 #
 msgid ""
 msgstr ""
