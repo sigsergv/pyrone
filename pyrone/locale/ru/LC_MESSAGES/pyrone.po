@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-09-23 15:20+0600\n"
+"POT-Creation-Date: 2011-10-12 13:30+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,11 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:148
-msgid "DATE_TIME_SHORT"
-msgstr "%Y-%m-%d в %H:%M"
-
-#: pyrone/lib/helpers.py:186
+#: pyrone/lib/helpers.py:185
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -427,17 +423,17 @@ msgstr ""
 #: pyrone/templates/admin/settings_widget_pages.mako:3
 #: pyrone/templates/admin/settings_widget_pages.mako:5
 msgid "Widget “Pages” parameters"
-msgstr ""
+msgstr "Параметры виджета «Страницы»"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:12
 msgid "Pages list"
-msgstr ""
+msgstr "Список страниц"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:14
 msgid ""
 "One site definition per line, empty lines are ignored. Incorrect lines "
 "are ignored."
-msgstr ""
+msgstr "По одному определению веб-страницы на строку. Некорректные строки игнорируются"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:16
 msgid ""
@@ -445,13 +441,16 @@ msgid ""
 "following: "
 "<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
 " description</em></code>"
-msgstr ""
+msgstr "Каждая строка задаёт один веб-сайт, формат строки следующий: "
+"<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
+" description</em></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
 "You may use any character as <strong>delim</strong>, e.g. pipe “|” or "
 "exclamation mark “!”."
-msgstr ""
+msgstr "В качестве разделителя (<strong>delim</strong>) можете использовать любой символ, "
+"например, «/» или «!»."
 
 #: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:818
 msgid "Latest articles feed"
@@ -460,7 +459,7 @@ msgstr "Лента последних статей"
 #: pyrone/templates/blog/comments-moderation.mako:3
 #: pyrone/templates/blog/comments-moderation.mako:5
 msgid "Comments moderation"
-msgstr ""
+msgstr "Модерация комментариев"
 
 #: pyrone/templates/blog/comments-moderation.mako:18
 #: pyrone/templates/blog/view_article.mako:76
@@ -496,7 +495,7 @@ msgstr "удалить"
 
 #: pyrone/templates/blog/comments-moderation.mako:32
 msgid "expand…"
-msgstr ""
+msgstr "раскрыть…"
 
 #: pyrone/templates/blog/list_articles.mako:17
 #: pyrone/templates/blog/view_article.mako:37
@@ -508,6 +507,11 @@ msgstr "черновик"
 msgid "Posted by %(author)s on %(date)s"
 msgstr "Написано %(author)s %(date)s"
 
+#: pyrone/templates/blog/list_articles.mako:25
+#: pyrone/templates/widgets/comment.mako:9
+msgid "DATE_TIME_SHORT"
+msgstr "%Y-%m-%d в %H:%M"
+
 #: pyrone/templates/blog/list_articles.mako:30
 msgid "continue reading"
 msgstr "читать дальше"
@@ -517,23 +521,24 @@ msgstr "читать дальше"
 msgid "Tags:"
 msgstr "Теги:"
 
-#: pyrone/templates/blog/list_articles.mako:34
+#: pyrone/templates/blog/list_articles.mako:36
+#: pyrone/templates/blog/list_articles.mako:38
 msgid "Comments:"
 msgstr "Комментарии:"
 
-#: pyrone/templates/blog/list_articles.mako:36
+#: pyrone/templates/blog/list_articles.mako:41
 msgid "not approved comments:"
 msgstr "ещё не одобренных комментариев"
 
-#: pyrone/templates/blog/list_articles.mako:47
+#: pyrone/templates/blog/list_articles.mako:53
 msgid "No articles here."
 msgstr "Ничего нет."
 
-#: pyrone/templates/blog/list_articles.mako:52
+#: pyrone/templates/blog/list_articles.mako:58
 msgid "←newer"
 msgstr "←новые"
 
-#: pyrone/templates/blog/list_articles.mako:53
+#: pyrone/templates/blog/list_articles.mako:59
 msgid "older→"
 msgstr "старые→"
 
@@ -614,12 +619,12 @@ msgstr "оставить комментарий"
 
 #: pyrone/templates/blog/view_article.mako:100
 msgid ""
-"Comment text (<a class=\"new-window\" target=\"_blank\" href=\"/comment-"
-"markup-tip-en.html\" title=\"Open in new window\">Markdown</a> is "
-"allowed)."
+"Comment text (<a class=\"new-window\" target=\"_blank\" href=\"/static"
+"/comment-markup-tip-en.html\" title=\"Open in new window\">Markdown</a> "
+"is allowed)."
 msgstr ""
 "Текст комментария (допускается <a class=\"new-window\" target=\"blank\" "
-"href=\"/markup-tip-ru.html\" title=\"Открыть в новом окне\">текстовая "
+"href=\"/static/comment-markup-tip-ru.html\" title=\"Открыть в новом окне\">текстовая "
 "разметка</a>)"
 
 #: pyrone/templates/blog/view_article.mako:102
@@ -699,12 +704,12 @@ msgstr "Теги (через запятую)"
 
 #: pyrone/templates/blog/write_article.mako:18
 msgid ""
-"Article body (required, <a href=\"/article-markup-tip-en.html\" "
+"Article body (required, <a href=\"/static/article-markup-tip-en.html\" "
 "target=\"_blank\" class=\"new-window\">markup</a> is available)"
 msgstr ""
-"Тело статьи (обязательно, допускается <a href=\"/article-markup-tip-"
-"ru.html\" target=\"_blank\" class=\"new-window\">текстовая разметка</a> "
-"is available)"
+"Тело статьи (обязательно, допускается <a href=\"/static/article-markup-"
+"tip-ru.html\" target=\"_blank\" class=\"new-window\">текстовая "
+"разметка</a>)"
 
 #: pyrone/templates/blog/write_article.mako:20
 msgid "draft article"
@@ -747,10 +752,8 @@ msgid "Actions"
 msgstr "Действия"
 
 #: pyrone/templates/widgets/actions.mako:16
-#, fuzzy
-#| msgid "not approved comments:"
 msgid "Not approved comments"
-msgstr "ещё не одобренных комментариев"
+msgstr "Неодобренные комментарии"
 
 #: pyrone/templates/widgets/actions.mako:19
 msgid "Manage files"
@@ -773,10 +776,8 @@ msgid "reply to this comment"
 msgstr "ответить на этот комментарий"
 
 #: pyrone/templates/widgets/pages.mako:6
-#, fuzzy
-#| msgid "Tags:"
 msgid "Pages"
-msgstr "Теги:"
+msgstr "Страницы"
 
 #: pyrone/templates/widgets/tags_cloud.mako:2
 msgid "Tags cloud"
