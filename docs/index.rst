@@ -329,17 +329,4 @@ To start development server use the following command:
 Release and packaging
 ---------------------
 
-Prepare nginx runtime environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-You need ``supervisord`` package:
-
-::
-
-    pip install supervisor
-
-Prepare application package
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* https://docs.pylonsproject.org/projects/pyramid_cookbook/dev/deployment.html
-
+to be written
