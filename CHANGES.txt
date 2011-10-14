@@ -2,6 +2,7 @@
 -----
 
 * translations updated
+* issue #18: setup.py fixed
 
 0.2.3
 -----

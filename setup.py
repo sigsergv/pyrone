@@ -2,8 +2,6 @@ import os
 import sys
 
 from setuptools import setup, find_packages
-from setupcommands import ExtractMessagesJs, CompileCatalogJs
-from babel.messages.frontend import init_catalog, update_catalog
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
@@ -33,6 +31,21 @@ requires = [
 
 if sys.version_info[:3] < (2,5,0):
     requires.append('pysqlite')
+
+setup_cmdclass = {}
+
+try:
+    import babel
+    from setupcommands import ExtractMessagesJs, CompileCatalogJs
+    from babel.messages.frontend import init_catalog as babel_init_catalog, update_catalog as babel_update_catalog
+    setup_cmdclass = {
+        'extract_messages_js': ExtractMessagesJs,
+        'init_catalog_js': babel_init_catalog,
+        'update_catalog_js': babel_update_catalog,
+        'compile_catalog_js': CompileCatalogJs
+    }
+except ImportError:
+    pass
 
 setup(name='pyrone',
       version='0.2.3',
@@ -74,12 +87,7 @@ setup(name='pyrone',
       [paste.app_factory]
       main = pyrone:main
       """,
-      cmdclass = {
-        'extract_messages_js': ExtractMessagesJs,
-        'init_catalog_js': init_catalog,
-        'update_catalog_js': update_catalog,
-        'compile_catalog_js': CompileCatalogJs
-      },
+      cmdclass = setup_cmdclass,
       paster_plugins=['pyramid'],
       )
 
