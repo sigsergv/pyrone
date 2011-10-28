@@ -255,6 +255,12 @@ Also you'll need to install additional binary packages:
 
 The require install ``gcc`` and other stuff like ``libxml2-dev``.
 
+Now install *development* version of pyrone:
+
+::
+
+    python setup.py develop
+
 Tests and coverage
 ------------------
 
