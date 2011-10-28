@@ -9,6 +9,7 @@ available to Controllers. This module is available to templates as 'h'.
 
 import logging
 import datetime
+import calendar
 import pytz #@UnresolvedImport
 import time
 from math import log as lg
@@ -152,12 +153,12 @@ def str_to_timestamp(t_str):
     """
     Convert time string in local timezone to UTC seconds
     """
-    #tz = g.get_config('timezone') 
+    tz = get_config('timezone') 
     dt = datetime.datetime.strptime(t_str, '%Y-%m-%d %H:%M')
-    #dt_loc = tz.localize(dt)
-    #dt_utc = dt_loc.astimezone(pytz.utc)
+    dt_loc = tz.localize(dt)
+    dt_utc = dt_loc.astimezone(pytz.utc)
     
-    return time.mktime(dt.timetuple())
+    return calendar.timegm(dt_utc.timetuple())
 
 def span_info(text, escape=True):
     if escape:
