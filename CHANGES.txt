@@ -1,3 +1,9 @@
+0.2.5
+-----
+
+* translations updated
+* ussue #19: time conversion problems between timezones
+
 0.2.4
 -----
 
