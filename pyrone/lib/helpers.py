@@ -246,11 +246,16 @@ def get_public_tags_cloud(force_reload=False):
         if len(counts) != 0:
             min_count = min(counts)
             max_counts = max(counts)
-            lmm = lg(max_counts) - lg(min_count)
-            
-            weights = [ ( x[0], (lg(x[1])-lg(min_count))/lmm ) for x in items ]
-            
-            weights = [ (x[0], 5*(int(100*x[1])/5)) for x in weights ]
+
+            if min_count == max_counts:
+                # i.e. all tags counts are the same, so they have the same weight
+                weights = [ (x[0], 50) for x in items ]
+            else:
+                lmm = lg(max_counts) - lg(min_count)
+                
+                weights = [ ( x[0], (lg(x[1])-lg(min_count))/lmm ) for x in items ]
+                
+                weights = [ (x[0], 5*(int(100*x[1])/5)) for x in weights ]
             
             _cache['tags_cloud'] = weights
         else:
