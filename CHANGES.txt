@@ -3,6 +3,7 @@
 
 * translations updated
 * ussue #19: time conversion problems between timezones
+* issue #21: devision by zero exception in case of equal tags counts
 
 0.2.4
 -----
