@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-10-12 13:30+0600\n"
+"POT-Creation-Date: 2011-10-31 20:38+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:185
+#: pyrone/lib/helpers.py:186
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -236,7 +236,7 @@ msgid "Blog settings"
 msgstr "Настройки блога"
 
 #: pyrone/templates/admin/settings.mako:10
-#: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings.mako:75
 #: pyrone/templates/admin/settings_widget_pages.mako:21
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
@@ -313,11 +313,22 @@ msgstr ""
 "типа\"\n"
 "\"«UA-12345678-9», чтобы отключить аналитику, очистите это поле"
 
+#: pyrone/templates/admin/settings.mako:25
+msgid "Blog timezone"
+msgstr "Часовой пояс блога"
+
 #: pyrone/templates/admin/settings.mako:26
+msgid ""
+"Timezone to be used for time and date values on the site, "
+"<strong>must</strong> be tzdb-compatible string value like "
+"“Asia/Novosibirsk” or “UTC”."
+msgstr "Название часового пояса (в формате tzdb!), например «Asia/Novosibirsk» или «UTC»."
+
+#: pyrone/templates/admin/settings.mako:29
 msgid "Twitter Auth"
 msgstr "Авторизация через Twitter"
 
-#: pyrone/templates/admin/settings.mako:27
+#: pyrone/templates/admin/settings.mako:30
 msgid ""
 "To use Twitter authentication you MUST <a "
 "href=\"https://dev.twitter.com/apps\">register</a> a new twitter "
@@ -327,23 +338,23 @@ msgstr ""
 "href=\"https://dev.twitter.com/apps\">зарегистрировать</a> новое "
 "приложение на сайте twitter и получить ключи consumer и secret."
 
-#: pyrone/templates/admin/settings.mako:28
+#: pyrone/templates/admin/settings.mako:31
 msgid "Consumer key"
 msgstr "Consumer key"
 
-#: pyrone/templates/admin/settings.mako:29
+#: pyrone/templates/admin/settings.mako:32
 msgid "Consumer secret"
 msgstr "Consumer secret"
 
-#: pyrone/templates/admin/settings.mako:31
+#: pyrone/templates/admin/settings.mako:34
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: pyrone/templates/admin/settings.mako:32
+#: pyrone/templates/admin/settings.mako:35
 msgid "Email address for system notifications"
 msgstr "Адрес электропочты для системных уведомлений"
 
-#: pyrone/templates/admin/settings.mako:33
+#: pyrone/templates/admin/settings.mako:36
 msgid ""
 "Email address for the system notification: user added, comment added for "
 "moderation etc"
@@ -351,70 +362,70 @@ msgstr ""
 "Адрес электропочты, на который будут рассылаться уведомления о добавлении"
 " нового пользователя, новом комментарии и т.п."
 
-#: pyrone/templates/admin/settings.mako:35
+#: pyrone/templates/admin/settings.mako:38
 msgid "Email address to be used as sender address"
 msgstr ""
 "Адрес электропочты, который будет использоваться в качестве адреса "
 "отправителя"
 
-#: pyrone/templates/admin/settings.mako:36
+#: pyrone/templates/admin/settings.mako:39
 msgid "This email will be used as FROM address for notification messages"
 msgstr "Этот адрес будет использован в качестве адреса отправителя для уведомлений"
 
-#: pyrone/templates/admin/settings.mako:38
+#: pyrone/templates/admin/settings.mako:41
 msgid "Select notifications you want to receive"
 msgstr "Выберите, какие уведомления вы хотите получать"
 
-#: pyrone/templates/admin/settings.mako:40
+#: pyrone/templates/admin/settings.mako:43
 msgid "new comment added (including comment moderation requests)"
 msgstr "добавлен новый комментарий (включая требующий модерации)"
 
-#: pyrone/templates/admin/settings.mako:42
+#: pyrone/templates/admin/settings.mako:45
 msgid "new user registered"
 msgstr "зарегистрировался новый пользователь"
 
-#: pyrone/templates/admin/settings.mako:43
+#: pyrone/templates/admin/settings.mako:46
 msgid "Email address verification message subject template"
 msgstr "Шаблон темы письма о верификации адреса электропочты"
 
-#: pyrone/templates/admin/settings.mako:44
-#: pyrone/templates/admin/settings.mako:46
-#: pyrone/templates/admin/settings.mako:50
+#: pyrone/templates/admin/settings.mako:47
+#: pyrone/templates/admin/settings.mako:49
 #: pyrone/templates/admin/settings.mako:53
-#: pyrone/templates/admin/settings.mako:58
+#: pyrone/templates/admin/settings.mako:56
 #: pyrone/templates/admin/settings.mako:61
-#: pyrone/templates/admin/settings.mako:66
+#: pyrone/templates/admin/settings.mako:64
 #: pyrone/templates/admin/settings.mako:69
+#: pyrone/templates/admin/settings.mako:72
 msgid "Plain text, no HTML, allowed substitution symbols:"
 msgstr "Простой текст, без HTML, допустимые символы подстановки:"
 
-#: pyrone/templates/admin/settings.mako:45
+#: pyrone/templates/admin/settings.mako:48
 msgid "Email address verification message body template"
 msgstr "Шаблон тела письма о верификации адреса электропочты"
 
-#: pyrone/templates/admin/settings.mako:48
+#: pyrone/templates/admin/settings.mako:51
 msgid "Answer to comment notification message subject template"
 msgstr "Шаблон темы письма-уведомления об ответе на комментарий"
 
-#: pyrone/templates/admin/settings.mako:51
+#: pyrone/templates/admin/settings.mako:54
 msgid "Answer to comment notification message body template"
 msgstr "Шаблон тела письма-уведомления об ответе на комментарий"
 
-#: pyrone/templates/admin/settings.mako:56
+#: pyrone/templates/admin/settings.mako:59
 msgid "Admin notification subject template: new comment"
 msgstr "Шаблон темы письма-уведомления администратору о новом комментарии"
 
-#: pyrone/templates/admin/settings.mako:59
+#: pyrone/templates/admin/settings.mako:62
 msgid "Admin notification body template: new comment"
 msgstr "Шаблон тела уведомления администратора о новом комментарии"
 
-#: pyrone/templates/admin/settings.mako:64
+#: pyrone/templates/admin/settings.mako:67
 msgid "Admin notification subject template: new user registered"
 msgstr ""
 "Шаблон темы уведомления администратора о новом зарегистрированном "
 "пользователе"
 
-#: pyrone/templates/admin/settings.mako:67
+#: pyrone/templates/admin/settings.mako:70
 msgid "Admin notification body template: new user registered"
 msgstr ""
 "Шаблон тела уведомления администратора о новом зарегистрированном "
@@ -433,7 +444,9 @@ msgstr "Список страниц"
 msgid ""
 "One site definition per line, empty lines are ignored. Incorrect lines "
 "are ignored."
-msgstr "По одному определению веб-страницы на строку. Некорректные строки игнорируются"
+msgstr ""
+"По одному определению веб-страницы на строку. Некорректные строки "
+"игнорируются"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:16
 msgid ""
@@ -441,18 +454,22 @@ msgid ""
 "following: "
 "<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
 " description</em></code>"
-msgstr "Каждая строка задаёт один веб-сайт, формат строки следующий: "
-"<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link"
-" description</em></code>"
+msgstr ""
+"Каждая строка задаёт один веб-сайт, формат строки следующий: \"\n"
+"\"<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link\""
+"\n"
+"\" description</em></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
 "You may use any character as <strong>delim</strong>, e.g. pipe “|” or "
 "exclamation mark “!”."
-msgstr "В качестве разделителя (<strong>delim</strong>) можете использовать любой символ, "
-"например, «/» или «!»."
+msgstr ""
+"В качестве разделителя (<strong>delim</strong>) можете использовать любой"
+" символ, \"\n"
+"\"например, «/» или «!»."
 
-#: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:818
+#: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:839
 msgid "Latest articles feed"
 msgstr "Лента последних статей"
 
@@ -624,8 +641,8 @@ msgid ""
 "is allowed)."
 msgstr ""
 "Текст комментария (допускается <a class=\"new-window\" target=\"blank\" "
-"href=\"/static/comment-markup-tip-ru.html\" title=\"Открыть в новом окне\">текстовая "
-"разметка</a>)"
+"href=\"/static/comment-markup-tip-ru.html\" title=\"Открыть в новом "
+"окне\">текстовая разметка</a>)"
 
 #: pyrone/templates/blog/view_article.mako:102
 msgid ""
@@ -871,11 +888,11 @@ msgstr "Указано некорректное время публикации"
 msgid "duplicated shortcut"
 msgstr "шорткат уже встречался ранее"
 
-#: pyrone/views/blog.py:428
+#: pyrone/views/blog.py:449
 msgid "Empty comment body is not allowed."
 msgstr "Пустое поле комментария не допускается"
 
-#: pyrone/views/blog.py:461
+#: pyrone/views/blog.py:482
 msgid "Answering to not approved comment"
 msgstr "Нельзя ответить на неподтверждённый комментарий"
 
