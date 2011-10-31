@@ -294,6 +294,27 @@ def edit_article(request):
     c['submit_url'] = route_url('blog_edit_article', request, article_id=article_id)
     return c
 
+@view_config(route_name='blog_article_delete_ajax', renderer='json', permission='admin', request_method='POST')
+def delete_article(request):
+    article_id = int(request.matchdict['article_id'])
+    dbsession = DBSession()
+    article = dbsession.query(Article).get(article_id)
+
+    if article is None:
+        return HTTPNotFound()
+
+    transaction.begin()
+    # delete article and all article comments, invalidate tags too
+    dbsession.query(Comment).filter(Comment.article_id==article_id).delete()
+    dbsession.delete(article)
+    transaction.commit()
+    #transaction.abort()
+    h.get_public_tags_cloud(force_reload=True)
+
+    data = dict()
+    return data
+    
+
 @view_config(route_name='blog_preview_article', permission='write_article')
 def preview_article(request):
     preview, complete = markup.render_text_markup(request.POST['body']) #@UnusedVariable
