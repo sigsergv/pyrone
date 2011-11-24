@@ -185,6 +185,7 @@ Now create uwsgi config file for the blog application, it looks like::
     home = /home/user/pyrone-blog/env/
     plugins = python
     paste = config:/home/user/pyrone-blog/production.ini
+    post-buffering = 8192 # this is workaround for files upload issue ( https://bitbucket.org/cancel/pyrone/issue/23 )
     # uncomment to enable web debugger
     # processes = 1
 
