@@ -1,6 +1,10 @@
 0.2.6
 -----
 
+* issue #24: draft article are still accessible for all users
+* issue #26: footnotes markup break article preview
+* issue #20: cookie expiration date is not set
+
 0.2.5
 -----
 
