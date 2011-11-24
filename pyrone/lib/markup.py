@@ -3,6 +3,9 @@ Contains function for supported text markupt languages
 """
 import markdown
 import re
+import logging
+
+log = logging.getLogger(__name__)
 
 MARKUP_CONTINUE_MARKER = "<cut>"
 
@@ -36,10 +39,14 @@ def render_text_markup(text):
         safe_mode=True,
         output_format='xhtml')
 
-    complete_html = md.convert(complete_text)
     preview_html = None
     if preview_part is not None:
+        # remove footnotes from the preview
+        preview_part = re.sub('\\[\\^[^\\]]+?\\]', '', preview_part)
+        log.debug(preview_part)
         preview_html = md.convert(preview_part)
+
+    complete_html = md.convert(complete_text)
 
     return (preview_html, complete_html)
 
