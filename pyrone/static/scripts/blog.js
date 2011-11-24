@@ -1,3 +1,4 @@
+// vim: noexpandtab
 function tr(phrase_id) {
 	if (Pyrone.tr && Pyrone.tr[phrase_id]) {
 		return Pyrone.tr[phrase_id];
@@ -180,6 +181,48 @@ Pyrone.article.preview = function() {
 		},
 		failure: function() {
 			alert(tr('AJAX_REQUEST_ERROR'));
+		}
+	});
+};
+
+/**
+ * Save article using AJAX request
+ */
+Pyrone.article.save = function(url) {
+	$e('eid-save-button').dom.disabled = true;
+	var params = {
+		title: $ev('fid-title'),
+		shortcut: $ev('fid-shortcut'),
+		published: $ev('fid-published'),
+		tags: $ev('fid-tags'),
+		body: $ev('fid-body')
+	};
+
+	if ($e('fid-is_draft').dom.checked) {
+		params['is_draft'] = 1;
+	}
+	if ($e('fid-is_commentable').dom.checked) {
+		params['is_commentable'] = 1;
+	}
+
+	Ext.Ajax.request({
+		url: url,
+		method: 'POST',
+		params: params,
+		success: function(response, opts) {
+			// parse response to JSON
+			var data = Ext.decode(response.responseText);
+			if (!data.errors) {
+				Pyrone.notify($e('eid-article-notify'), tr('ARTICLE_SAVED'));
+			} else {
+				Pyrone.notify($e('eid-article-warning'), tr('ARTICLE_NOT_SAVED'));
+				// TODO: display detailed info why not saved
+			}
+			$e('eid-save-button').dom.disabled = false;
+		},
+		failure: function() {
+			alert(tr('AJAX_REQUEST_ERROR'));
+			$e('eid-save-button').dom.disabled = false;
 		}
 	});
 };

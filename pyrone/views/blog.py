@@ -137,6 +137,72 @@ def _check_article_fields(article, request):
     
     return errors
 
+def _update_article(article_id, request):
+
+    dbsession = DBSession()
+
+    transaction.begin()
+    article = dbsession.query(Article).get(article_id)
+    if article is None:
+        return HTTPNotFound()
+
+    # check fields etc
+    e = _check_article_fields(article, request)
+    c = dict(errors={})
+    c['article'] = article
+    c['errors'].update(e)
+    c['article_published_str'] = request.POST['published']
+    
+    if 'published' not in request.POST:
+        c['errors']['published'] = _('invalid date and time format')
+    else:
+        # parse value to check structure
+        date_re = re.compile('^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$')
+        mo = date_re.match(request.POST['published'])
+        if mo is None:
+            c['errors']['published'] = _('invalid date and time format')
+        else:
+            # we need to convert LOCAL date and time to UTC seconds
+            article.published = h.str_to_timestamp(request.POST['published'])
+            article.shortcut_date = '%04d/%02d/%02d' % tuple([int(x) for x in mo.groups()[0:3]])
+        
+        dbsession = DBSession()
+        q = dbsession.query(Article).filter(Article.shortcut_date==article.shortcut_date)\
+            .filter(Article.id != article_id)\
+            .filter(Article.shortcut==article.shortcut)
+        res = q.first()
+
+        if res is not None:
+            c['errors']['shortcut'] = _('duplicated shortcut')
+            
+    # tags
+    c['tags'] = [] # these are new tags
+    if 'tags' in request.POST:
+        tags_str = request.POST['tags']
+        tags = set([s.strip() for s in tags_str.split(',')])
+
+        for tag_str in tags:
+            if tag_str == '':
+                continue
+            c['tags'].append(tag_str)
+            
+    if len(c['errors']) == 0:
+        for tag in article.tags:
+            dbsession.delete(tag)
+            
+        for tag_str in c['tags']:
+            tag = Tag(tag_str, article)
+            dbsession.add(tag)
+            
+        transaction.commit()
+        
+        return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
+    else:
+        transaction.abort()
+
+    return c
+
+
 @view_config(route_name='blog_write_article', renderer='/blog/write_article.mako', permission='write_article')
 def write_article(request):
     c = dict(
@@ -216,6 +282,20 @@ def write_article(request):
         
     return c
 
+@view_config(route_name='blog_edit_article_ajax', permission='write_article', renderer='json', request_method='POST')
+def edit_article_ajax(request):
+    article_id = int(request.matchdict['article_id'])
+
+    res = _update_article(article_id, request)
+    if type(res) != dict:
+        return res
+
+    c = dict()
+    if len(res['errors']) != 0:
+        c['errors'] = res['errors']
+
+    return c
+
 @view_config(route_name='blog_edit_article', renderer='/blog/write_article.mako', permission='write_article')
 def edit_article(request):
     article_id = int(request.matchdict['article_id'])
@@ -227,71 +307,18 @@ def edit_article(request):
     
     if request.method == 'GET':
         article = dbsession.query(Article).get(article_id)
+        c['article'] = article
         c['tags'] = [tag.tag for tag in article.tags]
         c['article_published_str'] = h.timestamp_to_str(article.published)
     elif request.method == 'POST':
-        transaction.begin()
-        article = dbsession.query(Article).get(article_id)
-        # check fields etc
-        e = _check_article_fields(article, request)
-        c['errors'].update(e)
-        c['article_published_str'] = request.POST['published']
-        
-        if 'published' not in request.POST:
-            c['errors']['published'] = _('invalid date and time format')
-        else:
-            # parse value to check structure
-            date_re = re.compile('^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})$')
-            mo = date_re.match(request.POST['published'])
-            if mo is None:
-                c['errors']['published'] = _('invalid date and time format')
-            else:
-                # we need to convert LOCAL date and time to UTC seconds
-                article.published = h.str_to_timestamp(request.POST['published'])
-                article.shortcut_date = '%04d/%02d/%02d' % tuple([int(x) for x in mo.groups()[0:3]])
-            
-            dbsession = DBSession()
-            q = dbsession.query(Article).filter(Article.shortcut_date==article.shortcut_date)\
-                .filter(Article.id != article_id)\
-                .filter(Article.shortcut==article.shortcut)
-            res = q.first()
-    
-            if res is not None:
-                c['errors']['shortcut'] = _('duplicated shortcut')
-                
-        # tags
-        c['tags'] = [] # these are new tags
-        if 'tags' in request.POST:
-            tags_str = request.POST['tags']
-            tags = set([s.strip() for s in tags_str.split(',')])
+        res = _update_article(article_id, request)
+        if type(res) != dict:
+            return res
 
-            for tag_str in tags:
-                if tag_str == '':
-                    continue
-                c['tags'].append(tag_str)
-                
-        if len(c['errors']) == 0:
-            for tag in article.tags:
-                dbsession.delete(tag)
-                
-            for tag_str in c['tags']:
-                tag = Tag(tag_str, article)
-                dbsession.add(tag)
-                
-            transaction.commit()
-            
-            return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
-        else:
-            transaction.abort()
-        
-    else:
-        return HTTPBadRequest()
+        c.update(res)
     
-    if article is None:
-        return HTTPNotFound()
-    
-    c['article'] = article
     c['submit_url'] = route_url('blog_edit_article', request, article_id=article_id)
+    c['save_url_ajax'] = route_url('blog_edit_article_ajax', request, article_id=article_id)
     return c
 
 @view_config(route_name='blog_article_delete_ajax', renderer='json', permission='admin', request_method='POST')
