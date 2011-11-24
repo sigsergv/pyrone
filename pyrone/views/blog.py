@@ -331,6 +331,10 @@ def _view_article(request, article_id=None, article=None):
         
     if article is None:
         return HTTPNotFound()
+
+    user = auth.get_user(request)
+    if article.is_draft and not user.has_permission('edit_article'):
+        return HTTPNotFound()
     
     comments = dbsession.query(Comment).filter(Comment.article==article).all()
     comments_dict = dict()
