@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-09-21 17:43+0600\n"
+"POT-Creation-Date: 2011-11-25 12:52+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -19,6 +19,9 @@ msgstr ""
 
 msgid "COMMENT_IS_WAITING_FOR_APPROVAL"
 msgstr "Comment is waiting for approval"
+
+msgid "ARTICLE_NOT_SAVED"
+msgstr "Article has not been saved due to error."
 
 msgid "FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE"
 msgstr "File with the same name already exists in the storage"
@@ -40,6 +43,9 @@ msgstr "Twitter authentication is not working"
 
 msgid "PASSWORDS_DONT_MATCH"
 msgstr "Passwords don't match"
+
+msgid "ARTICLE_SAVED"
+msgstr "Article has been saved."
 
 msgid "SETTINGS_SAVED"
 msgstr "Settings have been saved"

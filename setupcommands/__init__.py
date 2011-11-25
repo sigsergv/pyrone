@@ -47,6 +47,8 @@ def write_js(fileobj, catalog, use_fuzzy=False):
                 msgstr = message.string.encode(catalog.charset)
                 
         if msgid != '' and msgstr != msgid:
+            # escape msgstr
+            msgstr = msgstr.replace("'", "\\'")
             jss.append("'%s': '%s'" % (msgid, msgstr))
             
         #print msgid, msgstr

@@ -2,6 +2,8 @@ Ext.ns('Pyrone.tr');
 
 Pyrone.tr = {
 'AJAX_REQUEST_ERROR': 'Ошибка выполнения AJAX-запроса',
+'ARTICLE_NOT_SAVED': 'Ошибка сохранения.',
+'ARTICLE_SAVED': 'Статья сохранена.',
 'BACKUP_RESTORE_COMPLETE': 'Бэкап успешно восстановлен',
 'COMMENT_BODY_IS_REQUIRED': 'Текст комментария обязателен',
 'COMMENT_DISPLAY_NAME_IS_REQUIRED': 'Имя автора комментария обязательно к заполнению',
