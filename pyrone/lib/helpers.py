@@ -269,6 +269,8 @@ def get_pages_widget_links(lang_code, force_reload=False):
         pages_links = list()
         # fetch from settings, parse, fill cache
         raw = get_config('widget_pages_pages_spec')
+        if raw is None:
+            raw = ''
         for line in raw.split('\n'):
             line = line.strip()
             if len(line) == 0:
