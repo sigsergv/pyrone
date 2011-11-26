@@ -11,7 +11,6 @@ from time import time
 from webhelpers.feedgenerator import Rss201rev2Feed
 
 from pyramid.response import Response
-from pyramid.i18n import TranslationString as _
 from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError
@@ -31,6 +30,7 @@ def latest(request):
     Display list of articles sorted by publishing date ascending,
     show rendered previews, not complete articles
     """
+    _ = request.translate
     c = dict(articles=list())
     
     h = []
@@ -72,6 +72,7 @@ def latest(request):
 
 @view_config(route_name='blog_tag_articles', renderer='/blog/list_articles.mako')
 def tag_articles(request):
+    _ = request.translate
     tag = request.matchdict['tag']
     
     page_size = int(get_config('elements_on_page'))
@@ -112,6 +113,7 @@ def _check_article_fields(article, request):
     """
     Read article from the POST request, also validate data
     """
+    _ = request.translate
     errors = dict()
     # check passed data
     fields = ['title', 'shortcut', 'body']
@@ -138,6 +140,7 @@ def _check_article_fields(article, request):
     return errors
 
 def _update_article(article_id, request):
+    _ = request.translate
 
     dbsession = DBSession()
 
@@ -205,6 +208,7 @@ def _update_article(article_id, request):
 
 @view_config(route_name='blog_write_article', renderer='/blog/write_article.mako', permission='write_article')
 def write_article(request):
+    _ = request.translate
     c = dict(
          new_article=True, 
          submit_url=route_url('blog_write_article', request),
@@ -285,6 +289,7 @@ def write_article(request):
 @view_config(route_name='blog_edit_article_ajax', permission='write_article', renderer='json', request_method='POST')
 def edit_article_ajax(request):
     article_id = int(request.matchdict['article_id'])
+    log.debug(request.translate('field is required'))
 
     res = _update_article(article_id, request)
     
@@ -441,6 +446,7 @@ def view_article(request):
 
 @view_config(route_name='blog_add_article_comment_ajax', renderer='json', request_method='POST')
 def add_article_comment_ajax(request):
+    _ = request.translate
     article_id = int(request.matchdict['article_id'])
     
     dbsession = DBSession()
@@ -867,6 +873,7 @@ def latest_rss(request):
     """
     Create rss feed with the latest published articles and return them as the atom feed
     """
+    _ = request.translate
     dbsession= DBSession()
     
     q = dbsession.query(Article).options(eagerload('tags')).options(eagerload('user')).filter(Article.is_draft==False).order_by(Article.updated.desc())

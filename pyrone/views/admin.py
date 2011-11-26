@@ -10,7 +10,6 @@ from datetime import datetime
 
 from base64 import b64encode, b64decode
 from mimetypes import guess_type
-from pyramid.i18n import TranslationString as _
 from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
@@ -38,6 +37,7 @@ def save_settings_ajax(request):
     """
     Save settings
     """
+    _ = request.translate
     c = dict()
     errors = dict()
     
@@ -125,6 +125,7 @@ def visitor_email_edit_ajax(request):
     
 @view_config(route_name='admin_visitors_emails_delete_ajax', renderer='json', permission='admin', request_method='POST')
 def visitors_emails_delete_ajax(request):
+    _ = request.translate
     c = dict(deleted=list(), failed=False)
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
@@ -206,6 +207,7 @@ def upload_file_check_ajax(request):
 
 @view_config(route_name='admin_delete_files_ajax', renderer='json', permission='admin', request_method='POST')
 def delete_files(request):
+    _ = request.translate
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
@@ -286,6 +288,7 @@ def list_backups(request):
 
 @view_config(route_name='admin_restore_backup', renderer='json', permission='admin')
 def restore_backup(request):
+    _ = request.translate
     backup_id = request.matchdict['backup_id']
     
     backups_dir = get_backups_dir()
@@ -755,6 +758,7 @@ def list_accounts(request):
     
 @view_config(route_name='admin_delete_accounts_ajax', renderer='json', permission='admin')
 def delete_accounts_ajax(request):
+    _ = request.translate
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
