@@ -24,6 +24,29 @@ from pyrone.models.user import normalize_email
 
 log = logging.getLogger(__name__)
 
+def favicon(fn_key, content_type, request):
+    s = request.registry.settings
+    if fn_key not in s:
+        return HTTPNotFound()
+
+    filename = s[fn_key]
+
+    try:
+        icon = open(filename, 'r')
+    except IOError:
+        return HTTPNotFound()
+
+    return Response(content_type=content_type, app_iter=icon)
+    
+@view_config(route_name='static_favicon_ico')
+def favicon_ico(request):
+    return favicon('pyrone.favicon_ico', 'image/x-icon', request)
+
+@view_config(route_name='static_favicon_png')
+def favicon_png(request):
+    return favicon('pyrone.favicon_png', 'image/png', request)
+
+
 @view_config(route_name='blog_latest', renderer='/blog/list_articles.mako')
 def latest(request):
     """

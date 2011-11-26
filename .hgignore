@@ -1,4 +1,6 @@
 syntax:glob
+favicon.ico
+favicon.png
 pyrone.egg-info
 dist
 build
