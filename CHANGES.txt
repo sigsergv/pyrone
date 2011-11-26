@@ -5,6 +5,7 @@
 * issue #26: footnotes markup break article preview
 * issue #20: cookie expiration date is not set
 * issue #25: saving page is being edited without redirectint to another page
+* issue #27: some i18n issues
 
 0.2.5
 -----
