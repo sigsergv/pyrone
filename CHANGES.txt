@@ -6,6 +6,7 @@
 * issue #20: cookie expiration date is not set
 * issue #25: saving page is being edited without redirectint to another page
 * issue #27: some i18n issues
+* issue #11: favicons support added
 
 0.2.5
 -----
