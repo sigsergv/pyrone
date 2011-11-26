@@ -141,7 +141,7 @@ Sample ``supervisord.conf`` is provided in the distribution package, find in at
 Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
 Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
 
-Installing for nginx+uWSGI (ububtu/debian only)
+Installing on nginx+uWSGI (ububtu/debian only)
 ===============================================
 
 First you need to install ``uWSGI`` packages:
@@ -194,6 +194,17 @@ directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the d
 
     sudo ln -s /etc/uwsgi/apps-available/blog.ini /etc/uwsgi/apps-enabled
 
+Some other installation issues
+==============================
+
+Site icons (favicons)
+---------------------
+
+Pyrone package doesn't contain site icons, so you have to configure them separately. By default
+pyrone looks for files ``favicon.png`` and ``favicon.ico`` in the same directory where
+your production.ini file is placed. But you can change paths manually, just open file ``production.ini``
+in the text editor, then find keys ``pyrone.favicon_ico`` and ``pyrone.favicon_ico`` (in 
+the section ``[app:pyrone]``), and change values from default to actual paths to these icons.
 
 Development
 ===========
