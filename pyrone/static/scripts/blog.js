@@ -215,8 +215,15 @@ Pyrone.article.save = function(url) {
 			if (!data.errors) {
 				Pyrone.notify($e('eid-article-notify'), tr('ARTICLE_SAVED'));
 			} else {
+				var e;
 				Pyrone.notify($e('eid-article-warning'), tr('ARTICLE_NOT_SAVED'));
-				// TODO: display detailed info why not saved
+				for (fn in data.errors) {
+					e = $e('error-'+fn);
+					if (e) {
+						e.dom.innerHTML = data.errors[fn];
+						$show(e);
+					}
+				}
 			}
 			$e('eid-save-button').dom.disabled = false;
 		},

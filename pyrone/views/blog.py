@@ -287,6 +287,10 @@ def edit_article_ajax(request):
     article_id = int(request.matchdict['article_id'])
 
     res = _update_article(article_id, request)
+    
+    if isinstance(res, HTTPFound):
+        return dict()
+
     if type(res) != dict:
         return res
 
