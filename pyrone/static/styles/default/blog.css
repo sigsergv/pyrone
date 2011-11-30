@@ -9,7 +9,7 @@ body, div, table {
 	font-family: "Liberation Sans", Tahoma, Verdana, sans-serif;
 }
 a {
-	color: #0000ff;
+	color: #000080;
 	text-decoration: underline;
 }
 a:hover {
@@ -86,6 +86,14 @@ div#content {
 	padding: 15px;
 	padding-right: 280px;
 }
+div#content div.article div.body p code {
+    background-color: #F7F4E7;
+}
+div#content div.article div.body pre {
+    padding: 4px;
+    background-color: #F7F4E7;
+    border: 1px dotted #AAA189;
+}
 div#sidebar {
 	border: dotted #f6f6ee;
 	border-width: 0 0 3px 3px;
@@ -142,30 +150,29 @@ div.article-preview-after {
 	border-width: 3px;
 	margin: 0 -5px 0 -5px;
 }
+div.article-preview div.title a {
+    text-decoration: none;
+}
 div.article-preview div.title {
 	padding: 5px 5px 5px 0;
 	font-size: 17pt;
 	font-weight: bolder;
 }
 div.article-preview div.tags {
-	color: #989898;
+    font-size: 10pt;
+    font-weight: bold;
+	color: #040;
 	margin: 10px 0 0 0;
 }
 div.article-preview div.splitter {
 	margin: 10px 0 10px 0;
 }
 div.article-preview div.before-preview {
-	height: 2px;
-	border: 1px #808080;
-	border-style: dotted none none none;
 }
 div.article-preview div.after-preview {
-	height: 2px;
-	border: 1px #808080;
-	border-style: none none dotted none;
 }
 div.article-preview div.tags a {
-	color: #989898;
+	color: #040;
 }
 div.article-preview div.footer {
 	color: #989898;
