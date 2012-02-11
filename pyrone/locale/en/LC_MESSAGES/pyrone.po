@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2011-10-31 20:38+0600\n"
+"POT-Creation-Date: 2012-02-11 13:11+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-#: pyrone/templates/admin/base.mako:12 pyrone/templates/admin/base.mako:15
+#: pyrone/templates/admin/base.mako:13 pyrone/templates/admin/base.mako:16
 msgid "administration"
 msgstr ""
 
-#: pyrone/templates/admin/base.mako:20 pyrone/templates/blog/base.mako:21
+#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:22
 msgid "Powered by Pyrone"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgid ""
 "exclamation mark “!”."
 msgstr ""
 
-#: pyrone/templates/blog/base.mako:11 pyrone/views/blog.py:839
+#: pyrone/templates/blog/base.mako:12 pyrone/views/blog.py:904
 msgid "Latest articles feed"
 msgstr ""
 
@@ -694,7 +694,11 @@ msgstr ""
 msgid "allow visitors comments"
 msgstr ""
 
-#: pyrone/templates/blog/write_article.mako:23
+#: pyrone/templates/blog/write_article.mako:25
+msgid "save and continue editing"
+msgstr ""
+
+#: pyrone/templates/blog/write_article.mako:27
 msgid "preview"
 msgstr ""
 
@@ -775,76 +779,76 @@ msgstr ""
 msgid "Invalid value, must be positive numeric value"
 msgstr ""
 
-#: pyrone/views/admin.py:296
+#: pyrone/views/admin.py:299
 msgid "Backup file not found"
 msgstr ""
 
-#: pyrone/views/admin.py:303
+#: pyrone/views/admin.py:306
 msgid "Backup file is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:309
+#: pyrone/views/admin.py:312
 msgid "Backup file is broken, no catalog file inside!"
 msgstr ""
 
-#: pyrone/views/admin.py:314
+#: pyrone/views/admin.py:317
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:335
+#: pyrone/views/admin.py:338
 msgid "Unknown XML format of catalog file."
 msgstr ""
 
-#: pyrone/views/admin.py:338
+#: pyrone/views/admin.py:341
 #, python-format
 msgid "Unsupported backup version: “%s”!"
 msgstr ""
 
-#: pyrone/views/admin.py:359
+#: pyrone/views/admin.py:362
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:380
+#: pyrone/views/admin.py:383
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:425 pyrone/views/admin.py:528
+#: pyrone/views/admin.py:428 pyrone/views/admin.py:531
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:574
+#: pyrone/views/admin.py:577
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
 msgstr ""
 
-#: pyrone/views/blog.py:69
+#: pyrone/views/blog.py:92
 msgid "Latest articles"
 msgstr ""
 
-#: pyrone/views/blog.py:106
+#: pyrone/views/blog.py:130
 #, python-format
 msgid "Articles labeled with tag “%s”"
 msgstr ""
 
-#: pyrone/views/blog.py:125
+#: pyrone/views/blog.py:150
 msgid "field is required"
 msgstr ""
 
-#: pyrone/views/blog.py:161 pyrone/views/blog.py:167 pyrone/views/blog.py:241
-#: pyrone/views/blog.py:247
+#: pyrone/views/blog.py:183 pyrone/views/blog.py:189 pyrone/views/blog.py:254
+#: pyrone/views/blog.py:260
 msgid "invalid date and time format"
 msgstr ""
 
-#: pyrone/views/blog.py:179 pyrone/views/blog.py:260
+#: pyrone/views/blog.py:202 pyrone/views/blog.py:272
 msgid "duplicated shortcut"
 msgstr ""
 
-#: pyrone/views/blog.py:449
+#: pyrone/views/blog.py:513
 msgid "Empty comment body is not allowed."
 msgstr ""
 
-#: pyrone/views/blog.py:482
+#: pyrone/views/blog.py:546
 msgid "Answering to not approved comment"
 msgstr ""
 
