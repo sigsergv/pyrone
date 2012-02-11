@@ -127,14 +127,15 @@ def gen_comment_response_notification(request, article, comment, top_comment, em
     repl = dict()
     repl.update(_extract_comment_sub(request, comment))
     repl.update(_extract_article_sub(request, comment.article))
+    repl['site_title'] = get_config('site_title')
     
-    for k in ('comment_author_name', 'comment_author_email', 'article_title'):
+    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
         if k in repl:
             subject = subject.replace('{%s}'%k, repl[k])
     
     body = body_tpl
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date', 
-              'comment_text', 'comment_link', 'article_title', 'article_link'):
+              'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
         if k in repl:
             body = body.replace('{%s}'%k, repl[k])
             
@@ -161,13 +162,24 @@ def gen_email_verification_notification(email, verification_code):
     """
     subject_tpl = get_config('verification_msg_subject_tpl')
     body_tpl = get_config('verification_msg_body_tpl')
+
+    repl = dict()
+    repl['site_title'] = get_config('site_title')
     
-    subject = subject_tpl
     base_url = get_config('site_base_url')
     q = urllib.urlencode(dict(token=verification_code, email=email))
     verify_url = base_url + '/verify-email?' + q
-    verify_link = '<a href="%(url)s">%(title)s</a>' % dict(url=verify_url, title=verify_url)
-    body = body_tpl.replace('{email}', email).replace('{verify_link}', verify_link)
+    repl['verify_url'] = verify_url
+    repl['verify_link'] = '<a href="%(url)s">%(title)s</a>' % dict(url=verify_url, title=verify_url)
+
+    subject = subject_tpl
+    for k in ('site_title'):
+        subject = subject.replace('{%s}'%k, repl[k])
+
+    body = body_tpl
+    for k in ('site_title', 'email', 'verify_link'):
+        body = body.replace('{%s}'%k, repl[k])
+
     n = Notification(email, subject, body)
     
     return n
@@ -195,15 +207,16 @@ def gen_new_comment_admin_notification(request, article, comment):
     repl = dict()
     repl.update(_extract_comment_sub(request, comment))
     repl.update(_extract_article_sub(request, comment.article))
+    repl['site_title'] = get_config('site_title')
     
     subject = subject_tpl
-    for k in ('comment_author_name', 'comment_author_email', 'article_title'):
+    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
         if k in repl:
             subject = subject.replace('{%s}'%k, repl[k])
     
     body = body_tpl
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date', 
-              'comment_text', 'comment_link', 'article_title', 'article_link'):
+              'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
         if k in repl:
             body = body.replace('{%s}'%k, repl[k])
     
