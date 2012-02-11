@@ -421,11 +421,15 @@ def _view_article(request, article_id=None, article=None):
 
     scope = dict(thread=[])
 
+    # we should hide all not approved comments for everyone who isn't a site admin
+    display_not_approved = user.has_permission('admin')
     def build_thread(parent_id, indent):
         if parent_id not in comments_dict:
             return
 
         for x in comments_dict[parent_id]:
+            if not display_not_approved and not x.is_approved:
+                continue
             setattr(x, '_indent', indent)
             scope['thread'].append(x)
             build_thread(x.id, indent+1)
