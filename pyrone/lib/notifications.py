@@ -165,6 +165,7 @@ def gen_email_verification_notification(email, verification_code):
 
     repl = dict()
     repl['site_title'] = get_config('site_title')
+    repl['email'] = email
     
     base_url = get_config('site_base_url')
     q = urllib.urlencode(dict(token=verification_code, email=email))
