@@ -635,15 +635,15 @@ def add_article_comment_ajax(request):
     transaction.commit()
     
     # comment added, now send notifications
-    cylce_limit = 100
+    loop_limit = 100
     comment = dbsession.query(Comment).get(comment.id)
     parent = comment.parent
     admin_email = get_config('admin_notifications_email')
     vf_q = dbsession.query(VerifiedEmail)
     notifications_emails = list()
     
-    while parent is not None and cylce_limit > 0:
-        cylce_limit -= 1
+    while parent is not None and loop_limit > 0:
+        loop_limit -= 1
         c = parent
         parent = c.parent
         # walk up the tree
@@ -664,7 +664,7 @@ def add_article_comment_ajax(request):
         if email in notifications_emails:
             continue
         
-        vf = vf_q.get(email)
+        vf = vf_q.filter(VerifiedEmail.email==email).first()
         if vf is not None and vf.is_verified:
             # send notification to "email"
             ns.append(notifications.gen_comment_response_notification(request, article, comment, c, email))
