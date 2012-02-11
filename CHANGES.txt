@@ -2,6 +2,8 @@
 -----
 
 * default style slightly changed
+* translation fixes
+* issue #28: Comments counter not decreased after removing a comment
 
 0.2.6
 -----

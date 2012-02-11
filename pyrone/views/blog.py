@@ -7,6 +7,7 @@ import os
 
 from PIL import Image
 from sqlalchemy.orm import eagerload
+from sqlalchemy import func
 from time import time
 from webhelpers.feedgenerator import Rss201rev2Feed
 
@@ -380,6 +381,15 @@ def preview_article(request):
     
     return Response(body=complete, content_type='text/html')
 
+def _update_comments_counters(dbsession, article):
+    """
+    Re-count total and approved comments and update corresponding counters for the article
+    """
+    approved_cnt = dbsession.query(func.count(Comment.id)).filter(Comment.article==article).filter(Comment.is_approved==True).scalar()
+    total_cnt = dbsession.query(func.count(Comment.id)).filter(Comment.article==article).scalar()
+    article.comments_approved = approved_cnt
+    article.comments_total = total_cnt
+
 def _view_article(request, article_id=None, article=None):
     c = dict()
     
@@ -605,15 +615,13 @@ def add_article_comment_ajax(request):
     if len(re.findall('https?://', body, flags=re.IGNORECASE)) <= 1:
         comment.is_approved = True
 
-    article.comments_total += 1
-    if comment.is_approved:
-        article.comments_approved += 1
 
     # record commenter ip address
     comment.ip_address = request.environ.get('REMOTE_ADDR', 'unknown')
     comment.xff_ip_address = request.environ.get('X_FORWARDED_FOR', None)
 
     dbsession.add(comment)
+    _update_comments_counters(dbsession, article)
     dbsession.flush()
     dbsession.expunge(comment) # remove object from the session, object state is preserved
     dbsession.expunge(article)
@@ -691,11 +699,9 @@ def approve_article_comment_ajax(request):
     if article is None:
         return HTTPNotFound()
 
-    orig = comment.is_approved
     comment.is_approved = True
 
-    if not orig:
-        article.comments_approved += 1
+    _update_comments_counters(dbsession, article)
 
     transaction.commit()
     data = dict()
@@ -708,9 +714,13 @@ def delete_article_comment_ajax(request):
     comment = dbsession.query(Comment).get(comment_id)
     if comment is None:
         return HTTPNotFound()
+
     
     transaction.begin()
     dbsession.delete(comment)
+    article = dbsession.query(Article).get(comment.article_id)
+    _update_comments_counters(dbsession, article)
+
     transaction.commit()
     
     data = dict()
