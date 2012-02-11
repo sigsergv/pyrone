@@ -173,7 +173,7 @@ def gen_email_verification_notification(email, verification_code):
     repl['verify_link'] = '<a href="%(url)s">%(title)s</a>' % dict(url=verify_url, title=verify_url)
 
     subject = subject_tpl
-    for k in ('site_title'):
+    for k in ('site_title', ):
         subject = subject.replace('{%s}'%k, repl[k])
 
     body = body_tpl
