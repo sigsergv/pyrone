@@ -743,7 +743,7 @@ def edit_fetch_comment_ajax(request):
     
     comment = dbsession.query(Comment).get(comment_id)
     
-    attrs = ('display_name', 'email', 'website', 'body', 'ip_address', 'xff_ip_address')
+    attrs = ('display_name', 'email', 'website', 'body', 'ip_address', 'xff_ip_address', 'is_subscribed')
     data = dict()
     for a in attrs:
         data[a] = getattr(comment, a)
@@ -775,6 +775,7 @@ def edit_article_comment_ajax(request):
         setattr(comment, v, value)
 
     comment.set_body(request.POST['body'])
+    comment.is_subscribed = 'is_subscribed' in request.POST
 
     comment.published = h.str_to_timestamp(request.POST['date'])
     dbsession.flush()

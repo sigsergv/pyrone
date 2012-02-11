@@ -439,7 +439,9 @@ Pyrone.article.submitEditCommentForm = function(url_template) {
 		params[fn] = $ev('c-edit-'+fn);
 	});
 	
-	params['is_subscribed'] = $e('c-edit-is_subscribed').dom.checked ? 'true' : 'false';
+	if ($e('c-edit-is_subscribed').dom.checked) {
+		params['is_subscribed'] = 'true';
+	}
 	
 	Ext.Ajax.request({
 		url: submit_url,
