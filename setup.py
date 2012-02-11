@@ -48,7 +48,7 @@ except ImportError:
     pass
 
 setup(name='pyrone',
-      version='0.2.7',
+      version='0.2.8',
       license='New BSD License',
       description='pyrone',
       long_description=README + '\n\n' +  CHANGES,

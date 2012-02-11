@@ -175,7 +175,7 @@ Pyrone.article.preview = function() {
 			body: body
 		},
 		success: function(response, opts) {
-			var e = Ext.get('eid-article-preview');
+			var e = Ext.get('eid-article-render-preview');
 			e.show(true);
 			e.update(response.responseText);
 		},

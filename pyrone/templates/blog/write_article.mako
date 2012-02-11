@@ -30,4 +30,4 @@
 
 <div id="eid-article-notify" class="notify" style="display:none;"></div>
 <div id="eid-article-warning" class="warning" style="display:none;"></div>
-<div id="eid-article-preview" class="eid-article-preview" style="display: none;"></div>
+<div id="eid-article-render-preview" style="display: none;"></div>
