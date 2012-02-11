@@ -300,13 +300,6 @@ Collect messages from source files:
 
     python setup.py extract_messages
 
-Start new language ("es", Spanish in this case, both for python and javascript code):
-
-::
-
-    python setup.py init_catalog -l es
-    python setup.py init_catalog_js -l es
-
 Update messages (using .pot-file created by ``extract_messages`` command):
 
 ::
@@ -333,6 +326,13 @@ commited:
 ::
 
     python setup.py compile_catalog_js
+
+Start new language ("es", Spanish in this example, both for python and javascript code, do this ONCE for one language):
+
+::
+
+    python setup.py init_catalog -l es
+    python setup.py init_catalog_js -l es
 
 
 Running application
