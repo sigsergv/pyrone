@@ -396,10 +396,10 @@ def _view_article(request, article_id=None, article=None):
     dbsession = DBSession()
     
     if article is None:
-        return HTTPNotFound()
-    else:
         article = dbsession.query(Article).get(article_id)
         
+    if article is None:
+        return HTTPNotFound()
 
     user = auth.get_user(request)
     if article.is_draft and not user.has_permission('edit_article'):
@@ -472,6 +472,9 @@ def view_article(request):
     if not user.has_permission('edit_article'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
+
+    if article is None:
+        return HTTPNotFound()
     
     if 'commentid' in request.GET:
         # redirect to comment URL, this trick is required because some 
