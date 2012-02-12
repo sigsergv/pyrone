@@ -896,7 +896,7 @@ def download_file_preview(request):
     
     try:
         content_length = os.path.getsize(preview_path)
-        headers += [('Content-Length', content_length)]
+        headers += [('Content-Length', str(content_length))]
     except IOError:
         return HTTPNotFound()
     
