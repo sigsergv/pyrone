@@ -1,3 +1,13 @@
+0.2.11
+------
+
+* added python markdown extension def_list to support definitions lists (html DL tags)
+
+0.2.10
+------
+
+* dummy version to fix package building issues
+
 0.2.9
 -----
 * issue #33: wrong headers passed to WSGI server
@@ -15,8 +25,7 @@
 * issue #28: Comments counter not decreased after removing a comment
 * issue #32: Not approved comments are still visible to everyone
 * issue #29: Display error 404 not 503 while accessing non existing blog page
-* issue #30: Substitution variables in notification email are not replaced
-* with actual values
+* issue #30: Substitution variables in notification email are not replaced with actual values
 
 0.2.6
 -----
