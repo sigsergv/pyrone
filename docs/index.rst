@@ -347,4 +347,8 @@ To start development server use the following command:
 Release and packaging
 ---------------------
 
-to be written
+Prepare and upload source package to pypi:
+
+::
+
+    python setup.py clean sdist upload
