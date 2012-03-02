@@ -788,4 +788,6 @@ def save_pages_widget_settings_ajax(request):
     log.debug(widget_pages_pages_spec)
     config.set('widget_pages_pages_spec', widget_pages_pages_spec)
     config.clear_cache()
+    # force reload page links cache
+    h.get_pages_widget_links('en', True)
     return c

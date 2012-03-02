@@ -2,6 +2,7 @@
 ------
 
 * translation fixes
+* issue #34: pages widget not working properly
 
 0.2.11
 ------
