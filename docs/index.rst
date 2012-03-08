@@ -129,6 +129,8 @@ the distribution package and could be found by the path ``$BLOG/env/share/pyrone
 
             # uncomment if you want nginx to serve static files
             #location /static {
+            ## uncoment either 2.6 OR 2.7, not both!
+            #    root                    /home/user/pyrone-blog/env/lib/python2.7/site-packages/pyrone/static;
             #    root                    /home/user/pyrone-blog/env/lib/python2.6/site-packages/pyrone/static;
             #    expires                 30d;
             #    add_header              Cache-Control public;
