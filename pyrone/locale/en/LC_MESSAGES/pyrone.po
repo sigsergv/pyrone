@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2012-02-11 13:11+0700\n"
+"POT-Creation-Date: 2012-03-02 22:07+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergei Stolyarov <sergei.stolyarov@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -165,7 +165,7 @@ msgid "Files management"
 msgstr ""
 
 #: pyrone/templates/admin/list_files.mako:12
-msgid "Choose file to upload\""
+msgid "Choose file to upload"
 msgstr ""
 
 #: pyrone/templates/admin/list_files.mako:14
@@ -233,7 +233,7 @@ msgid "Blog settings"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:10
-#: pyrone/templates/admin/settings.mako:75
+#: pyrone/templates/admin/settings.mako:77
 #: pyrone/templates/admin/settings_widget_pages.mako:21
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:80
@@ -365,46 +365,46 @@ msgstr ""
 msgid "new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:46
+#: pyrone/templates/admin/settings.mako:47
 msgid "Email address verification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:47
-#: pyrone/templates/admin/settings.mako:49
-#: pyrone/templates/admin/settings.mako:53
-#: pyrone/templates/admin/settings.mako:56
-#: pyrone/templates/admin/settings.mako:61
-#: pyrone/templates/admin/settings.mako:64
-#: pyrone/templates/admin/settings.mako:69
-#: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings.mako:48
+#: pyrone/templates/admin/settings.mako:50
+#: pyrone/templates/admin/settings.mako:54
+#: pyrone/templates/admin/settings.mako:57
+#: pyrone/templates/admin/settings.mako:62
+#: pyrone/templates/admin/settings.mako:66
+#: pyrone/templates/admin/settings.mako:71
+#: pyrone/templates/admin/settings.mako:74
 msgid "Plain text, no HTML, allowed substitution symbols:"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:48
+#: pyrone/templates/admin/settings.mako:49
 msgid "Email address verification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:51
+#: pyrone/templates/admin/settings.mako:52
 msgid "Answer to comment notification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:54
+#: pyrone/templates/admin/settings.mako:55
 msgid "Answer to comment notification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:59
+#: pyrone/templates/admin/settings.mako:60
 msgid "Admin notification subject template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:62
+#: pyrone/templates/admin/settings.mako:64
 msgid "Admin notification body template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:67
+#: pyrone/templates/admin/settings.mako:69
 msgid "Admin notification subject template: new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:70
+#: pyrone/templates/admin/settings.mako:72
 msgid "Admin notification body template: new user registered"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgid ""
 "exclamation mark “!”."
 msgstr ""
 
-#: pyrone/templates/blog/base.mako:12 pyrone/views/blog.py:904
+#: pyrone/templates/blog/base.mako:12 pyrone/views/blog.py:922
 msgid "Latest articles feed"
 msgstr ""
 
@@ -822,33 +822,36 @@ msgid ""
 "corrupted"
 msgstr ""
 
-#: pyrone/views/blog.py:92
+#: pyrone/views/blog.py:93
 msgid "Latest articles"
 msgstr ""
 
-#: pyrone/views/blog.py:130
+#: pyrone/views/blog.py:131
 #, python-format
 msgid "Articles labeled with tag “%s”"
 msgstr ""
 
-#: pyrone/views/blog.py:150
+#: pyrone/views/blog.py:151
 msgid "field is required"
 msgstr ""
 
-#: pyrone/views/blog.py:183 pyrone/views/blog.py:189 pyrone/views/blog.py:254
-#: pyrone/views/blog.py:260
+#: pyrone/views/blog.py:184 pyrone/views/blog.py:190 pyrone/views/blog.py:255
+#: pyrone/views/blog.py:261
 msgid "invalid date and time format"
 msgstr ""
 
-#: pyrone/views/blog.py:202 pyrone/views/blog.py:272
+#: pyrone/views/blog.py:203 pyrone/views/blog.py:273
 msgid "duplicated shortcut"
 msgstr ""
 
-#: pyrone/views/blog.py:513
+#: pyrone/views/blog.py:530
 msgid "Empty comment body is not allowed."
 msgstr ""
 
-#: pyrone/views/blog.py:546
+#: pyrone/views/blog.py:563
 msgid "Answering to not approved comment"
 msgstr ""
+
+#~ msgid "Choose file to upload\""
+#~ msgstr ""
 

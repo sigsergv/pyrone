@@ -42,6 +42,8 @@ def get(id):
             _cache[id] = v
                 
         
+    log.debug('DDDDDDDDDDDDD %s' % id)
+    log.debug(_cache)
     return _cache[id]
 
 def set(id, value, dbsession=None):
@@ -66,4 +68,6 @@ def set(id, value, dbsession=None):
     #    Session.commit()
     
 def clear_cache():
+    log.debug('CLEAR CACHE')
     _cache.clear()
+    log.debug(_cache)

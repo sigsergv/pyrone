@@ -9,7 +9,7 @@
   method="post" onsubmit="return Pyrone.file.checkUploadForm('${url('admin_upload_file_check_ajax')}','upload-form');"\
   enctype="multipart/form-data">
   <dl class="form">
-    <dt>${_('Choose file to upload"')}</dt>
+    <dt>${_('Choose file to upload')}</dt>
     <dd><input type="file" id="fid-filedata" onchange="Pyrone.file.uploadFormFileSelected()" name="filedata" onchange="fileSelected(this);"/> \
     <span class="hint">${_(u'← First choose file (other fields will be filled automatically)')}</span></dd>
     
