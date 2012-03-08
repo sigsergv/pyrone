@@ -47,6 +47,14 @@ Pyrone depends upon will be downloaded and installed automatically:
 
     pip install pyrone-0.1.tar.gz
 
+Or you can install directly from pypi repository:
+
+::
+
+    pip install pyrone
+
+This will install latest pyrone version.
+
 Now create mysql database (if you've chosen mysql and not sqlite database engine driver), type in 
 mysql root console:
 
@@ -232,10 +240,12 @@ need python package ``virtualenv``, you can install them using command
 
 ::
 
-    sudo apt-get install python2.6 python-virtualenv
+    sudo apt-get install python2.6 python2.6-dev python-virtualenv
     
 Now you have to choose directory where you'll install virtual environment for ``pyramid``,
-it should be somewhere in your home directory, don't install it in the system directories.
+it should be somewhere in your home directory, don't install it in the system directories. 
+Instead of ``python2.6`` could be used ``python2.7``. Package ``python*-dev`` is required
+to compile some modules to increase performance.
 
 Go to selected directory (create it if required) and issue the following command:
 
@@ -265,7 +275,7 @@ Also you'll need to install additional binary packages:
 
     pip install lxml PIL
 
-The require install ``gcc`` and other stuff like ``libxml2-dev``.
+This require install ``gcc`` and other stuff like ``libxml2-dev``, ``libxslt1-dev``.
 
 Now install *development* version of pyrone:
 
