@@ -1,4 +1,5 @@
 syntax:glob
+development.ini
 favicon.ico
 favicon.png
 pyrone.egg-info
