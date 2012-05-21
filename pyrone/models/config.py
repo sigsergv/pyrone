@@ -8,6 +8,18 @@ from sqlalchemy.types import String, UnicodeText
 
 from . import Base, DBSession
 
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+UWSGI = False
+try:
+    import uwsgi
+    UWSGI = True
+except ImportError:
+    pass
+
 log = logging.getLogger(__name__)
 
 class Config(Base):
@@ -24,29 +36,54 @@ class Config(Base):
 # internal cache for setting values
 _cache = dict()
 
+def cache_set(key, value):
+    if UWSGI:
+        if uwsgi.cache_exists(key):
+            uwsgi.cache_update(key, pickle.dumps(value))
+        else:
+            uwsgi.cache_set(key, pickle.dumps(value))
+    else:
+        _cache[key] = value
+
+def cache_get(key):
+    value = None
+    if UWSGI:
+        value = uwsgi.cache_get(key)
+        if value is not None:
+            value = pickle.loads(value)
+    else:
+        if key in _cache:
+            value = _cache[key]
+
+    return value
+
 # config values are cached
 
 def get_all():
+    """
+    Fetch all config options, not cached
+    """
     dbsession = DBSession()
     all = dbsession.query(Config).all()
     return all
 
-def get(id):
-    if id not in _cache:
+def get(key, force=False):
+    """
+    Get settings value, set "force" to True to update corresponding value in the cache
+    """
+    value = cache_get(key)
+    if value is None or force==False:
         dbsession = DBSession()
-        c = dbsession.query(Config).get(id)
+        c = dbsession.query(Config).get(key)
         if c is not None:
             v = c.value
-            if id == 'timezone':
+            if key == 'timezone':
                 v = pytz.timezone(v)
-            _cache[id] = v
-                
+            cache_set(key, v)
         
-    log.debug('DDDDDDDDDDDDD %s' % id)
-    log.debug(_cache)
-    return _cache[id]
+    return cache_get(key)
 
-def set(id, value, dbsession=None):
+def set(key, value, dbsession=None):
     is_transaction = False
     
     if dbsession is None:
@@ -54,9 +91,9 @@ def set(id, value, dbsession=None):
         is_transaction = True
         transaction.begin()
         
-    c = dbsession.query(Config).get(id)
+    c = dbsession.query(Config).get(key)
     if c is None:
-        c = Config(id, value)
+        c = Config(key, value)
         dbsession.add(c)
     else:
         c.value = value
@@ -64,10 +101,4 @@ def set(id, value, dbsession=None):
     if is_transaction:
         transaction.commit()
 
-    #if commit:
-    #    Session.commit()
-    
-def clear_cache():
-    log.debug('CLEAR CACHE')
-    _cache.clear()
-    log.debug(_cache)
+    cache_set(key, value)

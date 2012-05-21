@@ -84,8 +84,6 @@ def save_settings_ajax(request):
             config.set(id, v, dbsession)
 
         transaction.commit()
-        
-        config.clear_cache()
     
     return c
 
@@ -786,7 +784,6 @@ def save_pages_widget_settings_ajax(request):
     
     widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
     config.set('widget_pages_pages_spec', widget_pages_pages_spec)
-    config.clear_cache()
     # force reload page links cache
     h.get_pages_widget_links('en', True)
     return c
