@@ -1,12 +1,14 @@
 /*********************
 Pyrone Blog styles
 **********************/
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,700italic&subset=latin,cyrillic);
+
 body {
 	margin: 0;
 	padding: 0;
 }
 body, div, table {
-	font-family: "Liberation Sans", Tahoma, Verdana, sans-serif;
+	font-family: "PT Serif", "Times New Roman", serif;
 }
 a {
 	color: #000080;
