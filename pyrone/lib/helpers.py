@@ -24,6 +24,7 @@ from pyrone.models.config import get as get_config
 from pyrone.models import DBSession, Article, Tag, Comment
 from pyrone.lib import auth, lang
 from pyrone.lib.lang import supported_langs
+from pyrone.lib import cache
 
 log = logging.getLogger(__name__)
 
@@ -222,7 +223,6 @@ def article_tags_links(request, article):
     
     return ', '.join(res)
 
-_cache = dict()
 
 def get_public_tags_cloud(force_reload=False):
     """
@@ -230,7 +230,8 @@ def get_public_tags_cloud(force_reload=False):
     0 <= tag_weight <= 100
     Only for published articles.
     """
-    if 'tags_cloud' not in _cache or force_reload:
+    value = cache.get_value('tags_cloud')
+    if value is None or force_reload:
         dbsession = DBSession()
         q = dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
         items = list()
@@ -257,15 +258,19 @@ def get_public_tags_cloud(force_reload=False):
                 
                 weights = [ (x[0], 5*(int(100*x[1])/5)) for x in weights ]
             
-            _cache['tags_cloud'] = weights
+            value = weights
         else:
-            _cache['tags_cloud'] = []
+            value = []
+
+        cache.set_value('tags_cloud', value)
     
-    return _cache['tags_cloud']
+    return value
 
 def get_pages_widget_links(lang_code, force_reload=False):
     
-    if 'pages_links' not in _cache or force_reload:
+    value = cache.get_value('pages_links')
+
+    if value is None or force_reload:
         pages_links = list()
         # fetch from settings, parse, fill cache
         raw = get_config('widget_pages_pages_spec')
@@ -285,9 +290,11 @@ def get_pages_widget_links(lang_code, force_reload=False):
                 continue
             link = dict(lang=lang, url=url, title=title)
             pages_links.append(link)
-        _cache['pages_links'] = pages_links
+
+        value = pages_links
+        cache.set_value('pages_links', value)
     
-    return [x for x in _cache['pages_links'] if x['lang']==lang_code]
+    return [x for x in value if x['lang']==lang_code]
 
 def get_not_approved_comments_count():
     dbsession = DBSession()

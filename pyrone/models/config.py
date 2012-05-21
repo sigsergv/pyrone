@@ -7,18 +7,7 @@ from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText
 
 from . import Base, DBSession
-
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-
-UWSGI = False
-try:
-    import uwsgi
-    UWSGI = True
-except ImportError:
-    pass
+from pyrone.lib import cache
 
 log = logging.getLogger(__name__)
 
@@ -32,30 +21,6 @@ class Config(Base):
     def __init__(self, id, value):
         self.id = id
         self.value = value
-
-# internal cache for setting values
-_cache = dict()
-
-def cache_set(key, value):
-    if UWSGI:
-        if uwsgi.cache_exists(key):
-            uwsgi.cache_update(key, pickle.dumps(value))
-        else:
-            uwsgi.cache_set(key, pickle.dumps(value))
-    else:
-        _cache[key] = value
-
-def cache_get(key):
-    value = None
-    if UWSGI:
-        value = uwsgi.cache_get(key)
-        if value is not None:
-            value = pickle.loads(value)
-    else:
-        if key in _cache:
-            value = _cache[key]
-
-    return value
 
 # config values are cached
 
@@ -71,7 +36,7 @@ def get(key, force=False):
     """
     Get settings value, set "force" to True to update corresponding value in the cache
     """
-    value = cache_get(key)
+    value = cache.get_value(key)
     if value is None or force==False:
         dbsession = DBSession()
         c = dbsession.query(Config).get(key)
@@ -79,9 +44,9 @@ def get(key, force=False):
             v = c.value
             if key == 'timezone':
                 v = pytz.timezone(v)
-            cache_set(key, v)
+            cache.set_value(key, v)
         
-    return cache_get(key)
+    return cache.get_value(key)
 
 def set(key, value, dbsession=None):
     is_transaction = False
@@ -101,4 +66,4 @@ def set(key, value, dbsession=None):
     if is_transaction:
         transaction.commit()
 
-    cache_set(key, value)
+    cache.set_value(key, value)
