@@ -141,6 +141,30 @@ the distribution package and could be found by the path ``$BLOG/env/share/pyrone
 
 Edit the file using real data (your path instead of ``/home/user/pyrone-blog`` etc) and put it into the nginx sites directory.
 
+Preparing MySQL database
+------------------------
+
+In this section I'm using the same authentication data as in files ``development.ini``/``production.ini`` files.
+
+First you need to enter mysql console using superuser crdentials:
+
+::
+
+    % mysql -u root -p
+
+Now create database:
+
+::
+
+    mysql> create database pyrone_blog;
+
+Grant access to that database to user ``pyrone_blog_user`` with the password ``pbpass``:
+
+::
+
+    GRANT ALL ON pyrone_blog.* TO 'pyrone_blog_user'@'localhost' IDENTIFIED BY 'pbpass';
+
+
 Using supervisord to automate application execution
 ---------------------------------------------------
 
