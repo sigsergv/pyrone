@@ -80,7 +80,7 @@ the directory ``$BLOG``:
 
 ::
 
-    ./env/bin/paster serve production.ini
+    ./env/bin/pserve production.ini
 
 If configuration steps were performed correctly you should see somethign like this:
 
@@ -353,7 +353,7 @@ To start development server use the following command:
 
 ::
 
-    paster serve --reload development.ini
+    pserve --reload development.ini
     
 Release and packaging
 ---------------------
