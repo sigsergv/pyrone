@@ -13,6 +13,11 @@ Features
 * Markdown language support for articles and discussions;
 * external authentication: twitter, openid etc.
 
+First run
+---------
+
+Default administrator login is: ``admin`` and password is ``setup``.
+
 License
 -------
 
