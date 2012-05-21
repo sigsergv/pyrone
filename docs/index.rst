@@ -197,6 +197,7 @@ Now create uwsgi config file for the blog application, it looks like::
     post-buffering = 8192 # this is workaround for files upload issue ( https://bitbucket.org/cancel/pyrone/issue/23 )
     # uncomment to enable web debugger
     # processes = 1
+    cache = 1000
 
 Don't forget to edit this file and replace default values (user, usergroup) with real ones. Place file to the
 directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the directory ``/etc/uwsgi/apps-enabled``::
