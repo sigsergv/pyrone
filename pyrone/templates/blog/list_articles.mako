@@ -19,7 +19,7 @@
 % if editor_permission:
  <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
  <a href="#" onclick="Pyrone.article.deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
- '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
+ '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>

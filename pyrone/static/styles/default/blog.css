@@ -16,13 +16,22 @@ a:hover {
 	color: #0040ff;
 	text-decoration: underline;
 }
-a.border-icon {
-	border: 1px solid #0000ff;
+div.title a.border-icon {
+    display: none;
+}
+div.title:hover a.border-icon {
+    display: inline;
+    border-radius: 4px;
+	border: 1px solid #000080;
 	text-decoration: none;
-	color: #0000ff;
+	color: #000080;
 	background-color: #e5e5e5;
 	padding-left: 3px; 
 	padding-right: 3px; 
+}
+div.title:hover a.border-icon:hover {
+    border-color: #0040ff;
+    color: #0040ff;
 }
 a.confirm-icon {
 	border: 1px solid #800000;

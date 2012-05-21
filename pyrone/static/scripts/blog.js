@@ -248,7 +248,7 @@ Pyrone.article.deleteArticle = function(url, article_id) {
 };
 
 Pyrone.article.deleteArticleReq = function(url, article_id) {
-	Pyrone.createConfirmLink('ad-'+article_id, function() { Pyrone.article.deleteArticle(url, article_id);});
+	Pyrone.createConfirmLink('a-d-'+article_id, function() { Pyrone.article.deleteArticle(url, article_id);});
 };
 
 /**
