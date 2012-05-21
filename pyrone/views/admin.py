@@ -785,7 +785,6 @@ def save_pages_widget_settings_ajax(request):
     c = dict()
     
     widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
-    log.debug(widget_pages_pages_spec)
     config.set('widget_pages_pages_spec', widget_pages_pages_spec)
     config.clear_cache()
     # force reload page links cache
