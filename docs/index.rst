@@ -70,7 +70,7 @@ Now prepare the application configuration files:
 ::
 
    cd $BLOG
-   cp ./env/share/pyrone/sample-config/production.ini .
+   cp ./env/share/pyrone/examples/production.ini .
 
 Open file ``production.ini`` in your favourite text editor and change default database connection
 parameters to yours.
@@ -93,7 +93,7 @@ Prepare nginx site
 ------------------
 
 You need to create nginx config file (e.g. ``pyrone-blog.conf``) for your site. Sample config is included into 
-the distribution package and could be found by the path ``$BLOG/env/share/pyrone/sample-config/pyrone-blog-nginx.conf``.
+the distribution package and could be found by the path ``$BLOG/env/share/pyrone/examples/pyrone-blog-nginx.conf``.
 
 ::
 
@@ -144,10 +144,10 @@ Using supervisord to automate application execution
 ---------------------------------------------------
 
 Sample ``supervisord.conf`` is provided in the distribution package, find in at 
-``$BLOG/env/share/pyrone/sample-config/supervisord.conf``. Just copy to the directory
+``$BLOG/env/share/pyrone/examples/supervisord.conf``. Just copy to the directory
 ``$BLOG``. You have to edit this file and set valid system user name there.
 
-Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/sample-config/supervisord-pyrone``.
+Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/examples/supervisord-pyrone``.
 Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
 
 Installing on nginx+uWSGI (ububtu/debian only)
@@ -284,6 +284,8 @@ Now install *development* version of pyrone:
 ::
 
     python setup.py develop
+
+Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory where ``setup.py`` is located, edit ``development.ini`` appropriately.
 
 Tests and coverage
 ------------------
