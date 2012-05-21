@@ -13,9 +13,11 @@
   	settings['widget_pages_pages_spec'], errors, \
   	help=_(u'One site definition per line, empty lines are ignored. Incorrect lines are ignored.'), height=200)|n}
   	
-  <dd>${_('Every line defines one site, site definition line format is the following: '+\
-  '<code><strong>delim</strong><em>language</em><strong>delim</strong><em>URL</em><strong>delim</strong><em>link description</em></code>')|n}</dd>
-  <dd>${_(u'You may use any character as <strong>delim</strong>, e.g. pipe “|” or exclamation mark “!”.')|n}</dd>
+  <dd>${_(u'Every line defines one site for one language, here is the sample: '+\
+  u'<code><pre>!en!http://google.com!Google web search\n!ru!http://google.ru!Поиск в Google</pre></code>')|n}</dd>
+  <dd>${_(u'You can use any other character as delimiter instead of <strong>!</strong>, e.g. pipe “|”:'+\
+  u'<code><pre>|en|http://google.com|Google web search\n|ru|http://google.ru|Поиск в Google</pre></code>')|n}</dd>
+  <dd>${_(u'The main idea is simple: first character in the line is delimiter.')}</dd>
 
 
   <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
