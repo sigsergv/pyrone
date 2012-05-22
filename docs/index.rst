@@ -194,6 +194,8 @@ Now create uwsgi config file for the blog application, it looks like::
     home = /home/user/pyrone-blog/env/
     plugins = python
     paste = config:/home/user/pyrone-blog/production.ini
+    # uncomment line below (and comment line above) to include debug logging output from the application
+    #ini-paste-logged = /home/user/pyrone-blog/production.ini
     post-buffering = 8192 # this is workaround for files upload issue ( https://bitbucket.org/cancel/pyrone/issue/23 )
     # uncomment to enable web debugger
     # processes = 1
@@ -267,7 +269,7 @@ Install packages required for the application:
 
 ::
 
-    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
+    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel pastescript
     
 Wait until it finish downloading and installing the packages.
 
