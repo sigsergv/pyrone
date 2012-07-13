@@ -2,6 +2,8 @@
 ------
 
 * fixed issue #34, also completely rewritten caching (using uwsgi caching framework)
+* limit to article length increased up to 16 MB (use MEDIUMTEXT for mysql db)
+* UI improvements (new font, new dynamic headers and control links)
 
 0.2.12
 ------
