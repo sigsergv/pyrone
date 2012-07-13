@@ -15,11 +15,11 @@ class Article(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
     shortcut_date = Column(Unicode(50)) # somethig like "2011/03/29"
-    shortcut = Column(Unicode(255)) # somrthing like "test-post-subject"
+    shortcut = Column(Unicode(255)) # something like "test-post-subject"
     title = Column(Unicode(255))
     body = Column(UnicodeText)
-    rendered_preview = Column(UnicodeText)
-    rendered_body = Column(UnicodeText)
+    rendered_preview = Column(UnicodeText(2**15))
+    rendered_body = Column(UnicodeText(2**15))
     # UTC timestamp of publishing
     published = Column(Integer)
     # UTC timestamp of article update
