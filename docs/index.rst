@@ -206,6 +206,8 @@ directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the d
 
     sudo ln -s /etc/uwsgi/apps-available/blog.ini /etc/uwsgi/apps-enabled
 
+Pyrone uses ``cache`` plugin of uWSGI.
+
 Some other installation issues
 ==============================
 
