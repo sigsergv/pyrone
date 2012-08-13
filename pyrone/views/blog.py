@@ -222,6 +222,9 @@ def _update_article(article_id, request):
             dbsession.add(tag)
             
         transaction.commit()
+
+        # force update of tags cloud
+        h.get_public_tags_cloud(force_reload=True)
         
         return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
     else:
@@ -300,6 +303,9 @@ def write_article(request):
                 dbsession.add(tag)
                 
             transaction.commit()
+
+            # force update of tags cloud
+            h.get_public_tags_cloud(force_reload=True)
             
             return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
             
