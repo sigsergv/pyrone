@@ -1,3 +1,8 @@
+0.2.14
+------
+
+* minor fix in default styles
+
 0.2.13
 ------
 
