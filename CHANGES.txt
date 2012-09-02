@@ -2,6 +2,7 @@
 ------
 
 * fixed issue #36: tags cloud is not updated after post update/create
+* fixed issue: error 503 on attempt to open picture
 
 0.2.14
 ------

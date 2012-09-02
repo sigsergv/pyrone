@@ -842,7 +842,7 @@ def download_file(request):
     except IOError:
         return HTTPNotFound()
     
-    response = Response(content_type=file.content_type)
+    response = Response(content_type=str(file.content_type))
     try:
         response.app_iter = open(full_path, 'rb')
     except IOError:
