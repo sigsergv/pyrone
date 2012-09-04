@@ -376,3 +376,12 @@ span.info {
 	border: 1px solid green;
 	background-color: #D2FAEA;
 }
+
+/* actions widget */
+div.widget-actions {
+}
+div.widget-actions div.action-item {
+    margin-bottom: 1px;
+    background-color: #f6f6f6;
+    padding-left: 3px;
+}
