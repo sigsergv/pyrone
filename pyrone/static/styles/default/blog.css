@@ -69,6 +69,14 @@ div#topbar, div#topbar-admin {
 	margin: 0;
 	height: 50px;
 }
+div#topbar-admin div.version {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-right: 10px;
+	font-family: "PT Sans", Verdana, Tahoma, sans-serif;
+	font-size: 10pt;
+}
 div#topbar {
 	background-color: #f6f6ee;
 }

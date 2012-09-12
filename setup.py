@@ -1,5 +1,6 @@
 import os
 import sys
+from pyrone import PYRONE_VERSION
 
 from setuptools import setup, find_packages
 

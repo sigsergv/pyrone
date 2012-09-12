@@ -20,6 +20,7 @@ from mako.filters import html_escape
 from hurry.filesize import size as hsize
 from sqlalchemy import func
 
+from pyrone import PYRONE_VERSION
 from pyrone.models.config import get as get_config
 from pyrone.models import DBSession, Article, Tag, Comment
 from pyrone.lib import auth, lang
