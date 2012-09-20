@@ -1,5 +1,5 @@
 """
-Cachng wrapper: uses uwsgi caching framework if available or dummy internal dict
+Caching wrapper: uses uwsgi caching framework if available or dummy internal dict
 """
 
 try:

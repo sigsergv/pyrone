@@ -44,8 +44,8 @@ Ext.onReady(function() {
   
   <div class="subtitle">
     <div class="date">${h.timestamp_to_str(article.published)}</div>
-    <div class="social">${h.get_twitter_share_link_button(True)|n}</div>
-    <div class="social">${h.get_gplusone_button(True)|n}</div>
+    <div class="social">${h.get_twitter_share_link_button()|n}</div>
+    <div class="social">${h.get_gplusone_button()|n}</div>
 <div class="clear-both"/>
 % if len(article.tags):
     <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>

@@ -28,6 +28,7 @@ def view_settings(request):
     """
     c = dict(settings=dict(), errors=dict())
     for p in config.get_all():
+        log.debug(p.id)
         c['settings'][p.id] = p.value
     
     return c
@@ -67,7 +68,10 @@ def save_settings_ajax(request):
               'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
               'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
               'verification_msg_body_tpl', 'image_preview_width', 'google_analytics_id', 
-              'timezone', 'tw_consumer_key', 'tw_consumer_secret')
+              'timezone', 'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
+              'social_twitter_share_link_show_count', 'social_twitter_share_link_via', 
+              'social_gplusone')
+
         for id in settings:
             try:
                 v = request.POST[id]
@@ -75,15 +79,22 @@ def save_settings_ajax(request):
             except KeyError:
                 continue
 
-        bool_settings = ('admin_notify_new_comments', 'admin_notify_new_user')
+        bool_settings = ('admin_notify_new_comments', 
+            'admin_notify_new_user', 'social_twitter_share_link',
+            'social_twitter_share_link_show_count',
+            'social_gplusone')
         for id in bool_settings:
             if id in request.POST:
-                v = True
+                v = 'true'
             else:
-                v = False
+                v = 'false'
             config.set(id, v, dbsession)
 
         transaction.commit()
+
+        # refresh data in the cache
+        h.get_gplusone_button(True)
+        h.get_twitter_share_link_button(True)
     
     return c
 

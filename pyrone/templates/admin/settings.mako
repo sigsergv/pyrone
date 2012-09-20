@@ -38,7 +38,6 @@
     label=_('show total Twitter recommendations count'))|n}
   ${h.form_input_text('social_twitter_share_link_via', _('Use this Twitter username for sharing'), settings['social_twitter_share_link_via'], errors)|n}
 
-
   <h3>${_(u'Google “+1” button')}</h3>
   ${h.form_checkbox('social_gplusone', None, settings['social_gplusone'], errors, 
     label=_('enable this social button'))|n}

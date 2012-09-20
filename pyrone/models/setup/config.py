@@ -28,7 +28,7 @@ data = [
     ['social_twitter_share_link', 'true'],
     ['social_twitter_share_link_show_count', 'true'],
     ['social_twitter_share_link_via', ''],
-    ['social_gplusone_button', 'true']
+    ['social_gplusone', 'true']
     ]
 
 def setup(dbsession):
