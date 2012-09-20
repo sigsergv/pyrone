@@ -215,6 +215,12 @@ directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the d
 
 Pyrone uses ``cache`` plugin of uWSGI.
 
+
+Sample configuration files
+==========================
+
+You can find up-to-date samples of various configuration files in the directory ``examples``.
+
 Some other installation issues
 ==============================
 
@@ -248,7 +254,7 @@ Preparing virtual environment
 It's assumed here and later that you're using Debian/Ubuntu linux distribution. So open
 terminal now and proceed.
 
-First you need to install ``python`` (version 2.6 is recommended), you'll also
+First you need to install ``python`` (version 2.7 is recommended), you'll also
 need python package ``virtualenv``, you can install them using command
 
 ::
@@ -274,11 +280,14 @@ system. Required commands are: ``python``, ``pip`` etc. So activate:
 
     source ./env/bin/activate
 
-Install packages required for the application:
+Install packages required for the application (there are three separate commands, it's because of some bug
+in pip dependencies resolver):
 
 ::
 
-    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel pastescript
+    pip install paste
+    pip install pastescript
+    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
     
 Wait until it finish downloading and installing the packages.
 
@@ -289,6 +298,12 @@ Also you'll need to install additional binary packages:
     pip install lxml PIL
 
 This require install ``gcc`` and other stuff like ``libxml2-dev``, ``libxslt1-dev``.
+
+If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``:
+
+::
+
+    pip install MySQL-python
 
 Now install *development* version of pyrone:
 
