@@ -31,6 +31,18 @@
   ${h.form_input_text('tw_consumer_key', _('Consumer key'), settings['tw_consumer_key'], errors)|n}
   ${h.form_input_text('tw_consumer_secret', _('Consumer secret'), settings['tw_consumer_secret'], errors)|n}
   
+  <h3>${_(u'Twitter “share a link” button')}</h3>
+  ${h.form_checkbox('social_twitter_share_link', None, settings['social_twitter_share_link'], errors, 
+    label=_('enable this social button'))|n}
+  ${h.form_checkbox('social_twitter_share_link_show_count', None, settings['social_twitter_share_link_show_count'], errors, 
+    label=_('show total Twitter recommendations count'))|n}
+  ${h.form_input_text('social_twitter_share_link_via', _('Use this Twitter username for sharing'), settings['social_twitter_share_link_via'], errors)|n}
+
+
+  <h3>${_(u'Google “+1” button')}</h3>
+  ${h.form_checkbox('social_gplusone', None, settings['social_gplusone'], errors, 
+    label=_('enable this social button'))|n}
+
   <h3>${_('Notifications')}</h3>
   ${h.form_input_text('admin_notifications_email', _('Email address for system notifications'), settings['admin_notifications_email'], errors,
     help=_('Email address for the system notification: user added, comment added for moderation etc'))|n}

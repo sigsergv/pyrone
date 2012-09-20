@@ -297,6 +297,45 @@ def get_pages_widget_links(lang_code, force_reload=False):
     
     return [x for x in value if x['lang']==lang_code]
 
+def get_twitter_share_link_button(force_reload=False):
+    value = cache.get_value('rendered_twitter_share_link_button')
+    if value is None or force_reload:
+        if get_config('social_twitter_share_link') != 'true':
+            value = ''
+        else:
+            tpl = '''<a href="https://twitter.com/share" class="twitter-share-button"%(twitter_via)s%(show_count)s>Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>'''
+            twitter_via = get_config('social_twitter_share_link')
+            show_count = get_config('social_twitter_share_link_show_count')
+            repl = dict(twitter_via='', show_count='')
+            if twitter_via != '':
+                # possible 
+                repl['twitter_via'] = ' data-via="%s"' % html_escape(twitter_via)
+            if show_count != 'true':
+                repl['show_count'] = ' data-count="none"'
+
+            value = tpl % repl
+
+        cache.set_value('rendered_twitter_share_link_button', value)
+
+    return value
+
+def get_gplusone_button(force_reload=False):
+    
+    value = cache.get_value('rendered_gplusone_button')
+    if value is None or force_reload:
+        if get_config('social_gplusone') != 'true':
+            value = ''
+        else:
+            tpl = '''<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<g:plusone></g:plusone>'''
+            value = tpl
+
+        cache.set_value('rendered_gplusone_button', value)
+
+    return value
+
+
 def get_not_approved_comments_count():
     dbsession = DBSession()
     cnt = dbsession.query(func.count(Comment.id)).filter(Comment.is_approved==False).scalar()

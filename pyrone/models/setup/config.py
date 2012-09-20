@@ -24,7 +24,11 @@ data = [
     ['google_analytics_id', ''],
     ['tw_consumer_key', 'XXXXXXXXXXXXXXXXX'],
     ['tw_consumer_secret', 'YYYYYYYYYYYYYYYYYY'],
-    ['widget_pages_pages_spec', '']
+    ['widget_pages_pages_spec', ''],
+    ['social_twitter_share_link', 'true'],
+    ['social_twitter_share_link_show_count', 'true'],
+    ['social_twitter_share_link_via', ''],
+    ['social_gplusone_button', 'true']
     ]
 
 def setup(dbsession):
