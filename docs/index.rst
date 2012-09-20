@@ -55,6 +55,13 @@ Or you can install directly from pypi repository:
 
 This will install latest pyrone version.
 
+If you are going to use MySQL as the database engine you are need to install ``MySQL-python`` package:
+
+::
+
+    pip install MySQL-python
+
+
 Now create mysql database (if you've chosen mysql and not sqlite database engine driver), type in 
 mysql root console:
 
