@@ -4,6 +4,7 @@
 * css styles update
 * added product version to admin page
 * product version is now stored in the module pyrone, not in setup.py
+* resolved issue #12
 
 0.2.15
 ------
