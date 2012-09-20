@@ -1,5 +1,3 @@
-PYRONE_VERSION = '0.2.16'
-
 from pyramid.config import Configurator
 from pyramid.authentication import SessionAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy

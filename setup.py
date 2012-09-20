@@ -1,6 +1,6 @@
 import os
 import sys
-from pyrone import PYRONE_VERSION
+import re
 
 from setuptools import setup, find_packages
 
@@ -48,8 +48,18 @@ try:
 except ImportError:
     pass
 
+# load version string
+version_file = open(os.path.join('pyrone', 'version.py')).read()
+mo = re.search("PYRONE_VERSION = '([0-9.]+)'", version_file)
+print version_file
+if mo is None:
+    print 'No version'
+    sys.exit(1)
+
+PYRONE_VERSION = mo.group(1)
+
 setup(name='pyrone',
-      version='0.2.16',
+      version=PYRONE_VERSION,
       license='New BSD License',
       description='pyrone',
       long_description=README + '\n\n' +  CHANGES,
