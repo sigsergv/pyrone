@@ -42,12 +42,22 @@ Ext.onReady(function() {
 %endif
   </div>
   
-  <div class="date">${h.timestamp_to_str(article.published)}</div>
+  <div class="subtitle">
+    <div class="date">${h.timestamp_to_str(article.published)}</div>
+    <div class="social"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div class="social"><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<g:plusone></g:plusone>
+    </div>
+<div class="clear-both"/>
 % if len(article.tags):
-  <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
+    <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
 % endif
+  </div>
   <div class="body">${article.rendered_body|n}</div>
 </div>
+
 
 <h4><a name="comments"></a>${_('Comments')}</h4>
 

@@ -19,6 +19,9 @@ a:hover {
 	color: #0040ff;
 	text-decoration: underline;
 }
+div.clear-both {
+	clear: both;
+}
 div.title a.border-icon {
     display: none;
 }
@@ -235,8 +238,14 @@ div.article div.title {
 	font-size: 17pt;
 	font-weight: bolder;
 }
-div.article div.date {
+div.article div.subtitle {
+}
+div.article div.subtitle div.date {
 	font-weight: bolder;
+	float: left;
+}
+div.article div.subtitle div.social {
+	float: right;
 }
 div.markup-preview {
 	border: 1px solid #7f7f7f;
