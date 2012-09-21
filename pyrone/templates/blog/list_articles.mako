@@ -18,7 +18,7 @@
 %endif
 % if editor_permission:
  <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone.article.deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
+ <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
  '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}">${_('delete')}</a>\
 %endif
   </div>

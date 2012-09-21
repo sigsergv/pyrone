@@ -7,7 +7,7 @@
 
 <!-- render table, up/down buttons -->
 
-<form action="/" onsubmit="Pyrone.settings.widgets.pagesSave('${url('admin_settings_widget_pages_save_ajax')}'); return false;">
+<form action="/" onsubmit="Pyrone_settings_widgets_pagesSave('${url('admin_settings_widget_pages_save_ajax')}'); return false;">
 <dl class="form">
   ${h.form_textarea('widget_pages_pages_spec', _('Pages list'), 
   	settings['widget_pages_pages_spec'], errors, \

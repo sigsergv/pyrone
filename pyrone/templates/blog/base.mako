@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-  <script src="http://ajax.googleapis.com/ajax/libs/ext-core/3/ext-core.js" language="JavaScript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script language="javascript" src="/static/lang/${h.lang.lang(request)}.js"></script>
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <link rel="icon" type="image/png" href="/favicon.png"/>

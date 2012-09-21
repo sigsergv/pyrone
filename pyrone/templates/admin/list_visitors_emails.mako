@@ -29,5 +29,5 @@ function changeEmailVerified(cb)
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('emails-table', '${url('admin_visitors_emails_delete_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone_file_listDeleteSelectedReq('emails-table', '${url('admin_visitors_emails_delete_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>

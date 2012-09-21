@@ -8,7 +8,7 @@
   % endif
 </%def>
 
-<form action="${submit_url}" method="POST" onsubmit="return Pyrone.article.checkForm();">
+<form action="${submit_url}" method="POST" onsubmit="return Pyrone_article_checkForm();">
 <dl class="form">
 
   ${h.form_input_text('title', _('Subject (required)'), article.title, errors)|n}
@@ -22,9 +22,9 @@
   
   <dd><input type="submit" value="${_('save')}"/>
   % if not new_article:
-    <input type="button" id="eid-save-button" onclick="Pyrone.article.save('${save_url_ajax}');" value="${_('save and continue editing')}"/> 
+    <input type="button" id="eid-save-button" onclick="Pyrone_article_save('${save_url_ajax}');" value="${_('save and continue editing')}"/> 
   % endif  
-    <input onclick="Pyrone.article.preview();" type="button" value="${_('preview')}"/></dd>
+    <input onclick="Pyrone_article_preview();" type="button" value="${_('preview')}"/></dd>
 </dl>
 </form>
 

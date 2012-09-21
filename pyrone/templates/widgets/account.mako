@@ -16,7 +16,7 @@
     <div>${_('You are logged in.')}</div>
     <div><a href="${url('account_my_profile')}">${_('My profile page')}</a></div>
     <!--<div><a href="${url('account_my_subscriptions')}">${_('My subscriptions')}</a></div>-->
-    <div><a href="#" onclick="Pyrone.account.logout('${url('account_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
+    <div><a href="#" onclick="Pyrone_account_logout('${url('account_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
 %endif
 
 ## languages
@@ -25,7 +25,7 @@
   % if lang == lang_code:
     <span class="active">${h.lang.lang_title(lang_code)}</span>
   % else:
-    <span><a href="#" onclick="Pyrone.lang.set('${lang_code}'); return false;">${h.lang.lang_title(lang_code)}</a></span>
+    <span><a href="#" onclick="Pyrone_lang_set('${lang_code}'); return false;">${h.lang.lang_title(lang_code)}</a></span>
   % endif
 % endfor
 </div>

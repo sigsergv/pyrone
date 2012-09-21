@@ -24,12 +24,12 @@
   </div>
   
   <div class="links">
-	  <a href="#" onclick="Pyrone.article.approveModeratedComment('${url('blog_approve_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="ca-${comment.id}" class="border-icon">${_('approve')}</a>
-	  <a href="#" onclick="Pyrone.article.deleteModeratedCommentReq('${url('blog_delete_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="cd-${comment.id}" class="border-icon">${_('delete')}</a>
+	  <a href="#" onclick="Pyrone_article_approveModeratedComment('${url('blog_approve_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="ca-${comment.id}" class="border-icon">${_('approve')}</a>
+	  <a href="#" onclick="Pyrone_article_deleteModeratedCommentReq('${url('blog_delete_comment_ajax', comment_id=comment.id)}', '${comment.id}'); return false;" id="cd-${comment.id}" class="border-icon">${_('delete')}</a>
   </div>
   
   % if comment._truncated_body is not None:
-	  <div class="body" id="c-c-${comment.id}"><p>${comment._truncated_body} <a href="#" onclick="Pyrone.article.expandModeratedComment('${comment.id}'); return false;">${_(u'expand…')}</a></p></div>
+	  <div class="body" id="c-c-${comment.id}"><p>${comment._truncated_body} <a href="#" onclick="Pyrone_article_expandModeratedComment('${comment.id}'); return false;">${_(u'expand…')}</a></p></div>
 	  <div class="body" id="c-e-${comment.id}" style="display: none;">${comment.rendered_body|n}</div>
   % else:
   	<div class="body">${comment.rendered_body|n}</div>

@@ -1,17 +1,13 @@
 // vim: noexpandtab
 function tr(phrase_id) {
-	if (Pyrone.tr && Pyrone.tr[phrase_id]) {
-		return Pyrone.tr[phrase_id];
+	if (Pyrone_tr && Pyrone_tr[phrase_id]) {
+		return Pyrone_tr[phrase_id];
 	} else {
 		console.log('fail');
 		return phrase_id;
 	}
 }
 
-Ext.ns('Pyrone');
-Ext.ns('Pyrone.article');
-Ext.ns('Pyrone.lang');
-Ext.ns('Pyrone.account');
 /*
 function _cl(lang) {
     document.cookie = 'ui_lang='+lang+'; EXPIRES=Wed, 01 Jan 2020 00:00:00 UTC; PATH=/';
@@ -20,7 +16,7 @@ function _cl(lang) {
 }
 */
 
-Pyrone.lang.set = function(lang_code) {
+ function Pyrone_lang_set(lang_code) {
     document.cookie = 'ui_lang='+lang_code+'; EXPIRES=Wed, 01 Jan 2120 00:00:00 UTC; PATH=/';
     document.location.reload(true);
 };
@@ -28,252 +24,193 @@ Pyrone.lang.set = function(lang_code) {
 /**
  * Update element text, show it and then hide after timeout
  */
-Pyrone.notify = function(elem, text, afterfunc, timeout) {
+ function Pyrone_notify(elem, text, afterfunc, timeout) {
 	if (!timeout) {
 		timeout = 3000;
 	}
-	elem.setVisibilityMode(Ext.Element.DISPLAY);
-	elem.show(true);
-	elem.update(text);
-	if (timeout > 0) {
-		(function(){ elem.hide(true); if (afterfunc) {afterfunc.call(); } }).defer(timeout);
-	}
+	elem.html(text);
+	elem.slideDown(300).delay(timeout).slideUp(300);
 };
 
 /** 
  * Return list of selected rows in the table
  */
-Pyrone.getSelectedRows = function(table_id) {
-	var table = $e(table_id);
-	if (!table) {
+function Pyrone_getSelectedRows(table_id) {
+	var table = $('#'+table_id);
+	if (!table.get(0)) {
 		return false;
 	}
 	
-	var nodes = table.query('input[class=list-cb]'),
+	var nodes = table.find('input[class=list-cb]'),
 		res = [];
-	Ext.each(nodes, function(node) {
-		if (node.checked) {
-			res.push(node.value);
+
+	nodes.each(function(ind, el) {
+		if (el.checked) {
+			res.push(el.value);
 		}
 	});
 	return res;
-};
-
-Pyrone.unnotify = function(elem) {
-	if (elem) {
-		elem.hide(true);
-	}
 };
 
 /**
  * @param {String} target_id id of node where append confirm box
  * @param {Function} callback required callback to be called when user clicks confirm box
  */
-Pyrone.createConfirmLink = function(target_id, callback) {
+ function Pyrone_createConfirmLink(target_id, callback) {
 	var confirm_id = 'confirmlink-' + target_id;
-	if ($e(confirm_id)) {
+	if ($('#'+confirm_id).get(0)) {
 		return;
 	}
-	
-	var target = $e(target_id);
+
+	var target = document.getElementById(target_id);
 	if (!target) {
 		return;
 	}
-	var e = document.createElement('A');
-	e.innerHTML = '⇒ OK';
-	e.href = '#';
-	e.id = confirm_id;
-	var confirmation_el;
-	e.onclick = function() { callback.call(); confirmation_el.remove(); return false; };
-	confirmation_el = new Ext.Element(e);
-	confirmation_el.addClass('confirm-icon');
-	confirmation_el.insertAfter(target);
-	// set timeout and delete
-	(function() {confirmation_el.remove();}).defer(1000);
+	target = $(target);
+
+	var confirmation_el = $('<a>⇒ OK</a>').attr({
+		href: '#',
+		id: confirm_id
+	}).addClass('confirm-icon')
+	  .click(function(e) {
+	  	  callback.call();
+	  	  confirmation_el.remove();
+	  	  return false;
+	  });
+	target.after(confirmation_el);
+
+	setTimeout(function(){
+		confirmation_el.remove();
+	}, 1000);
 };
 
 /**
  * Display information box appended to specified target
  */
-Pyrone.createLinkNotifyBox = function(target_id, message) {
+ function Pyrone_createLinkNotifyBox(target_id, message) {
 	var notify_id = 'notifybox-' + target_id;
-	if ($e(notify_id)) {
+	if ($('#'+notify_id).get(0)) {
 		return;
 	}
-	var target = $e(target_id);
-	if (!target) {
+	var target = $('#'+target_id);
+	if (!target.get(0)) {
 		return;
 	}
-	var e = document.createElement('SPAN');
-	e.innerHTML = message;
-	e.id = notify_id;
-	var notify_el;
-	e.onclick = function() {notify_el.remove();};
-	notify_el = new Ext.Element(e);
-	notify_el.addClass('notify-icon');
-	notify_el.insertAfter(target);
-	// set timeout and delete
-	(function() {notify_el.remove();}).defer(3000);
+
+	var notify_el = $('<SPAN></SPAN>').attr({
+		href: '#',
+		id: notify_id
+	}).text(message).addClass('notify-icon')
+	  .click(function(e) {
+	  	  notify_el.remove();
+	  	  return false;
+	  });
+	target.after(notify_el);
+
+	setTimeout(function(){
+		notify_el.remove();
+	}, 1000);
 };
 
-window.$ev = function(field) {
-	if (typeof field == 'string') {
-		field = Ext.get(field);
-		if (!field) {
-			return false;
-		}
-	}
-	return field.getValue();
-};
-
-window.$e = function(fid) {
-	return Ext.get(fid);
-};
-
-window.$sev = function(field, value) {
-	if (typeof field == 'string') {
-		field = Ext.get(field);
-	}
-	//return field.set({value: value});
-	field.dom.value = value;
-};
-
-window.$hide = function(el, anim) {
-	if (typeof el == 'string') {
-		el = $e(el);
-	}
-	if (!el) {
-		return false;
-	}
-	el.setVisibilityMode(Ext.Element.DISPLAY);
-	el.hide(anim);
-};
-
-window.$show = function(eid, anim) {
-	var el = $e(eid);
-	if (!el) {
-		return false;
-	}
-	el.setVisibilityMode(Ext.Element.DISPLAY);
-	el.show(anim);
-}
-
-Pyrone.article.checkForm = function() {
-	return true;
-};
 
 /**
  * Display preview of composing article
  */
-Pyrone.article.preview = function() {
+function Pyrone_article_preview() {
 	// send AJAX request to the server and display received (and rendered) article body text
-	var body = Ext.get('fid-body').getValue();
-	Ext.Ajax.request({
+	var body = $('#fid-body').val();
+
+	$.ajax({
 		url: '/preview/article',
-		method: 'POST',
-		params: {
+		type: 'POST',
+		data: {
 			body: body
-		},
-		success: function(response, opts) {
-			var e = Ext.get('eid-article-render-preview');
-			e.show(true);
-			e.update(response.responseText);
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
 		}
+	}).done(function(data) {
+		var e = $('#eid-article-render-preview');
+		e.show('slow').html(data);
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
 /**
  * Save article using AJAX request
  */
-Pyrone.article.save = function(url) {
-	$e('eid-save-button').dom.disabled = true;
+function Pyrone_article_save(url) {
+	var save_button = $('#eid-save-button');
+	save_button.attr('disabled', 'disabled');
+
 	var params = {
-		title: $ev('fid-title'),
-		shortcut: $ev('fid-shortcut'),
-		published: $ev('fid-published'),
-		tags: $ev('fid-tags'),
-		body: $ev('fid-body')
+		title: $('#fid-title').val(),
+		shortcut: $('#fid-shortcut').val(),
+		published: $('#fid-published').val(),
+		tags: $('#fid-tags').val(),
+		body: $('#fid-body').val()
 	};
 
-	if ($e('fid-is_draft').dom.checked) {
+	if ($('#fid-is_draft').prop('checked')) {
 		params['is_draft'] = 1;
 	}
-	if ($e('fid-is_commentable').dom.checked) {
+	if ($('#fid-is_commentable').prop('checked')) {
 		params['is_commentable'] = 1;
 	}
 
-	Ext.Ajax.request({
+	$.ajax({
 		url: url,
-		method: 'POST',
-		params: params,
-		success: function(response, opts) {
-			// parse response to JSON
-			var data = Ext.decode(response.responseText);
-			if (!data.errors) {
-				Pyrone.notify($e('eid-article-notify'), tr('ARTICLE_SAVED'));
-			} else {
-				var e;
-				Pyrone.notify($e('eid-article-warning'), tr('ARTICLE_NOT_SAVED'));
-				for (fn in data.errors) {
-					e = $e('error-'+fn);
-					if (e) {
-						e.dom.innerHTML = data.errors[fn];
-						$show(e);
-					}
-				}
-			}
-			$e('eid-save-button').dom.disabled = false;
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-			$e('eid-save-button').dom.disabled = false;
+		type: 'POST',
+		data: params,
+		dataType: 'json'
+	}).done(function(data) {
+		if (!data.errors) {
+			Pyrone_notify($('#eid-article-notify'), tr('ARTICLE_SAVED'));
 		}
+		save_button.removeAttr('disabled');
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
+		save_button.removeAttr('disabled');
 	});
 };
 
-Pyrone.article.deleteArticle = function(url, article_id) {
-	Ext.Ajax.request({
+function Pyrone_article_deleteArticle(url, article_id) {
+	$.ajax({
 		url: url,
-		method: 'POST',
-		success: function(response, opts) {
-			window.location.reload(true);
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
-	});	
+		type: 'POST',
+		dataType: 'json'
+	}).done(function(data) {
+		window.location.reload(true);
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
+		save_button.removeAttr('disabled');
+	});
 };
 
-Pyrone.article.deleteArticleReq = function(url, article_id) {
-	Pyrone.createConfirmLink('a-d-'+article_id, function() { Pyrone.article.deleteArticle(url, article_id);});
+function Pyrone_article_deleteArticleReq(url, article_id) {
+	Pyrone_createConfirmLink('a-d-'+article_id, function() { Pyrone_article_deleteArticle(url, article_id);});
 };
 
 /**
- * Post comment
+ * Post comment using AJAX request
  */
-Pyrone.article.postComment = function() {
-	var body = Ext.get('fid-comment-body').getValue();
-	
-	var e = Ext.get('eid-comment-error');
+function Pyrone_article_postComment() {
+	var body = $('#fid-comment-body').val();
+	var e = $('#eid-comment-error');
 	
 	if (body == '') {
-		var body_el = Ext.get('fid-comment-body');
+		var body_el = $('#fid-comment-body');
 		body_el.focus();
-		Pyrone.notify(e, tr('COMMENT_BODY_IS_REQUIRED'));
+		Pyrone_notify(e, tr('COMMENT_BODY_IS_REQUIRED'));
 		return;
 	}
 	
-	var f = Ext.get('eid-comment-form'),
-		url = f.dom.action + '/ajax',
-		article_id = $ev('fid-article_id'),
-		parent = $ev('fid-parent-comment'),
-		display_name = $ev('fid-comment-displayname'),
-		email = $ev('fid-comment-email'),
-		website = $ev('fid-comment-website'),
-		is_subscribed = $e('fid-is_subscribed').dom.checked;
+	var f = $('#eid-comment-form'),
+		url = f.prop('action') + '/ajax',
+		article_id = $('#fid-article_id').val(),
+		parent = $('#fid-parent-comment').val(),
+		display_name = $('#fid-comment-displayname').val(),
+		email = $('#fid-comment-email').val(),
+		website = $('#fid-comment-website').val(),
+		is_subscribed = $('#fid-is_subscribed').prop('checked');
 	
 	var params = {s: article_id};
 	params[article_id.substring(3, 14)] = body;
@@ -281,151 +218,140 @@ Pyrone.article.postComment = function() {
 	params[article_id.substring(0, 5)] = display_name;
 	params[article_id.substring(13, 25)] = email;
 	params[article_id.substring(15, 21)] = website;
-	if (is_subscribed) {
+	if (typeof is_subscribed != 'undefined') {
 		params[article_id.substring(19, 27)] = 'true';
 	}
 	
-	var display_name_field = $e('fid-comment-displayname');
+	var display_name_field = $('#fid-comment-displayname');
 	
-	if (display_name_field.getAttribute('type') == 'text' && display_name == '') {
+	if (display_name_field.prop('type') == 'text' && display_name == '') {
 		display_name_field.focus();
-		Pyrone.notify(e, tr('COMMENT_DISPLAY_NAME_IS_REQUIRED'));
+		Pyrone_notify(e, tr('COMMENT_DISPLAY_NAME_IS_REQUIRED'));
 		return;
 	}
 	
-	Ext.Ajax.request({
+	$.ajax({
 		url: url,
-		params: params,
-		success: function(response, opts) {
-			var json = Ext.decode(response.responseText);
-			if (json.error) {
-				alert(json.error);
-				return;
-			}
-			if (!json.approved) {
-				// clear fields
-				$e('fid-comment-body').dom.value = '';
-				Pyrone.notify($e('eid-comment-notify'), tr('COMMENT_IS_WAITING_FOR_APPROVAL'), Ext.emptyFn, 10000);
-				// display alert
-			} else {
-				window.location.replace(json.url);
-			}
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
+		type: 'POST',
+		data: params,
+		dataType: 'json'
+	}).done(function(json) {
+		if (json.error) {
+			alert(json.error);
+			return;
 		}
+		if (!json.approved) {
+			// clear fields
+			$('#fid-comment-body').val('');
+			Pyrone_notify($('#eid-comment-notify'), 
+				tr('COMMENT_IS_WAITING_FOR_APPROVAL'), $.noop, 10000);
+			// display alert
+		} else {
+			window.location.replace(json.url);
+		}		
+	}).fail(function(){
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
 /**
  * reply to specific comment: move comment form to corresponding comment element
  */
-Pyrone.article.replyToComment = function(comment_id) {
-	var comment_block = $e('c-'+comment_id),
-		comment_form = $e('eid-comment-form'),
-		link = $e('eid-leave-comment-link-bottom'),
-		parent_comment_field = $e('fid-parent-comment');
+function Pyrone_article_replyToComment(comment_id) {
+	var comment_block = $('#c-'+comment_id),
+		comment_form = $('#eid-comment-form'),
+		link = $('#eid-leave-comment-link-bottom'),
+		parent_comment_field = $('#fid-parent-comment');
 	
-	if (!comment_block) {
+	if (!comment_block.get(0)) {
 		return;
 	}
-	comment_block.appendChild(comment_form);
+	comment_block.append(comment_form);
 	
 	if (comment_id === -1) {
-		link.setDisplayed(false);
-		$sev(parent_comment_field, '');
+		link.hide(0);
+		parent_comment_field.val('');
 	} else {
-		$sev(parent_comment_field, comment_id);
-		link.setDisplayed(true);
+		parent_comment_field.val(comment_id);
+		link.show(0);
 	}
-	$e('fid-comment-body').focus();
+	$('#fid-comment-body').focus();
 };
 
-Pyrone.article.approveComment = function(url, comment_id) {
-	Ext.Ajax.request({
+function Pyrone_article_approveComment(url, comment_id) {
+	$.ajax({
 		url: url,
-		method: 'POST',
-		success: function(response, opts) {
-			// mark corresponding comment as approved
-			var c_el = $e('c-'+comment_id),
-				ca_el = $e('ca-'+comment_id);
-			if (c_el) {
-				c_el.removeClass('not-approved');
-			}
-			if (ca_el) {
-				ca_el.setVisibilityMode(Ext.Element.DISPLAY);
-				ca_el.hide(true);
-			}
-			
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
+		type: 'POST'
+	}).done(function() {
+		// mark corresponding comment as approved
+		var c_el = $('#c-'+comment_id),
+			ca_el = $('#ca-'+comment_id);
+		if (c_el) {
+			c_el.removeClass('not-approved');
 		}
+		if (ca_el) {
+			ca_el.hide(0);
+		}
+
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
-Pyrone.article.deleteComment = function(url, comment_id) {
-	Ext.Ajax.request({
+function Pyrone_article_deleteComment(url, comment_id) {
+	$.ajax({
 		url: url,
-		method: 'POST',
-		success: function(response, opts) {
-			// delete correspondig comment block
-			var c_el = $e('c-'+comment_id);
-			c_el.setStyle('background-color', '#f33');
-			c_el.setVisibilityMode(Ext.Element.DISPLAY);
-			c_el.hide(true);
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
+		type: 'POST'
+	}).done(function() {
+		// delete correspondig comment block
+		var c_el = $('#c-'+comment_id);
+		c_el.css('background-color', '#f33');
+		c_el.hide(0);
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
-Pyrone.article.deleteCommentReq = function(url, comment_id) {
-	Pyrone.createConfirmLink('cd-'+comment_id, function() { Pyrone.article.deleteComment(url, comment_id); });
+function Pyrone_article_deleteCommentReq(url, comment_id) {
+	Pyrone_createConfirmLink('cd-'+comment_id, function() { Pyrone_article_deleteComment(url, comment_id); });
 };
 
 
 /**
  * Display comment editing form
  */
-Pyrone.article.showEditCommentForm = function(url, url_fetch, comment_id) {
+function Pyrone_article_showEditCommentForm(url, url_fetch, comment_id) {
 	// replace comment element with editing form
-	var inner = $e('c-inner-'+comment_id),
-		comment_el = $e('c-'+comment_id),
-		edit_form = $e('c-edit');
-	edit_form.setVisibilityMode(Ext.Element.DISPLAY);
+	var inner = $('#c-inner-'+comment_id),
+		comment_el = $('#c-'+comment_id),
+		edit_form = $('#c-edit');
 	
 	// start loading comment data
-	Ext.Ajax.request({
+	$.ajax({
 		url: url_fetch,
-		method: 'POST',
-		success: function(response, opts) {
-			var json = Ext.decode(response.responseText);
-			// fill form fields and show form
-			$sev('c-edit-comment_id', comment_id);
-			$sev('c-edit-body', json.body);
-			$sev('c-edit-name', json.display_name);
-			$sev('c-edit-email', json.email);
-			$sev('c-edit-website', json.website);
-			$sev('c-edit-date', json.date);
-			$sev('c-edit-ip', json.ip_address);
-			$sev('c-edit-xffip', json.xff_ip_address);
-			$e('c-edit-is_subscribed').dom.checked = json.is_subscribed === true;
-			$hide(inner);
-			comment_el.appendChild(edit_form);
-			edit_form.show();
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
+		dataType: 'json',
+		type: 'POST'
+	}).done(function(json){
+		// fill form fields and show form
+		$('#c-edit-comment_id').val(comment_id);
+		$('#c-edit-body').val(json.body);
+		$('#c-edit-name').val(json.display_name);
+		$('#c-edit-email').val(json.email);
+		$('#c-edit-website').val(json.website);
+		$('#c-edit-date').val(json.date);
+		$('#c-edit-ip').val(json.ip_address);
+		$('#c-edit-xffip').val(json.xff_ip_address);
+		$('#c-edit-is_subscribed').prop('checked', json.is_subscribed === true);
+		inner.hide(0);
+		comment_el.append(edit_form);
+		edit_form.show();
+	}).fail(function(){
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-	
-	
 };
 
-Pyrone.article.submitEditCommentForm = function(url_template) {
-	var comment_id = $ev('c-edit-comment_id');
+function Pyrone_article_submitEditCommentForm(url_template) {
+	var comment_id = $('#c-edit-comment_id').val();
 	
 	if (comment_id == '') {
 		return;
@@ -435,62 +361,57 @@ Pyrone.article.submitEditCommentForm = function(url_template) {
 		params = {},
 		fields = ['body', 'name', 'email', 'website', 'date', 'ip', 'xffip'];
 	
-	Ext.each(fields, function(fn) {
-		params[fn] = $ev('c-edit-'+fn);
+	$.each(fields, function(ind, fn) {
+		params[fn] = $('#c-edit-'+fn).val();
 	});
 	
-	if ($e('c-edit-is_subscribed').dom.checked) {
+	if ($('#c-edit-is_subscribed').prop('checked')) {
 		params['is_subscribed'] = 'true';
 	}
 	
-	Ext.Ajax.request({
+	$.ajax({
 		url: submit_url,
-		method: 'POST',
-		params: params,
-		success: function(response, opts) {
-			var json = Ext.decode(response.responseText),
-			inner = $e('c-inner-'+comment_id),
-			edit_form = $e('c-edit');
-		
-			edit_form.hide();
-			inner.show();
-			
-			// re-render comment
-			if (json.rendered) {
-				//console.log(json.rendered, inner.dom.innerHTML);
-				inner.dom.innerHTML = json.rendered;
-			}
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
-	});
-			
-};
-
-Pyrone.article.cancelEditCommentForm = function() {
-	var comment_id = $e('c-edit-comment_id').getValue(),
-		inner = $e('c-inner-'+comment_id),
-		edit_form = $e('c-edit');
+		type: 'POST',
+		data: params,
+		dataType: 'json'
+	}).done(function(json) {
+		inner = $('#c-inner-'+comment_id),
+		edit_form = $('#c-edit');
 	
-	edit_form.hide();
-	inner.show();
+		edit_form.hide(0);
+		inner.show(0);
+		
+		// re-render comment
+		if (json.rendered) {
+			inner.html(json.rendered);
+		}
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
+	});
+			
 };
 
-Pyrone.account.logout = function(url) {
-	Ext.Ajax.request({
+function Pyrone_article_cancelEditCommentForm() {
+	var comment_id = $('#c-edit-comment_id').val(),
+		inner = $('#c-inner-'+comment_id),
+		edit_form = $('#c-edit');
+	
+	edit_form.hide(0);
+	inner.show(0);
+};
+
+function Pyrone_account_logout(url) {
+	$.ajax({
 		url: url,
-		method: 'POST',
-		success: function(response, opts) {
-			location.reload(true);
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
+		type: 'POST'
+	}).done(function(){
+		location.reload(true);
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
-Pyrone.account.loginTwitter = function(url) {
+function Pyrone_account_loginTwitter(url) {
 	Ext.Ajax.request({
 		url: url,
 		method: 'POST',
@@ -519,51 +440,47 @@ Pyrone.account.loginTwitter = function(url) {
 	});
 };
 
-Pyrone.article.expandModeratedComment = function (comment_id) {
-	var collapsed_el = $e('c-c-'+comment_id),
-		expanded_el = $e('c-e-'+comment_id);
-	if (!collapsed_el && !expanded_el) {
+function Pyrone_article_expandModeratedComment(comment_id) {
+	var collapsed_el = $('#c-c-'+comment_id),
+		expanded_el = $('#c-e-'+comment_id);
+	if (!collapsed_el.get(0) && !expanded_el.get(0)) {
 		return;
 	}
-	$hide(collapsed_el);
-	$show(expanded_el);
+	collapsed_el.hide(0);
+	expanded_el.show(0);
 };
 
-Pyrone.article.approveModeratedComment = function(url, comment_id) {
-	var comment_el = $e('c-'+comment_id);
-	Ext.Ajax.request({
+function Pyrone_article_approveModeratedComment(url, comment_id) {
+	var comment_el = $('#c-'+comment_id);
+	$.ajax({
 		url: url,
-		method: 'POST',
-		success: function(response, opts) {
-			// delete approved comment from the list
-			if (comment_el) {
-				$hide(comment_el);
-			}
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
+		type: 'POST'
+	}).done(function() {
+		// delete approved comment from the list
+		comment_el.remove();
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 
-Pyrone.article.deleteModeratedComment = Pyrone.article.deleteComment;
+Pyrone_article_deleteModeratedComment = Pyrone_article_deleteComment;
 
-Pyrone.article.deleteModeratedCommentReq = function(url, comment_id) {
-	Pyrone.createConfirmLink('cd-'+comment_id, function() { Pyrone.article.deleteModeratedComment(url, comment_id); });
+function Pyrone_article_deleteModeratedCommentReq(url, comment_id) {
+	Pyrone_createConfirmLink('cd-'+comment_id, function() { Pyrone_article_deleteModeratedComment(url, comment_id); });
 };
 
-Pyrone.account.saveMyProfile = function(url)
+function Pyrone_account_saveMyProfile(url)
 {
-	Ext.each(['email', 'display_name', 'password_1'], function (n) {
+	$.each(['email', 'display_name', 'password_1'], function (ind, n) {
 		// hide all error messages
-		$hide('error-'+n);
+		$('#error-'+n).hide(0);
 	});
 	// first check params
-	var login_field = $e('fid-login'),
+	var login_field = $('#fid-login'),
 		is_error = false;
 	if (login_field) {
-		var v = $ev(login_field),
-			e = $e('error-login'),
+		var v = login_field.val(),
+			e = $('#error-login'),
 			error = '';
 		if (v == '') {
 			error = tr('FIELD_IS_REQUIRED');
@@ -572,72 +489,68 @@ Pyrone.account.saveMyProfile = function(url)
 		}
 		if (error != '') {
 			is_error = true;
-			e.dom.innerHTML = error;
-			$show(e);
+			e.html(error);
+			e.show(0);
 			login_field.focus();
 		}
 	}
 	
-	var display_name_field = $e('fid-display_name');
+	var display_name_field = $('#fid-display_name');
 	if (display_name_field) {
-		var v = $ev(display_name_field),
-		e = $e('error-display_name'),
+		var v = display_name_field.val(),
+		e = $('#error-display_name'),
 		error = '';
 		if (v == '') {
 			error = tr('FIELD_IS_REQUIRED');
 		}
 		if (error != '') {
 			is_error = true;
-			e.dom.innerHTML = error;
-			$show(e);
+			e.html(error).show(0);
 			display_name_field.focus();
 		}
 	}
 	
-	var email_field = $e('fid-email');
+	var email_field = $('#fid-email');
 	
 	if (is_error) {
 		return;
 	}
 	
-	var p1 = $ev('fid-password_1'),
-		p2 = $ev('fid-password_2');
+	var p1 = $('#fid-password_1').val(),
+		p2 = $('#fid-password_2').val();
 	
 	if (p1 && p2) {
 		if (p1 != p2 && (p1 != '' || p2 != '')) {
 			is_error = true;
-			var e = $e('error-password_1');
-			e.dom.innerHTML = tr('PASSWORDS_DONT_MATCH');
-			$show(e);
+			var e = $('#error-password_1');
+			e.html(tr('PASSWORDS_DONT_MATCH')).show(0);
 		}
 	}
 	
 	var params = {};
 	
-	if (email_field) {
-		params['email'] = $ev(email_field);
+	if (email_field.get(0)) {
+		params['email'] = email_field.val();
 	}
-	if (login_field) {
-		params['login'] = $ev(login_field);
+	if (login_field.get(0)) {
+		params['login'] = login_field.val();
 	}
-	if (display_name_field) {
-		params['display_name'] = $ev(display_name_field);
+	if (display_name_field.get(0)) {
+		params['display_name'] = display_name_field.val();
 	}
 	if (p1) {
 		params['new_password'] = p1;
 	}
 	
-	Ext.Ajax.request({
+	$.ajax({
 		url: url,
-		method: 'POST',
-		params: params,
-		success: function(response, opts) {
-			var json = Ext.decode(response.responseText);
-			Pyrone.notify($e('eid-notify'), tr('YOUR_PROFILE_HAS_BEEN_UPDATED'));
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
-		}
+		type: 'POST',
+		data: params,
+		dataType: 'json'
+	}).done(function() {
+		Pyrone_notify($('#eid-notify'), tr('YOUR_PROFILE_HAS_BEEN_UPDATED'));
+	}).fail(function(){
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 

@@ -6,11 +6,11 @@
 
 <div id="upload-file-form" style="display:none" class="inline-form">
 <form action="${url('admin_upload_file')}" id="upload-form"\
-  method="post" onsubmit="return Pyrone.file.checkUploadForm('${url('admin_upload_file_check_ajax')}','upload-form');"\
+  method="post" onsubmit="return Pyrone_file_checkUploadForm('${url('admin_upload_file_check_ajax')}','upload-form');"\
   enctype="multipart/form-data">
   <dl class="form">
     <dt>${_('Choose file to upload')}</dt>
-    <dd><input type="file" id="fid-filedata" onchange="Pyrone.file.uploadFormFileSelected()" name="filedata" onchange="fileSelected(this);"/> \
+    <dd><input type="file" id="fid-filedata" onchange="Pyrone_file_uploadFormFileSelected()" name="filedata"/> \
     <span class="hint">${_(u'← First choose file (other fields will be filled automatically)')}</span></dd>
     
     ${h.form_input_text('filename', _('Name of the file (required, case-sensitive)'), '', dict(),\
@@ -22,13 +22,13 @@
     'auto', dict(),\
     help=_('What should happen when user open URL to the file in web browser') )|n}
     
-    <dd style="padding-top: 8px;"><input type="submit" value="${_('upload')}"/> <a href="#" onclick="$hide('upload-file-form'); $show('show-upload-form-link'); return false;">${_('cancel')}</a></dd>
+    <dd style="padding-top: 8px;"><input type="submit" value="${_('upload')}"/> <a href="#" onclick="$('#upload-file-form').hide(0); $('#show-upload-form-link').show(0); return false;">${_('cancel')}</a></dd>
   </dl>
   
 </form>
 </div>
 
-<div><a href="#" id="show-upload-form-link" onclick="$show('upload-file-form'); $hide('show-upload-form-link'); return false;">${_('upload new file')}</a></div>
+<div><a href="#" id="show-upload-form-link" onclick="$('#upload-file-form').show(0); $('#show-upload-form-link').hide(0); return false;">${_('upload new file')}</a></div>
 
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="files-table">
 <tr>
@@ -52,5 +52,5 @@
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.file.listDeleteSelectedReq('files-table', '${url('admin_delete_files_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone_file_listDeleteSelectedReq('files-table', '${url('admin_delete_files_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>

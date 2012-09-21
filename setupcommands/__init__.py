@@ -52,7 +52,7 @@ def write_js(fileobj, catalog, use_fuzzy=False):
             jss.append("'%s': '%s'" % (msgid, msgstr))
             
         #print msgid, msgstr
-    js = "Ext.ns('Pyrone.tr');\n\nPyrone.tr = {\n"
+    js = "Pyrone_tr = {\n"
     js += ',\n'.join(jss)
     js += "\n};\n"
     fileobj.write(js)

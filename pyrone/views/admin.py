@@ -284,12 +284,15 @@ def list_backups(request):
     c = dict(backups=list())
     
     backups_dir = get_backups_dir()
+    ind = 1
+
     for fn in os.listdir(backups_dir):
         full_fn = os.path.join(backups_dir, fn)
         if not os.path.isfile(full_fn):
             continue
-        br = dict(id=b64encode(fn), filename=fn, size=os.path.getsize(full_fn))
+        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn), size=os.path.getsize(full_fn))
         c['backups'].append(br)
+        ind += 1
 
     c['backups'] = sorted(c['backups'])
     

@@ -4,11 +4,22 @@
 
 <h2>${_('Blog settings')}</h2>
 
-<div class="notify" style="display:none;" id="eid-notify"></div>
-<form action="/" onsubmit="Pyrone.settings.saveSettings('${url('admin_settings_save_ajax')}'); return false;">
+<script language="javascript">
+$(window).scroll(function() {
+    var top = $(this).scrollTop();
+    var el = $('#settings-save-button-block');
+    if (top <= 55) {
+        el.css('position', 'absolute').css('top', '0px').css('border', '1px solid white');
+    } else {
+        el.css('position', 'fixed').css('top', '0').css('border', '1px solid gray');
+    }
+    //.css('top', $(this).scrollTop() + "px")
+});
+</script>
+
+<form action="/" onsubmit="Pyrone_settings_saveSettings('${url('admin_settings_save_ajax')}'); return false;">
+  <div id="settings-save-button-block"><div><input type="submit" value="${_('save')}"/></div> <div class="notify" style="display:none;" id="eid-notify"></div></div>
 <dl class="form">
-  <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
-  
   <h3>${_('General')}</h3>
   ${h.form_input_text('site_title', _('Blog title'), settings['site_title'], errors)|n}
   ${h.form_input_text('site_base_url', _('Base blog address'), settings['site_base_url'], errors,\
@@ -84,8 +95,6 @@
   	settings['admin_notify_new_user_body_tpl'], errors, \
   	help=_('Plain text, no HTML, allowed substitution symbols:') + '{user}, \
     {answer_title}, {answer_body}, {email}', height=150)|n}
-    
-  <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
     
 </dl>
 </form>

@@ -1,6 +1,4 @@
-Ext.ns('Pyrone.tr');
-
-Pyrone.tr = {
+Pyrone_tr = {
 'AJAX_REQUEST_ERROR': 'Ошибка выполнения AJAX-запроса',
 'ARTICLE_NOT_SAVED': 'Ошибка сохранения.',
 'ARTICLE_SAVED': 'Статья сохранена.',

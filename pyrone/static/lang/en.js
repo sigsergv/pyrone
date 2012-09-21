@@ -1,6 +1,4 @@
-Ext.ns('Pyrone.tr');
-
-Pyrone.tr = {
+Pyrone_tr = {
 'AJAX_REQUEST_ERROR': 'AJAX request error',
 'ARTICLE_NOT_SAVED': 'Article has not been saved due to error.',
 'ARTICLE_SAVED': 'Article has been saved.',

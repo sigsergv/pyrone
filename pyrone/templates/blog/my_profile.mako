@@ -5,7 +5,7 @@
 
 <div class="notify" style="display:none;" id="eid-notify"></div>
 
-<form id="my-profile-properties" onsubmit="Pyrone.account.saveMyProfile('${url('account_save_my_profile_ajax')}'); return false;">
+<form id="my-profile-properties" onsubmit="Pyrone_account_saveMyProfile('${url('account_save_my_profile_ajax')}'); return false;">
   <dl class="form">
 % if user.kind == 'local':
   ${h.form_input_text('login', _('Login name'), user.login, dict())|n}

@@ -944,13 +944,13 @@ def latest_rss(request):
     response = Response(body=feed.writeString('utf-8'), content_type='application/rss+xml')
     return response
 
-@view_config(route_name='blog_view_moderation_queue', renderer='/blog/comments-moderation.mako', permission='admin')
+@view_config(route_name='blog_view_moderation_queue', renderer='/blog/comments_moderation.mako', permission='admin')
 def view_moderation_queue(request):
     c = dict(comments=list())
     
     dbsession = DBSession()
     comments = dbsession.query(Comment).filter(Comment.is_approved==False).all()
-    
+
     for x in comments:
         # set real email
         if x.user is not None:

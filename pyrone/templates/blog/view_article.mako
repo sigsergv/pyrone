@@ -10,8 +10,8 @@ ${article.title}
 </%def>
 
 <script language="javascript">
-Ext.onReady(function() {
-	// scroll to needed position
+$(document).ready(function() {
+	// scroll to required position
 	var hash = window.location.hash, 
 		comment_id = -1;
 		
@@ -22,7 +22,7 @@ Ext.onReady(function() {
 		return;
 	}
 	
-	var cb = $e('c-'+comment_id);
+	var cb = $('#c-'+comment_id);
 	if (cb) {
 		cb.addClass('active');
 	}
@@ -38,7 +38,7 @@ Ext.onReady(function() {
 %endif
 % if editor_permission:
  <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone.article.deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}', '${article.id}'); return false;" class="border-icon" id="ad-${article.id}">${_('delete')}</a>\
+ <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}', '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   
@@ -83,8 +83,8 @@ Ext.onReady(function() {
   </div>
   
   <div><textarea id="c-edit-body" class="body"></textarea></div>
-  <div><input type="button" value="${_('save')}" onclick="Pyrone.article.submitEditCommentForm('${url('blog_edit_comment_ajax', comment_id='666')}');"/> 
-    <a href="#" onclick="Pyrone.article.cancelEditCommentForm(); return false;">${_('close')}</a>
+  <div><input type="button" value="${_('save')}" onclick="Pyrone_article_submitEditCommentForm('${url('blog_edit_comment_ajax', comment_id='666')}');"/> 
+    <a href="#" onclick="Pyrone_article_cancelEditCommentForm(); return false;">${_('close')}</a>
   </div>
   
   </form>
@@ -96,7 +96,7 @@ Ext.onReady(function() {
   <!-- new comment form here -->
   <div class="article-new-comment" id="c--1">
     <a name="leave-comment"></a>
-    <a href="#" id="eid-leave-comment-link-bottom" style="display:none;" onclick="Pyrone.article.replyToComment(-1); return false;">${_('leave comment')}</a>
+    <a href="#" id="eid-leave-comment-link-bottom" style="display:none;" onclick="Pyrone_article_replyToComment(-1); return false;">${_('leave comment')}</a>
     <form action="${url('blog_add_article_comment', article_id=article.id)}" method="POST" id="eid-comment-form">
       <input type="hidden" id="fid-parent-comment" value=""/>
       <input type="hidden" id="fid-article_id" value="${signature}"/>
@@ -126,7 +126,7 @@ Ext.onReady(function() {
         <dt>${_('Your website')}</dt>
         <dd><input type="text" id="fid-comment-website" value="${comment_website}"/></dd>
 %endif
-        <dd><input type="button" value="${_('post comment')}" onclick="Pyrone.article.postComment();"></dd>
+        <dd><input type="button" value="${_('post comment')}" onclick="Pyrone_article_postComment();"></dd>
       </dl>
     </form>
   </div>

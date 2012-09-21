@@ -26,5 +26,5 @@
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone.account.listDeleteSelectedReq('accounts-table', '${url('admin_delete_accounts_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+    <a href="#" class="border-icon" onclick="Pyrone_account_listDeleteSelectedReq('accounts-table', '${url('admin_delete_accounts_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
 </div>
