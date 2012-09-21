@@ -1,7 +1,10 @@
-0.2.17
+0.3
 ------
 
 * default mysql engine driver changed to MySQL-python from pymysql
+* frontend has been moved to jQuery from Ext.Core
+* some minor admin gui improvements (more handy settings page)
+* tunable social services buttons
 
 0.2.16
 ------
