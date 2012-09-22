@@ -8,7 +8,7 @@
 function changeEmailVerified(cb)
 {
 	var url = '${url('admin_visitor_email_edit_ajax')}';
-	Pyrone.account.changeEmailVerified(cb.value, cb.checked, url);
+	Pyrone_account_changeEmailVerified(cb.value, cb.checked, url);
 } 
 </script>
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="emails-table">

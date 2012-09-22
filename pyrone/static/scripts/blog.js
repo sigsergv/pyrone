@@ -412,31 +412,29 @@ function Pyrone_account_logout(url) {
 };
 
 function Pyrone_account_loginTwitter(url) {
-	Ext.Ajax.request({
+	$.ajax({
 		url: url,
-		method: 'POST',
-		params: {
+		type: 'POST',
+		data: {
 			page_url: window.location.href
 		},
-		success: function(response, opts) {
-			var json = Ext.decode(response.responseText);
-			// json.authorize_url contains authorization url that should
-			// be opened in browser window
-			if (json.error) {
-				alert(json.error);
-				return;
-			}
-			if (!json.authorize_url) {
-				alert(tr('TWITTER_AUTH_IS_NOT_WORKING'));
-				return;
-			}
-			// open new window with just provided url
-			window.location.assign(json.authorize_url);
-			//alert(json.authorize_url);
-		},
-		failure: function() {
-			alert(tr('AJAX_REQUEST_ERROR'));
+		dataType: 'json'
+	}).done(function(json) {
+		// json.authorize_url contains authorization url that should
+		// be opened in browser window
+		if (json.error) {
+			alert(json.error);
+			return;
 		}
+		if (!json.authorize_url) {
+			alert(tr('TWITTER_AUTH_IS_NOT_WORKING'));
+			return;
+		}
+		// open new window with just provided url
+		window.location.assign(json.authorize_url);
+		//alert(json.authorize_url);
+	}).fail(function() {
+		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
 

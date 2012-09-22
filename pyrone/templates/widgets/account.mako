@@ -7,7 +7,7 @@
 <div class="widget">
 %if not authenticated:
 <div>${_('<strong>Sign in</strong> using')|n} 
-  <a href="#" onclick="Pyrone.account.loginTwitter('${url('account_twitter_init')}');\
+  <a href="#" onclick="Pyrone_account_loginTwitter('${url('account_twitter_init')}');\
   return false;">twitter</a>
   <!--<a href="#">google</a>-->
   <a href="${url('account_login_form')}">local</a>
