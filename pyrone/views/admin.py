@@ -2,6 +2,7 @@
 import logging
 import transaction
 import shutil
+import base64
 import os
 import zipfile
 from pyramid.security import forget
@@ -10,6 +11,7 @@ from datetime import datetime
 
 from base64 import b64encode, b64decode
 from mimetypes import guess_type
+from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
@@ -734,6 +736,41 @@ def backup_now(request):
     
     data['success'] = True
     return data
+
+@view_config(route_name='admin_download_backup')
+def download_backup(request):
+    encoded_filename = request.matchdict['backup_id']
+
+    headers = []
+
+    try:
+        filename = base64.b64decode(encoded_filename)
+    except TypeError:
+        return HTTPNotFound()
+
+    backups_dir = get_backups_dir()
+    all_backups = [x for x in os.listdir(backups_dir) if os.path.isfile(os.path.join(backups_dir, x))]
+    if filename not in all_backups:
+        return HTTPNotFound()        
+    
+    full_path = os.path.join(backups_dir, filename)
+    if not os.path.isfile(full_path):
+        return HTTPNotFound()
+
+    headers = []
+    content_length = os.path.getsize(full_path)
+    headers.append( ('Content-Length', str(content_length)) );
+    headers.append( ('Content-Disposition', 'attachment; filename=%s' % filename) )
+
+    response = Response(content_type='application/octet-stream')
+    try:
+        response.app_iter = open(full_path, 'rb')
+    except IOError:
+        return HTTPNotFound()
+
+    response.headerlist += headers
+
+    return response
 
 @view_config(route_name='admin_delete_backups_ajax', renderer='json', permission='admin')
 def delete_backups(request):
