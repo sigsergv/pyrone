@@ -5,6 +5,7 @@
 * frontend has been moved to jQuery from Ext.Core
 * some minor admin gui improvements (more handy settings page)
 * tunable social services buttons
+* added backups download
 
 0.2.16
 ------
