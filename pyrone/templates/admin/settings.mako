@@ -43,14 +43,14 @@ $(window).scroll(function() {
   ${h.form_input_text('tw_consumer_secret', _('Consumer secret'), settings['tw_consumer_secret'], errors)|n}
   
   <h3>${_(u'Twitter “share a link” button')}</h3>
-  ${h.form_checkbox('social_twitter_share_link', None, settings['social_twitter_share_link'], errors, 
+  ${h.form_checkbox('social_twitter_share_link', None, settings['social_twitter_share_link'] == 'true', errors, 
     label=_('enable this social button'))|n}
-  ${h.form_checkbox('social_twitter_share_link_show_count', None, settings['social_twitter_share_link_show_count'], errors, 
+  ${h.form_checkbox('social_twitter_share_link_show_count', None, settings['social_twitter_share_link_show_count'] == 'true', errors, 
     label=_('show total Twitter recommendations count'))|n}
   ${h.form_input_text('social_twitter_share_link_via', _('Use this Twitter username for sharing'), settings['social_twitter_share_link_via'], errors)|n}
 
   <h3>${_(u'Google “+1” button')}</h3>
-  ${h.form_checkbox('social_gplusone', None, settings['social_gplusone'], errors, 
+  ${h.form_checkbox('social_gplusone', None, settings['social_gplusone'] == 'true', errors, 
     label=_('enable this social button'))|n}
 
   <h3>${_('Notifications')}</h3>
@@ -61,9 +61,9 @@ $(window).scroll(function() {
     help=_('This email will be used as FROM address for notification messages'))|n}
     
   <dt>${_('Select notifications you want to receive')}</dt>
-  ${h.form_checkbox('admin_notify_new_comments', None, settings['admin_notify_new_comments'], errors, 
+  ${h.form_checkbox('admin_notify_new_comments', None, settings['admin_notify_new_comments'] == 'true', errors, 
   	label=_('new comment added (including comment moderation requests)'))|n}
-  ${h.form_checkbox('admin_notify_new_user', None, settings['admin_notify_new_user'], errors, 
+  ${h.form_checkbox('admin_notify_new_user', None, settings['admin_notify_new_user'] == 'true', errors, 
   	label=_('new user registered'))|n}
 
   ${h.form_input_text('verification_msg_subject_tpl', _('Email address verification message subject template'), settings['verification_msg_subject_tpl'],

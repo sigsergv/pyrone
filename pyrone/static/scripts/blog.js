@@ -438,6 +438,12 @@ function Pyrone_account_loginTwitter(url) {
 	});
 };
 
+// stub
+function Pyrone_article_checkForm()
+{
+	return true;
+}
+
 function Pyrone_article_expandModeratedComment(comment_id) {
 	var collapsed_el = $('#c-c-'+comment_id),
 		expanded_el = $('#c-e-'+comment_id);

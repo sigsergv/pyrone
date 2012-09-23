@@ -112,7 +112,6 @@ def form_selector(name, title, all_values, value, errors, help=None):
 
 def form_checkbox(name, title, value, errors, help=None, label=None, label_help=None):
     # ignore errors
-    # value must be "true" to turn checkbox on
     
     if label is not None and label_help is not None:
         label = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=label_help, title=label)
@@ -123,7 +122,7 @@ def form_checkbox(name, title, value, errors, help=None, label=None, label_help=
         html += """<dt>%(title)s</dt>""" % dict(title=title)
     
     cb = '<input type="checkbox" name="%(name)s" id="fid-%(name)s"%(checked)s/>' % dict(name=name, 
-        checked=' checked="checked"' if value == 'true' else '')
+        checked=' checked="checked"' if value == True else '')
     if label is not None:
         cb = '<label>%(cb)s %(label)s</label>' % dict(cb=cb, label=label)
         
