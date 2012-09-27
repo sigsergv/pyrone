@@ -103,7 +103,7 @@ $(document).ready(function() {
       <dl class="form">
         <dd><div id="eid-comment-error" style="display: none;" class="error"></div></dd>
         <dd><div id="eid-comment-notify" style="display: none;" class="notify"></div></dd>
-        <dt>${_(u'Comment text (<a class="new-window" target="_blank" href="/static/comment-markup-tip-en.html" title="Open in new window">Markdown</a> is allowed).')|n}
+        <dt>${_(u'Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, [hyperlink](http://example.com) <a class="new-window" target="_blank" href="/static/comment-markup-tip-en.html" title="Open in new window">more</a>')|n}
         % if authenticated is None:
         ${_(u'<strong>Anonymous visitors, please pay attention that comments with more than one hyperlink (including field “website”) will be put on moderation. Sign in to post without such limitations.</strong>')|n}
         % endif

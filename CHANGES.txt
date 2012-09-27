@@ -6,6 +6,7 @@
 * some minor admin gui improvements (more handy settings page)
 * tunable social services buttons
 * added backups download
+* translation fixes
 
 0.2.16
 ------
