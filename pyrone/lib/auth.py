@@ -14,13 +14,15 @@ from pyrone.models.user import anonymous as anonymous_user
 
 log = logging.getLogger(__name__)
 
+SESSION_USER_KEY = 'user'
+
 def principals_finder(user, request):
     principals = user.get_permissions()
     return principals
 
 def get_user(request):
     if 'user' in request.session:
-        return request.session['user']
+        return request.session[SESSION_USER_KEY]
     else:
         return anonymous_user
     
@@ -66,31 +68,26 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
     implements(IAuthenticationPolicy)
     
     def callback(self, userid, request):
-        user = request.session.get(self.user_key)
+        user = request.session.get(self.userid_key)
         if user is not None and user.id == userid:
             return user.get_permissions()
         
-    def __init__(self):
-        self.user_key = 'user'
-        #self.logout_token_key = 'user.logout_token'
-
-    def remember(self, request, userid, **kw):
-        """ Ignore userid and user kw argument ``user`` """
-        request.session[self.user_key] = kw['user']
+    def remember(self, request, userid, user=None, **kw):
+        request.session[SESSION_USER_KEY] = user
         #request.session[self.logout_token_key] = str(uuid.uuid4())
         request.session.save()
         return []
     
     def forget(self, request):
         """ Remove user from the session """
-        if self.user_key in request.session:
-            del request.session[self.user_key]
+        if SESSION_USER_KEY in request.session:
+            del request.session[SESSION_USER_KEY]
             #del request.session[self.logout_token_key]
             request.session.save()
         return []
 
     def unauthenticated_userid(self, request):
-        user = request.session.get(self.user_key)
+        user = request.session.get(SESSION_USER_KEY)
         if user is not None:
             return user.id
     

@@ -23,7 +23,7 @@ from pyrone.lib import helpers as h, auth
 
 log = logging.getLogger(__name__)
 
-@view_config(route_name='account_login_form', renderer='/blog/local_login.mako')
+@view_config(route_name='account_login', renderer='/blog/local_login.mako')
 def login_local(request):
     c = dict()
     c['error'] = ''
@@ -37,8 +37,7 @@ def login_local(request):
             c['error'] = _('Incorrect login or password')
         else:
             # this method doesn't return any headers actually
-            headers = remember(request, None, user=user) #@UnusedVariable
-            # after this method execution "request.session['user']" should contain valid user object
+            headers = remember(request, user.id, user=user) #@UnusedVariable
             return HTTPFound(location=route_url('blog_latest', request), headers=headers)
             
     elif request.method == 'GET':

@@ -1,5 +1,5 @@
 from pyramid.config import Configurator
-from pyramid.authentication import SessionAuthenticationPolicy
+#from pyramid.authentication import SessionAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
@@ -52,7 +52,6 @@ def main(global_config, **settings):
               
               ('account_my_profile', '/me'),
               ('account_save_my_profile_ajax', '/me/save/ajax'),
-              ('account_login_form', '/login'),
               ('account_login', '/login'),
               ('account_logout', '/logout'),
               ('account_verify_email', '/verify-email'),
