@@ -4,13 +4,14 @@ Authentication and authorization functions
 import logging
 
 #import pyramid.threadlocal as threadlocal
+from pyramid.security import unauthenticated_userid
 from pyramid.authentication import CallbackAuthenticationPolicy
 from pyramid.interfaces import IAuthenticationPolicy
 from zope.interface import implements
 #from pylons.controllers.util import abort, redirect
 from decorator import decorator
 
-from pyrone.models.user import anonymous as anonymous_user
+from pyrone.models.user import anonymous as anonymous_user, get_user as get_user_by_id
 
 log = logging.getLogger(__name__)
 
@@ -21,13 +22,22 @@ def principals_finder(user, request):
     return principals
 
 def get_user(request):
+    '''
     if 'user' in request.session:
         return request.session[SESSION_USER_KEY]
     else:
         return anonymous_user
+    '''
+    userid = unauthenticated_userid(request)
+    if userid is not None:
+        user = get_user_by_id(userid)
+    else:
+        user = anonymous_user
+
+    return user
     
 def has_permission(request, p):
-    get_user(request).has_permission(p)
+    request.user.has_permission(p)
     
 def get_logout_token(request):
     s = request.session
@@ -68,7 +78,7 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
     implements(IAuthenticationPolicy)
     
     def callback(self, userid, request):
-        user = request.session.get(self.userid_key)
+        user = request.session.get(SESSION_USER_KEY)
         if user is not None and user.id == userid:
             return user.get_permissions()
         

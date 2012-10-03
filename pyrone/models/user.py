@@ -84,9 +84,10 @@ def find_local_user(login, password):
 def normalize_email(email):
     return email
 
-#def get_user(user_id):
-#    user = Session.query(User).options(eagerload('permissions')).get(user_id)
-#    return user
+def get_user(user_id):
+    dbsession = DBSession()
+    user = dbsession.query(User).options(eagerload('permissions')).get(user_id)
+    return user
     
 def find_twitter_user(username):
     dbsession = DBSession()

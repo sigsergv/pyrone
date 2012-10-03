@@ -5,7 +5,7 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 
 from pyrone.models import initialize_sql
-from pyrone.lib.auth import PyroneSessionAuthenticationPolicy
+from pyrone.lib.auth import PyroneSessionAuthenticationPolicy, get_user
 from pyrone.models.file import init_storage_from_settings
 from pyrone.lib.notifications import init_notifications_from_settings
 from pyrone.lib.lang import locale_negotiator
@@ -27,6 +27,7 @@ def main(global_config, **settings):
         authorization_policy=authorization_policy,
         locale_negotiator=locale_negotiator)
     config.add_translation_dirs('pyrone:locale/')
+    config.set_request_property(get_user, 'user', reify=True) # reify=True means that result is cached per request
     config.scan()
     config.add_static_view('static', 'pyrone:static')
     routes = [

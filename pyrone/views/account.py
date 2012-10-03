@@ -65,7 +65,7 @@ def my_profile(request):
 @view_config(route_name='account_save_my_profile_ajax', renderer='json', permission='authenticated', request_method='POST')    
 def my_profile_save_ajax(request):
     c = dict()
-    user_id = auth.get_user(request).id
+    user_id = request.user.id
     
     is_changed = False;
     

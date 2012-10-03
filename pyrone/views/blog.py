@@ -70,7 +70,7 @@ def latest(request):
             start_page = 0
     
     dbsession= DBSession()
-    user = auth.get_user(request)
+    user = request.user
     
     q = dbsession.query(Article).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
     if not user.has_permission('edit_article'):
@@ -107,7 +107,7 @@ def tag_articles(request):
         except ValueError:
             start_page = 0
             
-    user = auth.get_user(request)
+    user = request.user
     dbsession= DBSession()
     q = dbsession.query(Article).join(Tag).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
     if not user.has_permission('edit_article'):
@@ -291,7 +291,7 @@ def write_article(request):
             transaction.begin()
             
             # save and redirect
-            user = auth.get_user(request)
+            user = request.user
             article.user_id = user.id
             dbsession.add(article)
             dbsession.flush() # required as we need to obtain article_id
@@ -407,7 +407,7 @@ def _view_article(request, article_id=None, article=None):
     if article is None:
         return HTTPNotFound()
 
-    user = auth.get_user(request)
+    user = request.user
     if article.is_draft and not user.has_permission('edit_article'):
         return HTTPNotFound()
     
@@ -474,7 +474,7 @@ def view_article(request):
     
     dbsession = DBSession()
     q = dbsession.query(Article).filter(Article.shortcut_date==shortcut_date).filter(Article.shortcut==shortcut)
-    user = auth.get_user(request)
+    user = request.user
     if not user.has_permission('edit_article'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
@@ -499,7 +499,7 @@ def add_article_comment_ajax(request):
     transaction.begin()
     
     q = dbsession.query(Article).filter(Article.id==article_id)
-    user = auth.get_user(request)
+    user = request.user
     if not user.has_permission('edit_article') or not user.has_permission('admin'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
@@ -538,7 +538,7 @@ def add_article_comment_ajax(request):
     comment = Comment()
     comment.set_body(body)
     
-    user = auth.get_user(request)
+    user = request.user
     
     if user.kind != 'anonymous':
         comment.user_id = user.id
