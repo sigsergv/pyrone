@@ -7,7 +7,7 @@ import logging
 from pyramid.security import unauthenticated_userid
 from pyramid.authentication import CallbackAuthenticationPolicy
 from pyramid.interfaces import IAuthenticationPolicy
-from zope.interface import implements
+from zope.interface import implementer
 #from pylons.controllers.util import abort, redirect
 from decorator import decorator
 
@@ -74,8 +74,8 @@ def auth_required(f, self, *args, **kwargs):
         
     return f(self, *args, **kwargs)
 
+@implementer(IAuthenticationPolicy)
 class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
-    implements(IAuthenticationPolicy)
     
     def callback(self, userid, request):
         user = request.session.get(SESSION_USER_KEY)
