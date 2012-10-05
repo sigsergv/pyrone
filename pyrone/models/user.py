@@ -1,7 +1,7 @@
 """User model"""
 import uuid
+import hashlib
 
-from hashlib import md5
 from time import time
 
 from sqlalchemy import Column, ForeignKey
@@ -9,6 +9,12 @@ from sqlalchemy.orm import relation, eagerload
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
 from . import Base, DBSession
+
+def md5(s):
+    return hashlib.md5(s).hexdigest()
+
+def sha1(s):
+    return hashlib.sha1(s).hexdigest()
 
 class User(Base):
     __tablename__ = 'pbuser'
@@ -74,12 +80,23 @@ class VerifiedEmail(Base):
         self.verification_code = str(uuid.uuid4())
         
 def find_local_user(login, password):
-    hashed_password = md5(password).hexdigest()
+    hashed_password = md5(password)
     dbsession = DBSession()
     q = dbsession.query(User).options(eagerload('roles')).filter(User.kind=='local').\
-        filter(User.login==login).filter(User.password==hashed_password)
+        filter(User.login==login)
     user = q.first()
-    return user
+
+    if user.password == hashed_password:
+        # old password hashing method is used
+        return user
+    else:
+        # possibly a new method is used
+        salt = user.password[:8]
+        hashed_password = salt + sha1(salt + sha1(password))
+        if user.password == hashed_password:
+            return user
+
+    return None
 
 def normalize_email(email):
     return email

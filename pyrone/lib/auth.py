@@ -2,6 +2,7 @@
 Authentication and authorization functions
 """
 import logging
+import hashlib
 
 #import pyramid.threadlocal as threadlocal
 from pyramid.security import unauthenticated_userid
@@ -16,6 +17,13 @@ from pyrone.models.user import anonymous as anonymous_user, get_user as get_user
 log = logging.getLogger(__name__)
 
 SESSION_USER_KEY = 'user'
+
+def md5(s):
+    return hashlib.md5(s).hexdigest()
+
+def sha1(s):
+    return hashlib.sha1(s).hexdigest()
+
 
 def get_user(request):
     '''

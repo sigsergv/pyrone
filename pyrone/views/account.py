@@ -3,8 +3,8 @@ import logging
 import transaction
 import tweepy
 import uuid
-
-from hashlib import md5
+import hashlib
+import random
 
 from sqlalchemy.orm import eagerload
 from pyramid.i18n import TranslationString as _
@@ -22,6 +22,12 @@ from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, auth
 
 log = logging.getLogger(__name__)
+
+def md5(s):
+    return hashlib.md5(s).hexdigest()
+
+def sha1(s):
+    return hashlib.sha1(s).hexdigest()
 
 @view_config(route_name='account_login', renderer='/blog/local_login.mako')
 def login_local(request):
@@ -89,7 +95,11 @@ def my_profile_save_ajax(request):
             is_changed = True
             
         if 'new_password' in request.POST and request.POST['new_password'] != '':
-            user.password = md5(request.POST['new_password']).hexdigest()
+            # construct new password
+            sample = '0123456789abcdef'
+            salt = ''.join([random.choice(sample) for x in range(8)])
+
+            user.password = salt + sha1(salt + sha1(request.POST['new_password']))
             is_changed = True
             
     if is_changed:
