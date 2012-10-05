@@ -7,6 +7,9 @@
 * tunable social services buttons
 * added backups download
 * translation fixes
+* internals: new password hashing method
+* internals: new role-based users system
+* internals: backup version is 1.1 now, old backups are supported
 
 0.2.16
 ------
