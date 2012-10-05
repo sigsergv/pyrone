@@ -17,10 +17,6 @@ log = logging.getLogger(__name__)
 
 SESSION_USER_KEY = 'user'
 
-def principals_finder(user, request):
-    principals = user.get_permissions()
-    return principals
-
 def get_user(request):
     '''
     if 'user' in request.session:
@@ -36,9 +32,6 @@ def get_user(request):
 
     return user
     
-def has_permission(request, p):
-    request.user.has_permission(p)
-    
 def get_logout_token(request):
     s = request.session
     logout_token = '';
@@ -47,40 +40,14 @@ def get_logout_token(request):
 
     return logout_token
 
-def permissions_required(permissions):
-    @decorator
-    def d(g, self, *args, **kwargs):
-        if self.user is None:
-            abort(403)
-        
-        #log.debug(self._get_method_args())
-        allow = True
-        # make sure self.user has corresponding permissions
-        for p in permissions:
-            allow = allow and self.user.has_permission(p)
-            if not allow:
-                break
-        if allow:
-            return g(self, *args, **kwargs)
-        else:
-            abort(403)
-    
-    return d
-
-@decorator
-def auth_required(f, self, *args, **kwargs):
-    if self.user is None:
-        abort(403)
-        
-    return f(self, *args, **kwargs)
-
 @implementer(IAuthenticationPolicy)
 class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
     
     def callback(self, userid, request):
         user = request.session.get(SESSION_USER_KEY)
         if user is not None and user.id == userid:
-            return user.get_permissions()
+            roles = ['role:%s' % x for x in user.get_roles()]
+            return roles
         
     def remember(self, request, userid, user=None, **kw):
         request.session[SESSION_USER_KEY] = user

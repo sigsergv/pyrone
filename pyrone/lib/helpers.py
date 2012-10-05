@@ -183,7 +183,7 @@ def user_link(user):
     """
     name = user.display_name or user.login
     
-    if user.has_permission('admin'):
+    if user.has_role('admin'):
         title = _('Administrator')
         name = '<span title="%(title)s" class="account-admin">%(name)s</span>' % dict(name=name, title=title)
     

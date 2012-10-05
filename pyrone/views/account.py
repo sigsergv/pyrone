@@ -71,7 +71,7 @@ def my_profile_save_ajax(request):
     
     transaction.begin()
     dbsession = DBSession()
-    user = dbsession.query(User).options(eagerload('permissions')).get(user_id)
+    user = dbsession.query(User).options(eagerload('roles')).get(user_id)
     
     if user is None:
         return HTTPNotFound()
@@ -95,7 +95,7 @@ def my_profile_save_ajax(request):
     if is_changed:
         dbsession.flush()
         dbsession.expunge(user)
-        user.get_permissions()
+        user.get_roles()
         transaction.commit()
         # also update Beaker session object
         remember(request, None, user=user)
@@ -177,7 +177,7 @@ def login_twitter_finish(request):
         dbsession.add(user)
         transaction.commit()
         
-        # re-request again to correctly read permissions
+        # re-request again to correctly read roles
         user = find_twitter_user(tw_username)    
         if user is None:
             log.error('Unable to create twitter user')

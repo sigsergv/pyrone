@@ -36,7 +36,7 @@ def initialize_sql(engine):
         log.debug('SOMETHING WRONG WITH INIT DB')
         transaction.abort()
     
-from user import User, Permission, VerifiedEmail
+from user import User, Role, VerifiedEmail
 from config import Config
 from article import Article, Comment, Tag
 from file import File

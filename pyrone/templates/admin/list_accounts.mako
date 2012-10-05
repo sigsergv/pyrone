@@ -20,7 +20,7 @@
   <td>${h.user_link(u)|n}</td>
   <td>${u.display_name or '-'}</td>
   <td>${u.email or '-'}</td>
-  <td>${h.cond(u.has_permission('admin'), h.span_info(_('admin')), '')|n}</td>
+  <td>${h.cond(u.has_role('admin'), h.span_info(_('admin')), '')|n}</td>
 </tr>
 % endfor
 </table>

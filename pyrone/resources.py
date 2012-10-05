@@ -4,10 +4,10 @@ from pyramid.security import Allow, Authenticated
 class RootFactory(object):
     __acl__ = [ 
                # action, principal, permission
-               # in our case principal==permission name
-               (Allow, 'write_article', 'write_article'),
+               (Allow, 'role:writer', 'write_article'),
+               (Allow, 'role:editor', 'edit_article'),
                (Allow, Authenticated, 'authenticated'),
-               (Allow, 'admin', 'admin')
+               (Allow, 'role:admin', 'admin')
                 ]
     
     def __init__(self, request):

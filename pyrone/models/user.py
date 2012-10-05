@@ -14,7 +14,7 @@ class User(Base):
     __tablename__ = 'pbuser'
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
-    _str_permissions = None
+    _str_roles = None
     
     id = Column(Integer, primary_key=True)
     login = Column(String(255))
@@ -24,38 +24,38 @@ class User(Base):
     # user kind (class, type), possible values: "local", "twitter"
     kind = Column(String(20))
     
-    permissions = relation('Permission')
+    roles = relation('Role')
 
-    def has_permission(self, p):
-        return p in self.get_permissions()
-    
-    def get_permissions(self):
-        if self._str_permissions is None:
-            self._str_permissions = [x.name for x in self.permissions]
+    def has_role(self, r):
+        return r in self.get_roles()
+
+    def get_roles(self):
+        if self._str_roles is None:
+            self._str_roles = [x.name for x in self.roles]
             
-        return self._str_permissions
+        return self._str_roles
     
 class AnonymousUser:
     kind = 'anonymous'
     
-    def has_permission(self, p):
+    def has_role(self, r):
         return False
-    
+
 anonymous = AnonymousUser()
 
-class Permission(Base):
-    __tablename__ = 'pbpermission'
+class Role(Base):
+    __tablename__ = 'pbuserrole'
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
-    
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('pbuser.id'))
     name = Column(String(50))
-    
+
     def __init__(self, id, user_id, name):
         self.id = id
         self.user_id = user_id
         self.name = name
-        
+       
 class VerifiedEmail(Base):
     __tablename__ = 'pbverifiedemail'
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
@@ -76,7 +76,7 @@ class VerifiedEmail(Base):
 def find_local_user(login, password):
     hashed_password = md5(password).hexdigest()
     dbsession = DBSession()
-    q = dbsession.query(User).options(eagerload('permissions')).filter(User.kind=='local').\
+    q = dbsession.query(User).options(eagerload('roles')).filter(User.kind=='local').\
         filter(User.login==login).filter(User.password==hashed_password)
     user = q.first()
     return user
@@ -86,12 +86,12 @@ def normalize_email(email):
 
 def get_user(user_id):
     dbsession = DBSession()
-    user = dbsession.query(User).options(eagerload('permissions')).get(user_id)
+    user = dbsession.query(User).options(eagerload('roles')).get(user_id)
     return user
     
 def find_twitter_user(username):
     dbsession = DBSession()
-    q = dbsession.query(User).options(eagerload('permissions')).filter(User.kind=='twitter').\
+    q = dbsession.query(User).options(eagerload('roles')).filter(User.kind=='twitter').\
         filter(User.login==username)
     user = q.first()
     return user
