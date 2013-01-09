@@ -121,12 +121,12 @@ def tag_articles(request):
     
     c['prev_page'] = None
     if len(c['articles']) > page_size:
-        c['prev_page'] = route_url('blog_latest', request, _query=[('start', start_page+1)])
+        c['prev_page'] = route_url('blog_latest', request, _query=[('start', start_page+1), ('tag', tag)])
         c['articles'].pop()
         
     c['next_page'] = None
     if start_page > 0:
-        c['next_page'] = route_url('blog_latest', request, _query=[('start', start_page-1)])
+        c['next_page'] = route_url('blog_latest', request, _query=[('start', start_page-1), ('tag', tag)])
     
     c['page_title'] = _(u'Articles labeled with tag “%s”' % tag)
     
