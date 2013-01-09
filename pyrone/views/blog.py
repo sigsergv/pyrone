@@ -70,10 +70,10 @@ def latest(request):
             start_page = 0
     
     dbsession= DBSession()
-    user = auth.get_user(request)
+    user = request.user
     
     q = dbsession.query(Article).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
-    if not user.has_permission('edit_article'):
+    if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
         
     c['articles'] = q[(start_page * page_size) : (start_page+1) * page_size + 1]
@@ -107,10 +107,10 @@ def tag_articles(request):
         except ValueError:
             start_page = 0
             
-    user = auth.get_user(request)
+    user = request.user
     dbsession= DBSession()
     q = dbsession.query(Article).join(Tag).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
-    if not user.has_permission('edit_article'):
+    if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
     
     c = dict()
@@ -291,7 +291,7 @@ def write_article(request):
             transaction.begin()
             
             # save and redirect
-            user = auth.get_user(request)
+            user = request.user
             article.user_id = user.id
             dbsession.add(article)
             dbsession.flush() # required as we need to obtain article_id
@@ -407,8 +407,8 @@ def _view_article(request, article_id=None, article=None):
     if article is None:
         return HTTPNotFound()
 
-    user = auth.get_user(request)
-    if article.is_draft and not user.has_permission('edit_article'):
+    user = request.user
+    if article.is_draft and not user.has_role('editor'):
         return HTTPNotFound()
     
     comments = dbsession.query(Comment).filter(Comment.article==article).all()
@@ -428,7 +428,7 @@ def _view_article(request, article_id=None, article=None):
     scope = dict(thread=[])
 
     # we should hide all not approved comments for everyone who isn't a site admin
-    display_not_approved = user.has_permission('admin')
+    display_not_approved = user.has_role('admin')
     def build_thread(parent_id, indent):
         if parent_id not in comments_dict:
             return
@@ -474,8 +474,8 @@ def view_article(request):
     
     dbsession = DBSession()
     q = dbsession.query(Article).filter(Article.shortcut_date==shortcut_date).filter(Article.shortcut==shortcut)
-    user = auth.get_user(request)
-    if not user.has_permission('edit_article'):
+    user = request.user
+    if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
 
@@ -499,8 +499,8 @@ def add_article_comment_ajax(request):
     transaction.begin()
     
     q = dbsession.query(Article).filter(Article.id==article_id)
-    user = auth.get_user(request)
-    if not user.has_permission('edit_article') or not user.has_permission('admin'):
+    user = request.user
+    if not user.has_role('editor') or not user.has_role('admin'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
     
@@ -538,7 +538,7 @@ def add_article_comment_ajax(request):
     comment = Comment()
     comment.set_body(body)
     
-    user = auth.get_user(request)
+    user = request.user
     
     if user.kind != 'anonymous':
         comment.user_id = user.id
@@ -616,9 +616,9 @@ def add_article_comment_ajax(request):
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
-    # automatically approve comment if user has permission "admin", "write_article" or "edit_article"
-    if user.has_permission('admin') or user.has_permission('write_article') \
-            or user.has_permission('edit_article'):
+    # automatically approve comment if user has role "admin", "writer" or "editor"
+    if user.has_role('admin') or user.has_role('writer') \
+            or user.has_role('editor'):
         comment.is_approved = True
         
     # TODO: also automatically approve comment if it's considered as safe:
@@ -768,7 +768,7 @@ def edit_article_comment_ajax(request):
     dbsession = DBSession()
     
     transaction.begin()
-    comment = dbsession.query(Comment).options(eagerload('user')).options(eagerload('user.permissions')).get(comment_id)
+    comment = dbsession.query(Comment).options(eagerload('user')).options(eagerload('user.roles')).get(comment_id)
 
     # passed POST parameters are: 'body', 'name', 'email', 'website', 'date', 'ip', 'xffip'
     params = dict(body='body', name='display_name', email='email', website='website',
@@ -788,12 +788,12 @@ def edit_article_comment_ajax(request):
     
     #comment_user = None
     #if comment.user is not None:
-    #    comment_user = dbsession.query(User).options(eagerload('permissions')).get(comment.user)
+    #    comment_user = dbsession.query(User).options(eagerload('roles')).get(comment.user)
     
     dbsession.expunge(comment)
     if comment.user is not None:
         dbsession.expunge(comment.user)
-        for p in comment.user.permissions:
+        for p in comment.user.role:
             dbsession.expunge(p)
     transaction.commit()
 

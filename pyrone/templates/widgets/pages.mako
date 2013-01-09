@@ -1,5 +1,5 @@
 <%
-    admin_permission = user.has_permission('admin')
+    admin_permission = user.has_role('admin')
     lang = h.lang.lang(request)
 %>
 <div class="widget">

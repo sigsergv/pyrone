@@ -1,7 +1,7 @@
 ## -*- coding: utf-8 -*-
 from hashlib import md5
 
-from ..user import User, Permission
+from ..user import User, Role
 from .. import DBSession
 
 data_user = [
@@ -9,8 +9,8 @@ data_user = [
     [1, 'admin', md5('setup').hexdigest(), u'Blog admin', u'pyrone@example.com', 'local']
     ]
 
-data_permissions = {
-    1: ['write_article', 'edit_article', 'admin']
+data_roles = {
+    1: ['writer', 'editor', 'admin']
     }
 
 def setup(xxx):
@@ -26,7 +26,7 @@ def setup(xxx):
                 user.email, user.kind = r
             dbsession.add(user)
 
-            if user.id in data_permissions:
-                for p_str in data_permissions[user.id]:
-                    p = Permission(None, user.id, p_str)
-                    dbsession.add(p)
+            if user.id in data_roles:
+                for p_str in data_roles[user.id]:
+                    r = Role(None, user.id, p_str)
+                    dbsession.add(r)

@@ -3,8 +3,8 @@ import logging
 import transaction
 import tweepy
 import uuid
-
-from hashlib import md5
+import hashlib
+import random
 
 from sqlalchemy.orm import eagerload
 from pyramid.i18n import TranslationString as _
@@ -23,7 +23,13 @@ from pyrone.lib import helpers as h, auth
 
 log = logging.getLogger(__name__)
 
-@view_config(route_name='account_login_form', renderer='/blog/local_login.mako')
+def md5(s):
+    return hashlib.md5(s).hexdigest()
+
+def sha1(s):
+    return hashlib.sha1(s).hexdigest()
+
+@view_config(route_name='account_login', renderer='/blog/local_login.mako')
 def login_local(request):
     c = dict()
     c['error'] = ''
@@ -37,8 +43,7 @@ def login_local(request):
             c['error'] = _('Incorrect login or password')
         else:
             # this method doesn't return any headers actually
-            headers = remember(request, None, user=user) #@UnusedVariable
-            # after this method execution "request.session['user']" should contain valid user object
+            headers = remember(request, user.id, user=user) #@UnusedVariable
             return HTTPFound(location=route_url('blog_latest', request), headers=headers)
             
     elif request.method == 'GET':
@@ -66,13 +71,13 @@ def my_profile(request):
 @view_config(route_name='account_save_my_profile_ajax', renderer='json', permission='authenticated', request_method='POST')    
 def my_profile_save_ajax(request):
     c = dict()
-    user_id = auth.get_user(request).id
+    user_id = request.user.id
     
     is_changed = False;
     
     transaction.begin()
     dbsession = DBSession()
-    user = dbsession.query(User).options(eagerload('permissions')).get(user_id)
+    user = dbsession.query(User).options(eagerload('roles')).get(user_id)
     
     if user is None:
         return HTTPNotFound()
@@ -90,13 +95,17 @@ def my_profile_save_ajax(request):
             is_changed = True
             
         if 'new_password' in request.POST and request.POST['new_password'] != '':
-            user.password = md5(request.POST['new_password']).hexdigest()
+            # construct new password
+            sample = '0123456789abcdef'
+            salt = ''.join([random.choice(sample) for x in range(8)])
+
+            user.password = salt + sha1(salt + sha1(request.POST['new_password']))
             is_changed = True
             
     if is_changed:
         dbsession.flush()
         dbsession.expunge(user)
-        user.get_permissions()
+        user.get_roles()
         transaction.commit()
         # also update Beaker session object
         remember(request, None, user=user)
@@ -178,7 +187,7 @@ def login_twitter_finish(request):
         dbsession.add(user)
         transaction.commit()
         
-        # re-request again to correctly read permissions
+        # re-request again to correctly read roles
         user = find_twitter_user(tw_username)    
         if user is None:
             log.error('Unable to create twitter user')

@@ -18,7 +18,7 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
 from sqlalchemy.exc import IntegrityError
 
 from pyrone.lib import helpers as h, auth, markup
-from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Permission, VerifiedEmail
+from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail
 from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltypes
 
 log = logging.getLogger(__name__)
@@ -351,7 +351,9 @@ def restore_backup(request):
     if root.tag != t('backup'):
         return dict(error=_('Unknown XML format of catalog file.'))
         
-    if root.get('version') != '1.0':
+    backup_version = root.get('version')
+
+    if backup_version not in ('1.0', '1.1'):
         return dict(error=_(u'Unsupported backup version: “%s”!' % root.get('version')))
 
     dbsession = DBSession()
@@ -362,7 +364,7 @@ def restore_backup(request):
     dbsession.query(Tag).delete()
     dbsession.query(Article).delete()
     dbsession.query(VerifiedEmail).delete()
-    dbsession.query(Permission).delete()
+    dbsession.query(Role).delete()
     dbsession.query(File).delete() # also remove files from the storage dir
     dbsession.query(Config).delete()
     dbsession.query(User).delete()
@@ -416,11 +418,25 @@ def restore_backup(request):
         
         dbsession.add(u)
         
-        # restore permissions now
-        subnodes = node.xpath('./b:permissions/b:permission', namespaces=namespaces)
-        for sn in subnodes:
-            p = Permission(None, u.id, sn.text)
-            dbsession.add(p)
+        if backup_version == '1.0':
+            # restore permissions now
+            permissions_roles_map = dict(write_article='writer', edit_article='editor',
+                admin='admin', files='filemanager')
+            subnodes = node.xpath('./b:permissions/b:permission', namespaces=namespaces)
+            for sn in subnodes:
+                permission_name = sn.text
+                if permission_name not in permissions_roles_map:
+                    continue
+
+                role_name = permissions_roles_map[permission_name]
+                r = Role(None, u.id, role_name)
+                dbsession.add(r)
+        elif backup_version == '1.1':
+            # restore roles directly
+            subnodes = node.xpath('./b:roles/b:role', namespaces=namespaces)
+            for sn in subnodes:
+                r = Role(None, u.id, sn.text)
+                dbsession.add(r)
             
     # restore verified emails
     nodes = xmldoc.xpath('//b:backup/b:verified-emails', namespaces=namespaces)
@@ -618,7 +634,7 @@ def backup_now(request):
         return node
     
     root = etree.Element('backup', nsmap=nsmap)
-    root.set('version', '1.0')
+    root.set('version', '1.1')
     
     info_el = e(root, 'info')
     articles_el = e(root, 'articles')
@@ -676,7 +692,7 @@ def backup_now(request):
         s = e(settings_el, 'config', setting.value)
         s.set('id', setting.id)
         
-    # dump users and permissions
+    # dump users and roles
     for user in dbsession.query(User).all():
         user_el = e(users_el, 'user')
         user_el.set('id', str(user.id))
@@ -685,10 +701,10 @@ def backup_now(request):
         e(user_el, 'display-name', user.display_name)
         e(user_el, 'email', user.email)
         e(user_el, 'kind', user.kind)
-        perms_el = e(user_el, 'permissions')
+        perms_el = e(user_el, 'roles')
         
-        for p in user.permissions:
-            e(perms_el, 'permission', p.name)
+        for p in user.roles:
+            e(perms_el, 'role', p.name)
         
     # dump files
     ind = 1

@@ -22,7 +22,7 @@ def add_renderer_globals(event):
     
     event['_'] = request.translate
     event['url'] = url_generator(request)
-    event['user'] = auth.get_user(request)
+    event['user'] = request.user
 
 tsf = TranslationStringFactory('pyrone')
 
