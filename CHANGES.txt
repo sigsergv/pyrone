@@ -1,6 +1,9 @@
 0.3.1
 -----
 
+* fixed issue #40: broken next/prev link on "tag" pages
+* fixed issue #8: handle url that end with slash
+
 
 0.3
 ------

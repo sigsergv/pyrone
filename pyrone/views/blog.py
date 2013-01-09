@@ -14,7 +14,7 @@ from webhelpers.feedgenerator import Rss201rev2Feed
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.url import route_url
-from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError, HTTPMovedPermanently
 from pyramid.renderers import render
 
 from pyrone.models import DBSession, Article, Comment, Tag, File, VerifiedEmail
@@ -466,6 +466,13 @@ def go_article(request):
     article_id = int(request.matchdict['article_id'])
     
     return _view_article(request, article_id=article_id)
+
+@view_config(route_name='blog_view_article_slash', renderer='/blog/view_article.mako')
+def view_article_slash(request):
+    shortcut_date = request.matchdict['shortcut_date']
+    shortcut = request.matchdict['shortcut']
+    return HTTPMovedPermanently(request.route_url('blog_view_article', 
+        shortcut_date=shortcut_date, shortcut=shortcut))
 
 @view_config(route_name='blog_view_article', renderer='/blog/view_article.mako')
 def view_article(request):
