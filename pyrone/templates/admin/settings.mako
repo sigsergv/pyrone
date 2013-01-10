@@ -53,6 +53,12 @@ $(window).scroll(function() {
   ${h.form_checkbox('social_gplusone', None, settings['social_gplusone'] == 'true', errors, 
     label=_('enable this social button'))|n}
 
+  <h3>${_('Site search widget')}</h3>
+  ${h.form_textarea('site_search_widget_code', _('HTML/JavaScript code for the site search widget'), settings['site_search_widget_code'], errors,\
+    help=_('You should enter HTML code in this text box you received from the external search provider. To delete site \
+    search from the pages just clear the field.'),\
+    height=150)|n}
+
   <h3>${_('Notifications')}</h3>
   ${h.form_input_text('admin_notifications_email', _('Email address for system notifications'), settings['admin_notifications_email'], errors,
     help=_('Email address for the system notification: user added, comment added for moderation etc'))|n}

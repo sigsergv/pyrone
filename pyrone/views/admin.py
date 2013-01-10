@@ -72,7 +72,7 @@ def save_settings_ajax(request):
               'verification_msg_body_tpl', 'image_preview_width', 'google_analytics_id', 
               'timezone', 'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
               'social_twitter_share_link_show_count', 'social_twitter_share_link_via', 
-              'social_gplusone')
+              'social_gplusone', 'site_search_widget_code')
 
         for id in settings:
             try:

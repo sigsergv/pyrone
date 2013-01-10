@@ -9,6 +9,7 @@ data = [
     ['timezone', u'Asia/Novosibirsk'],
     ['site_base_url', 'http://127.0.0.1:5000'],
     ['admin_notifications_email', 'test@example.org'],
+    ['site_search_widget_code', ''],
     ['notifications_from_email', 'no-reply@example.com'],
     ['admin_notify_new_comments', 'false'],
     ['admin_notify_new_user', 'false'],
