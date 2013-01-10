@@ -776,7 +776,7 @@ def download_backup(request):
     headers = []
     content_length = os.path.getsize(full_path)
     headers.append( ('Content-Length', str(content_length)) );
-    headers.append( ('Content-Disposition', 'attachment; filename=%s' % filename) )
+    headers.append( ('Content-Disposition', str('attachment; filename=%s' % filename)) )
 
     response = Response(content_type='application/octet-stream')
     try:

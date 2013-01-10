@@ -837,7 +837,7 @@ def download_file(request):
         dltype = request.GET['dltype']
         
     if dltype == 'download':
-        headers.append( ('Content-Disposition', 'attachment; filename=%s' % file.name) )
+        headers.append( ('Content-Disposition', str('attachment; filename=%s' % file.name)) )
     else: #if file.dltype == 'auto':
         pass
     
@@ -879,7 +879,7 @@ def download_file_preview(request):
         dltype = request.GET['dltype']
         
     if dltype == 'download':
-        headers.append( ('Content-Disposition', 'attachment; filename=preview_%s' % file.name) )
+        headers.append( ('Content-Disposition', str('attachment; filename=preview_%s' % file.name)) )
 
     storage_dirs = get_storage_dirs()
     full_path = os.path.join(storage_dirs['orig'], filename)
@@ -913,7 +913,7 @@ def download_file_preview(request):
     except IOError:
         return HTTPNotFound()
     
-    response = Response(content_type=file.content_type)
+    response = Response(content_type=str(file.content_type))
     try:
         response.app_iter = open(preview_path, 'rb')
     except IOError:
