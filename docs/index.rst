@@ -297,7 +297,8 @@ Also you'll need to install additional binary packages:
 
     pip install lxml PIL
 
-This require install ``gcc`` and other stuff like ``libxml2-dev``, ``libxslt1-dev``.
+This requires install ``gcc`` and other stuff like ``libxml2-dev``, ``libxslt1-dev``, ``libjpeg8-dev``, ``libfreetype6-dev``, 
+``zlib1g-dev``.
 
 If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``:
 
