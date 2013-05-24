@@ -76,8 +76,8 @@ setup(name='pyrone',
         "Topic :: Internet :: WWW/HTTP :: Site Management",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content"
         ],
-      author='Sergei Stolyarov',
-      author_email='sergei.stolyarov@regolit.com',
+      author='Sergey Stolyarov',
+      author_email='sergei@regolit.com',
       url='https://bitbucket.org/cancel/pyrone',
       data_files=[
         ('share/pyrone/examples', ['examples/'+x for x in ('development.ini', 'production.ini', 'supervisord.conf',

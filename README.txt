@@ -26,4 +26,4 @@ Pyrone is licensed under `New BSD License <http://www.opensource.org/licenses/BS
 Authors
 -------
 
-Pyrone is written by `Sergei Stolyarov <mailto:sergei@regolit.com>`_.
+Pyrone is written by `Sergey Stolyarov <mailto:sergei@regolit.com>`_.

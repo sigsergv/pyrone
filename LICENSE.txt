@@ -1,4 +1,4 @@
-Copyright (c) 2011, Sergei Stolyarov
+Copyright (c) 2011, Sergey Stolyarov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

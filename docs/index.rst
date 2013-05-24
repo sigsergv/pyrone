@@ -254,17 +254,16 @@ Preparing virtual environment
 It's assumed here and later that you're using Debian/Ubuntu linux distribution. So open
 terminal now and proceed.
 
-First you need to install ``python`` (version 2.7 is recommended), you'll also
+First you need to install ``python`` (version 2.7 is highly recommended), you'll also
 need python package ``virtualenv``, you can install them using command
 
 ::
 
-    sudo apt-get install python2.6 python2.6-dev python-virtualenv
+    sudo apt-get install python2.7 python2.7-dev python-virtualenv
     
 Now you have to choose directory where you'll install virtual environment for ``pyramid``,
 it should be somewhere in your home directory, don't install it in the system directories. 
-Instead of ``python2.6`` could be used ``python2.7``. Package ``python*-dev`` is required
-to compile some modules to increase performance.
+Package ``python2.7-dev`` is required to compile some modules to increase performance.
 
 Go to selected directory (create it if required) and issue the following command:
 
