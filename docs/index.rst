@@ -293,11 +293,8 @@ Wait until it finish downloading and installing the packages.
 Also you'll need to install additional binary packages:
 
 ::
-
+    sudo apt-get install gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev
     pip install lxml PIL
-
-This requires install ``gcc`` and other stuff like ``libxml2-dev``, ``libxslt1-dev``, ``libjpeg8-dev``, ``libfreetype6-dev``, 
-``zlib1g-dev``.
 
 If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``:
 
@@ -305,14 +302,25 @@ If you are planning to use mysql driver I'd recommend you also install package `
 
     pip install MySQL-python
 
-Now install *development* version of pyrone:
+Now install *development* version of pyrone, to do so switch to the directory with the source code and execute this
+comman (stay in the same terminal, in the virtualenv activated session!):
 
 ::
 
     python setup.py develop
 
-Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory where ``setup.py`` is located, edit ``development.ini`` appropriately.
+Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are just fine. By default pyrone development config uses sqlite database
+engine.
 
+Running application
+-------------------
+
+To start development server use the following command:
+
+::
+
+    pserve --reload development.ini
+    
 Tests and coverage
 ------------------
 
@@ -375,15 +383,6 @@ Start new language ("es", Spanish in this example, both for python and javascrip
     python setup.py init_catalog_js -l es
 
 
-Running application
--------------------
-
-To start development server use the following command:
-
-::
-
-    pserve --reload development.ini
-    
 Release and packaging
 ---------------------
 
