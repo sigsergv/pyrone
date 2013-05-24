@@ -1,6 +1,7 @@
 0.3.2
 -----
 * added simple article markup editor
+* fixed issue #35: Add code blocks syntax highlighter
 * translatio fixes
 
 0.3.1
