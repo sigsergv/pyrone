@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2012-09-27 21:08+0700\n"
+"POT-Creation-Date: 2013-05-25 00:03+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -31,7 +31,7 @@ msgstr "администрирование"
 msgid "pyrone version: %s"
 msgstr "версия pyrone: %s"
 
-#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:22
+#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:23
 msgid "Powered by Pyrone"
 msgstr "Работает на Pyrone"
 
@@ -134,6 +134,10 @@ msgstr "Архивы бэкапов"
 #: pyrone/templates/admin/list_backups.mako:10
 msgid "Upload backup file"
 msgstr "Закачать новый файл бэкапа"
+
+#: pyrone/templates/admin/list_backups.mako:11
+msgid "Backup blog now"
+msgstr "Забэкапить сейчас"
 
 #: pyrone/templates/admin/list_backups.mako:15
 #: pyrone/templates/admin/list_files.mako:35
@@ -244,7 +248,7 @@ msgstr "Настройки блога"
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:86
-#: pyrone/templates/blog/write_article.mako:23
+#: pyrone/templates/blog/write_article.mako:30
 msgid "save"
 msgstr "сохранить"
 
@@ -373,14 +377,31 @@ msgid "Google “+1” button"
 msgstr "Кнопка Google «+1»"
 
 #: pyrone/templates/admin/settings.mako:56
+msgid "Site search widget"
+msgstr "Виджет поиска по сайту"
+
+#: pyrone/templates/admin/settings.mako:57
+msgid "HTML/JavaScript code for the site search widget"
+msgstr "HTML/JavaScript код для виджета поиска"
+
+#: pyrone/templates/admin/settings.mako:58
+msgid ""
+"You should enter HTML code in this text box you received from the "
+"external search provider. To delete site search from the pages just clear"
+" the field."
+msgstr ""
+"Вы должны ввести в это поле HTML-код, полученный вами от поискового "
+"провайдера. Чтобы удалить виджет поиска, просто очистите это поле."
+
+#: pyrone/templates/admin/settings.mako:61
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: pyrone/templates/admin/settings.mako:57
+#: pyrone/templates/admin/settings.mako:62
 msgid "Email address for system notifications"
 msgstr "Адрес электропочты для системных уведомлений"
 
-#: pyrone/templates/admin/settings.mako:58
+#: pyrone/templates/admin/settings.mako:63
 msgid ""
 "Email address for the system notification: user added, comment added for "
 "moderation etc"
@@ -388,70 +409,70 @@ msgstr ""
 "Адрес электропочты, на который будут рассылаться уведомления о добавлении"
 " нового пользователя, новом комментарии и т.п."
 
-#: pyrone/templates/admin/settings.mako:60
+#: pyrone/templates/admin/settings.mako:65
 msgid "Email address to be used as sender address"
 msgstr ""
 "Адрес электропочты, который будет использоваться в качестве адреса "
 "отправителя"
 
-#: pyrone/templates/admin/settings.mako:61
+#: pyrone/templates/admin/settings.mako:66
 msgid "This email will be used as FROM address for notification messages"
 msgstr "Этот адрес будет использован в качестве адреса отправителя для уведомлений"
 
-#: pyrone/templates/admin/settings.mako:63
+#: pyrone/templates/admin/settings.mako:68
 msgid "Select notifications you want to receive"
 msgstr "Выберите, какие уведомления вы хотите получать"
 
-#: pyrone/templates/admin/settings.mako:65
+#: pyrone/templates/admin/settings.mako:70
 msgid "new comment added (including comment moderation requests)"
 msgstr "добавлен новый комментарий (включая требующий модерации)"
 
-#: pyrone/templates/admin/settings.mako:67
+#: pyrone/templates/admin/settings.mako:72
 msgid "new user registered"
 msgstr "зарегистрировался новый пользователь"
 
-#: pyrone/templates/admin/settings.mako:69
+#: pyrone/templates/admin/settings.mako:74
 msgid "Email address verification message subject template"
 msgstr "Шаблон темы письма о верификации адреса электропочты"
 
-#: pyrone/templates/admin/settings.mako:70
-#: pyrone/templates/admin/settings.mako:72
-#: pyrone/templates/admin/settings.mako:76
-#: pyrone/templates/admin/settings.mako:79
+#: pyrone/templates/admin/settings.mako:75
+#: pyrone/templates/admin/settings.mako:77
+#: pyrone/templates/admin/settings.mako:81
 #: pyrone/templates/admin/settings.mako:84
-#: pyrone/templates/admin/settings.mako:88
+#: pyrone/templates/admin/settings.mako:89
 #: pyrone/templates/admin/settings.mako:93
-#: pyrone/templates/admin/settings.mako:96
+#: pyrone/templates/admin/settings.mako:98
+#: pyrone/templates/admin/settings.mako:101
 msgid "Plain text, no HTML, allowed substitution symbols:"
 msgstr "Простой текст, без HTML, допустимые символы подстановки:"
 
-#: pyrone/templates/admin/settings.mako:71
+#: pyrone/templates/admin/settings.mako:76
 msgid "Email address verification message body template"
 msgstr "Шаблон тела письма о верификации адреса электропочты"
 
-#: pyrone/templates/admin/settings.mako:74
+#: pyrone/templates/admin/settings.mako:79
 msgid "Answer to comment notification message subject template"
 msgstr "Шаблон темы письма-уведомления об ответе на комментарий"
 
-#: pyrone/templates/admin/settings.mako:77
+#: pyrone/templates/admin/settings.mako:82
 msgid "Answer to comment notification message body template"
 msgstr "Шаблон тела письма-уведомления об ответе на комментарий"
 
-#: pyrone/templates/admin/settings.mako:82
+#: pyrone/templates/admin/settings.mako:87
 msgid "Admin notification subject template: new comment"
 msgstr "Шаблон темы письма-уведомления администратору о новом комментарии"
 
-#: pyrone/templates/admin/settings.mako:86
+#: pyrone/templates/admin/settings.mako:91
 msgid "Admin notification body template: new comment"
 msgstr "Шаблон тела уведомления администратора о новом комментарии"
 
-#: pyrone/templates/admin/settings.mako:91
+#: pyrone/templates/admin/settings.mako:96
 msgid "Admin notification subject template: new user registered"
 msgstr ""
 "Шаблон темы уведомления администратора о новом зарегистрированном "
 "пользователе"
 
-#: pyrone/templates/admin/settings.mako:94
+#: pyrone/templates/admin/settings.mako:99
 msgid "Admin notification body template: new user registered"
 msgstr ""
 "Шаблон тела уведомления администратора о новом зарегистрированном "
@@ -479,8 +500,11 @@ msgid ""
 "Every line defines one site for one language, here is the sample: "
 "<code><pre>!en!http://google.com!Google web search\n"
 "!ru!http://google.ru!Поиск в Google</pre></code>"
-msgstr "Каждая строка задаёт один сайт для одного языка, вот пример: <code><pre>!en!http://google.com!Google web search\n"
-"!ru!http://google.ru!Поиск в Google</pre></code>"
+msgstr ""
+"Каждая строка задаёт один сайт для одного языка, вот пример: "
+"<code><pre>!en!http://google.com!Google web search\n"
+"\"\n"
+"\"!ru!http://google.ru!Поиск в Google</pre></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
@@ -488,15 +512,18 @@ msgid ""
 "<strong>!</strong>, e.g. pipe “|”:<code><pre>|en|http://google.com|Google"
 " web search\n"
 "|ru|http://google.ru|Поиск в Google</pre></code>"
-msgstr "Можно использовать другой символ-разделитель вместо <strong>!</strong>, например, «|»: <code><pre>|en|http://google.com|Google"
-" web search\n"
-"|ru|http://google.ru|Поиск в Google</pre></code>"
+msgstr ""
+"Можно использовать другой символ-разделитель вместо <strong>!</strong>, "
+"например, «|»: <code><pre>|en|http://google.com|Google\"\n"
+"\" web search\n"
+"\"\n"
+"\"|ru|http://google.ru|Поиск в Google</pre></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:20
 msgid "The main idea is simple: first character in the line is delimiter."
 msgstr "Главная идея проста: первый символ в строке — это разделитель."
 
-#: pyrone/templates/blog/base.mako:12 pyrone/views/blog.py:928
+#: pyrone/templates/blog/base.mako:13 pyrone/views/blog.py:935
 msgid "Latest articles feed"
 msgstr "Лента последних статей"
 
@@ -754,27 +781,35 @@ msgid ""
 "=\"new-window\">more</a>)"
 msgstr ""
 "Тело статьи (обязательно, разметка *<em>курсив</em>*, "
-"**<strong>полужирная</strong>**, , [ссылка](http://example.com) <a "
+"**<strong>полужирная</strong>**, [ссылка](http://example.com) <a "
 "href=\"/static/article-markup-tip-ru.html\" target=\"_blank\" class"
 "=\"new-window\">ещё</a>)"
 
-#: pyrone/templates/blog/write_article.mako:20
+#: pyrone/templates/blog/write_article.mako:22
+msgid "Unindent selected block."
+msgstr "Уменьшить отступ выделенного блока."
+
+#: pyrone/templates/blog/write_article.mako:23
+msgid "Indent selected block."
+msgstr "Увеличить отстут выделенного блока."
+
+#: pyrone/templates/blog/write_article.mako:27
 msgid "draft article"
 msgstr "черновик"
 
-#: pyrone/templates/blog/write_article.mako:20
+#: pyrone/templates/blog/write_article.mako:27
 msgid "if checked article will not be available to everyone"
 msgstr "если включено, сохранённая статья будет видна только вам"
 
-#: pyrone/templates/blog/write_article.mako:21
+#: pyrone/templates/blog/write_article.mako:28
 msgid "allow visitors comments"
 msgstr "разрешить комментарии"
 
-#: pyrone/templates/blog/write_article.mako:25
+#: pyrone/templates/blog/write_article.mako:32
 msgid "save and continue editing"
 msgstr "сохранить в фоновом режиме"
 
-#: pyrone/templates/blog/write_article.mako:27
+#: pyrone/templates/blog/write_article.mako:34
 msgid "preview"
 msgstr "предварительный просмотр"
 
@@ -830,23 +865,27 @@ msgstr "ответить на этот комментарий"
 msgid "Pages"
 msgstr "Страницы"
 
+#: pyrone/templates/widgets/search.mako:6
+msgid "Search blog"
+msgstr "Искать по блогу"
+
 #: pyrone/templates/widgets/tags_cloud.mako:2
 msgid "Tags cloud"
 msgstr "Облако тегов"
 
-#: pyrone/views/account.py:37
+#: pyrone/views/account.py:43
 msgid "Incorrect login or password"
 msgstr "Неверный логин или пароль"
 
-#: pyrone/views/account.py:136
+#: pyrone/views/account.py:145
 msgid "Cannot create authorization Twitter URL"
 msgstr "Не удалось создать авторизационный URL для твиттера"
 
-#: pyrone/views/account.py:213
+#: pyrone/views/account.py:222
 msgid "Verification failed: email not found."
 msgstr "Верификация не получилась, так как адрес электропочты неизвестен сайту."
 
-#: pyrone/views/account.py:215
+#: pyrone/views/account.py:224
 #, python-format
 msgid "Email `%s` has confirmed."
 msgstr "Адрес электропочты `%s` успешно подтверждён."
@@ -875,24 +914,24 @@ msgstr "Файл бэкапа повреждён, файл каталога по
 msgid "Unknown XML format of catalog file."
 msgstr "Формат файла каталога не является корректным XML."
 
-#: pyrone/views/admin.py:355
+#: pyrone/views/admin.py:357
 #, python-format
 msgid "Unsupported backup version: “%s”!"
 msgstr "Версия бэкапа «%s» не поддерживается!"
 
-#: pyrone/views/admin.py:376
+#: pyrone/views/admin.py:378
 msgid "Backup file is broken: settings block not found"
 msgstr "Файл бэкапа повреждён, блок «settings» не обнаружен"
 
-#: pyrone/views/admin.py:397
+#: pyrone/views/admin.py:399
 msgid "Backup file is broken: users block not found"
 msgstr "Файл бэкапа повреждён, блок «users» не обнаружен"
 
-#: pyrone/views/admin.py:442 pyrone/views/admin.py:545
+#: pyrone/views/admin.py:458 pyrone/views/admin.py:561
 msgid "Backup file is broken: articles block not found"
 msgstr "Файл бэкапа повреждён, блок «articles» не обнаружен"
 
-#: pyrone/views/admin.py:591
+#: pyrone/views/admin.py:607
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
@@ -922,11 +961,11 @@ msgstr "Указано некорректное время публикации"
 msgid "duplicated shortcut"
 msgstr "шорткат уже встречался ранее"
 
-#: pyrone/views/blog.py:536
+#: pyrone/views/blog.py:543
 msgid "Empty comment body is not allowed."
 msgstr "Пустое поле комментария не допускается"
 
-#: pyrone/views/blog.py:569
+#: pyrone/views/blog.py:576
 msgid "Answering to not approved comment"
 msgstr "Нельзя ответить на неподтверждённый комментарий"
 
