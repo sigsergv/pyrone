@@ -13,7 +13,7 @@ def render_text_markup_mini(text):
     """
     Render text using reduced markup elements set
     """
-    md = markdown.Markdown(safe_mode=True, output_format='xhtml')
+    md = markdown.Markdown(safe_mode=True, enable_attributes=True, output_format='xhtml')
     return md.convert(text)
     
 def render_text_markup(text):
@@ -30,13 +30,14 @@ def render_text_markup(text):
         complete_text = text
 
     md = markdown.Markdown(
-        extensions=["footnotes", "wikilinks", "def_list"],
+        extensions=["footnotes", "wikilinks", "def_list", "fenced_code"],
         extension_configs={
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068
             #'footnotes': [("PLACE_MARKER", "~~~~~~~~")]
                 },
         safe_mode=True,
+        enable_attributes=True,
         output_format='xhtml')
 
     preview_html = None
