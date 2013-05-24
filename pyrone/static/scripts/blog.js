@@ -558,3 +558,121 @@ function Pyrone_account_saveMyProfile(url)
 	});
 };
 
+function Pyrone_editor_unindent(id)
+{
+	var f = $('#'+id);
+
+	if (f.length == 0) {
+		return;
+	}
+
+	var sel = f.fieldSelection();
+
+	if (sel.length == 0) {
+		return;
+	}
+
+	var field_value = f.val(),
+		c;
+
+	if (sel.start != 0) {
+		// i.e. text starts somewhere in the middle
+		c = field_value.charCodeAt(sel.start - 1);
+		if (c != 10 && c != 13) {
+			return;
+		}
+	}
+
+	// now detect is it possible to unindent the selection
+	// split into the lines and look at the starting characters on each line
+	var lines = sel.text.split(/(?:\r\n|\r|\n)/m),
+		success = true,
+		result = [],
+		indent_type = false,
+		indent;
+
+	$.each(lines, function(ind, line) {
+		if (line.length == 0) {
+			result.push(line);
+			return;
+		}
+
+		switch (indent_type) {
+		case false:
+			if (line.charAt(0) == '\t') {
+				indent_type = 'tab';
+				line = line.substr(1);
+				break;
+			}
+			indent = line.substr(0, 4);
+			// it has to be exactly 4-spaces, otherwise we cannot procede
+			if (indent != '    ') {
+				success = false;
+				return false;
+			}
+			indent_type = 'space';
+			line = line.substr(4)
+			break;
+
+		case 'tab':
+			if (line.charAt(0) != '\t') {
+				success = false;
+				return false;
+			}
+			line = line.substr(1);
+			break;
+
+		case 'space':
+			indent = line.substr(0, 4);
+			if (indent != '    ') {
+				success = false;
+				return false;
+			}
+			line = line.substr(4);
+			break;
+		}
+
+		result.push(line);
+	});
+
+	console.log('success', success);
+	if (success === true) {
+		var new_selection = result.join('\n');
+		f.fieldSelection(new_selection);
+	}
+}
+
+function Pyrone_editor_indent(id)
+{
+	var f = $('#'+id);
+
+	if (f.length == 0) {
+		return;
+	}
+
+	var sel = f.fieldSelection();
+
+	if (sel.length == 0) {
+		return;
+	}
+
+	var field_value = f.val(),
+		c;
+
+	if (sel.start != 0) {
+		// i.e. text starts somewhere in the middle of line
+		c = field_value.charCodeAt(sel.start - 1);
+		if (c != 10 && c != 13) {
+			return;
+		}
+	}
+
+	var result = [];
+
+	$.each(sel.text.split(/(?:\r\n|\r|\n)/m), function(ind, line) {
+		result.push('    ' + line);
+	});
+
+	var new_selection = result.join('\n');
+	f.fieldSelection(new_selection);
+}

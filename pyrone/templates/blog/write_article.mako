@@ -15,7 +15,14 @@
   ${h.form_input_text('shortcut', _('Shortcut (required)'), article.shortcut, errors, _(u'Short string (part of the URL), alphanumeric characters and “-” are recommended.'))|n}
   ${h.form_input_text('published', _('Publishing date and time'), article_published_str, errors, _('Format: YYYY-MM-DD HH:MM'))|n}
   ${h.form_input_text('tags', _('Tags (comma separated)'), ', '.join(tags), errors)|n}
-  ${h.form_textarea('body', _('Article body (required, markup: *<em>italic</em>*, **<strong>bold</strong>**, [hyperlink](http://example.com) <a href="/static/article-markup-tip-en.html" target="_blank" class="new-window">more</a>)'), article.body, errors)|n}
+  ${_('Article body (required, markup: *<em>italic</em>*, **<strong>bold</strong>**, [hyperlink](http://example.com) <a href="/static/article-markup-tip-en.html" target="_blank" class="new-window">more</a>)')|n}
+
+  <!-- body text control buttons -->
+  <div class="editor-text-controls">
+    <span class="button" onclick="Pyrone_editor_unindent('fid-body');" title="${_('Unindent selected block.')}">←¶</span>
+    <span class="button" onclick="Pyrone_editor_indent('fid-body');" title="${_('Indent selected block.')}">¶→</span>
+  </div>
+  ${h.form_textarea('body', '', article.body, errors)|n}
   
   ${h.form_checkbox('is_draft', None, article.is_draft, None, label=_('draft article'), label_help=_('if checked article will not be available to everyone'))|n}
   ${h.form_checkbox('is_commentable', None, article.is_commentable, None, label=_('allow visitors comments'))|n}

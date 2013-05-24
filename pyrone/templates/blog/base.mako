@@ -5,6 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script language="javascript" src="/static/scripts/jquery/field-selection.js"></script>
   <script language="javascript" src="/static/lang/${h.lang.lang(request)}.js"></script>
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <link rel="icon" type="image/png" href="/favicon.png"/>

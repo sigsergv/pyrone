@@ -426,3 +426,16 @@ div#settings-save-button-block div.notify
 	color: #000;
 	font-weight: bold;
 }
+
+div.editor-text-controls {
+	margin: 4pt 0 -7pt 30pt;
+	padding: 2pt;
+}
+
+div.editor-text-controls span.button {
+	border: 1px solid gray;
+	margin-right: 4pt;
+	background-color: #F6FFEE;
+	padding: 0 2px 0 2pt;
+	cursor: pointer;
+}

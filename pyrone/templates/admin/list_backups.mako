@@ -8,7 +8,7 @@
 
 <h3>${_('Backup archives')} 
 <!--<a href="#" class="border-icon">${_('Upload backup file')}</a>--> 
-<a href="#" class="border-icon" onclick="Pyrone_backup_backupNow('${url('admin_backup_now')}'); return false;">Backup blog now</a></h3>
+<a href="#" class="border-icon" onclick="Pyrone_backup_backupNow('${url('admin_backup_now')}'); return false;">${_('Backup blog now')}</a></h3>
 
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="backups-table">
 <tr>

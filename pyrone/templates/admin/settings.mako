@@ -55,8 +55,7 @@ $(window).scroll(function() {
 
   <h3>${_('Site search widget')}</h3>
   ${h.form_textarea('site_search_widget_code', _('HTML/JavaScript code for the site search widget'), settings['site_search_widget_code'], errors,\
-    help=_('You should enter HTML code in this text box you received from the external search provider. To delete site \
-    search from the pages just clear the field.'),\
+    help=_('You should enter HTML code in this text box you received from the external search provider. To delete site search from the pages just clear the field.'),\
     height=150)|n}
 
   <h3>${_('Notifications')}</h3>
