@@ -119,6 +119,14 @@ div#eid-article-render-preview pre {
     background-color: #F7F4E7;
     border: 1px dotted #AAA189;
 }
+div#content div.article blockquote,
+div#content div.preview blockquote,
+div#eid-article-render-preview blockquote {
+	border: solid #000080;
+	background-color: #E9EAF7;
+	border-width: 0 0 0 3px;
+	padding-left: 4pt;
+}
 div#sidebar {
 	border: dotted #f6f6ee;
 	border-width: 0 0 3px 3px;
