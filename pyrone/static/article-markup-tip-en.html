@@ -208,8 +208,20 @@ for (int x=0; x&lt;666; ++x) {
 <span class="p">}</span>
 </pre></div>
 
-If you don't specify source code language the code block will be displayed 
-as regular code block without any source language guesses.
+<div>If you don't specify source code language the code block will be displayed 
+as regular code block without any source language guesses.</div>
+
+<div>You can also render code with line numbers, to do that put the following construction
+as the first line of code (instead of <code>cpp</code> you can use another language): <code>#!cpp</code>.</div>
+
+<pre><code>~~~~~
+#!cpp
+// the line above will not be rendered
+for (int x=0; x&lt;666; ++x) {
+    z();
+}
+~~~~~</code></pre>
+
 
 <h3>Splitting long articles</h3>
 
