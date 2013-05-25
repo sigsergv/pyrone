@@ -12,14 +12,15 @@
   article_url = h.article_url(request, article)
 %>
 	<div class="article-preview">
-<div class="title"><a href="${article_url}">${article.title}</a>\
+<div class="title">
+% if editor_permission:
+ <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon" title="${_('edit')}"><span class="button-edit"> </span></a>\
+ <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
+ '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}" title="${_('delete')}"><span class="button-delete"> </span></a>\
+%endif
+<a href="${article_url}">${article.title}</a>\
 % if article.is_draft:
  <span class="warning">${_('draft')}</span>\
-%endif
-% if editor_permission:
- <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
- '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>

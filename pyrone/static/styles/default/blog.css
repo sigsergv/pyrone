@@ -66,6 +66,22 @@ a.new-window {
 	font-weight: bold;
 	color: #060;
 }
+.button-delete {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-image: url(images/bucket.png);
+}
+.button-edit {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-image: url(images/edit.png);
+}
 div#topbar, div#topbar-admin {
 	position: absolute;
 	width: 100%;

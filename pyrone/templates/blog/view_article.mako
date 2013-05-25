@@ -32,13 +32,15 @@ $(document).ready(function() {
 <div class="notify" style="display:none;" id="notify-block"></div>
 
 <div class="article">
-  <div class="title">${article.title}\
+  <div class="title">
+% if editor_permission:
+ <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon" title="${_('edit')}"><span class="button-edit"> </span></a>\
+ <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
+ '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}" title="${_('delete')}"><span class="button-delete"> </span></a>\
+%endif
+    ${article.title}\
 % if article.is_draft:
  <span class="warning">${_('draft')}</span>\
-%endif
-% if editor_permission:
- <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon">${_('edit')}</a>\
- <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}', '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}">${_('delete')}</a>\
 %endif
   </div>
   

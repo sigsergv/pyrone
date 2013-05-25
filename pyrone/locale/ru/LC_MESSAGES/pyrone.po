@@ -697,7 +697,7 @@ msgid ""
 msgstr ""
 "Текст комментария (разметка: *<em>курсив</em>*, "
 "**<strong>полужирная</strong>**, [ссылка](http://example.com) <a class"
-"=\"new-window\" target=\"blank\" href=\"/static/comment-markup-tip-"
+"=\"new-window\" target=\"_blank\" href=\"/static/comment-markup-tip-"
 "ru.html\" title=\"Открыть в новом окне\">ещё</a>)"
 
 #: pyrone/templates/blog/view_article.mako:108
