@@ -109,10 +109,12 @@ div#content {
 	padding: 15px;
 	padding-right: 280px;
 }
-div#content div.article div.body p code, div#eid-article-render-preview p code {
+div#content div.article code, div#eid-article-render-preview p code {
     background-color: #F7F4E7;
 }
-div#content div.article div.body pre, div#eid-article-render-preview pre {
+div#content div.article pre,
+div#content div.preview pre,
+div#eid-article-render-preview pre {
     padding: 4px;
     background-color: #F7F4E7;
     border: 1px dotted #AAA189;

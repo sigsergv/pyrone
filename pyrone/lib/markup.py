@@ -30,7 +30,8 @@ def render_text_markup(text):
         complete_text = text
 
     md = markdown.Markdown(
-        extensions=["footnotes", "wikilinks", "def_list", "fenced_code"],
+        extensions=['footnotes', 'wikilinks', 'def_list', 
+        'fenced_code', 'codehilite(guess_lang=False)'],
         extension_configs={
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068

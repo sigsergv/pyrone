@@ -1,287 +1,237 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Pyrone markup language for writing articles</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<style type="text/css">
-body, div, p, table {
-    font-family: sans-serif;
-}
-span.tt {
-    font-family: monospace;
-}
-div.pre-sample {
-    white-space: pre-wrap;
-    border: 1px dotted #585858;
-    width: 350px;
-    font-family: monospace;
-}
-div.sample {
-    width: 400px;
-    border: 1px dotted #585858;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="/static/styles/default/blog.css"/>
+<link rel="stylesheet" type="text/css" href="/static/styles/pygments.css"/>
+
 </head>
+
 <body>
-<h2>Markup</h2>
+<div id="content">
+<h2>Pyrone text markup language (for articles)</h2>
 
-<div>Pyrone uses Markdown based markup language, it supports complete core Markdown elements set and some 
-additional features (footnotes and pictures from internal storage).</div>
+<div>Pyrone uses Markdown-based markup language, it supports complete core 
+    Markdown elements set and some additional features.</div>
 
-<div>Please consult official Markdown <a href="http://daringfireball.net/projects/markdown/syntax">syntax documentation</a> for 
-complete language reference. In paragraphs below we are describing most used language construction.</div>
+<div>Please consult official Markdown 
+    <a href="http://daringfireball.net/projects/markdown/syntax">syntax documentation</a> 
+    for complete language reference. In paragraphs below we are describing 
+    most used language construction.</div>
 
 <h2>Basic markup</h2>
 
-<table>
-<tr><td>
-<div class="pre-sample">Use empty line
+<div class="article">
 
-to split text into paragraphs.
+<div>Use an empty line to split text into separate paragraphs, each paragraph consists of non-empty text lines.</div>
+
+<pre><code>Just write text, insert line breaks
+to format it appropriately.
+This is still the same paragraph.
+
+And this is a new one.
+
+And another. Remember: the empty line creates paragraphs.</code></pre>
+
+<div>You can also create headers, to do so just prepend a line with some
+#-characters, one # stands for the top-level header with largest text,
+## stands for second-level header etc up to six #-s. There is an also alternative
+way to create headers, just underscore the line with some “=” or “-” charecters
+to create 1st and 2nd level headers correspondingly.</div>
+
+<pre><code># This is the largest-font header
+
+And this is the 1st level header too
+====================================
+
+And 2nd level
+-------------
+
+###### This is the smallest possible header</code></pre>
+
+<div>Inline text formattin is easy: enclose text in *-s to create 
+*<em>emphasized</em>* text and in double *-s **<strong>strong</strong>**
+text. Emphasized text is displayed as italic, and strong as an embolden text. 
+And of course there is an alternatives: enclose phrase in underscores to create
+emphasized, and use triple *-s to create ***<strong><em>strong emphasis</em></strong>***.
 </div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<p>Use empty line</p>
 
-<p>to split text into paragraphs.</p>
-</div></td>
-</tr>
-</table>
+<pre><code>The next word is *emphasized*, and this **a strong text**.
+Strong ***emphasis***.</code></pre>
 
+<div>Lists are also easy, put each list item on separate line and prepend it with *, to create sublists place an indent before the *. </div>
 
-<table>
-<tr><td>
-<div class="pre-sample"># This is a first level header
-## Second level
-#### Fourth
-###### Sixth (there is no 7th level though)
+<div>In order to insert monospaced font (for inline code samples for example) use backticks (`), like this `<code>$x = sort($list);</code>`. If the code contains backtick then 
+enclose it with two backticks and so on: ``<code>$x = `ls`;</code>``.</div>
+
+<pre><code>* first list item
+* second, and the next items are indented
+    * these are
+    * sublist items
+* and continue the main list</code></pre>
+
+<div>Ordered lists are also simple:</div>
+
+<pre><code>1. First list item;
+1. Second
+    * nested
+    * unordered
+    * list</code></pre>
+
+<div>Hypelinks are bit tricky, pyrone intentionally doesn't parse URL-like 
+character sequences and doesn't automatically transform them into the links.
+So you need to explicitly mark URLs: this text, for example, 
+&lt;http://bitbucket.org/cancel/pyrone&gt; will be converted to clickable 
+hyperlink 
+<a href="http://bitbucket.org/cancel/pyrone">http://bitbucket.org/cancel/pyrone</a>. 
+Email addresses also processed in similar way: &lt;sergei@regolit.com&gt; will be
+converted to mailto-hyperlink <a href="mailto:sergei@regolit.com">sergei@regolit.com</a>.
 </div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<h1>This is a first level header</h1>
 
-<h2>Second level</h2>
+<pre><code>Visit google website &lt;http://google.com> to search 
+internet about markdown.</code></pre>
 
-<h4>Fourth</h4>
+<div>You can use customized hyperlinks, see below an example, it will be displayed as
+<a href="http://google.com">Google</a>:</div>
 
-<h6>Sixth (there is no 7th level though)</h6></div></td>
-</tr>
-</table>
+<pre><code>[Google](http://google.com)</code></pre>
 
+<div>It's possible to insert inline images, to do so use the following code,
+it will show the image <img alt="alt text" src="/static/images/sample-image.png"/>:</div>
 
-<table>
-<tr><td>
-<div class="pre-sample">*Italic* and **bold** font. Monospaced font should be wrapped in `backticks`.
+<pre><code>![alt text](http://example.com/static/images/sample-image.png)</code></pre>
+
 </div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<p><em>Italic</em> and <strong>bold</strong> font. Monospaced font should be wrapped in <code>backticks</code>.</p>
-</div></td>
-</tr>
-</table>
-
-<table>
-<tr><td>
-<div class="pre-sample">* simple list
-* each item on a new line prepended by asterisk
-  * indented list item
-  * and another one
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<ul>
-<li>simple list</li>
-<li>each item on a new line prepended by asterisk
-<ul>
-<li>indented list item</li>
-<li>and another one</li>
-</ul></li>
-</ul>
-</div></td>
-</tr>
-</table>
-
-
-<table>
-<tr><td>
-<div class="pre-sample">1. numbered list
-1. put number followed by period at the beginning of each line
-666. you can use any number, it doesn't affect resulting text
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<ol>
-<li>numbered list</li>
-<li>put number followed by period at the beginning of each line</li>
-<li>you can use any number, it doesn't affect resulting text</li>
-</ol>
-</div></td>
-</tr>
-</table>
-
-
-<table>
-<tr><td>
-<div class="pre-sample">You can also use [hyperlinks](http://example.com).
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<p>You can also use <a href="http://example.com">hyperlinks</a>.</p>
-</div></td>
-</tr>
-</table>
 
 
 <h2>Extended markup</h2>
 
+<div class="article">
 
-<table>
-<tr><td>
-<div class="pre-sample">You can also use footnotes[^1]!
+<div>Extended markup is not a part of original markdown specs so the code 
+below has to be used in pyrone only.</div>
 
-[^1]: Really!
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-<div>You can also use footnotes<sup><a href="#">1</a></sup>!</div>
+<h3>Images from pyrone storage</h3>
 
-<hr/>
-<div>1. Really <a href="#">↩</a></div>
-</div></td>
-</tr>
-</table>
+<div>Pyrone has its own file storage and you can use pictures stored there in 
+your articles, syntax code for that is very similar to one that is
+used for inserting external images:</div>
+
+<pre><code>This is a picture named `file-name.jpg` from internal storage:
+
+!![alt text](file-name.jpg)</code></pre>
+
+<div>If that image in the storage is too large you can display instead reduced-size
+picture, it's also a hyperlink that opens an original picture (we added <code>/m</code>
+suffix to picture name):</div>
+
+<pre><code>!![alt text](file-name.jpg/m)</code></pre>
+
+<h3>HTML elements attributes</h3>
+
+<div>It's possible to set custom html elements attributes, it's required sometimes
+to finely tune generated HTML code, for example, you can insert inline images (that are
+float in the text) using this code:</div>
+
+<pre><code>![ALT-TEXT{@style=float:left;}](http://example.com/image/url.png)</code></pre>
+
+<div>it will add additional attribute <code>style="float:left;"</code> to generated
+HTML element IMG.</div>
 
 
-<table>
-<tr><td>
-<div class="pre-sample">Use construction “!![ALT-TEXT](FILENAME)” to insert full-sized image from the storage. 
-You can also insert reduced image that fits into the page: “!![ALT-TEXT](FILENAME\m)” (just add “\m” suffix to filename).
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-Use construction “<img src="aaa"/>” to insert full-sized image from the storage. You can also insert 
-reduced image that fits into the page: “<img src="aaa"/>” (just add “\m” suffix to filename).</div></td>
-</tr>
-</table>
+<h3>Footnotes</h3>
 
-<table>
-<tr><td>
-<div class="pre-sample">You can insert inline images, use something like this:
+<div>You can insert footnotes with hyperlinks, so if you want to create
+footnote, place footnote marker <code>[^fn-1]</code> in the text 
+(you can use any characters instead of <code>fn-1</code>, numbers, for example) and 
+place footnote content somewhere in the article (at the very end of it
+for example):</div>
 
- “!![ALT-TEXT{@style=float:left;}](FILENAME)” And all text after 
-that image will be placed at the right side.
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-|</div></td>
-</tr>
-</table>
+<pre><code>Footnotes look nice[^fn-1], but unfortunately they break
+attention focus[^fn-2].
 
-<table>
-<tr><td>
-<div class="pre-sample">You can use definition lists.
+[^fn-1]: So cute tiny hyperlinks!
+[^fn-2]: You need to read text somewhere else and then return to main
+text flow. So this footnotes block will be rendered after the article, and
+numbered hyperlinks are placed in the main text.</code></pre>
 
-**First method**
+
+<h3>Definition lists</h3>
+
+<div>Inspired by HTML elements &lt;DL>, &lt;DD> and &lt;DT>:</div>
+
+<pre><code>**First term**
 :   defintion data
 
 **Multiline**
 :   Multiline defintion lines
     are possible, just prepend 
     lines with 4 spaces
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample"><p>You can use definition lists.</p><dl>
-  <dt><strong>First method</strong></dt>
-  <dd>defintion data</dd>
 
-  <dt><strong>Multiline</strong></dt>
-  <dd>Multiline defintion lines are possible, just prepend lines with 4 spaces</dd>
-</dl>
-</div></td>
-</tr>
-</table>
+Plain term (not strong)
+:   And its definition
+</code></pre>
 
-<table>
-<tr><td>
-<div class="pre-sample">You can also insert a code:
+<div>will be rendered into the following HTML:</div>
 
-~~~~~
-This is a code
-second line
-~~~~~
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-You can also insert a code:
+<pre><code>&lt;dl>
+&lt;dt>&lt;strong>First term&lt;/strong>&lt;/dt>
+&lt;dd>defintion data&lt;/dd>
 
+&lt;dt>&lt;strong>&lt;/strong>&lt;/dt>
+&lt;dd>Multiline defintion lines 
+are possible, just prepend lines 
+with 4 spaces&lt;/dd>
 
-<pre><code>This is a code
-second line
-</code></pre></div></td>
-</tr>
-</table>
+&lt;dt>Plain term (not strong)&lt;/dt>
+&lt;dd>And its definition&lt;/dd>
+&lt;/dl></code></pre>
 
-<table>
-<tr><td>
-<div class="pre-sample">And coloured code too:
+<h3>Coloured code</h3>
 
-~~~~~.prettyprint
-This is a code
-second line
-~~~~~
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-And coloured code too:
+<div>This construction will generate block coloured as C++ source code, line 
+<code>:::cpp</code> specifies source code language and won't be include in the
+resulting html code.</div>
 
+<pre><code>~~~~~
+:::cpp
+for (int x=0; x&lt;666; ++x) {
+    z();
+}
+~~~~~</code></pre>
 
-<pre><code>This is a code
-second line
-</code></pre></div></td>
-</tr>
-</table>
+<div>Here is the resulting output:</div>
 
-<h2>Splitting long articles</h2>
+<div class="codehilite"><pre><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">666</span><span class="p">;</span> <span class="o">++</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">z</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+If you don't specify source code language the code block will be displayed 
+as regular code block without any source language guesses.
+
+<h3>Splitting long articles</h3>
+
 <div>You can split large article into two parts using construction &lt;cut>. After rendering only the text 
 before &lt;cut> (“preview”) will be displayed in the articles list and after that preview hyperlink pointing to complete article will be
 place.
 </div>
 
-<!-- 
-<table>
-<tr><td>
-<div class="pre-sample">|
-</div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-|</div></td>
-</tr>
-</table>
+<pre><code>This is a short article description.
 
+&lt;cut>
 
-<table>
-<tr><td>
-<div class="pre-sample">|
+And this is a remaining part of the article.</code></pre>
+
 </div>
-</td>
-<td>⇒</td>
-<td><div class="sample">
-|</div></td>
-</tr>
-</table>
+
+</div><!--#content-->
+<!--
+
+<pre><code></code></pre>
+<pre><code></code></pre>
+
 -->
-
 </body>
 </html>
