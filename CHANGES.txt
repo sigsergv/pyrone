@@ -2,6 +2,8 @@
 -----
 * added simple article markup editor
 * fixed issue #35: Add code blocks syntax highlighter
+* article action links replaced with images
+* new article markup instructions
 * translation fixes
 
 0.3.1
