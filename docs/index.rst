@@ -433,3 +433,10 @@ Prepare and upload source package to pypi:
 ::
 
     python setup.py clean sdist upload
+
+Alternatively you could use the following command, it will ask you for password.
+
+::
+
+    python setup.py clean sdist upload
+    
