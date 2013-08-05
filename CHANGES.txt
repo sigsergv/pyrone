@@ -2,6 +2,7 @@
 -----
 
 * major code cleanup (PEP-8)
+* fixed twitter authentication (issue 43)
 
 0.3.2
 -----
