@@ -124,18 +124,13 @@ def login_twitter_init(request):
     Start twitter authentication
     """
     c = dict(authorize_url=False)
+    tweepy.debug(True)
 
-    consumer_key = get_config('tw_consumer_key')
-    consumer_secret = get_config('tw_consumer_secret')
-    #site_base_url = get_config('site_base_url')
-    #site_base_url = site_base_url.rstrip().rstrip('/')
-
-    # remove all trailing slashes from the url
+    consumer_key = str(get_config('tw_consumer_key'))
+    consumer_secret = str(get_config('tw_consumer_secret'))
 
     page_url = request.POST['page_url']
     callback_url = route_url('account_twitter_finish', request, _query=[('pyrone_url', page_url)])
-    log.debug('CCCCCCCCCCCCCCCCCCCCCCCCCCC')
-    log.debug(callback_url)
 
     oh = tweepy.OAuthHandler(consumer_key, consumer_secret, callback=callback_url, secure=True)
     try:
@@ -156,8 +151,9 @@ def login_twitter_finish(request):
     """
     Finish twitter authentication
     """
-    consumer_key = get_config('tw_consumer_key')
-    consumer_secret = get_config('tw_consumer_secret')
+    consumer_key = str(get_config('tw_consumer_key'))
+    consumer_secret = str(get_config('tw_consumer_secret'))
+
     token = request.session.get('twitter_request_token')
     if token is None:
         return HTTPNotFound()
@@ -172,7 +168,7 @@ def login_twitter_finish(request):
 
     try:
         oh.get_access_token(verifier)
-    except tweepy.TweepError:
+    except tweepy.TweepError, e:
         log.error('Invalid "oauth_verifier" request argument')
         return HTTPNotFound()
 
