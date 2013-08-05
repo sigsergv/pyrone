@@ -6,17 +6,22 @@ import logging
 
 log = logging.getLogger(__name__)
 
-# DO NOT TRANSLATE! 
-_languages = dict( en='english', ru=u'русский' )
+# DO NOT TRANSLATE!
+
+_languages = dict(en='english', ru=u'русский')
+
 
 def supported_langs():
     return ('en', 'ru')
 
+
 def lang_title(lang_code):
     return _languages[lang_code]
 
+
 def fallback_lang():
     return 'en'
+
 
 def locale_negotiator(request):
     lang = fallback_lang()

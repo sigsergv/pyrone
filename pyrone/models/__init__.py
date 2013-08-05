@@ -19,23 +19,24 @@ log = logging.getLogger(__name__)
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
+
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
     ## Initialization code here
     try:
-        transaction.begin() 
-        
+        transaction.begin()
+
         dbsession = DBSession()
         setup_config(dbsession)
         user_setup(dbsession)
-        
+
         transaction.commit()
     except IntegrityError:
         log.debug('SOMETHING WRONG WITH INIT DB')
         transaction.abort()
-    
+
 from user import User, Role, VerifiedEmail
 from config import Config
 from article import Article, Comment, Tag

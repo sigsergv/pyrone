@@ -17,6 +17,7 @@ except ImportError:
 # internal cache for setting values
 _cache = dict()
 
+
 def set_value(key, value):
     if UWSGI:
         if uwsgi.cache_exists(key):
@@ -25,6 +26,7 @@ def set_value(key, value):
             uwsgi.cache_set(key, pickle.dumps(value))
     else:
         _cache[key] = value
+
 
 def get_value(key):
     value = None
@@ -37,7 +39,3 @@ def get_value(key):
             value = _cache[key]
 
     return value
-
-
-
-

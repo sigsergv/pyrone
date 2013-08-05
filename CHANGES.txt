@@ -1,3 +1,8 @@
+0.3.3
+-----
+
+* major code cleanup (PEP-8)
+
 0.3.2
 -----
 * added simple article markup editor

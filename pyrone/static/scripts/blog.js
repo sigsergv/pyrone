@@ -16,24 +16,27 @@ function _cl(lang) {
 }
 */
 
- function Pyrone_lang_set(lang_code) {
+function Pyrone_lang_set(lang_code) {
     document.cookie = 'ui_lang='+lang_code+'; EXPIRES=Wed, 01 Jan 2120 00:00:00 UTC; PATH=/';
     document.location.reload(true);
-};
+}
 
 /**
  * Update element text, show it and then hide after timeout
  */
- function Pyrone_notify(elem, text, afterfunc, timeout) {
+function Pyrone_notify(elem, text, afterfunc, timeout) {
 	if (!timeout) {
 		timeout = 3000;
 	}
 	elem.html(text);
 	elem.slideDown(300).delay(timeout).slideUp(300);
-};
+}
 
 /** 
  * Return list of selected rows in the table
+ *
+ * @param {String} table element id.
+ * @return {Array} list of selected rows.
  */
 function Pyrone_getSelectedRows(table_id) {
 	var table = $('#'+table_id);
@@ -50,7 +53,7 @@ function Pyrone_getSelectedRows(table_id) {
 		}
 	});
 	return res;
-};
+}
 
 /**
  * @param {String} target_id id of node where append confirm box
@@ -82,7 +85,7 @@ function Pyrone_getSelectedRows(table_id) {
 	setTimeout(function(){
 		confirmation_el.remove();
 	}, 1000);
-};
+}
 
 /**
  * Display information box appended to specified target
@@ -110,7 +113,7 @@ function Pyrone_getSelectedRows(table_id) {
 	setTimeout(function(){
 		notify_el.remove();
 	}, 1000);
-};
+}
 
 
 /**
@@ -132,7 +135,7 @@ function Pyrone_article_preview() {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 /**
  * Save article using AJAX request
@@ -170,7 +173,7 @@ function Pyrone_article_save(url) {
 		alert(tr('AJAX_REQUEST_ERROR'));
 		save_button.removeAttr('disabled');
 	});
-};
+}
 
 function Pyrone_article_deleteArticle(url, article_id) {
 	$.ajax({
@@ -183,11 +186,11 @@ function Pyrone_article_deleteArticle(url, article_id) {
 		alert(tr('AJAX_REQUEST_ERROR'));
 		save_button.removeAttr('disabled');
 	});
-};
+}
 
 function Pyrone_article_deleteArticleReq(url, article_id) {
 	Pyrone_createConfirmLink('a-d-'+article_id, function() { Pyrone_article_deleteArticle(url, article_id);});
-};
+}
 
 /**
  * Post comment using AJAX request
@@ -252,7 +255,7 @@ function Pyrone_article_postComment() {
 	}).fail(function(){
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 /**
  * reply to specific comment: move comment form to corresponding comment element
@@ -276,7 +279,7 @@ function Pyrone_article_replyToComment(comment_id) {
 		link.show(0);
 	}
 	$('#fid-comment-body').focus();
-};
+}
 
 function Pyrone_article_approveComment(url, comment_id) {
 	$.ajax({
@@ -296,7 +299,7 @@ function Pyrone_article_approveComment(url, comment_id) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 function Pyrone_article_deleteComment(url, comment_id) {
 	$.ajax({
@@ -310,11 +313,11 @@ function Pyrone_article_deleteComment(url, comment_id) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 function Pyrone_article_deleteCommentReq(url, comment_id) {
 	Pyrone_createConfirmLink('cd-'+comment_id, function() { Pyrone_article_deleteComment(url, comment_id); });
-};
+}
 
 
 /**
@@ -348,7 +351,7 @@ function Pyrone_article_showEditCommentForm(url, url_fetch, comment_id) {
 	}).fail(function(){
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 function Pyrone_article_submitEditCommentForm(url_template) {
 	var comment_id = $('#c-edit-comment_id').val();
@@ -388,8 +391,7 @@ function Pyrone_article_submitEditCommentForm(url_template) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-			
-};
+}
 
 function Pyrone_article_cancelEditCommentForm() {
 	var comment_id = $('#c-edit-comment_id').val(),
@@ -398,7 +400,7 @@ function Pyrone_article_cancelEditCommentForm() {
 	
 	edit_form.hide(0);
 	inner.show(0);
-};
+}
 
 function Pyrone_account_logout(url) {
 	$.ajax({
@@ -409,7 +411,7 @@ function Pyrone_account_logout(url) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 function Pyrone_account_loginTwitter(url) {
 	$.ajax({
@@ -436,7 +438,7 @@ function Pyrone_account_loginTwitter(url) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 // stub
 function Pyrone_article_checkForm()
@@ -452,7 +454,7 @@ function Pyrone_article_expandModeratedComment(comment_id) {
 	}
 	collapsed_el.hide(0);
 	expanded_el.show(0);
-};
+}
 
 function Pyrone_article_approveModeratedComment(url, comment_id) {
 	var comment_el = $('#c-'+comment_id);
@@ -465,13 +467,13 @@ function Pyrone_article_approveModeratedComment(url, comment_id) {
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 Pyrone_article_deleteModeratedComment = Pyrone_article_deleteComment;
 
 function Pyrone_article_deleteModeratedCommentReq(url, comment_id) {
 	Pyrone_createConfirmLink('cd-'+comment_id, function() { Pyrone_article_deleteModeratedComment(url, comment_id); });
-};
+}
 
 function Pyrone_account_saveMyProfile(url)
 {
@@ -556,7 +558,7 @@ function Pyrone_account_saveMyProfile(url)
 	}).fail(function(){
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
-};
+}
 
 function Pyrone_editor_unindent(id)
 {
@@ -611,7 +613,7 @@ function Pyrone_editor_unindent(id)
 				return false;
 			}
 			indent_type = 'space';
-			line = line.substr(4)
+			line = line.substr(4);
 			break;
 
 		case 'tab':
