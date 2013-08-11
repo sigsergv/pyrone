@@ -1,237 +1,187 @@
 .. include:: ../README.txt
 
-Installing for nginx in simple proxy mode
-=========================================
+Installing in production mode
+=============================
 
-Prepare runtime directory
--------------------------
+Pyrone is a standard WSGI application so you can use any method for provisioning WSGI 
+apps. In this instruction we describe installing process using Ubuntu/Debian OS with python version 2.7,
+web server nginx, WSGI container server uWSGI and MySQL database engine.
 
-You need to prepare directory where your application will be installed, let's assume
-it's ``/home/user/pyrone-blog`` (we'll later reference it as ``$BLOG``).
+I recommend you to create separate system user for the application, it's secure and simple. In this
+manual all instructions assume system user ``blog`` with home directory ``/home/blog``, it's regular
+non-privileged user. 
 
-Inside ``$BLOG`` you have to create virtual environment, application directory, configuration
-files.
-
-Prepare virtual environment
----------------------------
-
-First install package ``python-virtualenv`` using ``apt-get`` (or whatever you're using for installing
-packages):
-
-::
-
-    sudo apt-get install python-virtualenv
+All linux shell commands in this manual have prefixes, if prefix is ``$`` then command must be executed
+using user ``blog`` shell session, and commands with the prefix ``#`` must be executed in root shell session.
 
 
-Then initialize new virtual environment (remember ``$BLOG`` is pointing to application root
-directory):
+MySQL setup
+-----------
 
-::
+Install MySQL (you need to choose password for user ``root``, you may skip this step if you have installed
+and configured MySQL server already)::
 
-    virtualenv --no-site-packages $BLOG/env
+    # apt-get install mysql-server
 
-Now you have to *activate* just installed environment:
-
-::
-
-    source $BLOG/env/bin/activate
-
-Before installing Pyrone you have to install binary packages from your distribution that required to
-compile binary python packages: ``libxslt1-dev gcc python2.6-dev``. Instead of ``python2.6-dev`` you should
-install ``python2.7-dev`` if you're using Python version 2.7.
-
-Download Pyrone distribution package (e.g. ``pyrone-1.0.tar.gz``) and install it, all python packages
-Pyrone depends upon will be downloaded and installed automatically:
-
-::
-
-    pip install pyrone-0.1.tar.gz
-
-Or you can install directly from pypi repository:
-
-::
-
-    pip install pyrone
-
-This will install latest pyrone version.
-
-If you are going to use MySQL as the database engine you are need to install ``MySQL-python`` package:
-
-::
-
-    pip install MySQL-python
-
-
-Now create mysql database (if you've chosen mysql and not sqlite database engine driver), type in 
-mysql root console:
-
-::
+Now create database and database user for Pyrone, use the following commands in the mysql root console::
 
     CREATE DATABASE pyrone_blog;
     GRANT ALL ON pyrone_blog.* TO 'pyrone_blog_user'@'localhost' IDENTIFIED BY 'pbpass';
 
-Also you have to configure encoding issues for the mysql server.
+Choose another password instead of ``pbpass`` (and remember it).
 
-Now prepare the application configuration files:
 
-::
+Install pyrone in virtual environment
+-------------------------------------
 
-   cd $BLOG
-   cp ./env/share/pyrone/examples/production.ini .
+We use virtualenv to install Pyrone runtime.
 
-Open file ``production.ini`` in your favourite text editor and change default database connection
-parameters to yours.
+You need to prepare directory where your application will be installed, let's assume
+it's ``/home/blog/pyrone-blog``.
 
-Now check that you've configured application properly, for that execute the following command inside
-the directory ``$BLOG``:
+Inside this directory you need to create virtual environment, application directory, configuration
+files, so let's begin.
 
-::
 
-    ./env/bin/pserve production.ini
+Prepare virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If configuration steps were performed correctly you should see somethign like this:
+First install package ``python-virtualenv`` and other required packages::
 
-::
+    # apt-get install python-virtualenv dpkg-dev python2.7-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libmysqlclient-dev
+
+Then initialize new virtual environment::
+
+    $ virtualenv --no-site-packages /home/blog/pyrone-blog/env
+
+Now you have to *activate* just installed environment::
+
+    $ source /home/blog/pyrone-blog/env/bin/activate
+
+After this command your shell session is slightly modified and almost all python-related command
+will be executed in just created virtual environment. And you are *required* to stay in this session
+and execute all remaining commands there!
+
+Unfortunately there is a bug in some of required 3rd party packages, so in order to install pyrone properly 
+you should execute the following “magic”::
+
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libz.so $VIRTUAL_ENV/lib/
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libfreetype.so $VIRTUAL_ENV/lib/
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libjpeg.so $VIRTUAL_ENV/lib/
+
+Now install Pyrone::
+
+    $ pip install pyrone
+
+This will install latest stable version of Pyrone all required packages.
+
+As we are planning to use MySQL install also MySQL driver::
+
+    $ pip install MySQL-python
+
+Now prepare the application configuration files::
+
+   $ cd /home/blog/pyrone-blog/
+   $ cp ./env/share/pyrone/examples/production.ini .
+
+Open file ``production.ini`` in any text editor and change default database connection
+parameters to yours. If follow this instruction from the beginning you'll need to change
+database password only: find the string ``pbpass`` and replace it with actual password.
+
+Check that application is configured properly, to do that just execute the following command inside
+the directory ``/home/blog/pyrone-blog``::
+
+    $ /home/blog/pyrone-blog/env/bin/pserve production.ini
+
+If configuration steps were performed correctly you should see something like this::
 
     Starting server in PID 5712.
     serving on 0.0.0.0:6543 view at http://127.0.0.1:6543
 
-Prepare nginx site
-------------------
+Now press Ctrl+C to terminate server.
 
-You need to create nginx config file (e.g. ``pyrone-blog.conf``) for your site. Sample config is included into 
-the distribution package and could be found by the path ``$BLOG/env/share/pyrone/examples/pyrone-blog-nginx.conf``.
+Congratulation! You've just installed pyrone runtime, so you can proceed to next steps: installing/configuring web server
+(nginx) and installing/configuring middle layer between pyrone runtime and web server (uWSGI).
 
-::
+Configuring uWSGI
+-----------------
 
-    upstream pyrone-blog {
-            server 127.0.0.1:5000;
-            #server 127.0.0.1:5001;
-    }
+First install uWSGI::
 
-    server {
-            listen   81; ## listen for ipv4; this line is default and implied
-            #listen   [::]:80 default ipv6only=on; ## listen for ipv6
+    # apt-get install uwsgi uwsgi-plugin-python
 
-            server_name blog.example.com;
-            access_log /home/user/pyrone-blog/nginx-access.log;
+Then create configuration file for the application::
 
-            location / {
-                    proxy_set_header        Host $host:$server_port;
-                    proxy_set_header        X-Real-IP $remote_addr;
-                    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_set_header        X-Forwarded-Proto $scheme;
+    # cp /home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
+    # ln -s /etc/uwsgi/apps-available/pyrone-uwsgi.ini /etc/uwsgi/apps-enabled
 
-                    client_max_body_size    10m;
-                    client_body_buffer_size 128k;
-                    proxy_connect_timeout   60s;
-                    proxy_send_timeout      90s;
-                    proxy_read_timeout      90s;
-                    proxy_buffering         off;
-                    proxy_temp_file_write_size 64k;
-                    proxy_pass http://pyrone-blog;
-                    proxy_redirect          off;
-            }
+And restart uWSGI::
 
-            # uncomment if you want nginx to serve static files
-            #location /static {
-            ## uncoment either 2.6 OR 2.7, not both!
-            #    root                    /home/user/pyrone-blog/env/lib/python2.7/site-packages/pyrone/static;
-            #    root                    /home/user/pyrone-blog/env/lib/python2.6/site-packages/pyrone/static;
-            #    expires                 30d;
-            #    add_header              Cache-Control public;
-            #    #access_log              off;
-            #}
-
-    }
-
-Edit the file using real data (your path instead of ``/home/user/pyrone-blog`` etc) and put it into the nginx sites directory.
-
-Using supervisord to automate application execution
----------------------------------------------------
-
-Sample ``supervisord.conf`` is provided in the distribution package, find in at 
-``$BLOG/env/share/pyrone/examples/supervisord.conf``. Just copy to the directory
-``$BLOG``. You have to edit this file and set valid system user name there.
-
-Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/examples/supervisord-pyrone``.
-Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.
-
-Installing on nginx+uWSGI (ububtu/debian only)
-===============================================
-
-First you need to install ``uWSGI`` packages:
-
-::
-
-    sudo apt-get install uwsgi uwsgi-plugin-python
-
-Then you have to create nginx configuration file, something like this:
-
-::
-
-    server {
-            listen 80;
-            server_name blog.example.com;
-            access_log /home/user/pyrone-blog/nginx-access.log;
-
-            location / {
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:5000;
-            }
-            
-            # uncomment lines below to allow processing of static files by nginx 
-            #location /static {
-            #    root                    /home/user/pyrone-blog/env/lib/python2.6/site-packages/pyrone/;
-            #    expires                 30d;
-            #    add_header              Cache-Control public;
-            #    #access_log              off;
-            #}
-
-    }
+    # service uwsgi restart
 
 
+Nginx setup
+-----------
 
-Now create uwsgi config file for the blog application, it looks like::
+Install nginx::
 
-    [uwsgi]
-    uid = user
-    gid = usergroup
-    socket = 127.0.0.1:5000
-    home = /home/user/pyrone-blog/env/
-    plugins = python
-    paste = config:/home/user/pyrone-blog/production.ini
-    # uncomment line below (and comment line above) to include debug logging output from the application
-    #ini-paste-logged = /home/user/pyrone-blog/production.ini
-    post-buffering = 8192 # this is workaround for files upload issue ( https://bitbucket.org/cancel/pyrone/issue/23 )
-    # uncomment to enable web debugger
-    # processes = 1
-    cache = 1000
+    # apt-get install nginx
 
-Don't forget to edit this file and replace default values (user, usergroup) with real ones. Place file to the
-directory ``/etc/uwsgi/apps-available`` and create symlink to this file in the directory ``/etc/uwsgi/apps-enabled``::
+Then  create nginx configuration file for Pyrone's site::
 
-    sudo ln -s /etc/uwsgi/apps-available/blog.ini /etc/uwsgi/apps-enabled
+    # cp /home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
 
-Pyrone uses ``cache`` plugin of uWSGI.
+In this file you need to change hostname (default value is ``blog.example.com``).
+
+After that create symlink to enable nginx site::
+
+    # ln -s /etc/nginx/sites-available/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-enabled/
+    # service nginx restart
+
+If you want to serve HTTPS requests too you need to copy another sample file: 
+``/home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-blog-nginx-uwsgi-ssl.conf``, in that case you must
+create proper ssl certificates and other related stuff I don't want to describe here.
+
+That's all! Open your site in the browser and enjoy blogging. Default local login credentials (username/password): ``admin/setup``,
+don't forget to change it.
 
 
-Sample configuration files
-==========================
-
-You can find up-to-date samples of various configuration files in the directory ``examples``.
-
-Some other installation issues
-==============================
+Some post-install stuff
+-----------------------
 
 Site icons (favicons)
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Pyrone package doesn't contain site icons, so you have to configure them separately. By default
 pyrone looks for files ``favicon.png`` and ``favicon.ico`` in the same directory where
 your production.ini file is placed. But you can change paths manually, just open file ``production.ini``
-in the text editor, then find keys ``pyrone.favicon_ico`` and ``pyrone.favicon_ico`` (in 
-the section ``[app:pyrone]``), and change values from default to actual paths to these icons.
+in the text editor, then find keys ``pyrone.favicon_ico`` and ``pyrone.favicon_png`` (in 
+the section ``[app:pyrone]``), and change values from default to real paths to these icons.
+
+Backup and restore
+~~~~~~~~~~~~~~~~~~
+
+For security reasons you cannot upload backup files using web interface. You must upload it into special
+directory using scp or ssh. This special directory is ``/home/blog/pyrone-blog/storage/backups``.
+
+Serving static files
+~~~~~~~~~~~~~~~~~~~~
+
+By default Pyrone handles its static files (scrits, styles etc), if you want to pass static files processing
+to nginx you should edit nginx site configuration file and uncomment static files section.
+
+Sample configuration files
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You will find up-to-date samples of various configuration files in the directory ``examples`` (in the source tree)
+or in the directory ``/home/blog/pyrone-blog/env/share/pyrone/examples`` (on production server after Pyrone install).
+
+Some other installation issues
+==============================
+
+If you find some obstacles using this manual in practice feel free to submit issue to our issue tracker: 
+https://bitbucket.org/cancel/pyrone/issues.
+
 
 Development
 ===========
@@ -255,47 +205,37 @@ It's assumed here and later that you're using Debian/Ubuntu linux distribution. 
 terminal now and proceed.
 
 First you need to install ``python`` (version 2.7 is highly recommended), you'll also
-need python package ``virtualenv``, you can install them using command
+need python package ``virtualenv``, you can install them using command::
 
-::
-
-    sudo apt-get install python2.7 python2.7-dev python-virtualenv
+    # apt-get install python2.7 python2.7-dev python-virtualenv
     
 Now you have to choose directory where you'll install virtual environment for ``pyramid``,
 it should be somewhere in your home directory, don't install it in the system directories. 
 Package ``python2.7-dev`` is required to compile some modules to increase performance.
 
-Go to selected directory (create it if required) and issue the following command:
+Go to selected directory (create it if required) and issue the following command::
 
-::
-
-    virtualenv --no-site-packages ./env
+    $ virtualenv --no-site-packages ./env
 
 You'll get directory ``env`` with new virtual environment, now you should *activate* it, after 
 activation all required commands will be executed from your virtual environment, not from the
-system. Required commands are: ``python``, ``pip`` etc. So activate:
+system. Required commands are: ``python``, ``pip`` etc. So activate::
 
-::
-
-    source ./env/bin/activate
+    $ source ./env/bin/activate
 
 Install packages required for the application (there are three separate commands, it's because of some bug
-in pip dependencies resolver):
+in pip dependencies resolver)::
 
-::
-
-    pip install paste
-    pip install pastescript
-    pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
+    $ pip install paste
+    $ pip install pastescript
+    $ pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
     
 Wait until it finish downloading and installing the packages.
 
-Also you'll need to install additional binary packages:
+Also you'll need to install additional binary packages::
 
-::
-
-    sudo apt-get install gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev
-    pip install lxml
+    # apt-get install gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev
+    $ pip install lxml
 
 Pyrone also requires PIL imaging library, in this document we install it into our virtualenv
 environment, and for Debian/Ubuntu there is a problem: PIL compiles without some necessary
@@ -304,29 +244,23 @@ described below.
 
 ::
 
-    ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libz.so $VIRTUAL_ENV/lib/
-    ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libfreetype.so $VIRTUAL_ENV/lib/
-    ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libjpeg.so $VIRTUAL_ENV/lib/
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libz.so $VIRTUAL_ENV/lib/
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libfreetype.so $VIRTUAL_ENV/lib/
+    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libjpeg.so $VIRTUAL_ENV/lib/
 
-After that you can install PIL:
+After that you can install PIL::
 
-::
-
-    pip install PIL
+    $ pip install PIL
 
 
-If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``:
+If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``::
 
-::
-
-    pip install MySQL-python
+    $ pip install MySQL-python
 
 Now install *development* version of pyrone, to do so switch to the directory with the source code and execute this
-comman (stay in the same terminal, in the virtualenv activated session!):
+comman (stay in the same terminal, in the virtualenv activated session!)::
 
-::
-
-    python setup.py develop
+    $ python setup.py develop
 
 Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are just fine. By default pyrone development config uses sqlite database
 engine.
@@ -334,26 +268,20 @@ engine.
 Running application
 -------------------
 
-To start development server use the following command:
+To start development server use the following command::
 
-::
-
-    pserve --reload development.ini
+    $ pserve --reload development.ini
     
 Tests and coverage
 ------------------
 
-Running the tests:
+Running the tests (there are no tests yet though)::
 
-::
-
-    python setup.py test -q
+    $ python setup.py test -q
     
-Collecting coverage information:
+Collecting coverage information::
 
-::
-
-    nosetests --cover-package=pyrone --cover-erase --with-coverage
+    $ nosetests --cover-package=pyrone --cover-erase --with-coverage
    
 Localization and internationalization
 -------------------------------------
@@ -361,54 +289,40 @@ Localization and internationalization
 Pyrone uses ``Babel`` package to maintain ``gettext``-translation file. Here are the most used
 commands.
 
-Collect messages from source files:
+Collect messages from source files::
 
-::
+    $ python setup.py extract_messages
 
-    python setup.py extract_messages
+Update messages (using .pot-file created by ``extract_messages`` command)::
 
-Update messages (using .pot-file created by ``extract_messages`` command):
+    $ python setup.py update_catalog
+    $ python setup.py update_catalog_js
 
-::
+Or collect and update in one step::
 
-    python setup.py update_catalog
-    python setup.py update_catalog_js
+    $ python setup.py extract_messages update_catalog extract_messages_js update_catalog_js
 
-Or collect and update in one step:
+Compile translation files (for python code)::
 
-::
-
-    python setup.py extract_messages update_catalog extract_messages_js update_catalog_js
-
-Compile translation files (for python code):
-
-::
-
-    python setup.py compile_catalog
+    $ python setup.py compile_catalog
 
 JavaScript code a bit tricky, compiled js files are immediately placed into the 
 ``pyrone/static/lang`` directory so after compiling these files have to be
-commited:
+commited::
 
-::
+    $ python setup.py compile_catalog_js
 
-    python setup.py compile_catalog_js
+Start new language ("es", Spanish in this example, both for python and javascript code, do this ONCE for one language)::
 
-Start new language ("es", Spanish in this example, both for python and javascript code, do this ONCE for one language):
-
-::
-
-    python setup.py init_catalog -l es
-    python setup.py init_catalog_js -l es
+    $ python setup.py init_catalog -l es
+    $ python setup.py init_catalog_js -l es
 
 Code syntax highlight in the articles
 -------------------------------------
 
 Pyrone uses Markdown extension `codehilite` and to work properly it requires corresponding
-css file, currently it's commited as static resource `static/styles/pygments.css` and
-generated by the following python code
-
-::
+css file, currently it's commited as static resource `static/styles/pygments.css` which
+generated by the following python code::
 
     from pygments.formatters import HtmlFormatter
     print HtmlFormatter().get_style_defs('.codehilite')
@@ -417,26 +331,42 @@ generated by the following python code
 Building documentation
 ----------------------
 
-In order to build project documentation switch to the directory `doc` and execute command `make build-html` there.
+In order to build project documentation switch to the directory `doc` and issue command `make build-html` there.
 
-This command requires system package `python-docutils`, so install it first:
+This command requires system package `python-docutils`, so install it first::
 
-::
-
-    sudo apt-get install python-docutils
+    # apt-get install python-docutils
 
 Release and packaging
 ---------------------
 
-Prepare and upload source package to pypi:
+Prepare and upload source package to pypi::
 
-::
-
-    python setup.py clean sdist upload
+    $ python setup.py clean sdist upload
 
 Alternatively you could use the following command, it will ask you for password.
 
 ::
 
-    python setup.py clean sdist upload
+    $ python setup.py clean sdist upload
+
+
+
+
+
+
     
+Outdated and not supported stuff
+================================
+
+``$BLOG`` is referred to `/home/blog/pyrone-blog`.
+
+Using supervisord to automate application execution
+---------------------------------------------------
+
+Sample ``supervisord.conf`` is provided in the distribution package, find in at 
+``$BLOG/env/share/pyrone/examples/supervisord.conf``. Just copy to the directory
+``$BLOG``. You have to edit this file and set valid system user name there.
+
+Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/examples/supervisord-pyrone``.
+Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.

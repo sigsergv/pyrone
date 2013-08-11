@@ -1,3 +1,9 @@
+0.3.4
+-----
+
+* major documentation update
+* new sample configuration files
+
 0.3.3
 -----
 
