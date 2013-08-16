@@ -245,7 +245,7 @@ def get_public_tags_cloud(force_reload=False):
     value = cache.get_value('tags_cloud')
     if value is None or force_reload:
         dbsession = DBSession()
-        q = dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft is False).group_by(Tag.tag)
+        q = dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
         items = list()
         counts = list()
         total = 0
