@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2013-05-25 00:03+0700\n"
+"POT-Creation-Date: 2013-08-16 20:22+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: pyrone/lib/helpers.py:187
+#: pyrone/lib/helpers.py:196
 msgid "Administrator"
 msgstr ""
 
@@ -30,7 +30,7 @@ msgstr ""
 msgid "pyrone version: %s"
 msgstr ""
 
-#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:23
+#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:25
 msgid "Powered by Pyrone"
 msgstr ""
 
@@ -210,10 +210,10 @@ msgid "Content type"
 msgstr ""
 
 #: pyrone/templates/admin/list_files.mako:45
-#: pyrone/templates/blog/list_articles.mako:20
-#: pyrone/templates/blog/view_article.mako:40
+#: pyrone/templates/blog/list_articles.mako:17
+#: pyrone/templates/blog/view_article.mako:37
 #: pyrone/templates/widgets/comment.mako:26
-#: pyrone/templates/widgets/pages.mako:8
+#: pyrone/templates/widgets/pages.mako:7
 msgid "edit"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 #: pyrone/templates/admin/settings.mako:21
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:20
-#: pyrone/templates/blog/view_article.mako:86
+#: pyrone/templates/blog/view_article.mako:88
 #: pyrone/templates/blog/write_article.mako:30
 msgid "save"
 msgstr ""
@@ -320,135 +320,139 @@ msgid ""
 "“Asia/Novosibirsk” or “UTC”."
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:40
-msgid "Twitter Auth"
+#: pyrone/templates/admin/settings.mako:38
+msgid "Site language"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:41
+msgid "Twitter Auth"
+msgstr ""
+
+#: pyrone/templates/admin/settings.mako:42
 msgid ""
 "To use Twitter authentication you MUST <a "
 "href=\"https://dev.twitter.com/apps\">register</a> a new twitter "
 "application and obtain consumer key and secret."
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:42
+#: pyrone/templates/admin/settings.mako:43
 msgid "Consumer key"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:43
+#: pyrone/templates/admin/settings.mako:44
 msgid "Consumer secret"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:45
+#: pyrone/templates/admin/settings.mako:46
 msgid "Twitter “share a link” button"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:47
-#: pyrone/templates/admin/settings.mako:54
+#: pyrone/templates/admin/settings.mako:48
+#: pyrone/templates/admin/settings.mako:55
 msgid "enable this social button"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:49
+#: pyrone/templates/admin/settings.mako:50
 msgid "show total Twitter recommendations count"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:50
+#: pyrone/templates/admin/settings.mako:51
 msgid "Use this Twitter username for sharing"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:52
+#: pyrone/templates/admin/settings.mako:53
 msgid "Google “+1” button"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:56
+#: pyrone/templates/admin/settings.mako:57
 msgid "Site search widget"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:57
+#: pyrone/templates/admin/settings.mako:58
 msgid "HTML/JavaScript code for the site search widget"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:58
+#: pyrone/templates/admin/settings.mako:59
 msgid ""
 "You should enter HTML code in this text box you received from the "
 "external search provider. To delete site search from the pages just clear"
 " the field."
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:61
+#: pyrone/templates/admin/settings.mako:62
 msgid "Notifications"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:62
+#: pyrone/templates/admin/settings.mako:63
 msgid "Email address for system notifications"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:63
+#: pyrone/templates/admin/settings.mako:64
 msgid ""
 "Email address for the system notification: user added, comment added for "
 "moderation etc"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:65
+#: pyrone/templates/admin/settings.mako:66
 msgid "Email address to be used as sender address"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:66
+#: pyrone/templates/admin/settings.mako:67
 msgid "This email will be used as FROM address for notification messages"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:68
+#: pyrone/templates/admin/settings.mako:69
 msgid "Select notifications you want to receive"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:70
+#: pyrone/templates/admin/settings.mako:71
 msgid "new comment added (including comment moderation requests)"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings.mako:73
 msgid "new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:74
+#: pyrone/templates/admin/settings.mako:75
 msgid "Email address verification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:75
-#: pyrone/templates/admin/settings.mako:77
-#: pyrone/templates/admin/settings.mako:81
-#: pyrone/templates/admin/settings.mako:84
-#: pyrone/templates/admin/settings.mako:89
-#: pyrone/templates/admin/settings.mako:93
-#: pyrone/templates/admin/settings.mako:98
-#: pyrone/templates/admin/settings.mako:101
+#: pyrone/templates/admin/settings.mako:76
+#: pyrone/templates/admin/settings.mako:78
+#: pyrone/templates/admin/settings.mako:82
+#: pyrone/templates/admin/settings.mako:85
+#: pyrone/templates/admin/settings.mako:90
+#: pyrone/templates/admin/settings.mako:94
+#: pyrone/templates/admin/settings.mako:99
+#: pyrone/templates/admin/settings.mako:102
 msgid "Plain text, no HTML, allowed substitution symbols:"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:76
+#: pyrone/templates/admin/settings.mako:77
 msgid "Email address verification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:79
+#: pyrone/templates/admin/settings.mako:80
 msgid "Answer to comment notification message subject template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:82
+#: pyrone/templates/admin/settings.mako:83
 msgid "Answer to comment notification message body template"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:87
+#: pyrone/templates/admin/settings.mako:88
 msgid "Admin notification subject template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:91
+#: pyrone/templates/admin/settings.mako:92
 msgid "Admin notification body template: new comment"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:96
+#: pyrone/templates/admin/settings.mako:97
 msgid "Admin notification subject template: new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:99
+#: pyrone/templates/admin/settings.mako:100
 msgid "Admin notification body template: new user registered"
 msgstr ""
 
@@ -469,24 +473,24 @@ msgstr ""
 
 #: pyrone/templates/admin/settings_widget_pages.mako:16
 msgid ""
-"Every line defines one site for one language, here is the sample: "
-"<code><pre>!en!http://google.com!Google web search\n"
-"!ru!http://google.ru!Поиск в Google</pre></code>"
+"Every line defines one page, here is the sample: "
+"<code><pre>!http://google.com ! Google web search\n"
+"!http://yandex.ru ! Search in Yandex</pre></code>"
 msgstr ""
 
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
 "You can use any other character as delimiter instead of "
-"<strong>!</strong>, e.g. pipe “|”:<code><pre>|en|http://google.com|Google"
-" web search\n"
-"|ru|http://google.ru|Поиск в Google</pre></code>"
+"<strong>!</strong>, e.g. pipe “|”:<code><pre>|http://google.com | Google "
+"web search\n"
+"|http://yandex.ru | Search in Yandex</pre></code>"
 msgstr ""
 
 #: pyrone/templates/admin/settings_widget_pages.mako:20
 msgid "The main idea is simple: first character in the line is delimiter."
 msgstr ""
 
-#: pyrone/templates/blog/base.mako:13 pyrone/views/blog.py:935
+#: pyrone/templates/blog/base.mako:15 pyrone/views/blog.py:959
 msgid "Latest articles feed"
 msgstr ""
 
@@ -496,7 +500,7 @@ msgid "Comments moderation"
 msgstr ""
 
 #: pyrone/templates/blog/comments_moderation.mako:18
-#: pyrone/templates/blog/view_article.mako:82
+#: pyrone/templates/blog/view_article.mako:84
 msgid "Visitor website"
 msgstr ""
 
@@ -521,8 +525,8 @@ msgid "approve"
 msgstr ""
 
 #: pyrone/templates/blog/comments_moderation.mako:28
-#: pyrone/templates/blog/list_articles.mako:22
-#: pyrone/templates/blog/view_article.mako:41
+#: pyrone/templates/blog/list_articles.mako:19
+#: pyrone/templates/blog/view_article.mako:39
 #: pyrone/templates/widgets/comment.mako:25
 msgid "delete"
 msgstr ""
@@ -531,48 +535,48 @@ msgstr ""
 msgid "expand…"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:17
-#: pyrone/templates/blog/view_article.mako:37
+#: pyrone/templates/blog/list_articles.mako:23
+#: pyrone/templates/blog/view_article.mako:43
 msgid "draft"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:25
+#: pyrone/templates/blog/list_articles.mako:26
 #, python-format
 msgid "Posted by %(author)s on %(date)s"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:25
+#: pyrone/templates/blog/list_articles.mako:26
 #: pyrone/templates/widgets/comment.mako:9
 msgid "DATE_TIME_SHORT"
 msgstr "%Y-%m-%d in %H:%M"
 
-#: pyrone/templates/blog/list_articles.mako:30
+#: pyrone/templates/blog/list_articles.mako:31
 msgid "continue reading"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:32
-#: pyrone/templates/blog/view_article.mako:51
+#: pyrone/templates/blog/list_articles.mako:33
+#: pyrone/templates/blog/view_article.mako:53
 msgid "Tags:"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:36
-#: pyrone/templates/blog/list_articles.mako:38
+#: pyrone/templates/blog/list_articles.mako:37
+#: pyrone/templates/blog/list_articles.mako:39
 msgid "Comments:"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:41
+#: pyrone/templates/blog/list_articles.mako:42
 msgid "not approved comments:"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:53
+#: pyrone/templates/blog/list_articles.mako:54
 msgid "No articles here."
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:58
+#: pyrone/templates/blog/list_articles.mako:59
 msgid "←newer"
 msgstr ""
 
-#: pyrone/templates/blog/list_articles.mako:59
+#: pyrone/templates/blog/list_articles.mako:60
 msgid "older→"
 msgstr ""
 
@@ -615,43 +619,43 @@ msgstr ""
 msgid "Email verification and confirmation"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:58
+#: pyrone/templates/blog/view_article.mako:60
 msgid "Comments"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:75
+#: pyrone/templates/blog/view_article.mako:77
 msgid "Display name of the visitor"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:76
+#: pyrone/templates/blog/view_article.mako:78
 msgid "Comment date and time"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:77
+#: pyrone/templates/blog/view_article.mako:79
 msgid "subscribed"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:79
+#: pyrone/templates/blog/view_article.mako:81
 msgid "Email address of the visitor"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:80
+#: pyrone/templates/blog/view_article.mako:82
 msgid "Visitor ip address"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:81
+#: pyrone/templates/blog/view_article.mako:83
 msgid "Visitor X-Forwarded-For address"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:87
+#: pyrone/templates/blog/view_article.mako:89
 msgid "close"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:99
+#: pyrone/templates/blog/view_article.mako:101
 msgid "leave comment"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:106
+#: pyrone/templates/blog/view_article.mako:108
 msgid ""
 "Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, "
 "[hyperlink](http://example.com) <a class=\"new-window\" target=\"_blank\""
@@ -659,35 +663,35 @@ msgid ""
 "window\">more</a>"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:108
+#: pyrone/templates/blog/view_article.mako:110
 msgid ""
 "<strong>Anonymous visitors, please pay attention that comments with more "
 "than one hyperlink (including field “website”) will be put on moderation."
 " Sign in to post without such limitations.</strong>"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:113
-#: pyrone/templates/blog/view_article.mako:124
+#: pyrone/templates/blog/view_article.mako:115
+#: pyrone/templates/blog/view_article.mako:126
 msgid "Subscribe to answers"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:119
+#: pyrone/templates/blog/view_article.mako:121
 msgid "Your name (required, 50 characters or less)"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:122
+#: pyrone/templates/blog/view_article.mako:124
 msgid "Your email (won't be published, required if you want to receive answers)"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:126
+#: pyrone/templates/blog/view_article.mako:128
 msgid "Your website"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:129
+#: pyrone/templates/blog/view_article.mako:131
 msgid "post comment"
 msgstr ""
 
-#: pyrone/templates/blog/view_article.mako:134
+#: pyrone/templates/blog/view_article.mako:136
 msgid "commenting is disabled"
 msgstr ""
 
@@ -810,7 +814,7 @@ msgstr ""
 msgid "reply to this comment"
 msgstr ""
 
-#: pyrone/templates/widgets/pages.mako:6
+#: pyrone/templates/widgets/pages.mako:5
 msgid "Pages"
 msgstr ""
 
@@ -826,93 +830,108 @@ msgstr ""
 msgid "Incorrect login or password"
 msgstr ""
 
-#: pyrone/views/account.py:145
+#: pyrone/views/account.py:144
 msgid "Cannot create authorization Twitter URL"
 msgstr ""
 
-#: pyrone/views/account.py:222
+#: pyrone/views/account.py:224
 msgid "Verification failed: email not found."
 msgstr ""
 
-#: pyrone/views/account.py:224
+#: pyrone/views/account.py:226
 #, python-format
 msgid "Email `%s` has confirmed."
 msgstr ""
 
-#: pyrone/views/admin.py:52 pyrone/views/admin.py:58
+#: pyrone/views/admin.py:54 pyrone/views/admin.py:60
 msgid "Invalid value, must be positive numeric value"
 msgstr ""
 
-#: pyrone/views/admin.py:313
+#: pyrone/views/admin.py:321
 msgid "Backup file not found"
 msgstr ""
 
-#: pyrone/views/admin.py:320
+#: pyrone/views/admin.py:328
 msgid "Backup file is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:326
+#: pyrone/views/admin.py:334
 msgid "Backup file is broken, no catalog file inside!"
 msgstr ""
 
-#: pyrone/views/admin.py:331
+#: pyrone/views/admin.py:339
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:352
+#: pyrone/views/admin.py:360
 msgid "Unknown XML format of catalog file."
 msgstr ""
 
-#: pyrone/views/admin.py:357
+#: pyrone/views/admin.py:365
 #, python-format
 msgid "Unsupported backup version: “%s”!"
 msgstr ""
 
-#: pyrone/views/admin.py:378
+#: pyrone/views/admin.py:386
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:399
+#: pyrone/views/admin.py:407
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:458 pyrone/views/admin.py:561
+#: pyrone/views/admin.py:466 pyrone/views/admin.py:569
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:607
+#: pyrone/views/admin.py:615
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
 msgstr ""
 
-#: pyrone/views/blog.py:93
+#: pyrone/views/blog.py:97
 msgid "Latest articles"
 msgstr ""
 
-#: pyrone/views/blog.py:131
+#: pyrone/views/blog.py:136
 #, python-format
 msgid "Articles labeled with tag “%s”"
 msgstr ""
 
-#: pyrone/views/blog.py:151
+#: pyrone/views/blog.py:156
 msgid "field is required"
 msgstr ""
 
-#: pyrone/views/blog.py:184 pyrone/views/blog.py:190 pyrone/views/blog.py:258
-#: pyrone/views/blog.py:264
+#: pyrone/views/blog.py:190 pyrone/views/blog.py:196 pyrone/views/blog.py:264
+#: pyrone/views/blog.py:270
 msgid "invalid date and time format"
 msgstr ""
 
-#: pyrone/views/blog.py:203 pyrone/views/blog.py:276
+#: pyrone/views/blog.py:209 pyrone/views/blog.py:282
 msgid "duplicated shortcut"
 msgstr ""
 
-#: pyrone/views/blog.py:543
+#: pyrone/views/blog.py:562
 msgid "Empty comment body is not allowed."
 msgstr ""
 
-#: pyrone/views/blog.py:576
+#: pyrone/views/blog.py:596
 msgid "Answering to not approved comment"
 msgstr ""
+
+#~ msgid ""
+#~ "Every line defines one site for "
+#~ "one language, here is the sample: "
+#~ "<code><pre>!en!http://google.com!Google web search\n"
+#~ "!ru!http://google.ru!Поиск в Google</pre></code>"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can use any other character as"
+#~ " delimiter instead of <strong>!</strong>, "
+#~ "e.g. pipe “|”:<code><pre>|en|http://google.com|Google "
+#~ "web search\n"
+#~ "|ru|http://google.ru|Поиск в Google</pre></code>"
+#~ msgstr ""
 

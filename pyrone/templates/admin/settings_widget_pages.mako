@@ -13,10 +13,10 @@
   	settings['widget_pages_pages_spec'], errors, \
   	help=_(u'One site definition per line, empty lines are ignored. Incorrect lines are ignored.'), height=200)|n}
   	
-  <dd>${_(u'Every line defines one site for one language, here is the sample: '+\
-  u'<code><pre>!en!http://google.com!Google web search\n!ru!http://google.ru!Поиск в Google</pre></code>')|n}</dd>
+  <dd>${_(u'Every line defines one page, here is the sample: '+\
+  u'<code><pre>!http://google.com ! Google web search\n!http://yandex.ru ! Search in Yandex</pre></code>')|n}</dd>
   <dd>${_(u'You can use any other character as delimiter instead of <strong>!</strong>, e.g. pipe “|”:'+\
-  u'<code><pre>|en|http://google.com|Google web search\n|ru|http://google.ru|Поиск в Google</pre></code>')|n}</dd>
+  u'<code><pre>|http://google.com | Google web search\n|http://yandex.ru | Search in Yandex</pre></code>')|n}</dd>
   <dd>${_(u'The main idea is simple: first character in the line is delimiter.')}</dd>
 
 
