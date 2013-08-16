@@ -5,6 +5,8 @@
 * languages selector moved to site settings and removed from account panel
 * pages list is now language independent
 * comment form is disabled now when posting process is in progress
+* fixed broken tags cloud
+* fixed incorrect pager links for "tag" pages
 
 0.3.4
 -----
