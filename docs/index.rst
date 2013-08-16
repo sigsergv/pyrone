@@ -289,9 +289,13 @@ Localization and internationalization
 Pyrone uses ``Babel`` package to maintain ``gettext``-translation file. Here are the most used
 commands.
 
-Collect messages from source files::
+Collect messages from source files (python only)::
 
     $ python setup.py extract_messages
+
+Collect messages from source files (javascript only)::
+
+    $ python setup.py extract_messages_js
 
 Update messages (using .pot-file created by ``extract_messages`` command)::
 
