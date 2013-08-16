@@ -866,5 +866,5 @@ def save_pages_widget_settings_ajax(request):
     widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
     config.set('widget_pages_pages_spec', widget_pages_pages_spec)
     # force reload page links cache
-    h.get_pages_widget_links('en', True)
+    h.get_pages_widget_links(True)
     return c

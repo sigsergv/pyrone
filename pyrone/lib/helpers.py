@@ -278,7 +278,7 @@ def get_public_tags_cloud(force_reload=False):
     return value
 
 
-def get_pages_widget_links(lang_code, force_reload=False):
+def get_pages_widget_links(force_reload=False):
 
     value = cache.get_value('pages_links')
 
@@ -292,21 +292,21 @@ def get_pages_widget_links(lang_code, force_reload=False):
             line = line.strip()
             if len(line) == 0:
                 continue
-            # take first char - it will be delimiter
+            # take first char - it's a delimiter
             delim = line[0]
             components = line[1:].split(delim)
-            if len(components) != 3:
+            if len(components) != 2:
                 continue
-            lang, url, title = components
+            url, title = components
             if not url.startswith('http://') and not url.startswith('https://'):
                 continue
-            link = dict(lang=lang, url=url, title=title)
+            link = {'url': url, 'title': title}
             pages_links.append(link)
 
         value = pages_links
         cache.set_value('pages_links', value)
 
-    return [x for x in value if x['lang'] == lang_code]
+    return value
 
 
 def get_twitter_share_link_button(force_reload=False):
