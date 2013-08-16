@@ -4,6 +4,7 @@
 * new icons (from http://p.yusukekamiyamane.com/)
 * languages selector moved to site settings and removed from account panel
 * pages list is now language independent
+* comment form is disabled now when posting process is in progress
 
 0.3.4
 -----
