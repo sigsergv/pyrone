@@ -233,6 +233,21 @@ function Pyrone_article_postComment() {
 		return;
 	}
 	
+	var disable_ids = ['fid-comment-displayname', 'fid-comment-email', 'fid-comment-website',
+		'fid-comment-body', 'eid-post-comment-button', 'fid-is_subscribed'];
+
+	function setFieldsDisabled(disable) {
+		$.each(disable_ids, function(ind, fid) {
+			$('#'+fid).prop('disabled', disable);
+		});
+	}
+
+	setFieldsDisabled(true);
+	var backup_button_title = $('#eid-post-comment-button').val();
+
+	$('#eid-post-comment-button').val(tr('POSTING_COMMENT'));
+	$('body').css('cursor', 'progress');
+
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -241,6 +256,9 @@ function Pyrone_article_postComment() {
 	}).done(function(json) {
 		if (json.error) {
 			alert(json.error);
+			setFieldsDisabled(false);
+			$('#eid-post-comment-button').val(backup_button_title);
+			$('body').css('cursor', 'default');
 			return;
 		}
 		if (!json.approved) {
@@ -254,6 +272,9 @@ function Pyrone_article_postComment() {
 		}		
 	}).fail(function(){
 		alert(tr('AJAX_REQUEST_ERROR'));
+		setFieldsDisabled(false);
+		$('#eid-post-comment-button').val(backup_button_title);
+		$('body').css('cursor', 'default');
 	});
 }
 
