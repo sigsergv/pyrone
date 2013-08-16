@@ -27,3 +27,5 @@ Authors
 -------
 
 Pyrone is written by `Sergey Stolyarov <mailto:sergei@regolit.com>`_.
+
+Pyrone uses some icons by Yusuke Kamiyamane. Licensed under a Creative Commons Attribution 3.0 License. <http://p.yusukekamiyamane.com/>
