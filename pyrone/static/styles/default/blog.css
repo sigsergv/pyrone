@@ -160,17 +160,6 @@ div#sidebar div.section {
 	margin: 10px 0 5px 0;
 	padding-top: 5px;
 }
-div.lang-selector {
-	margin-top: 10px;
-	border: 2px solid #f6f6ee;
-	padding-left: 5px;
-}
-div.lang-selector span, div.lang-selector a {
-	color: #BDBDB7;
-}
-div.lang-selector span.active {
-	font-weight: bold;
-}
 div#bottombar {
 	margin-top: 30px;
 	border: dotted #f6f6ee;

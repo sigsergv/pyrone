@@ -72,7 +72,7 @@ def save_settings_ajax(request):
               'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
               'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
               'verification_msg_body_tpl', 'image_preview_width', 'google_analytics_id',
-              'timezone', 'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
+              'timezone', 'ui_lang', 'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
               'social_twitter_share_link_show_count', 'social_twitter_share_link_via',
               'social_gplusone', 'site_search_widget_code')
 

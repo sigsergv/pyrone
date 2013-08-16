@@ -23,7 +23,6 @@ from pyrone.version import PYRONE_VERSION
 from pyrone.models.config import get as get_config
 from pyrone.models import DBSession, Article, Tag, Comment
 from pyrone.lib import auth, lang
-from pyrone.lib.lang import supported_langs
 from pyrone.lib import cache
 
 log = logging.getLogger(__name__)
@@ -354,3 +353,7 @@ def get_not_approved_comments_count():
     dbsession = DBSession()
     cnt = dbsession.query(func.count(Comment.id)).filter(Comment.is_approved==False).scalar()
     return cnt
+
+def get_supported_langs_spec():
+    return lang.supported_langs_spec()
+

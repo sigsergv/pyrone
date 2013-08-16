@@ -19,14 +19,4 @@
     <div><a href="#" onclick="Pyrone_account_logout('${url('account_logout', t=h.auth.get_logout_token(request))}'); return false;">${_('Logout')}</a></div>
 %endif
 
-## languages
-<div class="lang-selector">
-% for lang_code in h.lang.supported_langs():
-  % if lang == lang_code:
-    <span class="active">${h.lang.lang_title(lang_code)}</span>
-  % else:
-    <span><a href="#" onclick="Pyrone_lang_set('${lang_code}'); return false;">${h.lang.lang_title(lang_code)}</a></span>
-  % endif
-% endfor
-</div>
 </div>

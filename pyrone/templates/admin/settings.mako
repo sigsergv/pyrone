@@ -35,7 +35,8 @@ $(window).scroll(function() {
     help=_(u'Your google analytics ID, value like “UA-12345678-9”, to disable Google Analytics just clear the field'))|n}
   ${h.form_input_text('timezone', _(u'Blog timezone'), settings['timezone'], errors,\
     help=_(u'Timezone to be used for time and date values on the site, <strong>must</strong> be tzdb-compatible string value like “Asia/Novosibirsk” or “UTC”.'))|n}
-  
+  ${h.form_selector('ui_lang', _(u'Site language'), h.get_supported_langs_spec().items(),
+    settings['ui_lang'], errors )|n}
   
   <h3>${_('Twitter Auth')}</h3>
   <dt><strong>${_('To use Twitter authentication you MUST <a href="https://dev.twitter.com/apps">register</a> a new twitter application and obtain consumer key and secret.')|n}</strong></dt>
