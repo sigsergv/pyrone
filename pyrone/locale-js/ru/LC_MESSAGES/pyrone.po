@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2013-05-25 00:03+0700\n"
+"POT-Creation-Date: 2013-08-16 22:55+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -53,6 +53,9 @@ msgstr "Аутентификация через Twitter не работает"
 
 msgid "AJAX_REQUEST_ERROR"
 msgstr "Ошибка выполнения AJAX-запроса"
+
+msgid "POSTING_COMMENT"
+msgstr "Отправка комментария…"
 
 msgid "SELECT_FILE_TO_UPLOAD"
 msgstr "Выберите файл для загрузки"

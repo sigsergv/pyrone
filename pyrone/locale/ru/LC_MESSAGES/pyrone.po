@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2013-08-16 20:22+0700\n"
+"POT-Creation-Date: 2013-08-16 22:55+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: pyrone/templates/admin/settings.mako:38
 msgid "Site language"
-msgstr ""
+msgstr "Язык сайта"
 
 #: pyrone/templates/admin/settings.mako:41
 msgid "Twitter Auth"
@@ -505,8 +505,8 @@ msgid ""
 "<code><pre>!http://google.com ! Google web search\n"
 "!http://yandex.ru ! Search in Yandex</pre></code>"
 msgstr ""
-"Каждая строка задаёт один сайт, например: "
-"<code><pre>!http://google.com ! Google web search\n"
+"Каждая строка задаёт один сайт, например: <code><pre>!http://google.com !"
+" Google web search\n"
 "!http://yandex.ru ! Search in Yandex</pre></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:18
@@ -517,8 +517,7 @@ msgid ""
 "|http://yandex.ru | Search in Yandex</pre></code>"
 msgstr ""
 "Можно использовать другой символ-разделитель вместо <strong>!</strong>, "
-"например, «|»:<code><pre>|http://google.com | Google "
-"web search\n"
+"например, «|»:<code><pre>|http://google.com | Google web search\n"
 "|http://yandex.ru | Search in Yandex</pre></code>"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:20
@@ -693,12 +692,12 @@ msgstr "оставить комментарий"
 #: pyrone/templates/blog/view_article.mako:108
 msgid ""
 "Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, "
-"[hyperlink](http://example.com) <a class=\"new-window\" target=\"_blank\""
-" href=\"/static/comment-markup-tip-en.html\" title=\"Open in new "
-"window\">more</a>"
+"[hyperlink](http://example.com) or &lt;http://example.com> <a class"
+"=\"new-window\" target=\"_blank\" href=\"/static/comment-markup-tip-"
+"en.html\" title=\"Open in new window\">more</a>)"
 msgstr ""
 "Текст комментария (разметка: *<em>курсив</em>*, "
-"**<strong>полужирная</strong>**, [ссылка](http://example.com) <a class"
+"**<strong>полужирная</strong>**, [ссылка](http://example.com) или &lt;http://example.com> <a class"
 "=\"new-window\" target=\"_blank\" href=\"/static/comment-markup-tip-"
 "ru.html\" title=\"Открыть в новом окне\">ещё</a>)"
 
@@ -724,7 +723,7 @@ msgstr "Имя (обязательно, 50 символов или меньше)
 
 #: pyrone/templates/blog/view_article.mako:124
 msgid "Your email (won't be published, required if you want to receive answers)"
-msgstr "Email (не будет опубликован, если хотите получать ответы)"
+msgstr "Email, на который получать ответы (не будет опубликован)"
 
 #: pyrone/templates/blog/view_article.mako:128
 msgid "Your website"
