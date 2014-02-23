@@ -4,12 +4,13 @@ Installing in production mode
 =============================
 
 Pyrone is a standard WSGI application so you can use any method for provisioning WSGI 
-apps. In this instruction we describe installing process using Ubuntu/Debian OS with python version 2.7,
-web server nginx, WSGI container server uWSGI and MySQL database engine.
+apps. In this instruction we describe installing process using Ubuntu/Debian with python veriosn 3.3
+or greater, web server nginx, WSGI container server uWSGI and MySQL database engine. Python2 is not 
+supported anymore.
 
-I recommend you to create separate system user for the application, it's secure and simple. In this
-manual all instructions assume system user ``blog`` with home directory ``/home/blog``, it's regular
-non-privileged user. 
+I recommend you (for security reasons) to create separate system user for the application. In this
+manual all instructions assume system user ``blog`` with home directory ``/home/blog``, it's a regular
+non-privileged user.
 
 All linux shell commands in this manual have prefixes, if prefix is ``$`` then command must be executed
 using user ``blog`` shell session, and commands with the prefix ``#`` must be executed in root shell session.
@@ -183,95 +184,122 @@ If you find some obstacles using this manual in practice feel free to submit iss
 https://bitbucket.org/cancel/pyrone/issues.
 
 
+
 Development
 ===========
+
+In this section I will describe in details how to prepare development environment for pyrone.
 
 Virtual environment
 -------------------
 
 It's strongly recommended to use virtual python environment with locally 
-installed ``pyramid`` and other required packages. Further in this README.txt
+installed ``pyramid`` and other required packages. In this document
 it's assumed that ``python`` binary is located in your virtual environment.
-The same thing for ``easy_install`` and ``pip`` executables.
+The same thing for ``easy_install`` or ``pip`` executables.
 
 To make your life easier use script ``bin/activate`` from virtual environment to 
 update local environment variables (``PATH`` etc), in that case you will be able
-to execute binaries like ``python`` and ``easy_install`` without specifying full path.
+to execute binaries like ``python`` and ``easy_install`` without specifying full path
+to them.
 
-Preparing virtual environment
------------------------------
+Preparing virtual environment (macos x/brew)
+--------------------------------------------
+
+You need to install ``brew`` (http://brew.sh/) first, that topic is not covered in this document.
+
+When ``brew`` is installed you need to install required packages::
+
+    $ brew install python3
+
+You also need to install some additional packages required for python modules compiling::
+
+    $ brew install
+
+Then install ``virtualenv``::
+
+    $ pip install virtualenv
+
+Now create directory for virtual environments and init virtualenv there::
+
+    $ mkdir -p ~/python-ves/pyrone
+    $ virtualenv -p python3 --no-site-packages ~/python-ves/pyrone
+
+And activate it::
+
+    $ source ~/python-ves/pyrone/bin/activate
+
+And install all required packages (execute this command in the activated 
+environment and from project directory)::
+
+    $ python setup.py develop
+
+And some additional developer packages::
+
+    $ pip install waitress
+
+Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory 
+where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are 
+just fine. By default pyrone development config uses sqlite database
+engine.
+
+
+Preparing virtual environment (debian/ubuntu)
+---------------------------------------------
 
 It's assumed here and later that you're using Debian/Ubuntu linux distribution. So open
 terminal now and proceed.
 
-First you need to install ``python`` (version 2.7 is highly recommended), you'll also
-need python package ``virtualenv``, you can install them using command::
+First you need to install ``python`` (version 3.3 or greater), you'll also
+need python package ``virtualenv``, you can install them using following command::
 
-    # apt-get install python2.7 python2.7-dev python-virtualenv
-    
-Now you have to choose directory where you'll install virtual environment for ``pyramid``,
-it should be somewhere in your home directory, don't install it in the system directories. 
-Package ``python2.7-dev`` is required to compile some modules to increase performance.
-
-Go to selected directory (create it if required) and issue the following command::
-
-    $ virtualenv --no-site-packages ./env
-
-You'll get directory ``env`` with new virtual environment, now you should *activate* it, after 
-activation all required commands will be executed from your virtual environment, not from the
-system. Required commands are: ``python``, ``pip`` etc. So activate::
-
-    $ source ./env/bin/activate
-
-Install packages required for the application (there are three separate commands, it's because of some bug
-in pip dependencies resolver)::
-
-    $ pip install paste
-    $ pip install pastescript
-    $ pip install pyramid SQLAlchemy markdown pytz hurry.filesize tweepy zope.sqlalchemy pyramid_beaker decorator nose coverage Babel
-    
-Wait until it finish downloading and installing the packages.
+    # apt-get install python3 python3-pip python-virtualenv
 
 Also you'll need to install additional binary packages::
 
     # apt-get install gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev
-    $ pip install lxml
+    
+Now you have to choose directory where to install virtual environment for ``pyramid``,
+it should be somewhere in your home directory, don't install it in the system directories.
+Let's assume this directory is `~/python-ves/pyrone`::
 
-Pyrone also requires PIL imaging library, in this document we install it into our virtualenv
-environment, and for Debian/Ubuntu there is a problem: PIL compiles without some necessary
-features. Unfortunately there is no fix to that problem so you need the workaround
-described below.
+    $ mkdir -p ~/python-ves/pyrone
 
-::
+And create virtual environment in there::
 
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libz.so $VIRTUAL_ENV/lib/
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libfreetype.so $VIRTUAL_ENV/lib/
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libjpeg.so $VIRTUAL_ENV/lib/
+    $ virtualenv -p python3 --no-site-packages ~/python-ves/pyrone
 
-After that you can install PIL::
+You now have the directory with new virtual environment, now you should *activate* it, after 
+activation all required commands will be executed from your virtual environment, not from the
+system. Required commands are: ``python``, ``pip`` etc. So activate::
 
-    $ pip install PIL
+    $ source ~/python-ves/pyrone/bin/activate
 
-
-If you are planning to use mysql driver I'd recommend you also install package ``MySQL-python``::
-
-    $ pip install MySQL-python
-
-Now install *development* version of pyrone, to do so switch to the directory with the source code and execute this
-comman (stay in the same terminal, in the virtualenv activated session!)::
+And install now all required python packages (execute this command in the activated 
+environment and from project directory)::
 
     $ python setup.py develop
 
-Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are just fine. By default pyrone development config uses sqlite database
+And some additional developer packages::
+
+    $ pip install waitress
+
+Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory 
+where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are 
+just fine. By default pyrone development config uses sqlite database
 engine.
 
-Running application
--------------------
+Working with development server
+-------------------------------
 
 To start development server use the following command::
 
     $ pserve --reload development.ini
-    
+
+On first run or after database destroy you need to initialize database::
+
+    $ python -m pyrone.scripts.pyronedbinit development.ini --sample-data
+
 Tests and coverage
 ------------------
 
@@ -348,29 +376,6 @@ Prepare and upload source package to pypi::
 
     $ python setup.py clean sdist upload
 
-Alternatively you could use the following command, it will ask you for password.
-
-::
+Alternatively you could use the following command, it will ask you for password::
 
     $ python setup.py clean sdist upload
-
-
-
-
-
-
-    
-Outdated and not supported stuff
-================================
-
-``$BLOG`` is referred to `/home/blog/pyrone-blog`.
-
-Using supervisord to automate application execution
----------------------------------------------------
-
-Sample ``supervisord.conf`` is provided in the distribution package, find in at 
-``$BLOG/env/share/pyrone/examples/supervisord.conf``. Just copy to the directory
-``$BLOG``. You have to edit this file and set valid system user name there.
-
-Sample init.d script you'll find at the path ``$BLOG/env/share/pyrone/examples/supervisord-pyrone``.
-Copy it to the directory ``/etc/init.d`` and reconfigure init procedure.

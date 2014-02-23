@@ -150,7 +150,7 @@ def timestamp_to_str(ts, fmt='%Y-%m-%d %H:%M'):
     tts = datetime.datetime.utcfromtimestamp(ts)  # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz)  # utc time -> local time
 
-    t_str = utc_dt.strftime(fmt.encode('utf-8')).decode('utf-8')
+    t_str = utc_dt.strftime(fmt)
 
     return t_str
 

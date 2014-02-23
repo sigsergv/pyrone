@@ -4,9 +4,11 @@ Notifications
 """
 
 import logging
-import turbomail
 import urllib
 import re
+from smtplib import SMTP
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from pyramid.url import route_url
 
@@ -16,22 +18,23 @@ from pyrone.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
-tm_mail_on = False
-tm_mail_transport = 'debug'
-tm_mail_smtp_server = ''
+enable_email = False
+smtp_server = None
 
 
 def init_notifications_from_settings(settings):
-    global tm_mail_on, tm_mail_smtp_server, tm_mail_transport
+    global enable_email, smtp_server
 
-    if 'pyrone.notifications.mail' in settings:
-        tm_mail_on = settings['pyrone.notifications.mail'] == 'true'
+    if settings.get('pyrone.notifications.mail') != 'true':
+        return
 
-    if tm_mail_on:
-        if 'pyrone.notifications.mail_transport' in settings:
-            tm_mail_transport = settings['pyrone.notifications.mail_transport']
-        if 'pyrone.notifications.mail_smtp_server' in settings:
-            tm_mail_smtp_server = settings['pyrone.notifications.mail_smtp_server']
+    m_transport = settings.get('pyrone.notifications.mail_transport')
+    if m_transport not in ('smtp',):
+        log.error('Not supported email transport "{0}"'.format(m_transport))
+        return
+
+    enable_email = True
+    smtp_server = settings.get('pyrone.notifications.mail_smtp_server')
 
 
 class Notification:
@@ -54,19 +57,25 @@ class Notification:
         log.debug(debug_data)
         log.debug('--------------------------------------------------')
         sender = get_config('notifications_from_email')
-        if tm_mail_on:
-            conf = {'mail.on': True, 'mail.transport': tm_mail_transport, 'mail.smtp.server': tm_mail_smtp_server}
-            turbomail.interface.start(conf)
+        if send_email:
+            msg = MIMEMultipart()
+            msg['Subject'] = self.subject
+            msg['From'] = self.sender
+            msg['To'] = self.to
+            msg.preamble = 'Use multipart, Luke'
+
             body = self.body
             body = re.sub('\r', '', body)
             body = re.sub('\n', '<br>\n', body)
 
-            message = turbomail.Message(author=sender, to=self.to, subject=self.subject,
-                                        plain='HTML email', rich=body, encoding='utf-8')
-            message.send()
-            turbomail.interface.stop()
+            html_part = MIMEText(body, 'html', 'utf-8')
+            msg.attach(html_part)
+
+            with SMTP(smtp_server) as smtp:
+                smtp.send_message(msg)
+
         else:
-            log.debug('actual mail sending is not allowed in config')
+            log.debug('mail sending is not allowed in config')
 
     def __init__(self, to, subject, body):
         self.subject = subject

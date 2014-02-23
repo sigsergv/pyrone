@@ -9,7 +9,7 @@ from PIL import Image
 from sqlalchemy.orm import eagerload
 from sqlalchemy import func
 from time import time
-from webhelpers.feedgenerator import Rss201rev2Feed
+# from webhelpers.feedgenerator import Rss201rev2Feed
 
 from pyramid.response import Response
 from pyramid.view import view_config
@@ -22,6 +22,8 @@ from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, markup, notifications
 from pyrone.models.file import get_storage_dirs, allowed_dltypes
 from pyrone.models.user import normalize_email
+# import pyrone.lib.PyRSS2Gen as RSS2
+from pyrone.lib.PyRSS2Gen import RSS2, RSSItem
 
 log = logging.getLogger(__name__)
 
@@ -62,8 +64,8 @@ def latest(request):
 
     headers = []
 
-    for x in request.headers.iteritems():
-        headers.append('%s: %s' % x)
+    for k,v in request.headers.items():
+        headers.append('{0}: {1}'.format(k, v))
 
     page_size = int(get_config('elements_on_page'))
     start_page = 0
@@ -958,21 +960,32 @@ def latest_rss(request):
     articles = q[0:10]
     rss_title = get_config('site_title') + ' - ' + _('Latest articles feed')
     site_base_url = get_config('site_base_url')
+    items = []
+
+    '''
     feed = Rss201rev2Feed(
         title=rss_title,
         link=site_base_url,
         description='',
         language='en')
+    '''
 
     for a in articles:
         link = h.article_url(request, a)
         tags_list = []
         for t in a.tags:
             tags_list.append(t.tag)
-        feed.add_item(title=a.title, link=link, description=a.rendered_preview, pubdate=h.timestamp_to_dt(a.published),
-            unique_id=str(a.id), categories=tags_list)
+        items.append(RSSItem(title=a.title, link=link, description=a.rendered_preview, pubDate=h.timestamp_to_dt(a.published),
+            guid=str(a.id)))
 
-    response = Response(body=feed.writeString('utf-8'), content_type='application/rss+xml')
+    feed = RSS2(
+        title=rss_title,
+        link=site_base_url,
+        description='',
+        items=items
+        )
+
+    response = Response(body=feed.to_xml(encoding='utf-8'), content_type='application/rss+xml')
     return response
 
 

@@ -2,6 +2,10 @@ import os
 import sys
 import re
 
+if sys.version_info[:2] < (3, 3):
+    print('Python version >= 3.3 required!', file=sys.stderr)
+    sys.exit(1)
+
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -10,28 +14,30 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     # binary packages require some additional packages installed on your system like gcc
-    'PIL',
+    'Pillow',
     'lxml',
     'pyramid',
+    'pyramid_tm',
+    'pyramid_debugtoolbar',
     'pyramid_beaker',
     'pytz',
-    'tweepy',
+    #'tweepy',
+    'twitter',
     'markdown',
     'decorator',
     'hurry.filesize',
-    'TurboMail',
+    #'marrow.mailer',
+    'pymysql3',
     'SQLAlchemy',
-    'PyMySQL',
     'transaction',
     'repoze.tm2>=1.0b1',  # default_commit_veto
     'zope.sqlalchemy',
-    'WebError',
-    'WebHelpers',
+    #'WebHelpers',
     'Babel'
 ]
 
-if sys.version_info[:3] < (2, 5, 0):
-    requires.append('pysqlite')
+# if sys.version_info[:3] < (3, 3, 0):
+#     requires.append('pysqlite')
 
 setup_cmdclass = {}
 
@@ -51,9 +57,9 @@ except ImportError:
 # load version string
 version_file = open(os.path.join('pyrone', 'version.py')).read()
 mo = re.search("PYRONE_VERSION = '([0-9.]+)'", version_file)
-print version_file
+# print(version_file)
 if mo is None:
-    print 'No version'
+    print('No version found')
     sys.exit(1)
 
 PYRONE_VERSION = mo.group(1)
@@ -65,11 +71,11 @@ setup(
     description='pyrone',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 4 - Beta',
         'Programming Language :: Python',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 2.7',
-        'Framework :: Pylons',
+        'Programming Language :: Python :: 3.3',
+        'Framework :: Pyramid',
         'License :: OSI Approved :: BSD License',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
@@ -78,7 +84,7 @@ setup(
     ],
     author='Sergey Stolyarov',
     author_email='sergei@regolit.com',
-    url='https://bitbucket.org/cancel/pyrone',
+    url='https://github.com/sigsergv/pyrone',
     data_files=[
         ('share/pyrone/examples', ['examples/'+x for x in ('development.ini', 'production.ini', 'supervisord.conf',
             'supervisord-pyrone', 'uwsgi-pyrone', 'pyrone-blog-nginx.conf', 'pyrone-blog-nginx-uwsgi.conf',
@@ -97,7 +103,9 @@ setup(
     entry_points="""\
     [paste.app_factory]
     main = pyrone:main
+    [console_scripts]
+    pyronedbinit = pyrone.scripts.pyronedbinit:main
     """,
-    cmdclass=setup_cmdclass,
-    paster_plugins=['pyramid'],
+    cmdclass=setup_cmdclass
+    #paster_plugins=['pyramid'],
 )

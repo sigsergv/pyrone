@@ -12,11 +12,11 @@ from . import Base, DBSession
 
 
 def md5(s):
-    return hashlib.md5(s).hexdigest()
+    return hashlib.md5(s.encode('utf8')).hexdigest()
 
 
 def sha1(s):
-    return hashlib.sha1(s).hexdigest()
+    return hashlib.sha1(s.encode('utf8')).hexdigest()
 
 
 class User(Base):

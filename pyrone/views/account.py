@@ -1,10 +1,10 @@
 ## -*- coding: utf-8 -*-
 import logging
 import transaction
-import tweepy
 import hashlib
 import random
 
+from twitter import Twitter
 from sqlalchemy.orm import eagerload
 from pyramid.i18n import TranslationString as _
 from pyramid.security import remember, forget
@@ -121,10 +121,14 @@ def my_profile_save_ajax(request):
 @view_config(route_name='account_twitter_init', renderer='json')
 def login_twitter_init(request):
     """
-    Start twitter authentication
+    Start twitter authentication: create OAuth request to twitter and pass url back to
+    caller javascript
     """
     c = dict(authorize_url=False)
+
+    '''
     tweepy.debug(True)
+    twitter = Twitter()
 
     consumer_key = str(get_config('tw_consumer_key'))
     consumer_secret = str(get_config('tw_consumer_secret'))
@@ -142,6 +146,7 @@ def login_twitter_init(request):
     except tweepy.TweepError:
         log.error('Invalid "consumer_key" or "consumer_secret"')
         c['error'] = _('Cannot create authorization Twitter URL')
+    '''
 
     return c
 
@@ -153,6 +158,7 @@ def login_twitter_finish(request):
     """
     consumer_key = str(get_config('tw_consumer_key'))
     consumer_secret = str(get_config('tw_consumer_secret'))
+    '''
 
     token = request.session.get('twitter_request_token')
     if token is None:
@@ -197,7 +203,9 @@ def login_twitter_finish(request):
     # save user to the session
     remember(request, None, user=user)
 
+    '''
     return HTTPFound(location=request.GET['pyrone_url'])
+    
 
 
 @view_config(route_name='account_verify_email', renderer='/blog/verify_email.mako')

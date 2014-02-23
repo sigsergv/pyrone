@@ -188,7 +188,7 @@ def upload_file(request):
     # save file to the storage
     storage_dirs = get_storage_dirs()
     orig_filename = os.path.join(storage_dirs['orig'], file.name)
-    fp = open(orig_filename, 'w')
+    fp = open(orig_filename, 'wb')
     shutil.copyfileobj(hfile.file, fp)
     hfile.file.close()
     fp.close()

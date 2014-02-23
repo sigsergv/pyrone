@@ -1,0 +1,45 @@
+// sample config
+{
+    "config": [
+        ["site_title", "Pyrone Blog Engine"],
+        ["site_copyright", "© 2014 Blog Author"],
+        ["site_style", "default"],
+        ["elements_on_page", "10"],
+        ["timezone", "Asia/Novosibirsk"],
+        ["site_base_url", "http://127.0.0.1:5000"],
+        ["admin_notifications_email", "test@example.org"],
+        ["site_search_widget_code", ""],
+        ["notifications_from_email", "no-reply@example.com"],
+        ["admin_notify_new_comments", "false"],
+        ["admin_notify_new_user", "false"],
+
+        ["verification_msg_subject_tpl", "Verify your email address for site “{site_title}”"],
+        ["verification_msg_body_tpl", "Site “{site_title}” is asking you to verify email address “{email}”.\n\nIf this is really your address click on the link below:\n\n{verify_link}"],
+
+        ["comment_answer_msg_subject_tpl", "{comment_author_name} is answered on subscribed message on site {site_title}"],
+        ["comment_answer_msg_body_tpl", "On {comment_date} visitor {comment_author_name}  is answered on your comment on the article “{article_link}”:\n\n================\n{comment_text}\n================\n\nDirect link to comment: {comment_link}"],
+
+        ["admin_notify_new_comment_subject_tpl", "New comment to the article “{article_title}” {comment_author_name} {comment_author_email} — {site_title}"],
+        ["admin_notify_new_comment_body_tpl", "On {comment_date} visitor {comment_author_name} (email: {comment_author_email}) left comment on the article\n“{article_link}”:\n\n================\n{comment_text}\n================\n\nDirect link to comment: {comment_link}"],
+
+        ["admin_notify_new_user_subject_tpl", "New user just registered on the site"],
+        ["admin_notify_new_user_body_tpl", "New user {user} just registered on the site!"],
+
+        ["image_preview_width", "300"],
+        ["google_analytics_id", ""],
+        ["tw_consumer_key", "XXXXXXXXXXXXXXXXX"],
+        ["tw_consumer_secret", "YYYYYYYYYYYYYYYYYY"],
+        ["widget_pages_pages_spec", ""],
+        ["social_twitter_share_link", "true"],
+        ["social_twitter_share_link_show_count", "true"],
+        ["social_twitter_share_link_via", ""],
+        ["social_gplusone", "true"],
+        ["ui_lang", "en"]
+    ],
+
+    "user": [
+        // id, login, hashed password (setup), title, email, kind, roles
+        [1, "admin", "1234567817ac50c9923955b1c704f2b7ee9e3142617a08da", "Blog Admin", "pyrone@example.com", "local", 
+            ["writer", "editor", "admin"]]
+    ]
+}
