@@ -1,4 +1,3 @@
-## -*- coding: utf-8 -*-
 import logging
 import transaction
 import shutil
@@ -299,7 +298,7 @@ def list_backups(request):
         full_fn = os.path.join(backups_dir, fn)
         if not os.path.isfile(full_fn):
             continue
-        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn), size=os.path.getsize(full_fn))
+        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn.encode('utf-8')), size=os.path.getsize(full_fn))
         c['backups'].append(br)
         ind += 1
 
@@ -314,7 +313,7 @@ def restore_backup(request):
     backup_id = request.matchdict['backup_id']
 
     backups_dir = get_backups_dir()
-    filename = b64decode(backup_id)
+    filename = b64decode(backup_id).decode('utf-8')
     all_backups = [x for x in os.listdir(backups_dir) if os.path.isfile(os.path.join(backups_dir, x))]
 
     if filename not in all_backups:
@@ -388,10 +387,6 @@ def restore_backup(request):
     node = nodes[0]
     nodes = node.xpath('//b:config', namespaces=namespaces)
 
-    # we also have to set default config values
-    from pyrone.models.setup.config import setup as config_setup
-    config_setup(dbsession)
-
     for node in nodes:
         c = dbsession.query(Config).get(node.get('id'))
         if c is None:
@@ -420,7 +415,7 @@ def restore_backup(request):
 
         props = {'login': 'login', 'password': 'password', 'display-name': 'display_name',
                  'email': 'email', 'kind': 'kind'}
-        for k, v in props.iteritems():
+        for k, v in props.items():
             if k in m:
                 setattr(u, v, m[k])
 
@@ -479,20 +474,20 @@ def restore_backup(request):
             m[unt(sn.tag)] = sn.text
 
         props = {'title': 'title', 'body': 'body', 'shortcut': 'shortcut', 'shortcut-date': 'shortcut_date'}
-        for k, v in props.iteritems():
+        for k, v in props.items():
             if k in m:
                 setattr(article, v, m[k])
 
         article.set_body(m['body'])
 
         props = {'published': 'published', 'updated': 'updated'}
-        for k, v in props.iteritems():
+        for k, v in props.items():
             if k in m:
                 setattr(article, v, int(m[k]))
 
         props = {'is-commentable': 'is_commentable', 'is-draft': 'is_draft'}
 
-        for k, v in props.iteritems():
+        for k, v in props.items():
             if k in m:
                 res = False
                 if m[k].lower() == 'true':
@@ -540,7 +535,7 @@ def restore_backup(request):
 
             props = {'display-name': 'display_name', 'email': 'email', 'website': 'website',
                      'ip-address': 'ip_address', 'xff-ip-address': 'xff_ip_address'}
-            for k, v in props.iteritems():
+            for k, v in props.items():
                 if k in m:
                     setattr(comment, v, m[k])
 
@@ -548,7 +543,7 @@ def restore_backup(request):
             comment.published = int(m['published'])
 
             props = {'is-approved': 'is_approved', 'is-subscribed': 'is_subscribed'}
-            for k, v in props.iteritems():
+            for k, v in props.items():
                 if k in m:
                     res = False
                     if m[k].lower() == 'true':
@@ -583,7 +578,7 @@ def restore_backup(request):
             m[unt(sn.tag)] = sn.text
 
         props = {'name': 'name', 'dltype': 'dltype', 'content-type': 'content_type'}
-        for k, v in props.iteritems():
+        for k, v in props.items():
             if k in m:
                 setattr(file, v, m[k])
 

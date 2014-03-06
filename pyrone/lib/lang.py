@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Languages (i18n)
 """
