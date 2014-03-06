@@ -4,9 +4,9 @@ Installing in production mode
 =============================
 
 Pyrone is a standard WSGI application so you can use any method for provisioning WSGI 
-apps. In this instruction we describe installing process using Ubuntu/Debian with python veriosn 3.3
-or greater, web server nginx, WSGI container server uWSGI and MySQL database engine. Python2 is not 
-supported anymore.
+apps. However in this instruction only one method is covered: Debian/Ubuntu + nginx 
++ uwsgi + mysql. Application requires Python version 3.3 or greater, python 
+version 2 is not supported. 
 
 I recommend you (for security reasons) to create separate system user for the application. In this
 manual all instructions assume system user ``blog`` with home directory ``/home/blog``, it's a regular
@@ -37,8 +37,8 @@ Install pyrone in virtual environment
 
 We use virtualenv to install Pyrone runtime.
 
-You need to prepare directory where your application will be installed, let's assume
-it's ``/home/blog/pyrone-blog``.
+You need to prepare directory where your application should be installed, let's assume
+it's ``/home/blog/pyrone3-blog``.
 
 Inside this directory you need to create virtual environment, application directory, configuration
 files, so let's begin.
@@ -49,50 +49,60 @@ Prepare virtual environment
 
 First install package ``python-virtualenv`` and other required packages::
 
-    # apt-get install python-virtualenv dpkg-dev python2.7-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libmysqlclient-dev
+    # apt-get install python-virtualenv dpkg-dev python3 python3-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libmysqlclient-dev
 
 Then initialize new virtual environment::
 
-    $ virtualenv --no-site-packages /home/blog/pyrone-blog/env
+    $ mkdir /home/blog/pyrone3-blog/
+    $ virtualenv -p python3 --no-site-packages /home/blog/pyrone3-blog/env
 
 Now you have to *activate* just installed environment::
 
-    $ source /home/blog/pyrone-blog/env/bin/activate
+    $ source /home/blog/pyrone3-blog/env/bin/activate
 
 After this command your shell session is slightly modified and almost all python-related command
 will be executed in just created virtual environment. And you are *required* to stay in this session
 and execute all remaining commands there!
 
-Unfortunately there is a bug in some of required 3rd party packages, so in order to install pyrone properly 
-you should execute the following “magic”::
-
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libz.so $VIRTUAL_ENV/lib/
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libfreetype.so $VIRTUAL_ENV/lib/
-    $ ln -s /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/libjpeg.so $VIRTUAL_ENV/lib/
-
-Now install Pyrone::
+Now install Pyrone from python packages repository::
 
     $ pip install pyrone
 
-This will install latest stable version of Pyrone all required packages.
+This will install latest stable version of Pyrone along with all required packages.
 
-As we are planning to use MySQL install also MySQL driver::
+Alternatively you can install it from local package file (it will automatically install 
+all dependencies too)::
 
-    $ pip install MySQL-python
+    $ pip install pyrone-1.0.0.tar.gz
+
+As we are planning to use MySQL also install MySQL driver. Unfortunately there is still no
+good mysql driver available for python 3 (in the repository), so the following steps are a little 
+tricky (you need to install git to do steps below), don't forget to do these steps 
+in the activated environment::
+
+    $ cd /home/blog/
+    $ git clone https://github.com/clelland/MySQL-for-Python-3
+    $ cd MySQL-for-Python-3
+    $ python setup.py install
 
 Now prepare the application configuration files::
 
-   $ cd /home/blog/pyrone-blog/
+   $ cd /home/blog/pyrone3-blog/
    $ cp ./env/share/pyrone/examples/production.ini .
 
 Open file ``production.ini`` in any text editor and change default database connection
-parameters to yours. If follow this instruction from the beginning you'll need to change
-database password only: find the string ``pbpass`` and replace it with actual password.
+parameters to yours. If you've followed this instruction from the beginning you'll need to change
+database password only: find the string ``pbpass`` and replace it with the actual password.
+
+Now we need to setup the database, to do this execute the following command::
+
+    $ cd /home/blog/pyrone3-blog
+    $ pyronedbinit --sample-data --sample-data-file=env/share/pyrone/sample-data.json production.ini
 
 Check that application is configured properly, to do that just execute the following command inside
-the directory ``/home/blog/pyrone-blog``::
+the directory ``/home/blog/pyrone3-blog``::
 
-    $ /home/blog/pyrone-blog/env/bin/pserve production.ini
+    $ /home/blog/pyrone3-blog/env/bin/pserve production.ini
 
 If configuration steps were performed correctly you should see something like this::
 
@@ -101,19 +111,20 @@ If configuration steps were performed correctly you should see something like th
 
 Now press Ctrl+C to terminate server.
 
-Congratulation! You've just installed pyrone runtime, so you can proceed to next steps: installing/configuring web server
-(nginx) and installing/configuring middle layer between pyrone runtime and web server (uWSGI).
+Congratulation! You've just installed pyrone application server, so you can proceed to next steps: 
+installing/configuring web server (nginx) and installing/configuring middle layer between pyrone 
+runtime and web server (uWSGI).
 
 Configuring uWSGI
 -----------------
 
 First install uWSGI::
 
-    # apt-get install uwsgi uwsgi-plugin-python
+    # apt-get install uwsgi uwsgi-plugin-python3
 
 Then create configuration file for the application::
 
-    # cp /home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
+    # cp /home/blog/pyrone3-blog/env/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
     # ln -s /etc/uwsgi/apps-available/pyrone-uwsgi.ini /etc/uwsgi/apps-enabled
 
 And restart uWSGI::
@@ -130,17 +141,17 @@ Install nginx::
 
 Then  create nginx configuration file for Pyrone's site::
 
-    # cp /home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
+    # cp /home/blog/pyrone3-blog/env/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
 
 In this file you need to change hostname (default value is ``blog.example.com``).
 
-After that create symlink to enable nginx site::
+After that create symlink to enable nginx site and restart it::
 
     # ln -s /etc/nginx/sites-available/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-enabled/
     # service nginx restart
 
 If you want to serve HTTPS requests too you need to copy another sample file: 
-``/home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-blog-nginx-uwsgi-ssl.conf``, in that case you must
+``/home/blog/pyrone3-blog/env/share/pyrone/examples/pyrone3-blog-nginx-uwsgi-ssl.conf``, in that case you must
 create proper ssl certificates and other related stuff I don't want to describe here.
 
 That's all! Open your site in the browser and enjoy blogging. Default local login credentials (username/password): ``admin/setup``,
@@ -149,6 +160,11 @@ don't forget to change it.
 
 Some post-install stuff
 -----------------------
+
+Access
+~~~~~~
+
+Default administrator login is ``admin``, password is ``setup``.
 
 Site icons (favicons)
 ~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +179,7 @@ Backup and restore
 ~~~~~~~~~~~~~~~~~~
 
 For security reasons you cannot upload backup files using web interface. You must upload it into special
-directory using scp or ssh. This special directory is ``/home/blog/pyrone-blog/storage/backups``.
+directory using scp or ssh. This special directory is ``/home/blog/pyrone3-blog/storage/backups``.
 
 Serving static files
 ~~~~~~~~~~~~~~~~~~~~
@@ -175,13 +191,14 @@ Sample configuration files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You will find up-to-date samples of various configuration files in the directory ``examples`` (in the source tree)
-or in the directory ``/home/blog/pyrone-blog/env/share/pyrone/examples`` (on production server after Pyrone install).
+or in the directory ``/home/blog/pyrone3-blog/env/share/pyrone/examples`` (on production server after Pyrone install).
+
 
 Some other installation issues
 ==============================
 
 If you find some obstacles using this manual in practice feel free to submit issue to our issue tracker: 
-https://bitbucket.org/cancel/pyrone/issues.
+https://github.com/sigsergv/pyrone/issues.
 
 
 
@@ -261,7 +278,7 @@ Also you'll need to install additional binary packages::
     
 Now you have to choose directory where to install virtual environment for ``pyramid``,
 it should be somewhere in your home directory, don't install it in the system directories.
-Let's assume this directory is `~/python-ves/pyrone`::
+Let's assume this directory is `~/python-ves/pyrone` (it's a recommended path)::
 
     $ mkdir -p ~/python-ves/pyrone
 
@@ -280,7 +297,7 @@ environment and from project directory)::
 
     $ python setup.py develop
 
-And some additional developer packages::
+And install some additional packages required for development::
 
     $ pip install waitress
 

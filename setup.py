@@ -21,23 +21,18 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_beaker',
     'pytz',
-    #'tweepy',
     'twitter',
     'markdown',
     'decorator',
     'hurry.filesize',
-    #'marrow.mailer',
     'pymysql3',
     'SQLAlchemy',
     'transaction',
     'repoze.tm2>=1.0b1',  # default_commit_veto
     'zope.sqlalchemy',
-    #'WebHelpers',
+    'waitress',
     'Babel'
 ]
-
-# if sys.version_info[:3] < (3, 3, 0):
-#     requires.append('pysqlite')
 
 setup_cmdclass = {}
 
@@ -57,7 +52,6 @@ except ImportError:
 # load version string
 version_file = open(os.path.join('pyrone', 'version.py')).read()
 mo = re.search("PYRONE_VERSION = '([0-9.]+)'", version_file)
-# print(version_file)
 if mo is None:
     print('No version found')
     sys.exit(1)
@@ -88,7 +82,8 @@ setup(
     data_files=[
         ('share/pyrone/examples', ['examples/'+x for x in ('development.ini', 'production.ini', 'supervisord.conf',
             'supervisord-pyrone', 'uwsgi-pyrone', 'pyrone-blog-nginx.conf', 'pyrone-blog-nginx-uwsgi.conf',
-            'pyrone-blog-nginx-uwsgi-ssl.conf', 'pyrone-uwsgi.ini')])
+            'pyrone-blog-nginx-uwsgi-ssl.conf', 'pyrone-uwsgi.ini')]),
+        ('share/pyrone', ['sample-data.json'])
     ],
     keywords='web wsgi bfg pylons pyramid',
     packages=find_packages(),

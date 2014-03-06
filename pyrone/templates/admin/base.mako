@@ -17,7 +17,7 @@
     <div id="content">
     ${next.body()}
     </div>
-    <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="http://bitbucket.org/cancel/pyrone">${_('Powered by Pyrone')}</a></div>
+    <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
     </div>
   </div>
 
