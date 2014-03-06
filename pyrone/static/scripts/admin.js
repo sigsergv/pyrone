@@ -104,7 +104,7 @@ function Pyrone_file_listDeleteSelected(table_id, url) {
 		}
 	}).done(function(data){
 		$.each(data.deleted, function(ind, id) {
-			var el = $('#list-tr-'+id);
+			var el = $('tr[data-row-value="'+id+'"]');
 			el.remove();
 		});
 	}).fail(function() {

@@ -298,11 +298,11 @@ def list_backups(request):
         full_fn = os.path.join(backups_dir, fn)
         if not os.path.isfile(full_fn):
             continue
-        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn.encode('utf-8')), size=os.path.getsize(full_fn))
+        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn.encode('utf-8')).decode('utf-8'), size=os.path.getsize(full_fn))
         c['backups'].append(br)
         ind += 1
 
-    c['backups'] = sorted(c['backups'])
+    c['backups'] = sorted(c['backups'], key=lambda x: x['id'])
 
     return c
 
@@ -765,7 +765,7 @@ def download_backup(request):
     headers = []
 
     try:
-        filename = base64.b64decode(encoded_filename)
+        filename = base64.b64decode(encoded_filename).decode('utf-8')
     except TypeError:
         return HTTPNotFound()
 
@@ -805,7 +805,7 @@ def delete_backups(request):
     all_backups = [x for x in os.listdir(backups_dir) if os.path.isfile(os.path.join(backups_dir, x))]
 
     for backup_id in uids:
-        filename = b64decode(backup_id)
+        filename = b64decode(backup_id).decode('utf-8')
         if filename not in all_backups:
             continue
         full_filename = os.path.join(backups_dir, filename)
