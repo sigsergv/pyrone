@@ -40,7 +40,7 @@
 </tr>
 
 % for f in files:
-<tr id="list-tr-${f.id}">
+<tr id="list-tr-${f.id}" data-row-value="${f.id}">
   <td><input type="checkbox" value="${f.id}" class="list-cb"/></td>
   <td><a href="${url('admin_edit_file_props', file_id=f.id)}" class="border-icon"/>${_('edit')}</a>
   </td>
