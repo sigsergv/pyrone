@@ -56,10 +56,10 @@ class Notification:
         log.debug(debug_data)
         log.debug('--------------------------------------------------')
         sender = get_config('notifications_from_email')
-        if send_email:
+        if enable_email:
             msg = MIMEMultipart()
             msg['Subject'] = self.subject
-            msg['From'] = self.sender
+            msg['From'] = sender
             msg['To'] = self.to
             msg.preamble = 'Use multipart, Luke'
 
@@ -70,8 +70,13 @@ class Notification:
             html_part = MIMEText(body, 'html', 'utf-8')
             msg.attach(html_part)
 
-            with SMTP(smtp_server) as smtp:
-                smtp.send_message(msg)
+            try:
+                smtp = SMTP(smtp_server)
+            except ConnectionRefusedError as e:
+                log.error('Failed to send email: smtp server connection refused')
+            else:
+                with smtp:
+                    smtp.send_message(msg)
 
         else:
             log.debug('mail sending is not allowed in config')
@@ -183,7 +188,7 @@ def gen_email_verification_notification(email, verification_code):
     repl['email'] = email
 
     base_url = get_config('site_base_url')
-    q = urllib.urlencode(dict(token=verification_code, email=email))
+    q = urllib.parse.urlencode({'token': verification_code, 'email': email})
     verify_url = base_url + '/verify-email?' + q
     repl['verify_url'] = verify_url
     repl['verify_link'] = '<a href="%(url)s">%(title)s</a>' % dict(url=verify_url, title=verify_url)
