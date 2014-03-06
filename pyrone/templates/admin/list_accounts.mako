@@ -14,7 +14,7 @@
 </tr>
 
 % for u in users:
-<tr id="list-tr-${u.id}">
+<tr id="list-tr-${u.id}" data-row-value="${u.id}">
   <td><input type="checkbox" class="list-cb" value="${u.id}" ${h.cond(u.id==user.id, ' disabled="disabled" \
   title="'+_('You cannot delete current user')+'"', '')|n} /></td>
   <td>${h.user_link(u)|n}</td>
