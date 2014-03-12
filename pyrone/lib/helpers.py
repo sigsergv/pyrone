@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Helper functions
 
 Consists of functions to typically be used within templates, but also
@@ -150,7 +149,7 @@ def timestamp_to_str(ts, fmt='%Y-%m-%d %H:%M'):
     tts = datetime.datetime.utcfromtimestamp(ts)  # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz)  # utc time -> local time
 
-    t_str = utc_dt.strftime(fmt.encode('utf-8')).decode('utf-8')
+    t_str = utc_dt.strftime(fmt)
 
     return t_str
 
@@ -267,7 +266,7 @@ def get_public_tags_cloud(force_reload=False):
                 lmm = lg(max_counts) - lg(min_count)
 
                 weights = [(x[0], (lg(x[1])-lg(min_count)) / lmm) for x in items]
-                weights = [(x[0], 5*(int(100*x[1])/5)) for x in weights]
+                weights = [(x[0], int(5*(int(100*x[1])/5))) for x in weights]
 
             value = weights
         else:

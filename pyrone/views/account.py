@@ -1,10 +1,11 @@
-## -*- coding: utf-8 -*-
 import logging
 import transaction
-import tweepy
 import hashlib
 import random
+import urllib
 
+from twitter import Twitter, OAuth
+from twitter.api import TwitterHTTPError
 from sqlalchemy.orm import eagerload
 from pyramid.i18n import TranslationString as _
 from pyramid.security import remember, forget
@@ -121,27 +122,34 @@ def my_profile_save_ajax(request):
 @view_config(route_name='account_twitter_init', renderer='json')
 def login_twitter_init(request):
     """
-    Start twitter authentication
+    Start twitter authentication: create OAuth request to twitter and pass url back to
+    caller javascript
     """
-    c = dict(authorize_url=False)
-    tweepy.debug(True)
+    c = {'authorize_url': False}
 
     consumer_key = str(get_config('tw_consumer_key'))
     consumer_secret = str(get_config('tw_consumer_secret'))
 
     page_url = request.POST['page_url']
     callback_url = route_url('account_twitter_finish', request, _query=[('pyrone_url', page_url)])
+    twitter = Twitter(auth=OAuth('', '', consumer_key, consumer_secret), format='', api_version=None)
 
-    oh = tweepy.OAuthHandler(consumer_key, consumer_secret, callback=callback_url, secure=True)
     try:
-        auth_url = oh.get_authorization_url(signin_with_twitter=False)
-        c['authorize_url'] = auth_url
-        # save auth token in the session, it's required for the final auth stage
-        request.session['twitter_request_token'] = (oh.request_token.key, oh.request_token.secret)
-        request.session.save()
-    except tweepy.TweepError:
-        log.error('Invalid "consumer_key" or "consumer_secret"')
-        c['error'] = _('Cannot create authorization Twitter URL')
+        oauth_resp = twitter.oauth.request_token(oauth_callback=callback_url)
+    except TwitterHTTPError as e:
+        log.error('Invalid "request_token" request: {0}'.format(str(e)))
+        return HTTPNotFound()
+
+    oauth_resp_data = dict(urllib.parse.parse_qsl(oauth_resp))
+
+    oauth_token = oauth_resp_data['oauth_token']
+    oauth_token_secret = oauth_resp_data['oauth_token_secret']
+
+    request.session['twitter_request_token'] = (oauth_token, oauth_token_secret)
+    auth_url = 'https://twitter.com/oauth/authorize?{0}'.format(urllib.parse.urlencode({
+        'oauth_token': oauth_token
+        }))
+    c['authorize_url'] = auth_url
 
     return c
 
@@ -153,29 +161,20 @@ def login_twitter_finish(request):
     """
     consumer_key = str(get_config('tw_consumer_key'))
     consumer_secret = str(get_config('tw_consumer_secret'))
-
     token = request.session.get('twitter_request_token')
-    if token is None:
-        return HTTPNotFound()
+    twitter = Twitter(auth=OAuth(token[0], token[1], consumer_key, consumer_secret), format='', api_version=None)
 
-    del request.session['twitter_request_token']
-
-    oh = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    oh.set_request_token(token[0], token[1])
-
-    #request_token = request.GET['oauth_token']
     verifier = request.GET.get('oauth_verifier')
-
     try:
-        oh.get_access_token(verifier)
-    except tweepy.TweepError, e:
-        log.error('Invalid "oauth_verifier" request argument')
+        oauth_resp = twitter.oauth.access_token(oauth_verifier=verifier)
+    except TwitterHTTPError as e:
+        log.error('Invalid "access_token" request: {0}'.format(str(e)))
         return HTTPNotFound()
 
-    # looks fine, it's a really twitter user so authenticate it or create account now
-    # Do we need to store "oh.access_token.key" and "oh.access_token.secret"?
-    # we also have to fetch twitter user name
-    tw_username = oh.get_username()
+    oauth_resp_data = dict(urllib.parse.parse_qsl(oauth_resp))
+    # typical response:
+    # {'user_id': '128607225', 'oauth_token_secret': 'NaGQrWyNRtHHHbvm3tNI0tcr2KTBUEY0J3ng8d7KFXg', 'screen_name': 'otmenych', 'oauth_token': '128607225-NWzT8YL1Wt6qNzMLzmaCEWOxqFtrEI1pjlA8c5FK'}
+    tw_username = oauth_resp_data['screen_name']
     user = find_twitter_user(tw_username)
 
     if user is None:
@@ -198,6 +197,7 @@ def login_twitter_finish(request):
     remember(request, None, user=user)
 
     return HTTPFound(location=request.GET['pyrone_url'])
+    
 
 
 @view_config(route_name='account_verify_email', renderer='/blog/verify_email.mako')

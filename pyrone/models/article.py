@@ -4,8 +4,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relation
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 
-from . import Base
-from user import User
+from . import (Base, User)
 from pyrone.lib import markup
 
 class Article(Base):

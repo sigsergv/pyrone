@@ -15,8 +15,6 @@ var
 sdist
 develop-eggs
 .installed.cfg
-lib
-lib64
 __pycache__
 
 # Installer logs
@@ -34,3 +32,11 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+development.ini
+pyrone.db
+*.sublime-workspace
+data
+production.ini
+favicon.ico
+favicon.png
+storage

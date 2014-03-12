@@ -1,4 +1,3 @@
-## -*- coding: utf-8 -*-
 ## vim: shiftwidth=2 tabstop=2
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +17,7 @@
     <div id="content">
     ${next.body()}
     </div>
-    <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="http://bitbucket.org/cancel/pyrone">${_('Powered by Pyrone')}</a></div>
+    <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
     </div>
   </div>
 
