@@ -28,15 +28,16 @@ $(window).scroll(function() {
     help=_(u'A string displayed at the bottom of each blog page, just before “Powered by Pyrone”'))|n}
   ${h.form_input_text('elements_on_page', _('Number of elements on a page'), settings['elements_on_page'], errors,\
     help=_(u'How much elements (articles etc) display on single page'))|n}
-  ${h.form_input_text('site_style', _('Blog style (skin)'), settings['site_style'], errors)|n}
   ${h.form_input_text('image_preview_width', _('Picture preview width'), settings['image_preview_width'], errors,\
     help=_(u'Width of automatically generated preview to be used as smaller copy of original picture.'))|n}
-  ${h.form_input_text('google_analytics_id', _(u'Google Analytics™ ID'), settings['google_analytics_id'], errors,\
+  ${h.form_input_text('google_analytics_id', _('Google Analytics™ ID'), settings['google_analytics_id'], errors,\
     help=_(u'Your google analytics ID, value like “UA-12345678-9”, to disable Google Analytics just clear the field'))|n}
   ${h.form_input_text('timezone', _(u'Blog timezone'), settings['timezone'], errors,\
     help=_(u'Timezone to be used for time and date values on the site, <strong>must</strong> be tzdb-compatible string value like “Asia/Novosibirsk” or “UTC”.'))|n}
-  ${h.form_selector('ui_lang', _(u'Site language'), h.get_supported_langs_spec().items(),
-    settings['ui_lang'], errors )|n}
+  ${h.form_selector('ui_lang', _('Site language'), h.get_supported_langs_spec().items(),
+    settings['ui_lang'], errors)|n}
+  ${h.form_selector('ui_theme', _('Site theme (<a href="/static/themes-notes-en.html">read more</a> about themes)'), h.get_available_themes(),
+    settings['ui_theme'], errors)|n}
   
   <h3>${_('Twitter Auth')}</h3>
   <dt><strong>${_('To use Twitter authentication you MUST <a href="https://dev.twitter.com/apps">register</a> a new twitter application and obtain consumer key and secret.')|n}</strong></dt>

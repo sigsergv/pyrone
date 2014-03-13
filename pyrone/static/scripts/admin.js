@@ -130,7 +130,8 @@ function Pyrone_settings_saveSettings(url) {
                   'timezone', 'ui_lang', 'site_search_widget_code',
 	              'admin_notify_new_comment_subject_tpl', 'admin_notify_new_comment_body_tpl',
 	              'admin_notify_new_user_subject_tpl', 'admin_notify_new_user_body_tpl',
-	              'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link_via'];
+	              'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link_via', 'ui_theme'];
+
 	var bool_field_names = ['admin_notify_new_comments', 'admin_notify_new_user',
 		'social_twitter_share_link', 'social_twitter_share_link_show_count',
 		'social_gplusone']

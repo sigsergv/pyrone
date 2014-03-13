@@ -28,9 +28,11 @@ def view_settings(request):
     """
     Display blog settings
     """
-    c = dict(settings=dict(), errors=dict())
+    c = {
+        'settings': {}, 
+        'errors': {}
+        }
     for p in config.get_all():
-        log.debug(p.id)
         c['settings'][p.id] = p.value
 
     return c
@@ -73,7 +75,7 @@ def save_settings_ajax(request):
               'verification_msg_body_tpl', 'image_preview_width', 'google_analytics_id',
               'timezone', 'ui_lang', 'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
               'social_twitter_share_link_show_count', 'social_twitter_share_link_via',
-              'social_gplusone', 'site_search_widget_code')
+              'social_gplusone', 'site_search_widget_code', 'ui_theme')
 
         for id in settings:
             try:
