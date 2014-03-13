@@ -1,3 +1,11 @@
+1.0.1
+-----
+
+Released 2014-03-15, bugfix minor release
+
+* fixed https://github.com/sigsergv/pyrone/issues/6
+* fixed https://github.com/sigsergv/pyrone/issues/5
+
 1.0.0
 -----
 
