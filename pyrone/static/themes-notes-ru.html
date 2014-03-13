@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Themes in Pyrone</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/styles/default/blog.css">
+</head>
+<body>
+<div id="content">
+<div class="article">
+    <h1>Custom styles in Pyrone</h1>
+
+    <p>Pyrone now supports custom styles. You should create your own CSS-file using default style file <a href="/static/styles/default/blog.css">blog.css</a> as a template. Just save that file edit and upload to <a href="/admin/files">internal storage</a>. Then choose your style on the <a href="/admin/settings">settings page</a>.</p>
+
+    <p>There are some moments you should know about style. First it MUST have appropriate header, typically it looks like this:</p>
+
+    <pre><code>/* pyrone-theme-css */
+/* pyrone-theme-data:title-en: Style name in english*/
+/* pyrone-theme-data:title-ru: Название стиля in russian*/
+</code></pre>
+
+    <p>First line MUST be <code>/* pyrone-theme-css */</code>, without it Pyrone won't recognize that CSS-file as a proper theme file. Also file may contain other metadata, they look like <code>/* pyrone-theme-data:title-en: Default style (template)*/</code>, this will be used as style name on settings page (for every supported language, if you don't include these line regular style filename will be used). </p>
+
+    <p>Second important moment — when uploading CSS-file you must set <em>File access type</em> to the value <em>leave processing to web browser</em>, without it file won't be recognized as a theme file. And of course file must have extension <em>.css</em>.</p>
+
+    <p>You can use images, just upload them as regular files to the storage and use absolute path like <code>/files/f/image.png</code> in CSS-code:</p>
+
+    <pre><code>.account-twitter {
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-image: url(/files/f/twitter-icon.png);
+    padding-left: 17px;
+}</code></pre>
+</div>
+</div>
+
+</body>
+</html>

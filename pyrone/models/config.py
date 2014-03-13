@@ -40,14 +40,21 @@ def get(key, force=False):
     Get settings value, set "force" to True to update corresponding value in the cache
     """
     value = cache.get_value(key)
-    if value is None or force is False:
+    if value is None or force is True:
         dbsession = DBSession()
         c = dbsession.query(Config).get(key)
         if c is not None:
             v = c.value
-            if key == 'timezone':
-                v = pytz.timezone(v)
             cache.set_value(key, v)
+            value = v
+
+    if key == 'timezone' and not isinstance(value, pytz.tzinfo.DstTzInfo):
+        # convert timezone string to the timezone object
+        try:
+            value = pytz.timezone(value)
+        except pytz.exceptions.UnknownTimeZoneError:
+            value = pytz.timezone('UTC')
+        cache.set_value(key, value)
 
     return cache.get_value(key)
 

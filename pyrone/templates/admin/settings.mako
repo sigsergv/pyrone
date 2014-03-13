@@ -9,16 +9,18 @@ $(window).scroll(function() {
     var top = $(this).scrollTop();
     var el = $('#settings-save-button-block');
     if (top <= 55) {
-        el.css('position', 'absolute').css('top', '0px').css('border', '1px solid white');
+        el.removeClass('save-box-panel-float');
+        el.addClass('save-box-panel-top');
     } else {
-        el.css('position', 'fixed').css('top', '0').css('border', '1px solid gray');
+        el.addClass('save-box-panel-float');
+        el.removeClass('save-box-panel-top');
     }
     //.css('top', $(this).scrollTop() + "px")
 });
 </script>
 
 <form action="/" onsubmit="Pyrone_settings_saveSettings('${url('admin_settings_save_ajax')}'); return false;">
-  <div id="settings-save-button-block"><div><input type="submit" value="${_('save')}"/></div> <div class="notify" style="display:none;" id="eid-notify"></div></div>
+  <div id="settings-save-button-block"><div class="save-button"><input type="submit" value="${_('save')}"/></div> <div class="notify" style="display:none;" id="eid-notify"></div></div>
 <dl class="form">
   <h3>${_('General')}</h3>
   ${h.form_input_text('site_title', _('Blog title'), settings['site_title'], errors)|n}

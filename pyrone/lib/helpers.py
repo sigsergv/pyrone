@@ -362,7 +362,9 @@ def get_supported_langs_spec():
 
 def get_available_themes():
     dbsession = DBSession()
-    themes = [('default', _('Default theme (internal)'))]
+    themes = [
+        ('default', _('Default theme (internal)')),
+        ('green', _('Green theme (internal)'))]
 
     # load suitable css files from the storage
     storage_dirs = get_storage_dirs()
@@ -405,7 +407,7 @@ def get_available_themes():
     return themes
 
 def get_current_theme_css():
-    ui_theme = get_config('ui_theme')
+    ui_theme = get_config('ui_theme', force=True)
     css_url = '/static/styles/{0}/blog.css'
 
     if ui_theme.endswith('.css'):

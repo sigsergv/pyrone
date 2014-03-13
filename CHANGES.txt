@@ -12,6 +12,10 @@ You must execute database initialization script after upgrade, for example:
     $ source env/bin/activate
     $ pyronedbinit --sample-data --sample-data-file=env/share/pyrone/sample-data.json production.ini
 
+Or in the development version:
+
+    $ python -m pyrone.scripts.pyronedbinit --sample-data development.ini
+
 1.0.1
 -----
 
