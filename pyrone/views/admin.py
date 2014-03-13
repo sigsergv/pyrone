@@ -664,7 +664,7 @@ def backup_now(request):
         tags_el = e(article_el, 'tags')
 
         for t in article.tags:
-            e(tags_el, 'tag', unicode(t.tag))
+            e(tags_el, 'tag', t.tag)
 
         comments_el = e(article_el, 'comments')
 
