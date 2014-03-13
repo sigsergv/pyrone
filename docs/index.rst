@@ -75,15 +75,9 @@ all dependencies too)::
 
     $ pip install pyrone-1.0.0.tar.gz
 
-As we are planning to use MySQL also install MySQL driver. Unfortunately there is still no
-good mysql driver available for python 3 (in the repository), so the following steps are a little 
-tricky (you need to install git to do steps below), don't forget to do these steps 
-in the activated environment::
+We are using MySQL so install proper mysql connector::
 
-    $ cd /home/blog/
-    $ git clone https://github.com/clelland/MySQL-for-Python-3
-    $ cd MySQL-for-Python-3
-    $ python setup.py install
+    $ pip install --allow-external mysql-connector-python mysql-connector-python
 
 Now prepare the application configuration files::
 
