@@ -92,22 +92,25 @@ div.title a.border-icon {
 div.title:hover a.border-icon {
     display: inline-block;
     border-radius: 4px;
-	border: 1px solid #000080;
+	border: 1px solid #adadad;
 	text-decoration: none;
 	color: #000080;
-    margin: -1px 0 -1px 0;
 	background-color: #e5e5e5;
-    padding: 0 3px 0 3px;
+	padding: 0 2px 0 2px;
+	margin: 0 4px 0 0;
 }
 div.title:hover a.border-icon:hover {
-    border-color: #0040ff;
-    color: #0040ff;
+    background-color: #c8dbe5;
+    border-color: #989898;
 }
 a.confirm-icon {
-	border: 1px solid #800000;
-	background-color: #800000;
-	color: #fff;
+	border: 1px solid #d2dd5e;
+	border-radius: 4px;
+	background-color: #f1d200;
+	color: black;
 	text-decoration: none;
+	padding: 0 2px 0 0;
+	margin: 0 3px 0 0;
 }
 span.notify-icon {
 	border: 1px solid green;
@@ -185,9 +188,10 @@ div.article-preview {
 }
 div.article-preview-after {
 	height: 1px;
-	border-style: dotted none none none;
+	border-style: solid none solid none;
 	border-color: #f6f6ee;
-	border-width: 3px;
+	border-width: 1px;
+	height: 5px;
 	margin: 0 -5px 0 -5px;
 }
 div.article-preview div.title a {
@@ -376,6 +380,7 @@ span.hint, div.hint {
 }
 div.notify {
 	border: 2px solid #009c00;
+	border-radius: 4px;
 	padding: 10px;
 	background-color: #dbffdb;
 	color: #000;
@@ -384,19 +389,23 @@ div.notify {
 div.warning {
 	color: #a52a2a;
 	border: 2px solid #a52a2a;
+	border-radius: 4px;
 	padding: 10px;
 	background-color: #fff9bf;
 	color: #000;
 	font-weight: bold;
 }
 span.warning {
-	color: #a52a2a;
+	color: white;
 	border: 1px solid #a52a2a;
+	border-radius: 3px;
+	background-color: #a52a2a;
 	padding: 0 2px 0 2px;
 }
 span.info {
 	color: #005400;
 	border: 1px solid #005400;
+	border-radius: 3px;
 	padding: 0 2px 0 2px;
 	cursor: default;
 }
@@ -426,11 +435,10 @@ div#sidebar div.widget-actions div.action-item {
 }
 div#settings-save-button-block {
 	top: 0px;
-	left: 5px;
+	left: 15px;
 	right: 280px;
 	position: absolute;
-	background: white;
-	padding: 5px 0 8px 0;
+	padding: 1px 0 8px 0;
 }
 div#settings-save-button-block div {
 	float: left;
@@ -438,37 +446,44 @@ div#settings-save-button-block div {
 }
 div#settings-save-button-block div.notify
 {
-	border: 1px solid #009c00;
 	padding: 0px 10px 0 10px;
 	background-color: #dbffdb;
 	color: #000;
 	font-weight: bold;
 }
 div.save-box-panel-top {
-	border: 1px solid white;
+	xborder: 1px solid white;
 	position: absolute;
 	top: 0;
 }
 
 div.save-box-panel-float {
-	border: 1px solid red;
+	xborder: 1px solid red;
+	background-color: white;
 	border-radius: 4px;
-	background-color: red;
+	background-color: gray;
 	position: fixed !important;
 	top: 0;
 }
 
 div.editor-text-controls {
-	margin: 4pt 0 -7pt 30pt;
+	margin: 4pt 0 0 30pt;
 	padding: 2pt;
 }
 
 div.editor-text-controls span.button {
 	border: 1px solid gray;
+	border-radius: 4px;
 	margin-right: 4pt;
 	background-color: #F6FFEE;
 	padding: 0 2px 0 2pt;
 	cursor: pointer;
+}
+
+/* google custom search styles */
+input.gsc-input[type="text"] {
+	border-radius: 4px;
+	border: 1px solid #a9a9a9;
 }
 
 /* pygments styles */

@@ -75,11 +75,14 @@ def form_textarea(name, title, value, errors, help=None, height=None):
     if help is not None:
         title = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=html_escape(help), title=html_escape(title))
 
-    html = """<dt>%(title)s</dt>
-    <div id="error-%(name)s" class="error" style="%(estyle)s">%(error)s</div>
+    html = ''
+    if title != '':
+        html += '<dt>%(title)s</dt>\n'.format(title=title)
+
+    html = """<div id="error-%(name)s" class="error" style="%(estyle)s">%(error)s</div>
     <dd><textarea type="text" name="%(name)s" id="fid-%(name)s"%(tstyle)s>%(value)s</textarea></dd>
     """ % dict(name=name, estyle=estyle, tstyle=tstyle, error=html_escape(error_str),
-               value=html_escape(value), title=title)
+               value=html_escape(value))
 
     return html
 
