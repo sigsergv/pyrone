@@ -1,6 +1,9 @@
 /* pyrone-theme-css */
-/* pyrone-theme-data:title-en: Default style (template)*/
-/* pyrone-theme-data:title-ru: Стиль по умолчанию (шаблон)*/
+/* pyrone-theme-data:title-en: Style of blog.regolit.com site*/
+/* pyrone-theme-data:title-ru: Стиль для сайта blog.regolit.com*/
+/*
+ * Author: Sergey Stolyarov <sergei@regolit.com>
+ */
 
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic);
 
@@ -23,6 +26,66 @@ a:hover {
 div.clear-both {
 	clear: both;
 }
+div#topbar, div#topbar-admin {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	height: 60px;
+}
+div#topbar {
+}
+div#topbar-admin {
+}
+div#topbar div.title, div#topbar div.title a,
+div#topbar-admin div.title, div#topbar-admin div.title a {
+	color: #a11113;
+	font-family: "PT Serif", "Times New Roman", serif;
+	font-size: 30px;
+	font-weight: bolder;
+	margin: 10px;
+	text-decoration: none;
+}
+div#topbar-admin div.title {
+	color: #a17170;
+}
+div#content {
+	padding: 0 15px 5px 15px;
+	border: 2px solid #e2e2e2;
+	margin: 0 270px 30px 10px;
+	border-radius: 5px;
+}
+div#topbar-admin div.version {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-right: 10px;
+	font-family: "PT Sans", Verdana, Tahoma, sans-serif;
+	font-size: 10pt;
+}
+
+div#contentbar {
+	position: absolute;
+	margin-top: 60px;
+	margin-right:280px;
+	width: 100%;
+}
+
+div#sidebar {
+	border-width: 0 0 3px 3px;
+	position: absolute;
+	width: 255px;
+	background-color: #fff;
+	right: 0;
+	top: 50px;
+	padding: 0 5px 10px 10px;
+}
+div#sidebar div.section {
+	font-weight: bolder;
+	margin: 10px 0 5px 0;
+	padding-top: 5px;
+}
+
+
 div.title a.border-icon {
     display: none;
 }
@@ -83,58 +146,15 @@ a.new-window {
 	background-position: top left;
 	background-image: url(/static/styles/default/images/edit.png);
 }
-div#topbar, div#topbar-admin {
-	position: absolute;
-	width: 100%;
-	margin: 0;
-	height: 50px;
-}
-div#topbar-admin div.version {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding-right: 10px;
-	font-family: "PT Sans", Verdana, Tahoma, sans-serif;
-	font-size: 10pt;
-}
-div#topbar {
-	background-color: #ccf6d6;
-}
-div#topbar-admin {
-	background-color: #ffd6a0;
-}
-
-div#topbar div.title, div#topbar div.title a,
-div#topbar-admin div.title, div#topbar-admin div.title a {
-	color: green;
-	font-family: serif;
-	font-size: 30px;
-	font-weight: bolder;
-	margin: 10px;
-	text-decoration: none;
-}
-div#topbar-admin div.title {
-	color: #a17170;
-}
-div#contentbar {
-	position: absolute;
-	margin-top: 50px;
-	margin-right:280px;
-	width: 100%;
-}
-div#content {
-	padding: 15px;
-	padding-right: 280px;
-}
 div#content div.article code, div#eid-article-render-preview p code {
-    background-color: #F7F4E7;
 }
 div#content div.article pre,
 div#content div.preview pre,
 div#eid-article-render-preview pre {
     padding: 4px;
     background-color: #F7F4E7;
-    border: 1px dotted #AAA189;
+    border: 1px solid #AAA189;
+    border-radius: 5px;
 }
 div#content div.article blockquote,
 div#content div.preview blockquote,
@@ -144,27 +164,10 @@ div#eid-article-render-preview blockquote {
 	border-width: 0 0 0 3px;
 	padding-left: 4pt;
 }
-div#sidebar {
-	border: dotted #f6f6ee;
-	border-width: 0 0 3px 3px;
-	position: absolute;
-	width: 255px;
-	background-color: #fff;
-	right: 0;
-	top: 50px;
-	padding: 15px 0 10px 15px;
-}
-div#sidebar div.section {
-	font-weight: bolder;
-	border: dotted #f6f6ee;
-	border-width: 2px 0 0 0;
-	margin: 10px 0 5px 0;
-	padding-top: 5px;
-}
 div#bottombar {
-	margin-top: 30px;
-	border: dotted #f6f6ee;
-	border-width: 3px 0 0 0;
+	padding: 0 0 4px 0;
+	position: absolute;
+	bottom: 0;
 }
 div#bottombar div.title{
 	margin: 4px 0 0 20px;

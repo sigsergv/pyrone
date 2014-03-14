@@ -364,7 +364,8 @@ def get_available_themes():
     dbsession = DBSession()
     themes = [
         ('default', _('Default theme (internal)')),
-        ('green', _('Green theme (internal)'))]
+        ('green', _('Green theme (internal)')),
+        ('blog.regolit.com', _('blog.regolit.com style (internal)'))]
 
     # load suitable css files from the storage
     storage_dirs = get_storage_dirs()
