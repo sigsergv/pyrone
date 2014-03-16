@@ -658,7 +658,6 @@ function Pyrone_editor_unindent(id)
 		result.push(line);
 	});
 
-	console.log('success', success);
 	if (success === true) {
 		var new_selection = result.join('\n');
 		f.fieldSelection(new_selection);
@@ -694,6 +693,55 @@ function Pyrone_editor_indent(id)
 
 	$.each(sel.text.split(/(?:\r\n|\r|\n)/m), function(ind, line) {
 		result.push('    ' + line);
+	});
+
+	var new_selection = result.join('\n');
+	f.fieldSelection(new_selection);
+}
+
+function Pyrone_editor_wrap(id, wrap_in)
+{
+	var f = $('#'+id),
+		sel = f.fieldSelection();
+
+	if (sel.length == 0) {
+		return;
+	}
+
+	var text = wrap_in + sel.text + wrap_in;
+
+	f.fieldSelection(text);
+}
+
+function Pyrone_editor_blockquote(id)
+{
+	var f = $('#'+id);
+
+	if (f.length == 0) {
+		return;
+	}
+
+	var sel = f.fieldSelection();
+
+	if (sel.length == 0) {
+		return;
+	}
+
+	var field_value = f.val(),
+		c;
+
+	if (sel.start != 0) {
+		// i.e. text starts somewhere in the middle of line
+		c = field_value.charCodeAt(sel.start - 1);
+		if (c != 10 && c != 13) {
+			return;
+		}
+	}
+
+	var result = [];
+
+	$.each(sel.text.split(/(?:\r\n|\r|\n)/m), function(ind, line) {
+		result.push('> ' + line);
 	});
 
 	var new_selection = result.join('\n');

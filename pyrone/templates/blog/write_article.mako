@@ -19,8 +19,13 @@
 
   <!-- body text control buttons -->
   <div class="editor-text-controls">
-    <span class="button" onclick="Pyrone_editor_unindent('fid-body');" title="${_('Unindent selected block.')}">←¶</span>
-    <span class="button" onclick="Pyrone_editor_indent('fid-body');" title="${_('Indent selected block.')}">¶→</span>
+    <span class="button" onclick="Pyrone_editor_wrap('fid-body', '`');" title="${_('Inline code (monospace text)')}">`$x`</span>
+    <span class="button" onclick="Pyrone_editor_wrap('fid-body', '*');" title="${_('Emphasis (italic)')}"><em>I</em>&nbsp;</span>
+    <span class="button" onclick="Pyrone_editor_wrap('fid-body', '**');" title="${_('Strong text (bold)')}"><strong>B</strong></span>
+    <span class="button" onclick="Pyrone_editor_blockquote('fid-body');" title="${_('Quotation')}">&gt;</span>
+
+##    <span class="button" onclick="Pyrone_editor_unindent('fid-body');" title="${_('Unindent selected block.')}">←¶</span>
+##    <span class="button" onclick="Pyrone_editor_indent('fid-body');" title="${_('Indent selected block.')}">¶→</span>
   </div>
   ${h.form_textarea('body', '', article.body, errors)|n}
   
