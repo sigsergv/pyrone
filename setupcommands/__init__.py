@@ -39,15 +39,15 @@ def write_js(fileobj, catalog, use_fuzzy=False):
                 msgstr.encode(catalog.charset) for msgstr in msgstrs
             ])
         else:
-            msgid = message.id.encode(catalog.charset)
+            msgid = message.id
             if not message.string:
-                msgstr = message.id.encode(catalog.charset)
+                msgstr = message.id
             else:
-                msgstr = message.string.encode(catalog.charset)
+                msgstr = message.string
                 
         if msgid != '' and msgstr != msgid:
             # escape msgstr
-            msgstr = msgstr.replace("'", "\\'")
+            msgstr = msgstr.replace("'", r"\'")
             jss.append("'%s': '%s'" % (msgid, msgstr))
             
         #print msgid, msgstr
@@ -132,7 +132,7 @@ msgstr ""
         fp = codecs.open(self.output_file, 'w', encoding='utf-8')
         fp.write(pot_header)
         
-        for k,v in keys.iteritems():
+        for k,v in keys.items():
             fp.write('\n#: file\nmsgid "%s"\nmsgstr ""\n' % k);
         fp.close()
         
@@ -209,10 +209,7 @@ class CompileCatalogJs(Command):
 
             log.info('compiling catalog %r to %r', po_file, js_file)
 
-            outfile = open(js_file, 'wb')
-            try:
+            with open(js_file, 'w') as outfile:
                 write_js(outfile, catalog, use_fuzzy=self.use_fuzzy)
-            finally:
-                outfile.close()
-            
+                
         

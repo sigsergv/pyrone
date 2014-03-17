@@ -801,7 +801,7 @@ def edit_article_comment_ajax(request):
     params = dict(body='body', name='display_name', email='email', website='website',
                  ip='ip_address', xffip='xff_ip_address')
 
-    for k, v in params.iteritems():
+    for k, v in params.items():
         value = request.POST[k]
         if value == '':
             value = None
@@ -820,7 +820,7 @@ def edit_article_comment_ajax(request):
     dbsession.expunge(comment)
     if comment.user is not None:
         dbsession.expunge(comment.user)
-        for p in comment.user.role:
+        for p in comment.user.roles:
             dbsession.expunge(p)
     transaction.commit()
 
