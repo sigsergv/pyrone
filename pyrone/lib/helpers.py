@@ -173,6 +173,12 @@ def str_to_timestamp(t_str):
     return calendar.timegm(dt_utc.timetuple())
 
 
+def dt_to_timestamp(dt):
+    """
+    Convert datetime (UTC) object to UTC seconds
+    """
+    return calendar.timegm(dt.timetuple())
+
 def span_info(text, escape=True):
     if escape:
         text = html_escape(text)

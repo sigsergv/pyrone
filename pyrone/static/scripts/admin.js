@@ -18,7 +18,10 @@ function Pyrone_file_checkUploadForm(url, form_id) {
 		fdf.focus();
 		return false;
 	}
-	
+
+	Pyrone_file_formAllowUpload = true;
+	form.submit();
+	/* // disable because of issue #4 (https://github.com/sigsergv/pyrone/issues/4)
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -41,6 +44,7 @@ function Pyrone_file_checkUploadForm(url, form_id) {
 	});
 
 	return false;
+	*/
 };
 
 function Pyrone_file_uploadFormFileSelected() {
