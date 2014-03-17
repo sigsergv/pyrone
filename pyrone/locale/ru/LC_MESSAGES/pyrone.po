@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-03-16 16:23+0700\n"
+"POT-Creation-Date: 2014-03-17 19:25+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0-dev\n"
 
-#: pyrone/lib/helpers.py:199
+#: pyrone/lib/helpers.py:202
 msgid "Administrator"
 msgstr "Администратор"
 
-#: pyrone/lib/helpers.py:366
+#: pyrone/lib/helpers.py:369
 msgid "Default theme (internal)"
 msgstr "Тема по умолчанию (встроенная)"
 
-#: pyrone/lib/helpers.py:367
+#: pyrone/lib/helpers.py:370
 msgid "Green theme (internal)"
 msgstr "Зелёная тема (встроенная)"
 
-#: pyrone/lib/helpers.py:368
+#: pyrone/lib/helpers.py:371
 msgid "blog.regolit.com style (internal)"
 msgstr "Тема сайта blog.regolit.com (встроенная)"
 
@@ -260,7 +260,7 @@ msgstr "Настройки блога"
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:19
 #: pyrone/templates/blog/view_article.mako:88
-#: pyrone/templates/blog/write_article.mako:30
+#: pyrone/templates/blog/write_article.mako:35
 msgid "save"
 msgstr "сохранить"
 
@@ -350,8 +350,8 @@ msgid ""
 "Site theme (<a href=\"/static/themes-notes-en.html\">read more</a> about "
 "themes)"
 msgstr ""
-"Тема оформления сайта (<a href=\"/static/themes-notes-ru.html\">"
-"подробнее</a> об этом)"
+"Тема оформления сайта (<a href=\"/static/themes-notes-"
+"ru.html\">подробнее</a> об этом)"
 
 #: pyrone/templates/admin/settings.mako:44
 msgid "Twitter Auth"
@@ -804,30 +804,38 @@ msgstr ""
 "=\"new-window\">ещё</a>)"
 
 #: pyrone/templates/blog/write_article.mako:22
-msgid "Unindent selected block."
-msgstr "Уменьшить отступ выделенного блока."
+msgid "Inline code (monospace text)"
+msgstr "Код внутри строки (моноширинный текст)"
 
 #: pyrone/templates/blog/write_article.mako:23
-msgid "Indent selected block."
-msgstr "Увеличить отступ выделенного блока."
+msgid "Emphasis (italic)"
+msgstr "Курсив"
 
-#: pyrone/templates/blog/write_article.mako:27
+#: pyrone/templates/blog/write_article.mako:24
+msgid "Strong text (bold)"
+msgstr "Полужирный текст"
+
+#: pyrone/templates/blog/write_article.mako:25
+msgid "Quotation"
+msgstr "Цитирование"
+
+#: pyrone/templates/blog/write_article.mako:32
 msgid "draft article"
 msgstr "черновик"
 
-#: pyrone/templates/blog/write_article.mako:27
+#: pyrone/templates/blog/write_article.mako:32
 msgid "if checked article will not be available to everyone"
 msgstr "если включено, сохранённая статья будет видна только вам"
 
-#: pyrone/templates/blog/write_article.mako:28
+#: pyrone/templates/blog/write_article.mako:33
 msgid "allow visitors comments"
 msgstr "разрешить комментарии"
 
-#: pyrone/templates/blog/write_article.mako:32
+#: pyrone/templates/blog/write_article.mako:37
 msgid "save and continue editing"
 msgstr "сохранить в фоновом режиме"
 
-#: pyrone/templates/blog/write_article.mako:34
+#: pyrone/templates/blog/write_article.mako:39
 msgid "preview"
 msgstr "предварительный просмотр"
 
@@ -988,4 +996,10 @@ msgstr "Нельзя ответить на неподтверждённый ко
 
 #~ msgid "Cannot create authorization Twitter URL"
 #~ msgstr "Не удалось создать авторизационный URL для твиттера"
+
+#~ msgid "Unindent selected block."
+#~ msgstr "Уменьшить отступ выделенного блока."
+
+#~ msgid "Indent selected block."
+#~ msgstr "Увеличить отступ выделенного блока."
 

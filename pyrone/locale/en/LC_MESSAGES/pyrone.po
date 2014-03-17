@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-03-16 16:23+0700\n"
+"POT-Creation-Date: 2014-03-17 19:25+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.0-dev\n"
 
-#: pyrone/lib/helpers.py:199
+#: pyrone/lib/helpers.py:202
 msgid "Administrator"
 msgstr ""
 
-#: pyrone/lib/helpers.py:366
+#: pyrone/lib/helpers.py:369
 msgid "Default theme (internal)"
 msgstr ""
 
-#: pyrone/lib/helpers.py:367
+#: pyrone/lib/helpers.py:370
 msgid "Green theme (internal)"
 msgstr ""
 
-#: pyrone/lib/helpers.py:368
+#: pyrone/lib/helpers.py:371
 msgid "blog.regolit.com style (internal)"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:19
 #: pyrone/templates/blog/view_article.mako:88
-#: pyrone/templates/blog/write_article.mako:30
+#: pyrone/templates/blog/write_article.mako:35
 msgid "save"
 msgstr ""
 
@@ -753,30 +753,38 @@ msgid ""
 msgstr ""
 
 #: pyrone/templates/blog/write_article.mako:22
-msgid "Unindent selected block."
+msgid "Inline code (monospace text)"
 msgstr ""
 
 #: pyrone/templates/blog/write_article.mako:23
-msgid "Indent selected block."
+msgid "Emphasis (italic)"
 msgstr ""
 
-#: pyrone/templates/blog/write_article.mako:27
-msgid "draft article"
+#: pyrone/templates/blog/write_article.mako:24
+msgid "Strong text (bold)"
 msgstr ""
 
-#: pyrone/templates/blog/write_article.mako:27
-msgid "if checked article will not be available to everyone"
-msgstr ""
-
-#: pyrone/templates/blog/write_article.mako:28
-msgid "allow visitors comments"
+#: pyrone/templates/blog/write_article.mako:25
+msgid "Quotation"
 msgstr ""
 
 #: pyrone/templates/blog/write_article.mako:32
+msgid "draft article"
+msgstr ""
+
+#: pyrone/templates/blog/write_article.mako:32
+msgid "if checked article will not be available to everyone"
+msgstr ""
+
+#: pyrone/templates/blog/write_article.mako:33
+msgid "allow visitors comments"
+msgstr ""
+
+#: pyrone/templates/blog/write_article.mako:37
 msgid "save and continue editing"
 msgstr ""
 
-#: pyrone/templates/blog/write_article.mako:34
+#: pyrone/templates/blog/write_article.mako:39
 msgid "preview"
 msgstr ""
 
@@ -937,5 +945,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Cannot create authorization Twitter URL"
+#~ msgstr ""
+
+#~ msgid "Unindent selected block."
+#~ msgstr ""
+
+#~ msgid "Indent selected block."
 #~ msgstr ""
 
