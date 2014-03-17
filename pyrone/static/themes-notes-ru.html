@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Темы оформления в Pyrone</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/styles/default/blog.css">
+</head>
+<body>
+<div id="content">
+<div class="article">
+    <h1>Настраиваемые стили в Pyrone</h1>
+
+    <p>Теперь в Pyrone можно иметь собственные стили для блога. Для этого вы должно создать собственный CSS-файл на основе стандартного <a href="/static/styles/default/blog.css">blog.css</a>, загрузить его во встроенное <a href="/admin/files">файловое хранилище</a>, а затем выбрать этот файл/стиль на <a href="/admin/settings">странице</a> настроек сайта.</p>
+
+    <p>Есть несколько важных моментов, о которых вы должны знать: во-первых, CSS-файл ДОЛЖЕН иметь специально сформатированный заголовок, обычно он выглядит как-то так:</p>
+
+    <pre><code>/* pyrone-theme-css */
+/* pyrone-theme-data:title-en: Style name in english*/
+/* pyrone-theme-data:title-ru: Название стиля in russian*/
+</code></pre>
+
+    <p>В первой строке обязательно должен находиться текст <code>/* pyrone-theme-css */</code> и только он, без такой строчки Pyrone не распознает этот CSS-файл как валидную тему оформления. Также в комментариях файла могут находиться другие метаданные, например, <code>/* pyrone-theme-data:title-en: Default style (template)*/</code>, эта строчка содержит данные, которые используются для отображения темы на странице настроек, для каждого языка своя строчка, если эти метаданные не добавлять, то в качестве названия темы будет использовано имя файла.</p>
+
+    <p>Второй важный момент — при закачке файла в хранилище ОБЯЗАТЕЛЬНО нужно выставить в поле <em>Тип доступа к файлу</em> значение <em>пусть браузер сам решает, что делать</em>, иначе Pyrone этот CSS-файл проигнорирует. Ну и, конечно, файл должен иметь расширение em>.css</em>.</p>
+
+    <p>Вы можете ссылаться из CSS-файла на сторонние ресурсы, в том числе на загруженные в хранилище файла, например, картинки. Для этого используйте абсолютный путь вида <code>/files/f/image.png</code>, здесь <em>image.png</em> — это название загруженного в хранилище файла; вот пример:</p>
+
+    <pre><code>.account-twitter {
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-image: url(/files/f/twitter-icon.png);
+    padding-left: 17px;
+}</code></pre>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 /* pyrone-theme-css */
 /* pyrone-theme-data:title-en: Default style (template)*/
 /* pyrone-theme-data:title-ru: Стиль по умолчанию (шаблон)*/
@@ -99,7 +98,7 @@ div#topbar-admin div.version {
 	font-size: 10pt;
 }
 div#topbar {
-	background-color: #f6f6ee;
+	background-color: #ccf6d6;
 }
 div#topbar-admin {
 	background-color: #ffd6a0;
@@ -107,7 +106,7 @@ div#topbar-admin {
 
 div#topbar div.title, div#topbar div.title a,
 div#topbar-admin div.title, div#topbar-admin div.title a {
-	color: #6f0c0c;
+	color: green;
 	font-family: serif;
 	font-size: 30px;
 	font-weight: bolder;

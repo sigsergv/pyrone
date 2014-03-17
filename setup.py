@@ -92,7 +92,7 @@ setup(
     test_suite='pyrone',
     install_requires=requires,
     message_extractors={'pyrone': [
-        ('**.py', 'python', None),
+        ('**.py', 'python', {'encoding': 'utf-8'}),
         ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'})
     ]},
     entry_points="""\

@@ -9,6 +9,7 @@
             ],
             "folder_exclude_patterns": [
                 "__pycache__",
+                "storage",
                 "data",
                 "*.egg-info"
             ]

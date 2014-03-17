@@ -1,7 +1,9 @@
-
 /* pyrone-theme-css */
-/* pyrone-theme-data:title-en: Default style (template)*/
-/* pyrone-theme-data:title-ru: Стиль по умолчанию (шаблон)*/
+/* pyrone-theme-data:title-en: Style of blog.regolit.com site*/
+/* pyrone-theme-data:title-ru: Стиль для сайта blog.regolit.com*/
+/*
+ * Author: Sergey Stolyarov <sergei@regolit.com>
+ */
 
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic);
 
@@ -24,28 +26,91 @@ a:hover {
 div.clear-both {
 	clear: both;
 }
+div#topbar, div#topbar-admin {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	height: 60px;
+}
+div#topbar {
+}
+div#topbar-admin {
+}
+div#topbar div.title, div#topbar div.title a,
+div#topbar-admin div.title, div#topbar-admin div.title a {
+	color: #a11113;
+	font-family: "PT Serif", "Times New Roman", serif;
+	font-size: 30px;
+	font-weight: bolder;
+	margin: 10px;
+	text-decoration: none;
+}
+div#topbar-admin div.title {
+	color: #a17170;
+}
+div#content {
+	padding: 0 15px 5px 15px;
+	border: 2px solid #e2e2e2;
+	margin: 0 270px 30px 10px;
+	border-radius: 5px;
+}
+div#topbar-admin div.version {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-right: 10px;
+	font-family: "PT Sans", Verdana, Tahoma, sans-serif;
+	font-size: 10pt;
+}
+
+div#contentbar {
+	position: absolute;
+	margin-top: 60px;
+	margin-right:280px;
+	width: 100%;
+}
+
+div#sidebar {
+	border-width: 0 0 3px 3px;
+	position: absolute;
+	width: 255px;
+	background-color: #fff;
+	right: 0;
+	top: 50px;
+	padding: 0 5px 10px 10px;
+}
+div#sidebar div.section {
+	font-weight: bolder;
+	margin: 10px 0 5px 0;
+	padding-top: 5px;
+}
+
+
 div.title a.border-icon {
     display: none;
 }
 div.title:hover a.border-icon {
     display: inline-block;
     border-radius: 4px;
-	border: 1px solid #000080;
+	border: 1px solid #adadad;
 	text-decoration: none;
 	color: #000080;
-    margin: -1px 0 -1px 0;
 	background-color: #e5e5e5;
-    padding: 0 3px 0 3px;
+	padding: 0 2px 0 2px;
+	margin: 0 4px 0 0;
 }
 div.title:hover a.border-icon:hover {
-    border-color: #0040ff;
-    color: #0040ff;
+    background-color: #c8dbe5;
+    border-color: #989898;
 }
 a.confirm-icon {
-	border: 1px solid #800000;
-	background-color: #800000;
-	color: #fff;
+	border: 1px solid #d2dd5e;
+	border-radius: 4px;
+	background-color: #f1d200;
+	color: black;
 	text-decoration: none;
+	padding: 0 2px 0 0;
+	margin: 0 3px 0 0;
 }
 span.notify-icon {
 	border: 1px solid green;
@@ -84,58 +149,15 @@ a.new-window {
 	background-position: top left;
 	background-image: url(/static/styles/default/images/edit.png);
 }
-div#topbar, div#topbar-admin {
-	position: absolute;
-	width: 100%;
-	margin: 0;
-	height: 50px;
-}
-div#topbar-admin div.version {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding-right: 10px;
-	font-family: "PT Sans", Verdana, Tahoma, sans-serif;
-	font-size: 10pt;
-}
-div#topbar {
-	background-color: #f6f6ee;
-}
-div#topbar-admin {
-	background-color: #ffd6a0;
-}
-
-div#topbar div.title, div#topbar div.title a,
-div#topbar-admin div.title, div#topbar-admin div.title a {
-	color: #6f0c0c;
-	font-family: serif;
-	font-size: 30px;
-	font-weight: bolder;
-	margin: 10px;
-	text-decoration: none;
-}
-div#topbar-admin div.title {
-	color: #a17170;
-}
-div#contentbar {
-	position: absolute;
-	margin-top: 50px;
-	margin-right:280px;
-	width: 100%;
-}
-div#content {
-	padding: 15px;
-	padding-right: 280px;
-}
 div#content div.article code, div#eid-article-render-preview p code {
-    background-color: #F7F4E7;
 }
 div#content div.article pre,
 div#content div.preview pre,
 div#eid-article-render-preview pre {
     padding: 4px;
     background-color: #F7F4E7;
-    border: 1px dotted #AAA189;
+    border: 1px solid #AAA189;
+    border-radius: 5px;
 }
 div#content div.article blockquote,
 div#content div.preview blockquote,
@@ -145,27 +167,10 @@ div#eid-article-render-preview blockquote {
 	border-width: 0 0 0 3px;
 	padding-left: 4pt;
 }
-div#sidebar {
-	border: dotted #f6f6ee;
-	border-width: 0 0 3px 3px;
-	position: absolute;
-	width: 255px;
-	background-color: #fff;
-	right: 0;
-	top: 50px;
-	padding: 15px 0 10px 15px;
-}
-div#sidebar div.section {
-	font-weight: bolder;
-	border: dotted #f6f6ee;
-	border-width: 2px 0 0 0;
-	margin: 10px 0 5px 0;
-	padding-top: 5px;
-}
 div#bottombar {
-	margin-top: 30px;
-	border: dotted #f6f6ee;
-	border-width: 3px 0 0 0;
+	padding: 0 0 4px 0;
+	position: absolute;
+	bottom: 0;
 }
 div#bottombar div.title{
 	margin: 4px 0 0 20px;
@@ -183,9 +188,10 @@ div.article-preview {
 }
 div.article-preview-after {
 	height: 1px;
-	border-style: dotted none none none;
+	border-style: solid none solid none;
 	border-color: #f6f6ee;
-	border-width: 3px;
+	border-width: 1px;
+	height: 5px;
 	margin: 0 -5px 0 -5px;
 }
 div.article-preview div.title a {
@@ -374,6 +380,7 @@ span.hint, div.hint {
 }
 div.notify {
 	border: 2px solid #009c00;
+	border-radius: 4px;
 	padding: 10px;
 	background-color: #dbffdb;
 	color: #000;
@@ -382,19 +389,23 @@ div.notify {
 div.warning {
 	color: #a52a2a;
 	border: 2px solid #a52a2a;
+	border-radius: 4px;
 	padding: 10px;
 	background-color: #fff9bf;
 	color: #000;
 	font-weight: bold;
 }
 span.warning {
-	color: #a52a2a;
+	color: white;
 	border: 1px solid #a52a2a;
+	border-radius: 3px;
+	background-color: #a52a2a;
 	padding: 0 2px 0 2px;
 }
 span.info {
 	color: #005400;
 	border: 1px solid #005400;
+	border-radius: 3px;
 	padding: 0 2px 0 2px;
 	cursor: default;
 }
@@ -424,11 +435,10 @@ div#sidebar div.widget-actions div.action-item {
 }
 div#settings-save-button-block {
 	top: 0px;
-	left: 5px;
+	left: 15px;
 	right: 280px;
 	position: absolute;
-	background: white;
-	padding: 5px 0 8px 0;
+	padding: 1px 0 8px 0;
 }
 div#settings-save-button-block div {
 	float: left;
@@ -436,37 +446,44 @@ div#settings-save-button-block div {
 }
 div#settings-save-button-block div.notify
 {
-	border: 1px solid #009c00;
 	padding: 0px 10px 0 10px;
 	background-color: #dbffdb;
 	color: #000;
 	font-weight: bold;
 }
 div.save-box-panel-top {
-	border: 1px solid white;
+	xborder: 1px solid white;
 	position: absolute;
 	top: 0;
 }
 
 div.save-box-panel-float {
-	border: 1px solid red;
+	xborder: 1px solid red;
+	background-color: white;
 	border-radius: 4px;
-	background-color: red;
+	background-color: gray;
 	position: fixed !important;
 	top: 0;
 }
 
 div.editor-text-controls {
-	margin: 4pt 0 -7pt 30pt;
+	margin: 4pt 0 0 30pt;
 	padding: 2pt;
 }
 
 div.editor-text-controls span.button {
 	border: 1px solid gray;
+	border-radius: 4px;
 	margin-right: 4pt;
 	background-color: #F6FFEE;
 	padding: 0 2px 0 2pt;
 	cursor: pointer;
+}
+
+/* google custom search styles */
+input.gsc-input[type="text"] {
+	border-radius: 4px;
+	border: 1px solid #a9a9a9;
 }
 
 /* pygments styles */

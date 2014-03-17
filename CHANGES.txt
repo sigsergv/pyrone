@@ -1,3 +1,21 @@
+1.1
+---
+
+* added themes support (https://github.com/sigsergv/pyrone/issues/1)
+
+Upgrade notes
+~~~~~~~~~~~~~
+
+You must execute database initialization script after upgrade, for example:
+
+    $ cd /home/blog/pyrone3-blog
+    $ source env/bin/activate
+    $ pyronedbinit --sample-data --sample-data-file=env/share/pyrone/sample-data.json production.ini
+
+Or in the development version:
+
+    $ python -m pyrone.scripts.pyronedbinit --sample-data development.ini
+
 1.0.1
 -----
 

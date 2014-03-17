@@ -10,8 +10,11 @@ import logging
 import datetime
 import calendar
 import pytz
+import os.path
+import re
 from math import log as lg
 
+from pyramid import threadlocal
 from pyramid.i18n import TranslationString as _
 from pyramid.url import route_url
 from mako.filters import html_escape
@@ -20,7 +23,8 @@ from sqlalchemy import func
 
 from pyrone.version import PYRONE_VERSION
 from pyrone.models.config import get as get_config
-from pyrone.models import DBSession, Article, Tag, Comment
+from pyrone.models.file import get_storage_dirs
+from pyrone.models import DBSession, Article, Tag, Comment, File
 from pyrone.lib import auth, lang
 from pyrone.lib import cache
 
@@ -71,11 +75,14 @@ def form_textarea(name, title, value, errors, help=None, height=None):
     if help is not None:
         title = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=html_escape(help), title=html_escape(title))
 
-    html = """<dt>%(title)s</dt>
-    <div id="error-%(name)s" class="error" style="%(estyle)s">%(error)s</div>
+    html = ''
+    if title != '':
+        html += '<dt>%(title)s</dt>\n'.format(title=title)
+
+    html = """<div id="error-%(name)s" class="error" style="%(estyle)s">%(error)s</div>
     <dd><textarea type="text" name="%(name)s" id="fid-%(name)s"%(tstyle)s>%(value)s</textarea></dd>
     """ % dict(name=name, estyle=estyle, tstyle=tstyle, error=html_escape(error_str),
-               value=html_escape(value), title=title)
+               value=html_escape(value))
 
     return html
 
@@ -356,3 +363,58 @@ def get_not_approved_comments_count():
 def get_supported_langs_spec():
     return lang.supported_langs_spec()
 
+def get_available_themes():
+    dbsession = DBSession()
+    themes = [
+        ('default', _('Default theme (internal)')),
+        ('green', _('Green theme (internal)')),
+        ('blog.regolit.com', _('blog.regolit.com style (internal)'))]
+
+    # load suitable css files from the storage
+    storage_dirs = get_storage_dirs()
+    storage_path = storage_dirs['orig']
+    style_files = dbsession.query(File).filter(File.dltype=='auto', File.content_type=='text/css').all()
+    theme_data_re = re.compile(r'/\* pyrone-theme-data:([0-9a-z-]+):\s*(.+)\s*\*/')
+
+    for f in style_files:
+        # open css file and read metadata
+        filename = os.path.join(storage_path, f.name)
+        description = f.name
+        theme_data = {}
+
+        try:
+            with open(filename) as fp:
+                # analyze first line
+                line = fp.readline(100)
+                if not line.startswith('/* pyrone-theme-css */'):
+                    continue
+
+                # now read remaining file and search for metadata
+                for line in fp:
+                    mo = theme_data_re.match(line)
+                    if mo is None:
+                        continue
+                    theme_data[mo.group(1)] = mo.group(2)
+
+        except Exception as e:
+            log.error(e)
+            continue
+
+        # get description from the data
+        request = threadlocal.get_current_request()
+        key = 'title-{0}'.format(lang.lang(request))
+        if key in theme_data:
+            description = theme_data[key]
+
+        themes.append((f.name, description))
+
+    return themes
+
+def get_current_theme_css():
+    ui_theme = get_config('ui_theme', force=True)
+    css_url = '/static/styles/{0}/blog.css'
+
+    if ui_theme.endswith('.css'):
+        css_url = '/files/f/{0}'
+
+    return css_url.format(ui_theme)
