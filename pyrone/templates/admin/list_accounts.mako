@@ -6,7 +6,7 @@
 
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="accounts-table">
 <tr>
-  <th><input type="checkbox" onclick="selectDeselectAll(this);" id="select-all-users-cb" title="${_('Select/deselect all users')}"/></th>
+  <th><input type="checkbox" onclick="Pyrone_selectDeselectAll('accounts-table');" id="select-all-users-cb" title="${_('Select/deselect all users')}"/></th>
   <th>${_('User')}</th>
   <th>${_('Display name')}</th>
   <th>${_('Email')}</th>

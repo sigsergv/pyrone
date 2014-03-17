@@ -12,7 +12,7 @@
 
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="backups-table">
 <tr>
-  <th><input type="checkbox" onclick="selectDeselectAll(this);" id="select-all-files-cb" title="${_('Select/deselect all files')}"/></th>
+  <th><input type="checkbox" onclick="Pyrone_selectDeselectAll('backups-table');" id="select-all-files-cb" title="${_('Select/deselect all files')}"/></th>
   <th></th>
   <th>${_('Backup filename')}</th>
   <th>${_('File size')}</th>

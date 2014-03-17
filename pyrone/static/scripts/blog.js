@@ -55,6 +55,38 @@ function Pyrone_getSelectedRows(table_id) {
 	return res;
 }
 
+function Pyrone_selectDeselectAll(table_id)
+{
+	var table = $('#'+table_id);
+	if (!table.get(0)) {
+		return false;
+	}
+
+	var nodes = table.find('input[class=list-cb]').filter('[disabled!=disabled]'),
+		checked_count = 0,
+		not_checked_count = 0;
+
+	nodes.each(function(ind, el) {
+		if (el.checked) {
+			checked_count++;
+		} else {
+			not_checked_count++;
+		}
+	});
+
+	var new_state;
+
+	if (checked_count > 0 && not_checked_count == 0) {
+		// i.e. all rows selected, so clear selection
+		new_state = false;
+	} else {
+		// select all otherwise
+		new_state = true;
+	}
+	nodes.prop('checked', new_state);
+}
+
+
 /**
  * @param {String} target_id id of node where append confirm box
  * @param {Function} callback required callback to be called when user clicks confirm box
