@@ -298,6 +298,7 @@ div.article-inline-comment-edit input.date {
 	}
 div.inline-form {
 	border: 2px solid green;
+	border-radius: 4px;
 	padding: 5px;
 }
 /* comment styles */
@@ -344,7 +345,8 @@ dl.form dd {
 }
 dl.form div.error {
 	background-color: #ffd3d3;
-	border: 1px dotted red;
+	border: 1px solid red;
+	border-radius: 3px;
 	padding: 5px;
 }
 dl.form input.error, dl.form textarea.error {
@@ -484,6 +486,11 @@ div.editor-text-controls span.button {
 input.gsc-input[type="text"] {
 	border-radius: 4px;
 	border: 1px solid #a9a9a9;
+}
+
+td.files-content-type {
+	max-width: 140px;
+	overflow: hidden;
 }
 
 /* pygments styles */

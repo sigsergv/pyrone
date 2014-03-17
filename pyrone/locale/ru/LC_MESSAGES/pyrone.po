@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-03-17 19:25+0700\n"
+"POT-Creation-Date: 2014-03-17 21:34+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -197,8 +197,12 @@ msgid "← First choose file (other fields will be filled automatically)"
 msgstr "← Сначала выберите файл, а другие поля будут заполнены автоматически"
 
 #: pyrone/templates/admin/list_files.mako:16
-msgid "Name of the file (required, case-sensitive)"
-msgstr "Имя файла (обязательно, зависит от регистра)"
+msgid ""
+"Name of the file (required, case-sensitive, if file with that name exists"
+" it will be replaced)"
+msgstr ""
+"Имя файла (обязательно, зависит от регистра, если файл с таким именем "
+"существует, он будет заменён)"
 
 #: pyrone/templates/admin/list_files.mako:17
 msgid "File will be accessed using specified name"
@@ -213,8 +217,8 @@ msgid "cancel"
 msgstr "отменить"
 
 #: pyrone/templates/admin/list_files.mako:31
-msgid "upload new file"
-msgstr "закачать новый файл"
+msgid "upload file"
+msgstr "закачать файл"
 
 #: pyrone/templates/admin/list_files.mako:37
 msgid "Filename"

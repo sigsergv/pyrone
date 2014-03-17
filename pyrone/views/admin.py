@@ -180,11 +180,16 @@ def upload_file(request):
     dbsession = DBSession()
     transaction.begin()
 
-    file = File()
+    now = datetime.utcnow()
+
+    file = dbsession.query(File).filter(File.name==request.POST['filename']).first()
+    if file is None:
+        file = File()
     file.name = request.POST['filename']
     file.size = len(hfile.value)
     file.dltype = 'download' if request.POST['dltype'] == 'download' else 'auto'
     file.content_type = content_type
+    file.updated = h.dt_to_timestamp(now)
 
     # save file to the storage
     storage_dirs = get_storage_dirs()
