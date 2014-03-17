@@ -9,7 +9,7 @@ Pyrone_tr = {
 'FIELD_MUST_BE_ALPHA_NUM': 'Поле должно содержать только буквенно-цифровые символы',
 'FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE': 'Файл с таким именем уже есть в хранилище',
 'PASSWORDS_DONT_MATCH': 'Пароли не совпадают',
-'POSTING_COMMENT': 'Отправка комментария',
+'POSTING_COMMENT': 'Отправка комментария…',
 'SELECT_FILE_TO_UPLOAD': 'Выберите файл для загрузки',
 'SELECT_ITEMS_FIRST': 'Сначала выберите элементы',
 'SETTINGS_SAVED': 'Настройки успешно сохранены',

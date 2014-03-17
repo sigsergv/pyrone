@@ -9,7 +9,7 @@ Pyrone_tr = {
 'FIELD_MUST_BE_ALPHA_NUM': 'Field must contain alphanumeric characters',
 'FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE': 'File with the same name already exists in the storage',
 'PASSWORDS_DONT_MATCH': 'Passwords don\'t match',
-'POSTING_COMMENT': 'Posting comment',
+'POSTING_COMMENT': 'Posting comment…',
 'SELECT_FILE_TO_UPLOAD': 'Select file to upload',
 'SELECT_ITEMS_FIRST': 'Select items first',
 'SETTINGS_SAVED': 'Settings have been saved',
