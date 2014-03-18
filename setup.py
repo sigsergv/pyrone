@@ -80,8 +80,8 @@ setup(
     author_email='sergei@regolit.com',
     url='https://github.com/sigsergv/pyrone',
     data_files=[
-        ('share/pyrone/examples', ['examples/'+x for x in ('development.ini', 'production.ini', 'supervisord.conf',
-            'supervisord-pyrone', 'uwsgi-pyrone', 'pyrone-blog-nginx.conf', 'pyrone-blog-nginx-uwsgi.conf',
+        ('share/pyrone/examples', ['examples/'+x for x in ('development.ini', 'production.ini',
+            'pyrone-blog-nginx-uwsgi.conf',
             'pyrone-blog-nginx-uwsgi-ssl.conf', 'pyrone-uwsgi.ini')]),
         ('share/pyrone', ['sample-data.json'])
     ],
