@@ -16,9 +16,10 @@ from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
 from sqlalchemy.exc import IntegrityError
 
-from pyrone.lib import helpers as h
+from pyrone.lib import helpers as h, httpcode
 from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail
 from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltypes
+from pyrone.lib.jsonhttpresponse import JSONResponse
 
 log = logging.getLogger(__name__)
 
@@ -64,7 +65,6 @@ def save_settings_ajax(request):
         c['errors'] = errors
     else:
         dbsession = DBSession()
-        transaction.begin()
 
         # save settings
         settings = ('site_title', 'site_base_url', 'site_copyright', 'elements_on_page',
@@ -94,8 +94,6 @@ def save_settings_ajax(request):
             else:
                 v = 'false'
             config.set(id, v, dbsession)
-
-        transaction.commit()
 
         # refresh data in the cache
         h.get_gplusone_button(True)
@@ -130,14 +128,11 @@ def visitor_email_edit_ajax(request):
     is_verified = request.POST['is_verified'] == 'true'
 
     dbsession = DBSession()
-    transaction.begin()
     vf = dbsession.query(VerifiedEmail).get(id)
     if vf is None:
-        transaction.abort()
         return HTTPNotFound()
 
     vf.is_verified = is_verified
-    transaction.commit()
     return c
 
 
@@ -148,10 +143,8 @@ def visitors_emails_delete_ajax(request):
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
     dbsession = DBSession()
-    transaction.begin()
     dbsession.query(VerifiedEmail).filter(VerifiedEmail.id.in_(uids)).delete(False)
     c['deleted'] = uids
-    transaction.commit()
     return c
 
 
@@ -178,7 +171,6 @@ def upload_file(request):
     content_type = guess_type(hfile.filename)[0] or 'application/octet-stream'
 
     dbsession = DBSession()
-    transaction.begin()
 
     now = datetime.utcnow()
 
@@ -235,9 +227,7 @@ def delete_files(request):
 
     c = dict(deleted=uids, failed=False)
     dbsession = DBSession()
-    transaction.begin()
     dbsession.query(File).filter(File.id.in_(uids)).delete(False)
-    transaction.commit()
 
     return c
 
@@ -254,7 +244,6 @@ def edit_file_props(request):
         dltype = request.POST['dltype']
         filename = request.POST['filename']
 
-        transaction.begin()
         file = dbsession.query(File).get(file_id)
         if file is None:
             return HTTPNotFound()
@@ -266,7 +255,6 @@ def edit_file_props(request):
 
         file.name = filename
 
-        transaction.commit()
         log.debug(content_type)
         return HTTPFound(location=route_url('admin_list_files', request))
     elif request.method == 'GET':
@@ -371,7 +359,6 @@ def restore_backup(request):
         return dict(error=_(u'Unsupported backup version: “%s”!' % root.get('version')))
 
     dbsession = DBSession()
-    transaction.begin()
     # now start to extract all data and fill DB
     # first delete everything from the database
     dbsession.query(Comment).delete()
@@ -388,8 +375,7 @@ def restore_backup(request):
     nodes = xmldoc.xpath('//b:backup/b:settings', namespaces=namespaces)
 
     if len(nodes) == 0:
-        transaction.abort()
-        return dict(error=_('Backup file is broken: settings block not found'))
+        return JSONResponse(httpcode.NotFound, {'error': _('Backup file is broken: settings block not found')})
 
     node = nodes[0]
     nodes = node.xpath('//b:config', namespaces=namespaces)
@@ -405,8 +391,7 @@ def restore_backup(request):
     # now restore users
     nodes = xmldoc.xpath('//b:backup/b:users', namespaces=namespaces)
     if len(nodes) == 0:
-        transaction.abort()
-        return dict(error=_('Backup file is broken: users block not found'))
+        return JSONResponse(httpcode.NotFound, {'error': _('Backup file is broken: users block not found')})
 
     node = nodes[0]
     nodes = node.xpath('./b:user', namespaces=namespaces)
@@ -464,8 +449,7 @@ def restore_backup(request):
     # now restore articles
     nodes = xmldoc.xpath('//b:backup/b:articles', namespaces=namespaces)
     if len(nodes) == 0:
-        transaction.abort()
-        return dict(error=_('Backup file is broken: articles block not found'))
+        return JSONResponse(httpcode.NotFound, {'error': _('Backup file is broken: articles block not found')})
 
     node = nodes[0]
     nodes = node.xpath('./b:article', namespaces=namespaces)
@@ -567,8 +551,7 @@ def restore_backup(request):
     # now process files
     nodes = xmldoc.xpath('//b:backup/b:files', namespaces=namespaces)
     if len(nodes) == 0:
-        transaction.abort()
-        return dict(error=_('Backup file is broken: articles block not found'))
+        return JSONResponse(httpcode.NotFound, {'error': _('Backup file is broken: articles block not found')})
 
     node = nodes[0]
     nodes = node.xpath('./b:file', namespaces=namespaces)
@@ -613,8 +596,7 @@ def restore_backup(request):
     try:
         transaction.commit()
     except IntegrityError:
-        transaction.abort()
-        return dict(error=_('Unable to restore backup: database error, maybe your backup file is corrupted'))
+        return JSONResponse(httpcode.BadRequest, {'error': _('Unable to restore backup: database error, maybe your backup file is corrupted')})
 
     # we should also destroy current session (logout)
     forget(request)
@@ -843,9 +825,7 @@ def delete_accounts_ajax(request):
 
     c = dict(deleted=uids, failed=False)
     dbsession = DBSession()
-    transaction.begin()
     dbsession.query(User).filter(User.id.in_(uids)).delete(False)
-    transaction.commit()
 
     return c
 

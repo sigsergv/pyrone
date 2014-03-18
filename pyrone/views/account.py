@@ -18,6 +18,8 @@ from pyrone.models import User
 from pyrone.models.user import find_local_user, find_twitter_user,\
     normalize_email, VerifiedEmail
 from pyrone.models.config import get as get_config
+from pyrone.lib.jsonhttpresponse import JSONResponse
+from pyrone.lib import httpcode
 
 log = logging.getLogger(__name__)
 
@@ -79,12 +81,11 @@ def my_profile_save_ajax(request):
 
     is_changed = False
 
-    transaction.begin()
     dbsession = DBSession()
     user = dbsession.query(User).options(eagerload('roles')).get(user_id)
 
     if user is None:
-        return HTTPNotFound()
+        return JSONResponse(httpcode.BadRequest, c)
 
     if 'email' in request.POST:
         user.email = request.POST['email']
@@ -110,11 +111,10 @@ def my_profile_save_ajax(request):
         dbsession.flush()
         dbsession.expunge(user)
         user.get_roles()
-        transaction.commit()
         # also update Beaker session object
         remember(request, None, user=user)
     else:
-        transaction.abort()
+        return JSONResponse(httpcode.BadRequest, c)
 
     return c
 
@@ -179,13 +179,11 @@ def login_twitter_finish(request):
 
     if user is None:
         dbsession = DBSession()
-        transaction.begin()
         # create user
         user = User()
         user.kind = 'twitter'
         user.login = tw_username
         dbsession.add(user)
-        transaction.commit()
 
         # re-request again to correctly read roles
         user = find_twitter_user(tw_username)
@@ -209,19 +207,17 @@ def verify_email(request):
         email = normalize_email(request.GET['email'])
         verification_code = request.GET['token']
         dbsession = DBSession()
-        transaction.begin()
         vf = dbsession.query(VerifiedEmail).filter(VerifiedEmail.email == email).first()
         if vf is None or vf.verification_code != verification_code or vf.is_verified:
             fail = True
         else:
             vf.is_verified = True
-            transaction.commit()
     except KeyError:
-        transaction.abort()
         fail = True
 
     if fail:
         c['result'] = _('Verification failed: email not found.')
+        return JSONResponse(httpcode.BadRequest, c)
     else:
         c['result'] = _('Email `%s` has confirmed.') % 'aaa'
 

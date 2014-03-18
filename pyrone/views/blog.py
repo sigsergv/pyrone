@@ -8,7 +8,6 @@ from PIL import Image
 from sqlalchemy.orm import eagerload
 from sqlalchemy import func
 from time import time
-# from webhelpers.feedgenerator import Rss201rev2Feed
 
 from pyramid.response import Response
 from pyramid.view import view_config
@@ -175,7 +174,6 @@ def _update_article(article_id, request):
 
     dbsession = DBSession()
 
-    transaction.begin()
     article = dbsession.query(Article).get(article_id)
     if article is None:
         return HTTPNotFound()
@@ -227,8 +225,6 @@ def _update_article(article_id, request):
         for tag_str in c['tags']:
             tag = Tag(tag_str, article)
             dbsession.add(tag)
-
-        transaction.commit()
 
         # force update of tags cloud
         h.get_public_tags_cloud(force_reload=True)
@@ -295,7 +291,6 @@ def write_article(request):
 
         if len(c['errors']) == 0:
             dbsession = DBSession()
-            transaction.begin()
 
             # save and redirect
             user = request.user
@@ -308,8 +303,6 @@ def write_article(request):
             for tag_str in c['tags']:
                 tag = Tag(tag_str, article)
                 dbsession.add(tag)
-
-            transaction.commit()
 
             # force update of tags cloud
             h.get_public_tags_cloud(force_reload=True)
@@ -379,12 +372,9 @@ def delete_article(request):
     if article is None:
         return HTTPNotFound()
 
-    transaction.begin()
     # delete article and all article comments, invalidate tags too
     dbsession.query(Comment).filter(Comment.article_id == article_id).delete()
     dbsession.delete(article)
-    transaction.commit()
-    #transaction.abort()
     h.get_public_tags_cloud(force_reload=True)
 
     data = dict()
@@ -523,7 +513,6 @@ def add_article_comment_ajax(request):
     article_id = int(request.matchdict['article_id'])
 
     dbsession = DBSession()
-    transaction.begin()
 
     q = dbsession.query(Article).filter(Article.id == article_id)
     user = request.user
@@ -532,11 +521,9 @@ def add_article_comment_ajax(request):
     article = q.first()
 
     if article is None or not article.is_commentable:
-        transaction.abort()
         return HTTPNotFound()
 
     if 's' not in request.POST:
-        transaction.abort()
         return HTTPBadRequest()
 
     json = dict()
@@ -553,13 +540,11 @@ def add_article_comment_ajax(request):
 
     for ind in (body_ind, parent_ind, display_name_ind, email_ind, website_ind):
         if ind not in request.POST:
-            transaction.abort()
             return HTTPBadRequest()
 
     body = request.POST[body_ind]
 
     if len(body) == 0:
-        transaction.abort()
         return dict(error=_('Empty comment body is not allowed.'))
 
     comment = Comment()
@@ -593,7 +578,6 @@ def add_article_comment_ajax(request):
         if parent is not None:
             if not parent.is_approved:
                 #
-                transaction.abort()
                 data = dict(error=_('Answering to not approved comment'))
                 return json.dumps(data)
 
@@ -665,7 +649,7 @@ def add_article_comment_ajax(request):
     dbsession.flush()
     dbsession.expunge(comment)  # remove object from the session, object state is preserved
     dbsession.expunge(article)
-    transaction.commit()
+    transaction.commit()  # to delete, probably
 
     # comment added, now send notifications
     loop_limit = 100
@@ -728,7 +712,6 @@ def add_article_comment_ajax(request):
 def approve_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
     dbsession = DBSession()
-    transaction.begin()
     comment = dbsession.query(Comment).get(comment_id)
     if comment is None:
         return HTTPNotFound()
@@ -743,7 +726,6 @@ def approve_article_comment_ajax(request):
 
     _update_comments_counters(dbsession, article)
 
-    transaction.commit()
     data = dict()
     return data
 
@@ -756,12 +738,9 @@ def delete_article_comment_ajax(request):
     if comment is None:
         return HTTPNotFound()
 
-    transaction.begin()
     dbsession.delete(comment)
     article = dbsession.query(Article).get(comment.article_id)
     _update_comments_counters(dbsession, article)
-
-    transaction.commit()
 
     data = dict()
     return data
@@ -794,7 +773,6 @@ def edit_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
     dbsession = DBSession()
 
-    transaction.begin()
     comment = dbsession.query(Comment).options(eagerload('user')).options(eagerload('user.roles')).get(comment_id)
 
     # passed POST parameters are: 'body', 'name', 'email', 'website', 'date', 'ip', 'xffip'
@@ -822,7 +800,6 @@ def edit_article_comment_ajax(request):
         dbsession.expunge(comment.user)
         for p in comment.user.roles:
             dbsession.expunge(p)
-    transaction.commit()
 
     data = dict()
 
