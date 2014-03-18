@@ -493,6 +493,12 @@ td.files-content-type {
 	overflow: hidden;
 }
 
+acronym[title] {
+	border-style: none none dashed none;
+	border-color: gray;
+	border-width: 1px;
+}
+
 /* pygments styles */
 .codehilite .hll { background-color: #ffffcc }
 .codehilite  { background: #f8f8f8; }
