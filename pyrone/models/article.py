@@ -16,7 +16,7 @@ class Article(Base):
     shortcut_date = Column(Unicode(50))  # somethig like "2011/03/29"
     shortcut = Column(Unicode(255))  # something like "test-post-subject"
     title = Column(Unicode(255))
-    body = Column(UnicodeText)
+    body = Column(UnicodeText(2**15))
     rendered_preview = Column(UnicodeText(2**15))
     rendered_body = Column(UnicodeText(2**15))
     # UTC timestamp of publishing

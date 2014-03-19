@@ -1,5 +1,12 @@
+1.1.2
+-----
+
+* fixed article size limit (changes in the database)
+
 1.1.1
 -----
+
+Released 2013-03-17, minor bugfix release
 
 * fixed broken package
 
