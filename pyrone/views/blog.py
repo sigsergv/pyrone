@@ -34,7 +34,7 @@ def favicon(fn_key, content_type, request):
     filename = s[fn_key]
 
     try:
-        icon = open(filename, 'r')
+        icon = open(filename, 'rb')
     except IOError:
         return HTTPNotFound()
 
