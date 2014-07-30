@@ -33,7 +33,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-development.ini
+/development.ini
 pyrone.db
 *.sublime-workspace
 data
@@ -41,3 +41,4 @@ production.ini
 favicon.ico
 favicon.png
 storage
+/.venv

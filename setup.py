@@ -2,8 +2,8 @@ import os
 import sys
 import re
 
-if sys.version_info[:2] < (3, 3):
-    print('Python version >= 3.3 required!', file=sys.stderr)
+if sys.version_info[:2] != (3, 4):
+    print('Python version >= 3.4 required!', file=sys.stderr)
     sys.exit(1)
 
 from setuptools import setup, find_packages
@@ -68,7 +68,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
         'Framework :: Pyramid',
         'License :: OSI Approved :: BSD License',
         'Topic :: Internet :: WWW/HTTP',
