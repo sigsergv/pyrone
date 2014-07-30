@@ -1,10 +1,11 @@
-#import pyramid.threadlocal as threadlocal
+import logging
+
 from pyramid.i18n import get_localizer, TranslationStringFactory
-#from pyramid.i18n import TranslationString
 from pyramid.url import route_url
 
 from pyrone.lib import helpers
 
+log = logging.getLogger(__name__)
 
 class url_generator():
     def __init__(self, request):
@@ -35,5 +36,5 @@ def add_localizer(event):
 
     def auto_translate(string):
         return localizer.translate(tsf(string))
-    #request.localizer = localizer
+
     request.translate = auto_translate

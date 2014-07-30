@@ -23,7 +23,7 @@
  <span class="warning">${_('draft')}</span>\
 %endif
   </div>
-  <div class="date">${_('Posted by %(author)s on %(date)s') % dict(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
+  <div class="date">${_('Posted by {author} on {date}').format(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
   <div class="before-preview"></div>
   <div class="preview">${article.get_html_preview()|n}</div>
   <div class="after-preview"></div>
@@ -56,7 +56,7 @@ ${_('No articles here.')}
 
 ## display pager
 <div class="pager">
-${h.cond(next_page is not None, '<a href="%s">%s</a>' % (next_page, _(u'←newer')), _(u'←newer'))|n} 
-${h.cond(prev_page is not None, '<a href="%s">%s</a>' % (prev_page, _(u'older→')), _(u'older→'))|n} 
+${h.cond(next_page is not None, '<a href="{0}">{1}</a>'.format(next_page, _('←newer')), _('←newer'))|n} 
+${h.cond(prev_page is not None, '<a href="{0}">{1}</a>'.format(prev_page, _('older→')), _('older→'))|n} 
 
 </div>

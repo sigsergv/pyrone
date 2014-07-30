@@ -57,12 +57,11 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
     def callback(self, userid, request):
         user = request.session.get(SESSION_USER_KEY)
         if user is not None and user.id == userid:
-            roles = ['role:%s' % x for x in user.get_roles()]
+            roles = ['role:{0}'.format(x) for x in user.get_roles()]
             return roles
 
     def remember(self, request, userid, user=None, **kw):
         request.session[SESSION_USER_KEY] = user
-        #request.session[self.logout_token_key] = str(uuid.uuid4())
         request.session.save()
         return []
 
@@ -70,7 +69,6 @@ class PyroneSessionAuthenticationPolicy(CallbackAuthenticationPolicy):
         """ Remove user from the session """
         if SESSION_USER_KEY in request.session:
             del request.session[SESSION_USER_KEY]
-            #del request.session[self.logout_token_key]
             request.session.save()
         return []
 

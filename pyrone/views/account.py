@@ -6,7 +6,7 @@ import urllib
 
 from twitter import Twitter, OAuth
 from twitter.api import TwitterHTTPError
-from sqlalchemy.orm import eagerload
+from sqlalchemy.orm import joinedload
 from pyramid.i18n import TranslationString as _
 from pyramid.security import remember, forget
 from pyramid.view import view_config
@@ -34,8 +34,7 @@ def sha1(s):
 
 @view_config(route_name='account_login', renderer='/blog/local_login.mako')
 def login_local(request):
-    c = dict()
-    c['error'] = ''
+    c = {'error': ''}
 
     if request.method == 'POST':
         # process login
@@ -46,6 +45,7 @@ def login_local(request):
             c['error'] = _('Incorrect login or password')
         else:
             # this method doesn't return any headers actually
+            user.detach()
             headers = remember(request, user.id, user=user)
             return HTTPFound(location=route_url('blog_latest', request), headers=headers)
 
@@ -69,20 +69,20 @@ def logout(request):
 
 @view_config(route_name='account_my_profile', renderer='/blog/my_profile.mako', permission='authenticated')
 def my_profile(request):
-    c = dict()
+    c = {}
 
     return c
 
 
 @view_config(route_name='account_save_my_profile_ajax', renderer='json', permission='authenticated', request_method='POST')
 def my_profile_save_ajax(request):
-    c = dict()
+    c = {}
     user_id = request.user.id
 
     is_changed = False
 
     dbsession = DBSession()
-    user = dbsession.query(User).options(eagerload('roles')).get(user_id)
+    user = dbsession.query(User).options(joinedload('roles')).get(user_id)
 
     if user is None:
         return JSONResponse(httpcode.BadRequest, c)
@@ -109,7 +109,7 @@ def my_profile_save_ajax(request):
 
     if is_changed:
         dbsession.flush()
-        dbsession.expunge(user)
+        user.detach()
         user.get_roles()
         # also update Beaker session object
         remember(request, None, user=user)
@@ -192,15 +192,15 @@ def login_twitter_finish(request):
             return HTTPServerError()
 
     # save user to the session
+    user.detach()
     remember(request, None, user=user)
 
     return HTTPFound(location=request.GET['pyrone_url'])
-    
 
 
 @view_config(route_name='account_verify_email', renderer='/blog/verify_email.mako')
 def verify_email(request):
-    c = dict()
+    c = {}
 
     fail = False
     try:
@@ -219,6 +219,6 @@ def verify_email(request):
         c['result'] = _('Verification failed: email not found.')
         return JSONResponse(httpcode.BadRequest, c)
     else:
-        c['result'] = _('Email `%s` has confirmed.') % 'aaa'
+        c['result'] = _('Email `{0}` has confirmed.').format('aaa')
 
     return c

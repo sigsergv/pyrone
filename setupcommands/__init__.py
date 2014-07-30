@@ -48,7 +48,7 @@ def write_js(fileobj, catalog, use_fuzzy=False):
         if msgid != '' and msgstr != msgid:
             # escape msgstr
             msgstr = msgstr.replace("'", r"\'")
-            jss.append("'%s': '%s'" % (msgid, msgstr))
+            jss.append("'{0}': '{1}'".format(msgid, msgstr))
             
         #print msgid, msgstr
     js = "Pyrone_tr = {\n"
@@ -94,7 +94,7 @@ class ExtractMessagesJs(Command):
                     
         # now scan js_files for tr() strings
         tr_re = re.compile("tr\('([0-9A-Z_]+)'\)");
-        keys = dict()
+        keys = {}
         
         for fn in js_files:
             fp = open(fn, 'r')
@@ -116,7 +116,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.2.3\\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\\n"
-"POT-Creation-Date: %(now)s\\n"
+"POT-Creation-Date: {now}\\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language-Team: LANGUAGE <LL@li.org>\\n"
@@ -127,13 +127,13 @@ msgstr ""
 '''
         mytz="%+4.4d" % (time.timezone / -(60*60) * 100) # time.timezone counts westwards!
         now = datetime.datetime.now()
-        pot_header = pot_header_template % dict(now=now.strftime('%Y-%m-%d %H:%M') + mytz)
+        pot_header = pot_header_template.format(now=now.strftime('%Y-%m-%d %H:%M') + mytz)
         
         fp = codecs.open(self.output_file, 'w', encoding='utf-8')
         fp.write(pot_header)
         
         for k,v in keys.items():
-            fp.write('\n#: file\nmsgid "%s"\nmsgstr ""\n' % k);
+            fp.write('\n#: file\nmsgid "{0}"\nmsgstr ""\n'.format(k));
         fp.close()
         
 class CompileCatalogJs(Command):

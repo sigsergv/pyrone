@@ -102,5 +102,4 @@ setup(
     pyronedbinit = pyrone.scripts.pyronedbinit:main
     """,
     cmdclass=setup_cmdclass
-    #paster_plugins=['pyramid'],
 )

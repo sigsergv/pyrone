@@ -43,12 +43,12 @@ def form_input_text(name, title, value, errors, help=None):
         value = ''
 
     if help is not None:
-        title = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=html_escape(help), title=html_escape(title))
+        title = '<acronym title="{help}">{title}</acronym>'.format(help=html_escape(help), title=html_escape(title))
 
-    html = """<dt>%(title)s</dt>
-    <div id="error-%(name)s" class="error" style="%(style)s">%(error)s</div>
-    <dd><input type="text" name="%(name)s" id="fid-%(name)s" value="%(value)s"/></dd>
-    """ % dict(name=name, style=estyle, error=html_escape(error_str),
+    html = """<dt>{title}</dt>
+    <div id="error-{name}" class="error" style="{style}">{error}</div>
+    <dd><input type="text" name="{name}" id="fid-{name}" value="{value}"/></dd>
+    """.format(name=name, style=estyle, error=html_escape(error_str),
                value=html_escape(value), title=title)
 
     return html
@@ -64,24 +64,24 @@ def form_textarea(name, title, value, errors, help=None, height=None):
         error_str = errors[name]
 
     if height is not None:
-        tstyle += 'height: %spx' % height
+        tstyle += 'height: {0}px'.format(height)
 
     if tstyle != '':
-        tstyle = ' style="%s"' % tstyle
+        tstyle = ' style="{0}"'.format(tstyle)
 
     if value is None:
         value = ''
 
     if help is not None:
-        title = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=html_escape(help), title=html_escape(title))
+        title = '<acronym title="{help}">{title}</acronym>'.format(help=html_escape(help), title=html_escape(title))
 
     html = ''
     if title != '':
-        html += '<dt>%(title)s</dt>\n'.format(title=title)
+        html += '<dt>{title}</dt>\n'.format(title=title)
 
-    html = """<div id="error-%(name)s" class="error" style="%(estyle)s">%(error)s</div>
-    <dd><textarea type="text" name="%(name)s" id="fid-%(name)s"%(tstyle)s>%(value)s</textarea></dd>
-    """ % dict(name=name, estyle=estyle, tstyle=tstyle, error=html_escape(error_str),
+    html = """<div id="error-{name}" class="error" style="{estyle}">{error}</div>
+    <dd><textarea type="text" name="{name}" id="fid-{name}"{tstyle}>{value}</textarea></dd>
+    """.format(name=name, estyle=estyle, tstyle=tstyle, error=html_escape(error_str),
                value=html_escape(value))
 
     return html
@@ -99,20 +99,20 @@ def form_selector(name, title, all_values, value, errors, help=None):
         error_str = errors[name]
 
     if help is not None:
-        title = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=html_escape(help), title=html_escape(title))
+        title = '<acronym title="{help}">{title}</acronym>'.format(help=html_escape(help), title=html_escape(title))
 
     selector_items = []
     for id, v in all_values:
         selected = ''
         if id == value:
             selected = ' selected="selected"'
-        s = '<option value="%s"%s>%s</option>' % (id, selected, v)
+        s = '<option value="{0}"{1}>{2}</option>'.format(id, selected, v)
         selector_items.append(s)
 
-    html = """<dt>%(title)s</dt>
-    <div id="error-%(name)s" class="error" style="%(style)s">%(error)s</div>
-    <dd><select name="%(name)s" id="fid-%(name)s">%(items)s</select></dd>
-    """ % dict(name=name, style=estyle, error=html_escape(error_str),
+    html = """<dt>{title}</dt>
+    <div id="error-{name}" class="error" style="{style}">{error}</div>
+    <dd><select name="{name}" id="fid-{name}">{items}</select></dd>
+    """.format(name=name, style=estyle, error=html_escape(error_str),
                items=''.join(selector_items), title=title)
 
     return html
@@ -122,19 +122,19 @@ def form_checkbox(name, title, value, errors, help=None, label=None, label_help=
     # ignore errors
 
     if label is not None and label_help is not None:
-        label = '<acronym title="%(help)s">%(title)s</acronym>' % dict(help=label_help, title=label)
+        label = '<acronym title="{help}">{title}</acronym>'.format(help=label_help, title=label)
 
     html = ""
 
     if title is not None:
-        html += """<dt>%(title)s</dt>""" % dict(title=title)
+        html += """<dt>{title}</dt>""".format(title=title)
 
-    cb = '<input type="checkbox" name="%(name)s" id="fid-%(name)s"%(checked)s/>' % dict(name=name,
+    cb = '<input type="checkbox" name="{name}" id="fid-{name}"{checked}/>'.format(name=name,
         checked=' checked="checked"' if value is True else '')
     if label is not None:
-        cb = '<label>%(cb)s %(label)s</label>' % dict(cb=cb, label=label)
+        cb = '<label>{cb} {label}</label>'.format(cb=cb, label=label)
 
-    html += '<dd>%(cb)s</dd>' % dict(cb=cb)
+    html += '<dd>{cb}</dd>'.format(cb=cb)
     return html
 
 
@@ -182,7 +182,7 @@ def dt_to_timestamp(dt):
 def span_info(text, escape=True):
     if escape:
         text = html_escape(text)
-    return '<span class="info">%s</span>' % text
+    return '<span class="info">{0}</span>'.format(text)
 
 
 def cond(condition, true_val, false_val):
@@ -206,10 +206,10 @@ def user_link(user):
 
     if user.has_role('admin'):
         title = _('Administrator')
-        name = '<span title="%(title)s" class="account-admin">%(name)s</span>' % dict(name=name, title=title)
+        name = '<span title="{title}" class="account-admin">{name}</span>'.format(name=name, title=title)
 
     if user.kind == 'twitter':
-        link = '<a class="account-twitter" href="http://twitter.com/#!/%(name)s">%(name)s</a>' % dict(name=user.login)
+        link = '<a class="account-twitter" href="http://twitter.com/#!/{name}">{name}</a>'.format(name=user.login)
     else:
         link = name
 
@@ -217,7 +217,7 @@ def user_link(user):
 
 
 def article_url(request, article):
-    return '%s%s/%s' % (route_url('blog_latest', request), article.shortcut_date, article.shortcut)
+    return '{0}{1}/{2}'.format(route_url('blog_latest', request), article.shortcut_date, article.shortcut)
 
 
 def article_tags(article):
@@ -239,7 +239,7 @@ def article_tags_links(request, article):
     Generate comma separated list of tag hyperlinks
     """
     res = []
-    url_template = '<a href="%s">__TAG__</a>' % route_url('blog_tag_articles', request, tag='__TAG__')
+    url_template = '<a href="{0}">__TAG__</a>'.format(route_url('blog_tag_articles', request, tag='__TAG__'))
     for tag in article.tags:
         if tag.tag is None:
             continue
@@ -327,18 +327,23 @@ def get_twitter_share_link_button(force_reload=False):
         if get_config('social_twitter_share_link') != 'true':
             value = ''
         else:
-            tpl = '''<a href="https://twitter.com/share" class="twitter-share-button"%(twitter_via)s%(show_count)s>Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>'''
+            tpl = '''<a href="https://twitter.com/share" class="twitter-share-button"{twitter_via}{show_count}>Tweet</a>'''
+
             twitter_via = get_config('social_twitter_share_link')
             show_count = get_config('social_twitter_share_link_show_count')
-            repl = dict(twitter_via='', show_count='')
+            repl = {
+                'twitter_via': '',
+                'show_count': ''
+                }
             if twitter_via != '':
                 # possible
-                repl['twitter_via'] = ' data-via="%s"' % html_escape(twitter_via)
+                repl['twitter_via'] = ' data-via="{0}"'.format(html_escape(twitter_via))
             if show_count != 'true':
                 repl['show_count'] = ' data-count="none"'
 
-            value = tpl % repl
+            value = tpl.format(**repl)
+
+            value += '''<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>'''
 
         cache.set_value('rendered_twitter_share_link_button', value)
 

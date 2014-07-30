@@ -15,7 +15,7 @@ except ImportError:
     pass
 
 # internal cache for setting values
-_cache = dict()
+_cache = {}
 
 
 def set_value(key, value):

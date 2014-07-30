@@ -5,7 +5,8 @@ import hashlib
 from time import time
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy.orm import relation, eagerload
+from sqlalchemy.orm import relation, joinedload
+from sqlalchemy.orm.session import Session
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
 from . import Base, DBSession
@@ -21,7 +22,7 @@ def sha1(s):
 
 class User(Base):
     __tablename__ = 'pbuser'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     _str_roles = None
 
@@ -34,6 +35,16 @@ class User(Base):
     kind = Column(String(20))
 
     roles = relation('Role')
+
+    def detach(self):
+        dbsession = Session.object_session(self)
+        if dbsession is None:
+            return
+
+        for x in self.roles:
+            dbsession.expunge(x)
+
+        dbsession.expunge(self)
 
     def has_role(self, r):
         return r in self.get_roles()
@@ -56,7 +67,7 @@ anonymous = AnonymousUser()
 
 class Role(Base):
     __tablename__ = 'pbuserrole'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('pbuser.id'))
@@ -70,7 +81,7 @@ class Role(Base):
 
 class VerifiedEmail(Base):
     __tablename__ = 'pbverifiedemail'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     # stripperd lowcased email address
     id = Column(Integer, primary_key=True)
@@ -89,7 +100,7 @@ class VerifiedEmail(Base):
 def find_local_user(login, password):
     hashed_password = md5(password)
     dbsession = DBSession()
-    q = dbsession.query(User).options(eagerload('roles')).filter(User.kind == 'local').\
+    q = dbsession.query(User).options(joinedload('roles')).filter(User.kind == 'local').\
         filter(User.login == login)
     user = q.first()
 
@@ -112,13 +123,13 @@ def normalize_email(email):
 
 def get_user(user_id):
     dbsession = DBSession()
-    user = dbsession.query(User).options(eagerload('roles')).get(user_id)
+    user = dbsession.query(User).options(joinedload('roles')).get(user_id)
     return user
 
 
 def find_twitter_user(username):
     dbsession = DBSession()
-    q = dbsession.query(User).options(eagerload('roles')).filter(User.kind == 'twitter').\
+    q = dbsession.query(User).options(joinedload('roles')).filter(User.kind == 'twitter').\
         filter(User.login == username)
     user = q.first()
     return user

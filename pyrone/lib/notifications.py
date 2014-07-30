@@ -48,11 +48,11 @@ class Notification:
         log.debug('--------------------------------------------------')
         debug_data = '''
             SEND NOTIFICATION:
-            Subject: %(subject)s
-            To: %(to)s
+            Subject: {subject}
+            To: {to}
 
-            %(body)s
-            ''' % dict(subject=self.subject, to=self.to, body=self.body)
+            {body}
+            '''.format(subject=self.subject, to=self.to, body=self.body)
         log.debug(debug_data)
         log.debug('--------------------------------------------------')
         sender = get_config('notifications_from_email')
@@ -101,11 +101,17 @@ def _extract_comment_sub(request, comment):
     # construct comment link
     article = comment.article
     comment_url = h.article_url(request, article) + '#comment-' + str(comment.id)
-    comment_link = '<a href="%(url)s">%(title)s</a>' % dict(url=comment_url, title=comment_url)
+    comment_link = '<a href="{url}">{title}</a>'.format(url=comment_url, title=comment_url)
 
     comment_date = h.timestamp_to_str(comment.published)
-    res = dict(comment_author_email=author_email, comment_author_name=author_name, comment_text=comment.body,
-               comment_link=comment_link, comment_date=comment_date, comment_url=comment_url)
+    res = {
+        'comment_author_email': author_email,
+        'comment_author_name': author_name,
+        'comment_text': comment.body,
+        'comment_link': comment_link,
+        'comment_date': comment_date,
+        'comment_url': comment_url
+        }
     return res
 
 
@@ -114,9 +120,12 @@ def _extract_article_sub(request, article):
     Extract placeholders substitution strings from the article object
     """
     article_url = h.article_url(request, article)
-    article_link = '<a href="%(url)s">%(title)s</a>' % dict(url=article_url, title=article.title)
+    article_link = '<a href="{url}">{title}</a>'.format(url=article_url, title=article.title)
 
-    res = dict(article_title=article.title, article_link=article_link)
+    res = {
+        'article_title': article.title,
+        'article_link': article_link
+        }
     return res
 
 
@@ -142,26 +151,26 @@ def gen_comment_response_notification(request, article, comment, top_comment, em
     body_tpl = get_config('comment_answer_msg_body_tpl')
 
     subject = subject_tpl
-    repl = dict()
+    repl = {}
     repl.update(_extract_comment_sub(request, comment))
     repl.update(_extract_article_sub(request, comment.article))
     repl['site_title'] = get_config('site_title')
 
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
         if k in repl:
-            subject = subject.replace('{%s}' % k, repl[k])
+            subject = subject.replace('{{{0}}}'.format(k), repl[k])
 
     body = body_tpl
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date',
               'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
         if k in repl:
-            body = body.replace('{%s}' % k, repl[k])
+            body = body.replace('{{{0}}}'.format(k), repl[k])
 
     # process additional placeholders
     comment_link_re = re.compile('\\{comment_link\\|text=(.+?)\\}')
 
     def f(mo):
-        return '<a href="%s">%s</a>' % (repl['comment_url'], mo.group(1))
+        return '<a href="{0}">{1}</a>'.format(repl['comment_url'], mo.group(1))
     body = comment_link_re.sub(f, body)
 
     email = normalize_email(email)
@@ -183,7 +192,7 @@ def gen_email_verification_notification(email, verification_code):
     subject_tpl = get_config('verification_msg_subject_tpl')
     body_tpl = get_config('verification_msg_body_tpl')
 
-    repl = dict()
+    repl = {}
     repl['site_title'] = get_config('site_title')
     repl['email'] = email
 
@@ -191,15 +200,15 @@ def gen_email_verification_notification(email, verification_code):
     q = urllib.parse.urlencode({'token': verification_code, 'email': email})
     verify_url = base_url + '/verify-email?' + q
     repl['verify_url'] = verify_url
-    repl['verify_link'] = '<a href="%(url)s">%(title)s</a>' % dict(url=verify_url, title=verify_url)
+    repl['verify_link'] = '<a href="{url}">{title}</a>'.format(url=verify_url, title=verify_url)
 
     subject = subject_tpl
     for k in ('site_title', ):
-        subject = subject.replace('{%s}' % k, repl[k])
+        subject = subject.replace('{{{0}}}'.format(k), repl[k])
 
     body = body_tpl
     for k in ('site_title', 'email', 'verify_link'):
-        body = body.replace('{%s}' % k, repl[k])
+        body = body.replace('{{{0}}}'.format(k), repl[k])
 
     n = Notification(email, subject, body)
 
@@ -226,7 +235,7 @@ def gen_new_comment_admin_notification(request, article, comment):
     subject_tpl = get_config('admin_notify_new_comment_subject_tpl')
     body_tpl = get_config('admin_notify_new_comment_body_tpl')
 
-    repl = dict()
+    repl = {}
     repl.update(_extract_comment_sub(request, comment))
     repl.update(_extract_article_sub(request, comment.article))
     repl['site_title'] = get_config('site_title')
@@ -234,19 +243,19 @@ def gen_new_comment_admin_notification(request, article, comment):
     subject = subject_tpl
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
         if k in repl:
-            subject = subject.replace('{%s}' % k, repl[k])
+            subject = subject.replace('{{{0}}}'.format(k), repl[k])
 
     body = body_tpl
     for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date',
               'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
         if k in repl:
-            body = body.replace('{%s}' % k, repl[k])
+            body = body.replace('{{{0}}}'.format(k), repl[k])
 
     # process additional placeholders
     comment_link_re = re.compile('\\{comment_link\\|text=(.+?)\\}')
 
     def f(mo):
-        return '<a href="%s">%s</a>' % (repl['comment_url'], mo.group(1))
+        return '<a href="{0}">{1}</a>'.format(repl['comment_url'], mo.group(1))
     body = comment_link_re.sub(f, body)
 
     email = normalize_email(get_config('admin_notifications_email'))

@@ -12,7 +12,7 @@
   <title>${self.title()} — ${h.get_config('site_title')} — ${_('administration')}</title>
 </head>
 <body>
-<div id="topbar-admin" class="admin"><div class="title"><a href="/">${h.get_config('site_title')}</a> / ${_('administration')}</div><div class="version">${_('pyrone version: %s') % h.PYRONE_VERSION}</div></div>
+<div id="topbar-admin" class="admin"><div class="title"><a href="/">${h.get_config('site_title')}</a> / ${_('administration')}</div><div class="version">${_('pyrone version: {0}').format(h.PYRONE_VERSION)}</div></div>
   <div id="contentbar">
     <div id="content">
     ${next.body()}

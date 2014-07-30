@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 class File(Base):
     __tablename__ = 'pbstoragefile'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), unique=True)
@@ -41,7 +41,7 @@ def get_storage_dirs():
         os.mkdir(_storage_directory)
 
     subdirs = ('orig', 'img_preview_mid')
-    res = dict()
+    res = {}
     for s in subdirs:
         path = os.path.join(_storage_directory, s)
         res[s] = path

@@ -233,27 +233,24 @@ You also need to install some additional packages required for python modules co
 
     $ brew install
 
-Then install ``virtualenv``::
+Then install ``venv``::
 
-    $ pip install virtualenv
-
-Now create directory for virtual environments and init virtualenv there::
-
-    $ mkdir -p ~/python-ves/pyrone
-    $ virtualenv -p python3 --no-site-packages ~/python-ves/pyrone
+    $ pyvenv-3.4 --without-pip .venv
 
 And activate it::
 
-    $ source ~/python-ves/pyrone/bin/activate
+    $ source .venv/bin/activate
 
-And install all required packages (execute this command in the activated 
+Now to install setuptools and pip::
+
+    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python3.4 -
+    $ rm setuptools-*.zip
+    $ easy_install-3.4 pip
+
+Then install all required packages (execute this command in the activated 
 environment and from project directory)::
 
-    $ python setup.py develop
-
-And some additional developer packages::
-
-    $ pip install waitress
+    $ python3.4 setup.py develop
 
 Copy configuration script ``development.ini`` from the directory ``examples`` to the same directory 
 where ``setup.py`` is located, edit ``development.ini`` appropriately, but default preferences are 
@@ -320,7 +317,7 @@ To start development server use the following command::
 
 On first run or after database destroy you need to initialize database::
 
-    $ python3.4 -m pyrone.scripts.pyronedbinit development.ini --sample-data
+    $ pyronedbinit development.ini --sample-data
 
 Tests and coverage
 ------------------

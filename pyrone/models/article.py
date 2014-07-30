@@ -9,7 +9,7 @@ from pyrone.lib import markup
 
 class Article(Base):
     __tablename__ = 'pbarticle'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
@@ -62,7 +62,7 @@ class Article(Base):
 
 class Tag(Base):
     __tablename__ = 'pbtag'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey(Article.id))
@@ -77,7 +77,7 @@ class Tag(Base):
 
 class Comment(Base):
     __tablename__ = 'pbarticlecomment'
-    __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))

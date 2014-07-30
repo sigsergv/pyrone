@@ -13,13 +13,13 @@
     <dd><input type="file" id="fid-filedata" onchange="Pyrone_file_uploadFormFileSelected()" name="filedata"/> \
     <span class="hint">${_(u'← First choose file (other fields will be filled automatically)')}</span></dd>
     
-    ${h.form_input_text('filename', _('Name of the file (required, case-sensitive, if file with that name exists it will be replaced)'), '', dict(),\
+    ${h.form_input_text('filename', _('Name of the file (required, case-sensitive, if file with that name exists it will be replaced)'), '', {},\
     help=_('File will be accessed using specified name'))|n}
     
     ${h.form_selector('dltype', _('File access type'), 
     [ ( 'download', _('display file download dialog (suitable for documents, archives)')), \
     ('auto', _('leave processing to web browser (suitable for pictures)'))], \
-    'auto', dict(),\
+    'auto', {},\
     help=_('What should happen when user open URL to the file in web browser') )|n}
     
     <dd style="padding-top: 8px;"><input type="submit" value="${_('upload')}"/> <a href="#" onclick="$('#upload-file-form').hide(0); $('#show-upload-form-link').show(0); return false;">${_('cancel')}</a></dd>
@@ -46,7 +46,7 @@
   </td>
   <td><a href="${url('blog_download_file', filename=f.name)}" title="${_('file URL')}">${f.name}</a></td>
   <td class="files-content-type" title="${f.content_type}">${f.content_type}</td> 
-  <td><acronym title="${_('%i bytes') % f.size}">${h.hsize(f.size)}</td>
+  <td><acronym title="${_('{0} bytes').format(f.size)}">${h.hsize(f.size)}</td>
 </tr>
 % endfor
 </table>

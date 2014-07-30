@@ -5,14 +5,15 @@ import uuid
 import os
 
 from PIL import Image
-from sqlalchemy.orm import eagerload
+from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from time import time
 
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.url import route_url
-from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound, HTTPServerError, HTTPMovedPermanently
+from pyramid.httpexceptions import (HTTPBadRequest, HTTPFound, HTTPNotFound, 
+    HTTPServerError, HTTPMovedPermanently)
 from pyramid.renderers import render
 
 from pyrone.models import DBSession, Article, Comment, Tag, File, VerifiedEmail
@@ -20,7 +21,6 @@ from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, markup, notifications
 from pyrone.models.file import get_storage_dirs, allowed_dltypes
 from pyrone.models.user import normalize_email
-# import pyrone.lib.PyRSS2Gen as RSS2
 from pyrone.lib.PyRSS2Gen import RSS2, RSSItem
 
 log = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ def latest(request):
     show rendered previews, not complete articles
     """
     _ = request.translate
-    c = dict(articles=list())
+    c = {'articles': []}
 
     headers = []
 
@@ -76,7 +76,7 @@ def latest(request):
     dbsession = DBSession()
     user = request.user
 
-    q = dbsession.query(Article).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
+    q = dbsession.query(Article).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
     if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
 
@@ -114,15 +114,12 @@ def tag_articles(request):
 
     user = request.user
     dbsession = DBSession()
-    q = dbsession.query(Article).join(Tag).options(eagerload('tags')).options(eagerload('user')).order_by(Article.published.desc())
+    q = dbsession.query(Article).join(Tag).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
     if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
 
-    c = dict()
+    c = {}
     c['articles'] = q.filter(Tag.tag == tag)[(start_page * page_size):(start_page+1) * page_size + 1]
-
-    #for article in c['articles']:
-    #    log.debug(article.shortcut_date)
 
     c['prev_page'] = None
     if len(c['articles']) > page_size:
@@ -133,7 +130,7 @@ def tag_articles(request):
     if start_page > 0:
         c['next_page'] = route_url('blog_tag_articles', request, tag=tag, _query=[('start', start_page-1)])
 
-    c['page_title'] = _(u'Articles labeled with tag “%s”' % tag)
+    c['page_title'] = _(u'Articles labeled with tag “{0}”'.format(tag))
 
     return c
 
@@ -143,7 +140,7 @@ def _check_article_fields(article, request):
     Read article from the POST request, also validate data
     """
     _ = request.translate
-    errors = dict()
+    errors = {}
     # check passed data
     fields = ['title', 'shortcut', 'body']
     for f in fields:
@@ -180,7 +177,7 @@ def _update_article(article_id, request):
 
     # check fields etc
     e = _check_article_fields(article, request)
-    c = dict(errors={})
+    c = {'errors': {}}
     c['article'] = article
     c['errors'].update(e)
     c['article_published_str'] = request.POST['published']
@@ -196,7 +193,8 @@ def _update_article(article_id, request):
         else:
             # we need to convert LOCAL date and time to UTC seconds
             article.published = h.str_to_timestamp(request.POST['published'])
-            article.shortcut_date = '%04d/%02d/%02d' % tuple([int(x) for x in mo.groups()[0:3]])
+            v = [int(x) for x in mo.groups()[0:3]]
+            article.shortcut_date = '{0:04d}/{1:02d}/{2:02d}'.format(*v)
 
         dbsession = DBSession()
         q = dbsession.query(Article).filter(Article.shortcut_date == article.shortcut_date)\
@@ -239,11 +237,12 @@ def _update_article(article_id, request):
 @view_config(route_name='blog_write_article', renderer='/blog/write_article.mako', permission='write_article')
 def write_article(request):
     _ = request.translate
-    c = dict(
-        new_article=True,
-        submit_url=route_url('blog_write_article', request),
-        errors=dict(),
-        tags=list())
+    c = {
+        'new_article': True,
+        'submit_url': route_url('blog_write_article', request),
+        'errors': {},
+        'tags': []
+        }
 
     if request.method == 'GET':
         a = Article('new-article-shortcut', 'New article title')
@@ -268,7 +267,8 @@ def write_article(request):
             else:
                 # we need to convert LOCAL date and time to UTC seconds
                 article.published = h.str_to_timestamp(request.POST['published'])
-                article.shortcut_date = '%04d/%02d/%02d' % tuple([int(x) for x in mo.groups()[0:3]])
+                v = [int(x) for x in mo.groups()[0:3]]
+                article.shortcut_date = '{0:04d}/{1:02d}/{2:02d}'.format(*v)
 
             dbsession = DBSession()
             q = dbsession.query(Article).filter(Article.shortcut_date == article.shortcut_date)\
@@ -325,12 +325,12 @@ def edit_article_ajax(request):
     res = _update_article(article_id, request)
 
     if isinstance(res, HTTPFound):
-        return dict()
+        return {}
 
     if type(res) != dict:
         return res
 
-    c = dict()
+    c = {}
     if len(res['errors']) != 0:
         c['errors'] = res['errors']
 
@@ -340,8 +340,8 @@ def edit_article_ajax(request):
 @view_config(route_name='blog_edit_article', renderer='/blog/write_article.mako', permission='write_article')
 def edit_article(request):
     article_id = int(request.matchdict['article_id'])
-    c = dict()
-    c['errors'] = dict()
+    c = {}
+    c['errors'] = {}
     c['new_article'] = False
 
     dbsession = DBSession()
@@ -377,7 +377,7 @@ def delete_article(request):
     dbsession.delete(article)
     h.get_public_tags_cloud(force_reload=True)
 
-    data = dict()
+    data = {}
     return data
 
 
@@ -401,7 +401,7 @@ def _update_comments_counters(dbsession, article):
 
 
 def _view_article(request, article_id=None, article=None):
-    c = dict()
+    c = {}
 
     dbsession = DBSession()
 
@@ -416,11 +416,11 @@ def _view_article(request, article_id=None, article=None):
         return HTTPNotFound()
 
     comments = dbsession.query(Comment).filter(Comment.article == article).all()
-    comments_dict = dict()
+    comments_dict = {}
 
     for x in comments:
         if x.parent_id not in comments_dict:
-            comments_dict[x.parent_id] = list()
+            comments_dict[x.parent_id] = []
         if x.user is not None:
             x._real_email = x.user.email
         else:
@@ -429,7 +429,7 @@ def _view_article(request, article_id=None, article=None):
             x._real_email = None
         comments_dict[x.parent_id].append(x)
 
-    scope = dict(thread=[])
+    scope = {'thread': []}
 
     # we should hide all not approved comments for everyone who isn't a site admin
     display_not_approved = user.has_role('admin')
@@ -526,7 +526,7 @@ def add_article_comment_ajax(request):
     if 's' not in request.POST:
         return HTTPBadRequest()
 
-    json = dict()
+    json = {}
 
     key = request.POST['s']
 
@@ -545,7 +545,7 @@ def add_article_comment_ajax(request):
     body = request.POST[body_ind]
 
     if len(body) == 0:
-        return dict(error=_('Empty comment body is not allowed.'))
+        return {'error': _('Empty comment body is not allowed.')}
 
     comment = Comment()
     comment.set_body(body)
@@ -578,7 +578,7 @@ def add_article_comment_ajax(request):
         if parent is not None:
             if not parent.is_approved:
                 #
-                data = dict(error=_('Answering to not approved comment'))
+                data = { 'error': _('Answering to not approved comment')}
                 return json.dumps(data)
 
     comment.parent_id = parent_id
@@ -588,7 +588,7 @@ def add_article_comment_ajax(request):
         comment.is_subscribed = True
 
     # this list contains notifications
-    ns = list()
+    ns = []
 
     # if user has subscribed to answer then check is his/her email verified
     # if doesn't send verification message to the email
@@ -657,7 +657,7 @@ def add_article_comment_ajax(request):
     parent = comment.parent
     admin_email = get_config('admin_notifications_email')
     vf_q = dbsession.query(VerifiedEmail)
-    notifications_emails = list()
+    notifications_emails = []
 
     while parent is not None and loop_limit > 0:
         loop_limit -= 1
@@ -703,7 +703,12 @@ def add_article_comment_ajax(request):
     comment_url = h.article_url(request, article) + '?commentid=' + str(comment.id)
 
     # return rendered comment
-    data = dict(body=comment.rendered_body, approved=comment.is_approved, id=comment.id, url=comment_url)
+    data = {
+        'body': comment.rendered_body,
+        'approved': comment.is_approved,
+        'id': comment.id,
+        'url': comment_url
+        }
 
     return data
 
@@ -726,7 +731,7 @@ def approve_article_comment_ajax(request):
 
     _update_comments_counters(dbsession, article)
 
-    data = dict()
+    data = {}
     return data
 
 
@@ -742,7 +747,7 @@ def delete_article_comment_ajax(request):
     article = dbsession.query(Article).get(comment.article_id)
     _update_comments_counters(dbsession, article)
 
-    data = dict()
+    data = {}
     return data
 
 @view_config(route_name='blog_edit_comment_fetch_ajax', renderer='json', request_method='POST', permission='admin')
@@ -756,7 +761,7 @@ def edit_fetch_comment_ajax(request):
     comment = dbsession.query(Comment).get(comment_id)
 
     attrs = ('display_name', 'email', 'website', 'body', 'ip_address', 'xff_ip_address', 'is_subscribed')
-    data = dict()
+    data = {}
     for a in attrs:
         data[a] = getattr(comment, a)
 
@@ -773,11 +778,17 @@ def edit_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
     dbsession = DBSession()
 
-    comment = dbsession.query(Comment).options(eagerload('user')).options(eagerload('user.roles')).get(comment_id)
+    comment = dbsession.query(Comment).options(joinedload('user')).options(joinedload('user.roles')).get(comment_id)
 
     # passed POST parameters are: 'body', 'name', 'email', 'website', 'date', 'ip', 'xffip'
-    params = dict(body='body', name='display_name', email='email', website='website',
-                 ip='ip_address', xffip='xff_ip_address')
+    params = {
+        'body': 'body', 
+        'name': 'display_name',
+        'email': 'email',
+        'website': 'website',
+        'ip': 'ip_address',
+        'xffip': 'xff_ip_address'
+        }
 
     for k, v in params.items():
         value = request.POST[k]
@@ -793,7 +804,7 @@ def edit_article_comment_ajax(request):
 
     #comment_user = None
     #if comment.user is not None:
-    #    comment_user = dbsession.query(User).options(eagerload('roles')).get(comment.user)
+    #    comment_user = dbsession.query(User).options(joinedload('roles')).get(comment.user)
 
     dbsession.expunge(comment)
     if comment.user is not None:
@@ -801,11 +812,11 @@ def edit_article_comment_ajax(request):
         for p in comment.user.roles:
             dbsession.expunge(p)
 
-    data = dict()
+    data = {}
 
     # without "unicode" or "str" it generates broken HTML
     # because render() returns webhelpers.html.builder.literal
-    renderer_dict = dict(comment=comment)
+    renderer_dict = {'comment': comment}
     if comment.user is not None:
         comment._real_email = comment.user.email
     else:
@@ -835,7 +846,7 @@ def download_file(request):
         dltype = request.GET['dltype']
 
     if dltype == 'download':
-        headers.append(('Content-Disposition', str('attachment; filename=%s' % file.name)))
+        headers.append(('Content-Disposition', str('attachment; filename={0}'.format(file.name))))
     else:  # if file.dltype == 'auto':
         pass
 
@@ -878,7 +889,7 @@ def download_file_preview(request):
         dltype = request.GET['dltype']
 
     if dltype == 'download':
-        headers.append(('Content-Disposition', str('attachment; filename=preview_%s' % file.name)))
+        headers.append(('Content-Disposition', str('attachment; filename=preview_{0}'.format(file.name))))
 
     storage_dirs = get_storage_dirs()
     full_path = os.path.join(storage_dirs['orig'], filename)
@@ -886,7 +897,7 @@ def download_file_preview(request):
     preview_path += '.png'  # always save preview in PNG format
 
     if os.path.exists(preview_path) and not os.path.isfile(preview_path):
-        log.error('Path to preview image "%s" must be a regular file!' % preview_path)
+        log.error('Path to preview image "{0}" must be a regular file!'.format(preview_path))
         return HTTPServerError()
 
     # make preview image if required
@@ -930,8 +941,8 @@ def latest_rss(request):
     _ = request.translate
     dbsession = DBSession()
 
-    q = dbsession.query(Article).options(eagerload('tags'))\
-        .options(eagerload('user'))\
+    q = dbsession.query(Article).options(joinedload('tags'))\
+        .options(joinedload('user'))\
         .filter(Article.is_draft==False).order_by(Article.updated.desc())
     articles = q[0:10]
     rss_title = get_config('site_title') + ' - ' + _('Latest articles feed')
@@ -967,7 +978,7 @@ def latest_rss(request):
 
 @view_config(route_name='blog_view_moderation_queue', renderer='/blog/comments_moderation.mako', permission='admin')
 def view_moderation_queue(request):
-    c = dict(comments=list())
+    c = {'comments': []}
 
     dbsession = DBSession()
     comments = dbsession.query(Comment).filter(Comment.is_approved==False).all()

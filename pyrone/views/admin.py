@@ -45,14 +45,14 @@ def save_settings_ajax(request):
     Save settings
     """
     _ = request.translate
-    c = dict()
-    errors = dict()
+    c = {}
+    errors = {}
 
     epp = request.POST['elements_on_page']
 
     try:
         epp = int(epp)
-    except ValueError:
+    except (ValueError, TypeError):
         errors['elements_on_page'] = _('Invalid value, must be positive numeric value')
 
     preview_width = request.POST['image_preview_width']
@@ -104,7 +104,7 @@ def save_settings_ajax(request):
 
 @view_config(route_name='admin_list_files', renderer='/admin/list_files.mako', permission='admin')
 def list_files(request):
-    c = dict()
+    c = {}
 
     dbsession = DBSession()
     c['files'] = dbsession.query(File).all()
@@ -113,7 +113,7 @@ def list_files(request):
 
 @view_config(route_name='admin_list_visitors_emails', renderer='/admin/list_visitors_emails.mako', permission='admin')
 def list_visitors_emails(request):
-    c = dict()
+    c = {}
 
     dbsession = DBSession()
     c['emails'] = dbsession.query(VerifiedEmail).all()
@@ -122,7 +122,7 @@ def list_visitors_emails(request):
 
 @view_config(route_name='admin_visitor_email_edit_ajax', renderer='json', permission='admin', request_method='POST')
 def visitor_email_edit_ajax(request):
-    c = dict()
+    c = {}
 
     id = int(request.POST['id'])
     is_verified = request.POST['is_verified'] == 'true'
@@ -138,7 +138,10 @@ def visitor_email_edit_ajax(request):
 
 @view_config(route_name='admin_visitors_emails_delete_ajax', renderer='json', permission='admin', request_method='POST')
 def visitors_emails_delete_ajax(request):
-    c = dict(deleted=list(), failed=False)
+    c = {
+        'deleted': [], 
+        'failed': False
+        }
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
@@ -153,7 +156,7 @@ def upload_file(request):
     """
     Process file upload request
     """
-    c = dict(errors=dict())
+    c = {'errors': {}}
 
     c['file'] = File()
 
@@ -207,7 +210,7 @@ def upload_file(request):
 
 @view_config(route_name='admin_upload_file_check_ajax', renderer='json', permission='admin', request_method='POST')
 def upload_file_check_ajax(request):
-    c = dict(exists=False)
+    c = {'exists': False}
 
     # check filename
     if 'filename' in request.POST:
@@ -225,7 +228,10 @@ def delete_files(request):
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
-    c = dict(deleted=uids, failed=False)
+    c = {
+        'deleted': uids, 
+        'failed': False
+        }
     dbsession = DBSession()
     dbsession.query(File).filter(File.id.in_(uids)).delete(False)
 
@@ -234,7 +240,7 @@ def delete_files(request):
 
 @view_config(route_name='admin_edit_file_props', renderer='/admin/edit_file_props.mako', permission='admin')
 def edit_file_props(request):
-    c = dict(errors=dict())
+    c = {'errors': {}}
 
     file_id = int(request.matchdict['file_id'])
     dbsession = DBSession()
@@ -268,7 +274,7 @@ def edit_file_props(request):
 
 @view_config(route_name='admin_edit_file_props_check_ajax', renderer='json', permission='admin', request_method='POST')
 def edit_file_props_check_ajax(request):
-    c = dict()
+    c = {}
     file_id = int(request.matchdict['file_id'])
 
     # check filename
@@ -284,7 +290,7 @@ def edit_file_props_check_ajax(request):
 
 @view_config(route_name='admin_list_backups', renderer='/admin/list_backups.mako', permission='admin')
 def list_backups(request):
-    c = dict(backups=list())
+    c = {'backups': []}
 
     backups_dir = get_backups_dir()
     ind = 1
@@ -293,7 +299,12 @@ def list_backups(request):
         full_fn = os.path.join(backups_dir, fn)
         if not os.path.isfile(full_fn):
             continue
-        br = dict(id=ind, filename=fn, filename_b64=b64encode(fn.encode('utf-8')).decode('utf-8'), size=os.path.getsize(full_fn))
+        br = {
+            'id': ind,
+            'filename': fn, 
+            'filename_b64': b64encode(fn.encode('utf-8')).decode('utf-8'), 
+            'size': os.path.getsize(full_fn)
+            }
         c['backups'].append(br)
         ind += 1
 
@@ -312,25 +323,25 @@ def restore_backup(request):
     all_backups = [x for x in os.listdir(backups_dir) if os.path.isfile(os.path.join(backups_dir, x))]
 
     if filename not in all_backups:
-        return dict(error=_('Backup file not found'))
+        return {'error': _('Backup file not found')}
 
     full_filename = os.path.join(backups_dir, filename)
 
     try:
         z = zipfile.ZipFile(full_filename)
     except zipfile.BadZipfile:
-        return dict(error=_('Backup file is broken!'))
+        return {'error': _('Backup file is broken!')}
 
     # now check zip file contents, first extract file "index.xml"
     try:
         xml_f = z.open('index.xml')
     except KeyError:
-        return dict(error=_('Backup file is broken, no catalog file inside!'))
+        return {'error': _('Backup file is broken, no catalog file inside!')}
 
     try:
         xmldoc = etree.parse(xml_f)
     except etree.XMLSyntaxError:
-        return dict(error=_('Backup file is broken, XML catalog is broken!'))
+        return {'error': _('Backup file is broken, XML catalog is broken!')}
 
     root = xmldoc.getroot()
     NS = 'http://regolit.com/ns/pyrone/backup/1.0'
@@ -339,24 +350,22 @@ def restore_backup(request):
         """
         Convert tag name "name" to full qualified name like "{http://regolit.com/ns/pyrone/backup/1.0}name"
         """
-        return '{%s}%s' % (NS, name)
+        return '{{{0}}}{1}'.format(NS, name)
 
     def unt(name):
         """
         Remove namespace
         """
-        return name.replace('{%s}' % NS, '')
-
-    #nsmap = {None: NS}
+        return name.replace('{{{0}}}'.format(NS), '')
 
     # now check is backup version supported
     if root.tag != t('backup'):
-        return dict(error=_('Unknown XML format of catalog file.'))
+        return {'error': _('Unknown XML format of catalog file.')}
 
     backup_version = root.get('version')
 
     if backup_version not in ('1.0', '1.1'):
-        return dict(error=_(u'Unsupported backup version: “%s”!' % root.get('version')))
+        return {'error': _(u'Unsupported backup version: “{0}”!'.format(root.get('version')))}
 
     dbsession = DBSession()
     # now start to extract all data and fill DB
@@ -369,7 +378,7 @@ def restore_backup(request):
     dbsession.query(File).delete()  # also remove files from the storage dir
     dbsession.query(Config).delete()
     dbsession.query(User).delete()
-    namespaces = dict(b=NS)
+    namespaces = {'b': NS}
 
     # first restore config
     nodes = xmldoc.xpath('//b:backup/b:settings', namespaces=namespaces)
@@ -401,7 +410,7 @@ def restore_backup(request):
         u.id = int(node.get('id'))
 
         subnodes = node.xpath('./*', namespaces=namespaces)
-        m = dict()
+        m = {}
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
 
@@ -415,8 +424,12 @@ def restore_backup(request):
 
         if backup_version == '1.0':
             # restore permissions now
-            permissions_roles_map = dict(write_article='writer', edit_article='editor',
-                admin='admin', files='filemanager')
+            permissions_roles_map = {
+                'write_article': 'writer',
+                'edit_article': 'editor',
+                'admin': 'admin',
+                'files': 'filemanager'
+                }
             subnodes = node.xpath('./b:permissions/b:permission', namespaces=namespaces)
             for sn in subnodes:
                 permission_name = sn.text
@@ -460,7 +473,7 @@ def restore_backup(request):
         article.user_id = int(node.get('user-id'))
 
         subnodes = node.xpath('./*', namespaces=namespaces)
-        m = dict()
+        m = {}
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
 
@@ -520,7 +533,7 @@ def restore_backup(request):
                 pass
 
             subsubnodes = sn.xpath('./*', namespaces=namespaces)
-            m = dict()
+            m = {}
             for sn in subsubnodes:
                 m[unt(sn.tag)] = sn.text
 
@@ -563,7 +576,7 @@ def restore_backup(request):
         # read "name", "dltype", "updated", "content_type"
 
         subnodes = node.xpath('./*', namespaces=namespaces)
-        m = dict()
+        m = {}
         for sn in subnodes:
             m[unt(sn.tag)] = sn.text
 
@@ -601,8 +614,7 @@ def restore_backup(request):
     # we should also destroy current session (logout)
     forget(request)
 
-    #return dict(error=root.tag)
-    return dict(success=True)
+    return {'success': True}
 
 
 @view_config(route_name='admin_backup_now', renderer='json', permission='admin')
@@ -613,8 +625,8 @@ def backup_now(request):
     backups_dir = get_backups_dir()
     now = datetime.now()
     stamp = now.strftime('%Y%m%d-%H%M%S')
-    backup_file_name = 'backup-%s.zip' % stamp
-    backup_tmp_dir = os.path.join(backups_dir, 'tmp-%s' % stamp)
+    backup_file_name = 'backup-{0}.zip'.format(stamp)
+    backup_tmp_dir = os.path.join(backups_dir, 'tmp-{0}'.format(stamp))
 
     os.mkdir(backup_tmp_dir)
 
@@ -710,7 +722,7 @@ def backup_now(request):
         if not os.path.exists(full_path) or not os.path.isfile(full_path):
             continue
 
-        target_file = 'file%05d' % ind
+        target_file = 'file{0:05}'.format(ind)
         shutil.copy(full_path, os.path.join(backup_tmp_dir, target_file))
 
         file_el = e(files_el, 'file')
@@ -722,8 +734,7 @@ def backup_now(request):
         ind += 1
 
     # write xml
-    #data = dict(test=etree.tostring(root, pretty_print=True, encoding='UTF-8', xml_declaration=True))
-    data = dict()
+    data = {}
     index_xml = os.path.join(backup_tmp_dir, 'index.xml')
     out = open(index_xml, 'wb')
     etree.ElementTree(root).write(index_xml, pretty_print=True, encoding='UTF-8', xml_declaration=True)
@@ -770,7 +781,7 @@ def download_backup(request):
     headers = []
     content_length = os.path.getsize(full_path)
     headers.append(('Content-Length', str(content_length)))
-    headers.append(('Content-Disposition', str('attachment; filename=%s' % filename)))
+    headers.append(('Content-Disposition', str('attachment; filename={0}'.format(filename))))
 
     response = Response(content_type='application/octet-stream')
     try:
@@ -785,7 +796,7 @@ def download_backup(request):
 
 @view_config(route_name='admin_delete_backups_ajax', renderer='json', permission='admin')
 def delete_backups(request):
-    c = dict(deleted=[])
+    c = {'deleted': []}
     backups_dir = get_backups_dir()
 
     uids_raw = request.POST['uids']
@@ -811,7 +822,7 @@ def delete_backups(request):
 
 @view_config(route_name='admin_list_accounts', renderer='/admin/list_accounts.mako', permission='admin')
 def list_accounts(request):
-    c = dict()
+    c = {}
 
     dbsession = DBSession()
     c['users'] = dbsession.query(User).all()
@@ -823,7 +834,10 @@ def delete_accounts_ajax(request):
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
-    c = dict(deleted=uids, failed=False)
+    c = {
+        'deleted': uids, 
+        'failed': False
+        }
     dbsession = DBSession()
     dbsession.query(User).filter(User.id.in_(uids)).delete(False)
 
@@ -832,7 +846,10 @@ def delete_accounts_ajax(request):
 
 @view_config(route_name='admin_settings_widget_pages', renderer='/admin/settings_widget_pages.mako', permission='admin', request_method='GET')
 def view_pages_widget_settings(request):
-    c = dict(errors=dict(), settings=dict())
+    c = {
+        'errors': {}, 
+        'settings': {}
+        }
 
     widget_pages_pages_spec = config.get('widget_pages_pages_spec')
 
@@ -843,7 +860,7 @@ def view_pages_widget_settings(request):
 
 @view_config(route_name='admin_settings_widget_pages_save_ajax', renderer='json', permission='admin', request_method='POST')
 def save_pages_widget_settings_ajax(request):
-    c = dict()
+    c = {}
 
     widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
     config.set('widget_pages_pages_spec', widget_pages_pages_spec)
