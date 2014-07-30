@@ -222,3 +222,12 @@ def verify_email(request):
         c['result'] = _('Email `{0}` has confirmed.').format('aaa')
 
     return c
+
+
+@view_config(context='pyramid.httpexceptions.HTTPNotFound', renderer='/404.mako')
+def handler_404_not_found(request):
+    return {}
+
+@view_config(context='pyramid.httpexceptions.HTTPForbidden', renderer='/403.mako')
+def handler_403_not_found(request):
+    return {}
