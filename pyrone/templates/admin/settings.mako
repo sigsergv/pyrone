@@ -75,35 +75,5 @@ $(window).scroll(function() {
   ${h.form_checkbox('admin_notify_new_user', None, settings['admin_notify_new_user'] == 'true', errors, 
   	label=_('new user registered'))|n}
 
-  ${h.form_input_text('verification_msg_subject_tpl', _('Email address verification message subject template'), settings['verification_msg_subject_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols:') + '{site_title}')|n}
-  ${h.form_textarea('verification_msg_body_tpl', _('Email address verification message body template'), settings['verification_msg_body_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols:') + '{site_title}, {email}, {verify_link}', height=150)|n}
-    
-  ${h.form_input_text('comment_answer_msg_subject_tpl', _('Answer to comment notification message subject template'),\
-  	settings['comment_answer_msg_subject_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols:') + '{article_title}, {comment_author_name}, {comment_author_email}, {site_title}')|n}
-  ${h.form_textarea('comment_answer_msg_body_tpl', _('Answer to comment notification message body template'), 
-  	settings['comment_answer_msg_body_tpl'], errors, \
-  	help=_('Plain text, no HTML, allowed substitution symbols:') + '{comment_date}, {comment_author_name}, \
-{comment_author_email}, {comment_text}, {comment_link}, {article_title}, {article_link}', height=150)|n}
-    
-  ${h.form_input_text('admin_notify_new_comment_subject_tpl', _('Admin notification subject template: new comment'),\
-  	settings['admin_notify_new_comment_subject_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols:') + '{article_title}, {comment_author_name}, \
-{comment_author_email}, {site_title}')|n}
-  ${h.form_textarea('admin_notify_new_comment_body_tpl', _('Admin notification body template: new comment'), 
-  	settings['admin_notify_new_comment_body_tpl'], errors, \
-  	help=_('Plain text, no HTML, allowed substitution symbols:') + '{comment_date}, {comment_author_name}, \
-{comment_author_email}, {comment_text}, {comment_link}, {article_title}, {article_link}', height=150)|n}
-    
-  ${h.form_input_text('admin_notify_new_user_subject_tpl', _('Admin notification subject template: new user registered'),\
-  	settings['admin_notify_new_user_subject_tpl'],
-    errors, help=_('Plain text, no HTML, allowed substitution symbols:') + '{user}')|n}
-  ${h.form_textarea('admin_notify_new_user_body_tpl', _('Admin notification body template: new user registered'), 
-  	settings['admin_notify_new_user_body_tpl'], errors, \
-  	help=_('Plain text, no HTML, allowed substitution symbols:') + '{user}, \
-    {answer_title}, {answer_body}, {email}', height=150)|n}
-    
 </dl>
 </form>

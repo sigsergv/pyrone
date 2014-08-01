@@ -616,7 +616,7 @@ def add_article_comment_ajax(request):
                 dbsession.add(vf)
 
             if send_evn:
-                ns.append(notifications.gen_email_verification_notification(vrf_email, vf_token))
+                ns.append(notifications.gen_email_verification_notification(request, vrf_email, vf_token))
 
     request.response.set_cookie('is_subscribed', 'true' if comment.is_subscribed else 'false', max_age=31536000)
 
@@ -681,6 +681,9 @@ def add_article_comment_ajax(request):
     admin_notifications_email = normalize_email(get_config('admin_notifications_email'))
 
     for nfn in ns:
+        if nfn is None:
+            continue
+
         if nfn.to == admin_notifications_email:
             continue
         nfn.send()

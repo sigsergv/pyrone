@@ -8,11 +8,16 @@ import re
 from smtplib import SMTP
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from multiprocessing import Process
+
 
 from pyramid.url import route_url
+from pyramid import threadlocal
+from pyramid.renderers import render
 
 from pyrone.models.config import get as get_config
 from pyrone.models.user import normalize_email
+from pyrone.lib.lang import lang
 from pyrone.lib import helpers as h
 
 log = logging.getLogger(__name__)
@@ -35,56 +40,75 @@ def init_notifications_from_settings(settings):
     enable_email = True
     smtp_server = settings.get('pyrone.notifications.mail_smtp_server')
 
+COMMASPACE = ', '
+SUBJECT_RE = re.compile(r'^Subject: ([^\n\r]+)')
+
+def send_email_process(request, template_name, recipients, sender, params):
+    """Process for real sending emails"""
+    language = lang(request)
+
+    html = render('/email/'+template_name+'.mako', params, request)
+
+    # now cut out subject line from the message
+    mo = SUBJECT_RE.match(html)
+    if mo is None:
+        subject = 'NO-SUBJECT'
+    else:
+        subject = mo.group(1)
+        html = SUBJECT_RE.sub('', html, 1)
+
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = COMMASPACE.join(recipients)
+    msg.preamble = 'Use multipart, Luke'
+
+    html_part = MIMEText(html, 'html', 'utf-8')
+    msg.attach(html_part)
+
+    log.debug('--------------------------------------------------')
+    debug_data = '''
+        SEND NOTIFICATION:
+        Subject: {subject}
+        To: {to}
+
+        {body}
+        '''.format(subject=subject, to=msg['To'], body=html)
+    log.debug(debug_data)
+    log.debug('--------------------------------------------------')
+
+    return
+    with SMTP(smtp_server) as smtp:
+        smtp.send_message(msg)
+
 
 class Notification:
     """
     Object represents notification object
     """
-    subject = None
-    body = None
     to = None
+    request = None
+    params = None
 
     def send(self):
-        log.debug('--------------------------------------------------')
-        debug_data = '''
-            SEND NOTIFICATION:
-            Subject: {subject}
-            To: {to}
 
-            {body}
-            '''.format(subject=self.subject, to=self.to, body=self.body)
-        log.debug(debug_data)
-        log.debug('--------------------------------------------------')
-        sender = get_config('notifications_from_email')
-        if enable_email:
-            msg = MIMEMultipart()
-            msg['Subject'] = self.subject
-            msg['From'] = sender
-            msg['To'] = self.to
-            msg.preamble = 'Use multipart, Luke'
-
-            body = self.body
-            body = re.sub('\r', '', body)
-            body = re.sub('\n', '<br>\n', body)
-
-            html_part = MIMEText(body, 'html', 'utf-8')
-            msg.attach(html_part)
-
-            try:
-                smtp = SMTP(smtp_server)
-            except ConnectionRefusedError as e:
-                log.error('Failed to send email: smtp server connection refused')
-            else:
-                with smtp:
-                    smtp.send_message(msg)
-
-        else:
+        if not enable_email:
             log.debug('mail sending is not allowed in config')
+            return
 
-    def __init__(self, to, subject, body):
-        self.subject = subject
-        self.body = body
+        sender = get_config('notifications_from_email')
+        Process(target=send_email_process, args=(self.request, self.template_name, 
+            [self.to], sender, self.params)).start()
+
+    def __init__(self, template_name, to, params, request=None):
         self.to = to
+        self.template_name = template_name
+        self.params = params
+
+        if request is None:
+            request = threadlocal.get_current_request()
+
+        self.request = request
 
 
 def _extract_comment_sub(request, comment):
@@ -101,14 +125,12 @@ def _extract_comment_sub(request, comment):
     # construct comment link
     article = comment.article
     comment_url = h.article_url(request, article) + '#comment-' + str(comment.id)
-    comment_link = '<a href="{url}">{title}</a>'.format(url=comment_url, title=comment_url)
 
     comment_date = h.timestamp_to_str(comment.published)
     res = {
         'comment_author_email': author_email,
         'comment_author_name': author_name,
         'comment_text': comment.body,
-        'comment_link': comment_link,
         'comment_date': comment_date,
         'comment_url': comment_url
         }
@@ -120,11 +142,10 @@ def _extract_article_sub(request, article):
     Extract placeholders substitution strings from the article object
     """
     article_url = h.article_url(request, article)
-    article_link = '<a href="{url}">{title}</a>'.format(url=article_url, title=article.title)
 
     res = {
         'article_title': article.title,
-        'article_link': article_link
+        'article_url': article_url
         }
     return res
 
@@ -132,85 +153,44 @@ def _extract_article_sub(request, article):
 def gen_comment_response_notification(request, article, comment, top_comment, email):
     """
     Generate comment answer notification
-    Plaseholders for the subject:
-        {article_title}
-        {comment_author_name} — author of the comment
-        {comment_author_email}
-        {site_title}
-    Plaseholders for the body:
-        {comment_date} — date, when comment was written
-        {comment_author_name} — author of the comment
-        {comment_author_email}
-        {comment_text} — comment text
-        {comment_link} — link to the comment
-        {article_title}
-        {article_link}
     """
-    # generate notification using templates
-    subject_tpl = get_config('comment_answer_msg_subject_tpl')
-    body_tpl = get_config('comment_answer_msg_body_tpl')
-
-    subject = subject_tpl
-    repl = {}
-    repl.update(_extract_comment_sub(request, comment))
-    repl.update(_extract_article_sub(request, comment.article))
-    repl['site_title'] = get_config('site_title')
-
-    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
-        if k in repl:
-            subject = subject.replace('{{{0}}}'.format(k), repl[k])
-
-    body = body_tpl
-    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date',
-              'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
-        if k in repl:
-            body = body.replace('{{{0}}}'.format(k), repl[k])
-
-    # process additional placeholders
-    comment_link_re = re.compile('\\{comment_link\\|text=(.+?)\\}')
-
-    def f(mo):
-        return '<a href="{0}">{1}</a>'.format(repl['comment_url'], mo.group(1))
-    body = comment_link_re.sub(f, body)
 
     email = normalize_email(email)
+    if not email:
+        return None
 
-    n = Notification(email, subject, body)
+    # placeholders replacements
+    params = {
+        'site_title': get_config('site_title')
+    }
+    params.update(_extract_comment_sub(request, comment))
+    params.update(_extract_article_sub(request, article))
+
+    n = Notification('comment_response', email, params, request=request)
+
     return n
 
 
-def gen_email_verification_notification(email, verification_code):
+def gen_email_verification_notification(request, email, verification_code):
     """
     Generate email address verification notification.
-    Placeholders for the subject:
-        {site_title}
-    Placeholders for the body:
-        {site_title}
-        {email}
-        {verify_link}
     """
-    subject_tpl = get_config('verification_msg_subject_tpl')
-    body_tpl = get_config('verification_msg_body_tpl')
 
-    repl = {}
-    repl['site_title'] = get_config('site_title')
-    repl['email'] = email
+    email = normalize_email(email)
+    if not email:
+        return None
 
+    # placeholders replacements
     base_url = get_config('site_base_url')
     q = urllib.parse.urlencode({'token': verification_code, 'email': email})
     verify_url = base_url + '/verify-email?' + q
-    repl['verify_url'] = verify_url
-    repl['verify_link'] = '<a href="{url}">{title}</a>'.format(url=verify_url, title=verify_url)
+    params = {
+        'site_title': get_config('site_title'),
+        'email': email,
+        'verify_url': verify_url
+    }
 
-    subject = subject_tpl
-    for k in ('site_title', ):
-        subject = subject.replace('{{{0}}}'.format(k), repl[k])
-
-    body = body_tpl
-    for k in ('site_title', 'email', 'verify_link'):
-        body = body.replace('{{{0}}}'.format(k), repl[k])
-
-    n = Notification(email, subject, body)
+    n = Notification('email_verification', email, params, request=request)
 
     return n
 
@@ -218,50 +198,18 @@ def gen_email_verification_notification(email, verification_code):
 def gen_new_comment_admin_notification(request, article, comment):
     """
     Generate new comment notification for the administrator.
-    Plaseholders for the subject:
-        {article_title}
-        {comment_author_name} — author of the comment
-        {comment_author_email}
-        {site_title}
-    Plaseholders for the body:
-        {comment_date} — date, when comment was written
-        {comment_author_name} — author of the comment
-        {comment_author_email}
-        {comment_text} — comment text
-        {comment_link} — link to the comment
-        {article_title}
-        {article_link}
     """
-    subject_tpl = get_config('admin_notify_new_comment_subject_tpl')
-    body_tpl = get_config('admin_notify_new_comment_body_tpl')
-
-    repl = {}
-    repl.update(_extract_comment_sub(request, comment))
-    repl.update(_extract_article_sub(request, comment.article))
-    repl['site_title'] = get_config('site_title')
-
-    subject = subject_tpl
-    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'site_title'):
-        if k in repl:
-            subject = subject.replace('{{{0}}}'.format(k), repl[k])
-
-    body = body_tpl
-    for k in ('comment_author_name', 'comment_author_email', 'article_title', 'comment_date',
-              'comment_text', 'comment_link', 'article_title', 'article_link', 'site_title'):
-        if k in repl:
-            body = body.replace('{{{0}}}'.format(k), repl[k])
-
-    # process additional placeholders
-    comment_link_re = re.compile('\\{comment_link\\|text=(.+?)\\}')
-
-    def f(mo):
-        return '<a href="{0}">{1}</a>'.format(repl['comment_url'], mo.group(1))
-    body = comment_link_re.sub(f, body)
-
     email = normalize_email(get_config('admin_notifications_email'))
     if not email:
         return None
 
-    n = Notification(email, subject, body)
+    # placeholders replacements
+    params = {
+        'site_title': get_config('site_title')
+    }
+    params.update(_extract_comment_sub(request, comment))
+    params.update(_extract_article_sub(request, comment.article))
+
+    n = Notification('admin_new_comment', email, params, request=request)
 
     return n

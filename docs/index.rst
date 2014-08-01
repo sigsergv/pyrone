@@ -338,16 +338,11 @@ commands.
 
 Collect messages from source files (python only)::
 
-    $ python setup.py extract_messages
-
-Collect messages from source files (javascript only)::
-
-    $ python setup.py extract_messages_js
+    $ python3.4 setup.py extract_messages extract_messages_js
 
 Update messages (using .pot-file created by ``extract_messages`` command)::
 
-    $ python setup.py update_catalog
-    $ python setup.py update_catalog_js
+    $ python3.4 setup.py update_catalog update_catalog_js
 
 Or collect and update in one step::
 
@@ -355,7 +350,7 @@ Or collect and update in one step::
 
 Compile translation files (for python code)::
 
-    $ python setup.py compile_catalog
+    $ python3.4 setup.py compile_catalog
 
 JavaScript code a bit tricky, compiled js files are immediately placed into the 
 ``pyrone/static/lang`` directory so after compiling these files have to be
