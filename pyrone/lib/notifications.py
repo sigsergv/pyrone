@@ -77,7 +77,6 @@ def send_email_process(request, template_name, recipients, sender, params):
     log.debug(debug_data)
     log.debug('--------------------------------------------------')
 
-    return
     with SMTP(smtp_server) as smtp:
         smtp.send_message(msg)
 
