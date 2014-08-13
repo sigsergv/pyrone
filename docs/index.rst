@@ -350,18 +350,12 @@ Or collect and update in one step::
 
 Compile translation files (for python code)::
 
-    $ python3.4 setup.py compile_catalog
-
-JavaScript code a bit tricky, compiled js files are immediately placed into the 
-``pyrone/static/lang`` directory so after compiling these files have to be
-commited::
-
-    $ python setup.py compile_catalog_js
+    $ python3.4 setup.py compile_catalog compile_catalog_js
 
 Start new language ("es", Spanish in this example, both for python and javascript code, do this ONCE for one language)::
 
-    $ python setup.py init_catalog -l es
-    $ python setup.py init_catalog_js -l es
+    $ python3.4 setup.py init_catalog -l es
+    $ python3.4 setup.py init_catalog_js -l es
 
 Code syntax highlight in the articles
 -------------------------------------
@@ -392,8 +386,8 @@ Release and packaging
 
 Prepare and upload source package to pypi::
 
-    $ python setup.py clean sdist upload
+    $ python3.4 setup.py clean compile_catalog compile_catalog_js sdist upload
 
 Alternatively you could use the following command, it will ask you for password::
 
-    $ python setup.py clean sdist upload
+    $ python3.4 setup.py clean sdist upload
