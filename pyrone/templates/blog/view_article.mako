@@ -34,9 +34,11 @@ $(document).ready(function() {
 <div class="article">
   <div class="title">
 % if editor_permission:
- <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon" title="${_('edit')}"><span class="button-edit"> </span></a>\
+<div class="article-actions">
+ <a href="${url('blog_edit_article', article_id=article.id)}" class="border-icon" title="${_('edit')}"><span class="fa fa-pencil"></span></a>\
  <a href="#" onclick="Pyrone_article_deleteArticleReq('${url('blog_article_delete_ajax', article_id=article.id)}',\
- '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}" title="${_('delete')}"><span class="button-delete"> </span></a>\
+ '${article.id}'); return false;" class="border-icon" id="a-d-${article.id}" title="${_('delete')}"><span class="fa fa-trash-o"></span></a>\
+</div>
 %endif
     ${article.title}\
 % if article.is_draft:

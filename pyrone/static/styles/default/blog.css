@@ -24,23 +24,6 @@ a:hover {
 div.clear-both {
 	clear: both;
 }
-div.title a.border-icon {
-    display: none;
-}
-div.title:hover a.border-icon {
-    display: inline-block;
-    border-radius: 4px;
-	border: 1px solid #000080;
-	text-decoration: none;
-	color: #000080;
-    margin: -1px 0 -1px 0;
-	background-color: #e5e5e5;
-    padding: 0 3px 0 3px;
-}
-div.title:hover a.border-icon:hover {
-    border-color: #0040ff;
-    color: #0040ff;
-}
 a.confirm-icon {
 	border: 1px solid #800000;
 	background-color: #800000;
@@ -67,22 +50,6 @@ a.new-window {
 .account-admin {
 	font-weight: bold;
 	color: #060;
-}
-.button-delete {
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	background-repeat: no-repeat;
-	background-position: top left;
-	background-image: url(/static/styles/default/images/broom.png);
-}
-.button-edit {
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	background-repeat: no-repeat;
-	background-position: top left;
-	background-image: url(/static/styles/default/images/edit.png);
 }
 div#topbar, div#topbar-admin {
 	position: absolute;
@@ -195,6 +162,7 @@ div.article-preview div.title {
 	padding: 5px 5px 5px 0;
 	font-size: 17pt;
 	font-weight: bolder;
+	position: relative;
 }
 div.article-preview div.tags {
     font-size: 10pt;
@@ -254,6 +222,7 @@ div.article div.title {
 	padding: 5px 5px 5px 0;
 	font-size: 17pt;
 	font-weight: bolder;
+	position: relative;
 }
 div.article div.subtitle {
 }
@@ -467,6 +436,15 @@ div.editor-text-controls span.button {
 	background-color: #F6FFEE;
 	padding: 0 2px 0 2pt;
 	cursor: pointer;
+}
+
+.article-actions {
+	position: absolute;
+	top: 10px;
+	right: 0;
+}
+.article-actions .border-icon {
+	font-size: 22px;
 }
 
 /* pygments styles */
