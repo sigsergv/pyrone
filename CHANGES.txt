@@ -4,6 +4,10 @@
 * migrated to python3.4
 * code cleanup
 * email notification templates moved to mako templates from settings
+* asynchronous email notifications
+* some UI improvements and UI cleanup
+* added font-awesome for icons
+* added 404 and 403 error pages
 
 1.1.2
 -----
