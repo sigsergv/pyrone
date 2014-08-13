@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-08-01 14:37+0700\n"
+"POT-Creation-Date: 2014-08-13 20:29+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
@@ -427,49 +427,6 @@ msgstr ""
 msgid "new user registered"
 msgstr ""
 
-#: pyrone/templates/admin/settings.mako:78
-msgid "Email address verification message subject template"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:79
-#: pyrone/templates/admin/settings.mako:81
-#: pyrone/templates/admin/settings.mako:85
-#: pyrone/templates/admin/settings.mako:88
-#: pyrone/templates/admin/settings.mako:93
-#: pyrone/templates/admin/settings.mako:97
-#: pyrone/templates/admin/settings.mako:102
-#: pyrone/templates/admin/settings.mako:105
-msgid "Plain text, no HTML, allowed substitution symbols:"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:80
-msgid "Email address verification message body template"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:83
-msgid "Answer to comment notification message subject template"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:86
-msgid "Answer to comment notification message body template"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:91
-msgid "Admin notification subject template: new comment"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:95
-msgid "Admin notification body template: new comment"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:100
-msgid "Admin notification subject template: new user registered"
-msgstr ""
-
-#: pyrone/templates/admin/settings.mako:103
-msgid "Admin notification body template: new user registered"
-msgstr ""
-
 #: pyrone/templates/admin/settings_widget_pages.mako:3
 #: pyrone/templates/admin/settings_widget_pages.mako:5
 msgid "Widget “Pages” parameters"
@@ -788,53 +745,54 @@ msgstr ""
 
 #: pyrone/templates/email/admin_new_comment.mako:1
 msgid "EMAIL# ADMIN SUBJECT NEW COMMENT TO THE ARTICLE"
-msgstr "New comment to the article “{article_title}” on the site “{site_title}”"
+msgstr ""
+"New comment to article «{article_title}» from {comment_author_name} on "
+"the site «{site_title}»"
 
 #: pyrone/templates/email/admin_new_comment.mako:5
 msgid "EMAIL# ADMIN NEW COMMENT TO THE ARTICLE"
-msgstr "New comment to the article <a href=\"{article_url}\">{article_title}</a>."
+msgstr "New comment to the article <a href=\"article_url\">{article_title}</a>."
 
 #: pyrone/templates/email/admin_new_comment.mako:7
 msgid "EMAIL# ADMIN VISITOR ON DATE WROTE THE FOLLOWING"
 msgstr ""
-"Visitor <strong>{comment_author_name}</strong> with email "
-"<strong>{comment_author_email}</strong> on {comment_date} wrote this "
-"comment:"
+"<strong>{comment_author_name} ({comment_author_email})</strong> on "
+"<em>{comment_date}</em> wrote:"
 
 #: pyrone/templates/email/admin_new_comment.mako:11
 #: pyrone/templates/email/comment_response.mako:11
 msgid "EMAIL# DIRECT LINK TO COMMENT"
-msgstr "<a href=\"{comment_url}\">Click here</a> to open comment."
+msgstr "<a href=\"{comment_url}\">Direct link to the comment.</a>"
 
 #: pyrone/templates/email/comment_response.mako:1
 msgid "EMAIL# SUBJECT SOMEONE ANSWERED TO YOUR COMMENT"
 msgstr ""
-"Answer to your comment to the article “{article_title}” on the site "
-"“site_title”"
+"Someone ({comment_author_name}) just answered to your comment on the site"
+" «{site_title}»"
 
 #: pyrone/templates/email/comment_response.mako:5
 msgid "EMAIL# USER ANSWERED TO YOUR COMMENT FOR THE ARTICLE"
 msgstr ""
-"Some visitor just left answer to your comment to the article <a "
-"href=\"{article_url}\">{article_title}</a>"
+"A new answer to your comment to the article <a "
+"href=\"article_url\">{article_title}</a>."
 
 #: pyrone/templates/email/comment_response.mako:7
 msgid "EMAIL# VISITOR ON DATE WROTE THE FOLLOWING"
-msgstr ""
-"Visitor <strong>{comment_author_name}</strong> on {comment_date} wrote "
-"this comment:"
+msgstr "<strong>{comment_author_name}</strong> on <em>{comment_date}</em> wrote:"
 
 #: pyrone/templates/email/email_verification.mako:1
 msgid "EMAIL# SUBJECT PLEASE VERIFY YOUR EMAIL ADDRESS FOR THE SITE"
-msgstr "Please verify your email address for the site “{site_title}”"
+msgstr "Please verify your e-mail on the site «{site_title}»"
 
 #: pyrone/templates/email/email_verification.mako:5
 msgid "EMAIL# TO RECEIVE NOTIFICATIONS FROM SITE YOU MUST CONFIRM THIS ADDRESS"
-msgstr "You need to confirm email address <strong>email</strong> if you want to receive notifications from the site."
+msgstr ""
+"You need to verify your e-mail address <em>{email}</em> if you want to "
+"receive notification from the site «{site_title}»."
 
 #: pyrone/templates/email/email_verification.mako:7
 msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
-msgstr "Click here to confirm email address"
+msgstr "Please click here to confirm your address"
 
 #: pyrone/templates/widgets/account.mako:9
 msgid "<strong>Sign in</strong> using"
@@ -905,50 +863,50 @@ msgid "Verification failed: email not found."
 msgstr ""
 
 #: pyrone/views/account.py:222
-msgid "Email `{0}` has confirmed."
+msgid "Email `{0}` has been confirmed."
 msgstr ""
 
 #: pyrone/views/admin.py:56 pyrone/views/admin.py:62
 msgid "Invalid value, must be positive numeric value"
 msgstr ""
 
-#: pyrone/views/admin.py:326
+#: pyrone/views/admin.py:323
 msgid "Backup file not found"
 msgstr ""
 
-#: pyrone/views/admin.py:333
+#: pyrone/views/admin.py:330
 msgid "Backup file is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:339
+#: pyrone/views/admin.py:336
 msgid "Backup file is broken, no catalog file inside!"
 msgstr ""
 
-#: pyrone/views/admin.py:344
+#: pyrone/views/admin.py:341
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:363
+#: pyrone/views/admin.py:360
 msgid "Unknown XML format of catalog file."
 msgstr ""
 
-#: pyrone/views/admin.py:368
+#: pyrone/views/admin.py:365
 msgid "Unsupported backup version: “{0}”!"
 msgstr ""
 
-#: pyrone/views/admin.py:387
+#: pyrone/views/admin.py:384
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:403
+#: pyrone/views/admin.py:400
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:465 pyrone/views/admin.py:567
+#: pyrone/views/admin.py:462 pyrone/views/admin.py:564
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:612
+#: pyrone/views/admin.py:609
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
@@ -1026,5 +984,83 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "EMAIL# PLEASE VERIFY YOUR EMAIL ADDRESS FOR THE SITE"
+#~ msgstr ""
+
+#~ msgid "pyrone version: {0}"
+#~ msgstr ""
+
+#~ msgid "{0} bytes"
+#~ msgstr ""
+
+#~ msgid "Posted by {author} on {date}"
+#~ msgstr ""
+
+#~ msgid "You are signed in using twitter account {0}."
+#~ msgstr ""
+
+#~ msgid "EMAIL# ADMIN SUBJECT NEW COMMENT TO THE ARTICLE"
+#~ msgstr "New comment to the article “{article_title}” on the site “{site_title}”"
+
+#~ msgid "EMAIL# ADMIN NEW COMMENT TO THE ARTICLE"
+#~ msgstr ""
+
+#~ msgid "EMAIL# ADMIN VISITOR ON DATE WROTE THE FOLLOWING"
+#~ msgstr ""
+
+#~ msgid "EMAIL# DIRECT LINK TO COMMENT"
+#~ msgstr "<a href=\"{comment_url}\">Click here</a> to open comment."
+
+#~ msgid "EMAIL# SUBJECT SOMEONE ANSWERED TO YOUR COMMENT"
+#~ msgstr ""
+
+#~ msgid "EMAIL# USER ANSWERED TO YOUR COMMENT FOR THE ARTICLE"
+#~ msgstr ""
+
+#~ msgid "EMAIL# VISITOR ON DATE WROTE THE FOLLOWING"
+#~ msgstr ""
+
+#~ msgid "EMAIL# SUBJECT PLEASE VERIFY YOUR EMAIL ADDRESS FOR THE SITE"
+#~ msgstr "Please verify your email address for the site “{site_title}”"
+
+#~ msgid "EMAIL# TO RECEIVE NOTIFICATIONS FROM SITE YOU MUST CONFIRM THIS ADDRESS"
+#~ msgstr ""
+
+#~ msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
+#~ msgstr "Click here to confirm email address"
+
+#~ msgid "Email `{0}` has confirmed."
+#~ msgstr ""
+
+#~ msgid "Unsupported backup version: “{0}”!"
+#~ msgstr ""
+
+#~ msgid "Articles labeled with tag “{0}”"
+#~ msgstr ""
+
+#~ msgid "Email address verification message subject template"
+#~ msgstr ""
+
+#~ msgid "Plain text, no HTML, allowed substitution symbols:"
+#~ msgstr ""
+
+#~ msgid "Email address verification message body template"
+#~ msgstr ""
+
+#~ msgid "Answer to comment notification message subject template"
+#~ msgstr ""
+
+#~ msgid "Answer to comment notification message body template"
+#~ msgstr ""
+
+#~ msgid "Admin notification subject template: new comment"
+#~ msgstr ""
+
+#~ msgid "Admin notification body template: new comment"
+#~ msgstr ""
+
+#~ msgid "Admin notification subject template: new user registered"
+#~ msgstr ""
+
+#~ msgid "Admin notification body template: new user registered"
 #~ msgstr ""
 

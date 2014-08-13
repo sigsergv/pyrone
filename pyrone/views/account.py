@@ -219,7 +219,7 @@ def verify_email(request):
         c['result'] = _('Verification failed: email not found.')
         return JSONResponse(httpcode.BadRequest, c)
     else:
-        c['result'] = _('Email `{0}` has confirmed.').format('aaa')
+        c['result'] = _('Email `{0}` has been confirmed.').format(email)
 
     return c
 

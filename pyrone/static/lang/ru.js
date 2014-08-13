@@ -14,5 +14,5 @@ Pyrone_tr = {
 'SELECT_ITEMS_FIRST': 'Сначала выберите элементы',
 'SETTINGS_SAVED': 'Настройки успешно сохранены',
 'TWITTER_AUTH_IS_NOT_WORKING': 'Аутентификация через Twitter не работает',
-'YOUR_PROFILE_HAS_BEEN_UPDATED': 'Ваш профиль был успешно обновлён'
+'YOUR_PROFILE_HAS_BEEN_UPDATED': 'Ваш профиль успешно обновлён'
 };
