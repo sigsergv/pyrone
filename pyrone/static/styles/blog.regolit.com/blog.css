@@ -32,10 +32,6 @@ div#topbar, div#topbar-admin {
 	margin: 0;
 	height: 60px;
 }
-div#topbar {
-}
-div#topbar-admin {
-}
 div#topbar div.title, div#topbar div.title a,
 div#topbar-admin div.title, div#topbar-admin div.title a {
 	color: #a11113;
@@ -50,9 +46,7 @@ div#topbar-admin div.title {
 }
 div#content {
 	padding: 0 15px 5px 15px;
-	border: 2px solid #e2e2e2;
 	margin: 0 270px 30px 10px;
-	border-radius: 5px;
 }
 div#topbar-admin div.version {
 	position: absolute;
@@ -404,11 +398,18 @@ div#sidebar div.widget-actions div.action-item {
     border: 3px white;
     border-style: none none none dotted;
 }
+
+
+div#settings-save-block {
+	position: relative;
+	clear: both;
+	height: 20px;
+}
 div#settings-save-button-block {
+	position: absolute;
 	top: 0px;
 	left: 15px;
 	right: 280px;
-	position: absolute;
 	padding: 1px 0 8px 0;
 }
 div#settings-save-button-block div {
@@ -423,14 +424,16 @@ div#settings-save-button-block div.notify
 	font-weight: bold;
 }
 div.save-box-panel-top {
-	xborder: 1px solid white;
 	position: absolute;
 	top: 0;
 }
 
+div.save-box-panel-float .save-button {
+	margin-left: 20px;
+}
+
 div.save-box-panel-float {
-	xborder: 1px solid red;
-	background-color: white;
+	margin-left: -10px;
 	border-radius: 4px;
 	background-color: gray;
 	position: fixed !important;
@@ -480,6 +483,14 @@ acronym[title] {
 textarea, input[type="text"] {
 	border: 1px solid #9d9da2;
 	border-radius: 3px;
+	font-size: 13px;
+}
+textarea {
+	font-size: 14px;
+	font-family: monospace;
+}
+button.button {
+	font-size: 14px;
 }
 /* pygments styles */
 .codehilite .hll { background-color: #ffffcc }

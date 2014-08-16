@@ -2,6 +2,9 @@
 /* pyrone-theme-css */
 /* pyrone-theme-data:title-en: Default style (template)*/
 /* pyrone-theme-data:title-ru: Стиль по умолчанию (шаблон)*/
+/*
+ * Author: Sergey Stolyarov <sergei@regolit.com>
+ */
 
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic);
 
@@ -391,6 +394,13 @@ div#sidebar div.widget-actions div.action-item {
     border: 3px white;
     border-style: none none none dotted;
 }
+
+div#settings-save-block {
+	position: relative;
+	clear: both;
+	height: 20px;
+}
+
 div#settings-save-button-block {
 	top: 0px;
 	left: 5px;

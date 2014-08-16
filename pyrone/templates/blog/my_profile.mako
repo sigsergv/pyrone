@@ -16,7 +16,9 @@
 % endif
   ${h.form_input_text('email', _('Email address (for notifications)'), user.email, {})|n}
   
-  <dd style="padding-top: 8px;"><input type="submit" value="${_('save')}"/></dd>
+  <dd style="padding-top: 8px;">
+    <button class="button" onclick="$('#my-profile-properties').submit(); return false;"><span class="fa fa-save"></span> ${_('save')}</button>
+  </dd>
   </dl>
 </form>
 

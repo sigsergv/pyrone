@@ -87,7 +87,7 @@ $(document).ready(function() {
   </div>
   
   <div><textarea id="c-edit-body" class="body"></textarea></div>
-  <div><input type="button" value="${_('save')}" onclick="Pyrone_article_submitEditCommentForm('${url('blog_edit_comment_ajax', comment_id='666')}');"/> 
+  <div><button class="button" onclick="Pyrone_article_submitEditCommentForm('${url('blog_edit_comment_ajax', comment_id='666')}'); return false;"><span class="fa fa-save"></span> ${_('save')}</button>
     <a href="#" onclick="Pyrone_article_cancelEditCommentForm(); return false;">${_('close')}</a>
   </div>
   
@@ -130,7 +130,7 @@ $(document).ready(function() {
         <dt>${_('Your website')}</dt>
         <dd><input type="text" id="fid-comment-website" value="${comment_website}"/></dd>
 %endif
-        <dd><input type="button" id="eid-post-comment-button" value="${_('post comment')}" onclick="Pyrone_article_postComment();"></dd>
+        <dd><button class="button" onclick="Pyrone_article_postComment(); return false;"><span class="fa fa-comment-o"></span> ${_('post comment')}</button>
       </dl>
     </form>
   </div>

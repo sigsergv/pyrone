@@ -1,7 +1,7 @@
 """Page model"""
 from time import time
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy.orm import relation
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 
 from . import (Base, User)
@@ -9,7 +9,7 @@ from pyrone.lib import markup
 
 class Article(Base):
     __tablename__ = 'pbarticle'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
@@ -30,9 +30,9 @@ class Article(Base):
     is_draft = Column(Boolean, default=True)
     is_splitted = Column(Boolean, default=False)
 
-    comments = relation('Comment')
-    user = relation('User')
-    tags = relation('Tag')
+    comments = relationship('Comment')
+    user = relationship('User')
+    tags = relationship('Tag')
 
     def __init__(self, shortcut='', title='', is_draft=True, is_commentable=True):
         self.shortcut = shortcut
@@ -62,7 +62,7 @@ class Article(Base):
 
 class Tag(Base):
     __tablename__ = 'pbtag'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey(Article.id))
@@ -77,12 +77,13 @@ class Tag(Base):
 
 class Comment(Base):
     __tablename__ = 'pbarticlecomment'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.id))
     article_id = Column(Integer, ForeignKey(Article.id))
-    parent_id = Column(Integer, ForeignKey(__tablename__+'.id'))
+    parent_id = Column(Integer, ForeignKey('pbarticlecomment.id', ondelete='CASCADE'),)
+    # parent_id = Column(Integer, ForeignKey(__tablename__+'.id'))
     display_name = Column(Unicode(255))
     email = Column(Unicode(255))
     website = Column(Unicode(255))
@@ -95,9 +96,11 @@ class Comment(Base):
     # uf True then all answers to this comment will be send to email
     is_subscribed = Column(Boolean, default=False)
 
-    article = relation('Article')
-    user = relation('User')
-    parent = relation('Comment', remote_side=[id])
+    article = relationship('Article')
+    user = relationship('User')
+    # parent = relationship('Comment', remote_side=[id])
+    children = relationship('Comment', backref=backref('parent', remote_side=[id]),
+        cascade='all, delete-orphan', passive_deletes=True)
 
     def set_body(self, body):
         """

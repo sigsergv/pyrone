@@ -16,7 +16,7 @@ from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
 from sqlalchemy.exc import IntegrityError
 
-from pyrone.lib import helpers as h, httpcode
+from pyrone.lib import helpers as h, httpcode, cache
 from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail
 from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltypes
 from pyrone.lib.jsonhttpresponse import JSONResponse
@@ -362,7 +362,7 @@ def restore_backup(request):
     backup_version = root.get('version')
 
     if backup_version not in ('1.0', '1.1'):
-        return {'error': _(u'Unsupported backup version: “{0}”!'.format(root.get('version')))}
+        return {'error': _('Unsupported backup version: “{0}”!'.format(root.get('version')))}
 
     dbsession = DBSession()
     # now start to extract all data and fill DB
@@ -557,6 +557,7 @@ def restore_backup(request):
                 article.comments_approved += 1
 
         dbsession.add(article)
+        dbsession.flush()
 
     # now process files
     nodes = xmldoc.xpath('//b:backup/b:files', namespaces=namespaces)
@@ -607,9 +608,14 @@ def restore_backup(request):
         transaction.commit()
     except IntegrityError:
         return JSONResponse(httpcode.BadRequest, {'error': _('Unable to restore backup: database error, maybe your backup file is corrupted')})
+    except Exception as e:
+        return JSONResponse(httpcode.BadRequest, {'error': _('Unable to restore backup: database error, maybe your backup file is corrupted')})
 
     # we should also destroy current session (logout)
     forget(request)
+
+    # clear config cache
+    cache.clear_cache()
 
     return {'success': True}
 

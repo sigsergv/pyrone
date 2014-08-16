@@ -5,7 +5,7 @@ import os
 import logging
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy.orm import relation
+from sqlalchemy.orm import relationship
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 
 from . import Base
@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 class File(Base):
     __tablename__ = 'pbstoragefile'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), unique=True)

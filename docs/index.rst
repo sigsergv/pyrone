@@ -14,7 +14,7 @@ non-privileged user.
 All linux shell commands in this manual have prefixes, if prefix is ``$`` then command must be executed
 using user ``blog`` shell session, and commands with the prefix ``#`` must be executed in root shell session.
 
-OS: Ubuntu 14.04 or Debian Jessie.
+Recommended operating system: Ubuntu 14.04 or Debian Jessie.
 
 MySQL setup
 -----------
@@ -49,7 +49,8 @@ Prepare virtual environment
 
 First install package ``python-virtualenv`` and other required packages::
 
-    # apt-get install python3.4 python3.4-venv dpkg-dev python3.4-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libmysqlclient-dev
+    # apt-get update
+    # apt-get install python3.4 python3.4-venv dpkg-dev python3.4-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev
 
 Then initialize new virtual environment::
 
@@ -72,18 +73,14 @@ Install setuptools and pip::
 
 Now install Pyrone from python packages repository::
 
-    $ pip install pyrone
+    $ easy_install-3.4 install pyrone
 
 This will install latest stable version of Pyrone along with all required packages.
 
 Alternatively you can install it from local package file (it will automatically install 
 all dependencies too)::
 
-    $ pip install pyrone-1.0.0.tar.gz
-
-We are using MySQL so install proper mysql connector::
-
-    $ easy_install-3.4 mysql-connector-python
+    $ easy_install-3.4 install pyrone-1.2.0.tar.gz
 
 Now prepare the application configuration files::
 
@@ -180,6 +177,8 @@ Backup and restore
 
 For security reasons you cannot upload backup files using web interface. You must upload it into special
 directory using scp or ssh. This special directory is ``/home/blog/pyrone-blog/storage/backups``.
+
+After that you can restore backup using admin interface.
 
 Serving static files
 ~~~~~~~~~~~~~~~~~~~~

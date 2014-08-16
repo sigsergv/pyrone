@@ -39,3 +39,10 @@ def get_value(key):
             value = _cache[key]
 
     return value
+
+
+def clear_cache():
+    if UWSGI:
+        uwsgi.cache_clear()
+    else:
+        _cache.clear()

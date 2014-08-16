@@ -5,7 +5,7 @@ import hashlib
 from time import time
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy.orm import relation, joinedload
+from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm.session import Session
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
@@ -22,7 +22,7 @@ def sha1(s):
 
 class User(Base):
     __tablename__ = 'pbuser'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     _str_roles = None
 
@@ -34,7 +34,7 @@ class User(Base):
     # user kind (class, type), possible values: "local", "twitter"
     kind = Column(String(20))
 
-    roles = relation('Role')
+    roles = relationship('Role')
 
     def detach(self):
         dbsession = Session.object_session(self)
@@ -67,7 +67,7 @@ anonymous = AnonymousUser()
 
 class Role(Base):
     __tablename__ = 'pbuserrole'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('pbuser.id'))
@@ -81,7 +81,7 @@ class Role(Base):
 
 class VerifiedEmail(Base):
     __tablename__ = 'pbverifiedemail'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     # stripperd lowcased email address
     id = Column(Integer, primary_key=True)

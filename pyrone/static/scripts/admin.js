@@ -239,12 +239,15 @@ function Pyrone_backup_listDeleteSelectedReq(table_id, url) {
 };
 
 function Pyrone_backup_backupNow(url) {
+	$('#eid-backup-progress').show();
 	$.ajax({
 		url: url,
 		type: 'POST'
 	}).done(function() {
+		$('#eid-backup-progress').hide();
 		location.reload(true);
 	}).fail(function() {
+		$('#eid-backup-progress').hide();
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };
@@ -252,21 +255,23 @@ function Pyrone_backup_backupNow(url) {
 function Pyrone_backup_startRestore(url) {
 	// display mask layer or something like
 	
+	$('#eid-progress').show();
+
 	$.ajax({
 		url: url,
 		type: 'POST',
 		dataType: 'json'
 	}).done(function(json) {
+		$('#eid-progress').hide();
 		if (json.error) {
 			$('#eid-error').text(json.error);
-			$('#eid-error').show().delay(5000).hide();
+			// $('#eid-error').show().delay(5000).hide();
 			return;
 		}
-		//console.log(json.backup_file);
-		// remove mask
 		alert(tr('BACKUP_RESTORE_COMPLETE'));
 		location.assign('/');
 	}).fail(function(){
+		$('#eid-progress').hide();
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 };

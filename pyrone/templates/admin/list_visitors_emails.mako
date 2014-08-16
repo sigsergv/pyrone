@@ -19,7 +19,7 @@ function changeEmailVerified(cb)
 </tr>
 
 % for email in emails:
-<tr id="list-tr-${email.id}">
+<tr id="list-tr-${email.id}" data-row-value="${email.id}">
     <td><input type="checkbox" value="${email.id}" class="list-cb"/></td>
     <td>${email.email}</td>
     <td align="center"><input type="checkbox" value="${email.id}"${h.cond(email.is_verified, 'checked="checkd"', '')} onclick="changeEmailVerified(this);"/></td>
@@ -29,5 +29,5 @@ function changeEmailVerified(cb)
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone_file_listDeleteSelectedReq('emails-table', '${url('admin_visitors_emails_delete_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+  <button class="button" onclick="Pyrone_file_listDeleteSelectedReq('emails-table', '${url('admin_visitors_emails_delete_ajax')}'); return false;" id="delete-selected-btn"><span class="fa fa-trash-o"></span> ${_('delete selected')}</button>
 </div>

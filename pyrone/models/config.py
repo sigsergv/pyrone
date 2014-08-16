@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 class Config(Base):
     __tablename__ = 'pbconfig'
-    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'inNODB'}
+    __table_args__ = {'mysql_charset': 'utf8', 'mysql_engine': 'InnoDB'}
 
     id = Column(String(50), primary_key=True)
     value = Column(UnicodeText)

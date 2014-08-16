@@ -8,7 +8,7 @@
   % endif
 </%def>
 
-<form action="${submit_url}" method="POST" onsubmit="return Pyrone_article_checkForm();">
+<form action="${submit_url}" method="POST" id="form" onsubmit="return Pyrone_article_checkForm();">
 <dl class="form">
 
   ${h.form_input_text('title', _('Subject (required)'), article.title, errors)|n}
@@ -32,11 +32,12 @@
   ${h.form_checkbox('is_draft', None, article.is_draft, None, label=_('draft article'), label_help=_('if checked article will not be available to everyone'))|n}
   ${h.form_checkbox('is_commentable', None, article.is_commentable, None, label=_('allow visitors comments'))|n}
   
-  <dd><input type="submit" value="${_('save')}"/>
+  <dd><button class="button" onclick="$('#form').submit(); return false;"><span class="fa fa-save"></span> ${_('save')}</button>
+
   % if not new_article:
-    <input type="button" id="eid-save-button" onclick="Pyrone_article_save('${save_url_ajax}');" value="${_('save and continue editing')}"/> 
+  <button class="button" onclick="Pyrone_article_save('${save_url_ajax}'); return false;">${_('save and continue editing')}</button>
   % endif  
-    <input onclick="Pyrone_article_preview();" type="button" value="${_('preview')}"/></dd>
+    <button class="button" onclick="Pyrone_article_preview(); return false;"><span class="fa fa-flask"></span> ${_('preview')}</button></dd>
 </dl>
 </form>
 

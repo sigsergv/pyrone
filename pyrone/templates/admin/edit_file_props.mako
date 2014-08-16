@@ -18,7 +18,9 @@
     
     ${h.form_input_text('content_type', _('File content type'), file.content_type, errors)|n}
     
-    <dd style="padding-top: 8px;"><input type="submit" value="${_('submit')}"/></dd>
+    <dd style="padding-top: 8px;">
+      <button class="button" onclick="$('#upload-form').submit(); return false;"><span class="fa fa-save"></span> ${_('submit')}</button>
+    </dd>
   </dl>
   
 </form>

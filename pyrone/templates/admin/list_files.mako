@@ -22,13 +22,18 @@
     'auto', {},\
     help=_('What should happen when user open URL to the file in web browser') )|n}
     
-    <dd style="padding-top: 8px;"><input type="submit" value="${_('upload')}"/> <a href="#" onclick="$('#upload-file-form').hide(0); $('#show-upload-form-link').show(0); return false;">${_('cancel')}</a></dd>
+    <dd style="padding-top: 8px;">
+      <button class="button" onclick="$('#upload-form').submit(); return false;"><span class="fa fa-upload"></span> ${_('upload file')}</button>
+
+    <a href="#" onclick="$('#upload-file-form').hide(0); $('#show-upload-form-link').show(0); return false;">${_('cancel')}</a></dd>
   </dl>
   
 </form>
 </div>
 
-<div><a href="#" id="show-upload-form-link" onclick="$('#upload-file-form').show(0); $('#show-upload-form-link').hide(0); return false;">${_('upload file')}</a></div>
+<div>
+  <button class="button" id="show-upload-form-link" onclick="$('#upload-file-form').show(0); $('#show-upload-form-link').hide(0); return false;"><span class="fa fa-upload"></span> ${_('upload file')}</button>
+</div>
 
 <table border="0" class="items-list" cellpadding="0" cellspacing="0" id="files-table">
 <tr>
@@ -42,7 +47,7 @@
 % for f in files:
 <tr id="list-tr-${f.id}" data-row-value="${f.id}">
   <td><input type="checkbox" value="${f.id}" class="list-cb"/></td>
-  <td><a href="${url('admin_edit_file_props', file_id=f.id)}" class="border-icon"/>${_('edit')}</a>
+  <td><a href="${url('admin_edit_file_props', file_id=f.id)}" class="border-icon" title="${_('edit')}"><span class="fa fa-pencil"></span></a>
   </td>
   <td><a href="${url('blog_download_file', filename=f.name)}" title="${_('file URL')}">${f.name}</a></td>
   <td class="files-content-type" title="${f.content_type}">${f.content_type}</td> 
@@ -52,5 +57,5 @@
 </table>
 
 <div>
-    <a href="#" class="border-icon" onclick="Pyrone_file_listDeleteSelectedReq('files-table', '${url('admin_delete_files_ajax')}'); return false;" id="delete-selected-btn">${_('delete selected')}</a>
+  <button class="button" onclick="Pyrone_file_listDeleteSelectedReq('files-table', '${url('admin_delete_files_ajax')}'); return false;" id="delete-selected-btn"><span class="fa fa-trash-o"></span> ${_('delete selected')}</button>
 </div>

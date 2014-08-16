@@ -5,22 +5,38 @@
 <h2>${_('Blog settings')}</h2>
 
 <script language="javascript">
-$(window).scroll(function() {
-    var top = $(this).scrollTop();
-    var el = $('#settings-save-button-block');
-    if (top <= 55) {
-        el.removeClass('save-box-panel-float');
-        el.addClass('save-box-panel-top');
-    } else {
-        el.addClass('save-box-panel-float');
-        el.removeClass('save-box-panel-top');
-    }
-    //.css('top', $(this).scrollTop() + "px")
-});
+(function(){
+    var settingsTop = 0;
+
+    $(document).ready(function() {
+        settingsTop = $('#settings-save-block').offset().top;
+        // alert(settingsTop);
+    });
+    $(window).scroll(function() {
+        var top = $(window).scrollTop();
+        var el = $('#settings-save-button-block');
+        if (top <= settingsTop) {
+            el.removeClass('save-box-panel-float');
+            el.addClass('save-box-panel-top');
+        } else {
+            el.addClass('save-box-panel-float');
+            el.removeClass('save-box-panel-top');
+        }
+        //.css('top', $(this).scrollTop() + "px")
+    });
+})();
 </script>
 
-<form action="/" onsubmit="Pyrone_settings_saveSettings('${url('admin_settings_save_ajax')}'); return false;">
-  <div id="settings-save-button-block"><div class="save-button"><input type="submit" value="${_('save')}"/></div> <div class="notify" style="display:none;" id="eid-notify"></div></div>
+<div id="settings-save-block">
+  <div id="settings-save-button-block">
+    <div class="save-button">
+      <button class="button" onclick="$('#form').submit(); return false;"><span class="fa fa-save"></span> ${_('save')}</button>
+    </div>
+    <div class="notify" style="display:none;" id="eid-notify"></div>
+  </div>
+</div>
+
+<form id="form" action="/" onsubmit="Pyrone_settings_saveSettings('${url('admin_settings_save_ajax')}'); return false;">
 <dl class="form">
   <h3>${_('General')}</h3>
   ${h.form_input_text('site_title', _('Blog title'), settings['site_title'], errors)|n}
