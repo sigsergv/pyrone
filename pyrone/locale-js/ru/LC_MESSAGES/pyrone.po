@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-08-13 20:29+0700\n"
+"POT-Creation-Date: 2014-08-17 17:29+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -18,35 +18,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-msgid "SETTINGS_SAVED"
-msgstr "Настройки успешно сохранены"
-
-msgid "FIELD_IS_REQUIRED"
-msgstr "Поле обязательно для заполнения"
-
-msgid "YOUR_PROFILE_HAS_BEEN_UPDATED"
-msgstr "Ваш профиль успешно обновлён"
-
 msgid "FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE"
 msgstr "Файл с таким именем уже есть в хранилище"
-
-msgid "POSTING_COMMENT"
-msgstr "Отправка комментария…"
-
-msgid "PASSWORDS_DONT_MATCH"
-msgstr "Пароли не совпадают"
 
 msgid "ARTICLE_SAVED"
 msgstr "Статья сохранена."
 
-msgid "SELECT_FILE_TO_UPLOAD"
-msgstr "Выберите файл для загрузки"
-
 msgid "FIELD_MUST_BE_ALPHA_NUM"
 msgstr "Поле должно содержать только буквенно-цифровые символы"
 
+msgid "POSTING_COMMENT"
+msgstr "Отправка комментария…"
+
+msgid "COMMENT_DISPLAY_NAME_IS_REQUIRED"
+msgstr "Имя автора комментария обязательно к заполнению"
+
 msgid "AJAX_REQUEST_ERROR"
 msgstr "Ошибка выполнения AJAX-запроса"
+
+msgid "SETTINGS_SAVED"
+msgstr "Настройки успешно сохранены"
+
+msgid "SELECT_FILE_TO_UPLOAD"
+msgstr "Выберите файл для загрузки"
+
+msgid "PASSWORDS_DONT_MATCH"
+msgstr "Пароли не совпадают"
+
+msgid "TWITTER_AUTH_IS_NOT_WORKING"
+msgstr "Аутентификация через Twitter не работает"
+
+msgid "YOUR_PROFILE_HAS_BEEN_UPDATED"
+msgstr "Ваш профиль успешно обновлён"
 
 msgid "COMMENT_IS_WAITING_FOR_APPROVAL"
 msgstr "Комментарий ожидает одобрения администратора сайта"
@@ -54,15 +57,12 @@ msgstr "Комментарий ожидает одобрения админис�
 msgid "COMMENT_BODY_IS_REQUIRED"
 msgstr "Текст комментария обязателен"
 
+msgid "FIELD_IS_REQUIRED"
+msgstr "Поле обязательно для заполнения"
+
 msgid "BACKUP_RESTORE_COMPLETE"
 msgstr "Бэкап успешно восстановлен"
 
 msgid "SELECT_ITEMS_FIRST"
 msgstr "Сначала выберите элементы"
-
-msgid "TWITTER_AUTH_IS_NOT_WORKING"
-msgstr "Аутентификация через Twitter не работает"
-
-msgid "COMMENT_DISPLAY_NAME_IS_REQUIRED"
-msgstr "Имя автора комментария обязательно к заполнению"
 

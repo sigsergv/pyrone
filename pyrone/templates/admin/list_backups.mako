@@ -7,8 +7,8 @@
 <button class="button" onclick="Pyrone_backup_backupNow('${url('admin_backup_now')}'); return false;"><span class="fa fa-rocket"></span> ${_('Backup blog now')}</button>
 
 <div class="warning" style="display: none;" id="eid-error"></div>
-<div class="notify" style="display: none;" id="eid-progress">${_('RESTORING BACKUP PLEASE WAIT')}</div>
-<div class="notify" style="display: none;" id="eid-backup-progress"><span class="fa fa-spin fa-gear"></span> ${_('CREATING BACKUP PLEASE WAIT')}</div>
+<div class="notify" style="display: none;" id="eid-progress"><span class="fa fa-spin fa-gear"></span> ${_('Restoring backup, please wait')}</div>
+<div class="notify" style="display: none;" id="eid-backup-progress"><span class="fa fa-spin fa-gear"></span> ${_('Creating backup, please wait')}</div>
 
 <h3>${_('Backup archives')} 
 ##<a href="#" class="border-icon">${_('Upload backup file')}</a> 
