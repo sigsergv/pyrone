@@ -755,7 +755,7 @@ msgstr ""
 
 #: pyrone/templates/email/admin_new_comment.mako:5
 msgid "EMAIL# ADMIN NEW COMMENT TO THE ARTICLE"
-msgstr "New comment to the article <a href=\"article_url\">{article_title}</a>."
+msgstr "New comment to the article <a href=\"{article_url}\">{article_title}</a>."
 
 #: pyrone/templates/email/admin_new_comment.mako:7
 msgid "EMAIL# ADMIN VISITOR ON DATE WROTE THE FOLLOWING"
@@ -778,7 +778,7 @@ msgstr ""
 msgid "EMAIL# USER ANSWERED TO YOUR COMMENT FOR THE ARTICLE"
 msgstr ""
 "A new answer to your comment to the article <a "
-"href=\"article_url\">{article_title}</a>."
+"href=\"{article_url}\">{article_title}</a>."
 
 #: pyrone/templates/email/comment_response.mako:7
 msgid "EMAIL# VISITOR ON DATE WROTE THE FOLLOWING"
