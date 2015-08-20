@@ -256,9 +256,14 @@ def edit_file_props(request):
         if content_type != '':
             file.content_type = content_type
 
-        file.name = filename
+        # rename file on disk
+        if file.name != filename:
+            storage_dirs = get_storage_dirs()
+            old_name = os.path.join(storage_dirs['orig'], str(file.name))
+            new_name = os.path.join(storage_dirs['orig'], filename)
+            os.rename(old_name, new_name)
+            file.name = filename
 
-        log.debug(content_type)
         return HTTPFound(location=route_url('admin_list_files', request))
     elif request.method == 'GET':
         c['file'] = dbsession.query(File).get(file_id)
