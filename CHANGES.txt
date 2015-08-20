@@ -5,6 +5,7 @@ Released 2015-08-??
 
 * updated dependencies;
 * docs rearranged (splitted into smaller parts and converted to Markdown from rst)
+* secure (https-only) cookie, disabled by default, edit production.ini to enable
 
 
 1.2.1
