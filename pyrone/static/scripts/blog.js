@@ -460,7 +460,7 @@ function Pyrone_account_logout(url) {
 		url: url,
 		type: 'POST'
 	}).done(function(){
-		location.reload(true);
+		window.location.replace('/');
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
