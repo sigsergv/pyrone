@@ -310,7 +310,7 @@ def list_backups(request):
         c['backups'].append(br)
         ind += 1
 
-    c['backups'] = sorted(c['backups'], key=lambda x: x['id'])
+    c['backups'] = sorted(c['backups'], key=lambda x: x['filename'])
 
     return c
 
