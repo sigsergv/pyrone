@@ -467,6 +467,10 @@ function Pyrone_account_logout(url) {
 }
 
 function Pyrone_account_loginTwitter(url) {
+	if (window.document.location.href.toLowerCase().indexOf('http://') != -1) {
+		alert(tr('TWITTER_AUTH_REQUIRES_HTTPS'));
+		return;
+	}
 	$.ajax({
 		url: url,
 		type: 'POST',
