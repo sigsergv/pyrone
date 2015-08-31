@@ -397,7 +397,7 @@ msgstr "показывать счётчик с количеством реком
 
 #: pyrone/templates/admin/settings.mako:59
 msgid "Use this Twitter username for sharing"
-msgstr "Использовать этот имя твиттера для шаринга"
+msgstr "Использовать это имя твиттера для шаринга"
 
 #: pyrone/templates/admin/settings.mako:61
 msgid "Google “+1” button"
@@ -452,7 +452,7 @@ msgstr "Выберите, какие уведомления вы хотите п
 
 #: pyrone/templates/admin/settings.mako:79
 msgid "new comment added (including comment moderation requests)"
-msgstr "добавлен новый комментарий (включая требующего модерации)"
+msgstr "добавлен новый комментарий (включая требующий модерации)"
 
 #: pyrone/templates/admin/settings.mako:81
 msgid "new user registered"
