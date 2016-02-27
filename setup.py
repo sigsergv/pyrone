@@ -3,36 +3,35 @@ import sys
 import re
 
 if sys.version_info[:2] != (3, 4):
-    print('Python version >= 3.4 required!', file=sys.stderr)
+    print('Python version = 3.4 required!', file=sys.stderr)
     sys.exit(1)
 
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
+README = open(os.path.join(here, 'README.md')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     # binary packages require some additional packages installed on your system like gcc
-    'Pillow==2.9.0',
-    'lxml==3.4.0',
-    'pyramid==1.5.7',
+    'Pillow==3.1.0',
+    'lxml==3.5.0',
+    'pyramid==1.6.1',
     'pyramid_tm==0.12',
-    'pyramid_debugtoolbar==2.4.1',
+    'pyramid_debugtoolbar==2.4.2',
     'pyramid_beaker==0.8',
     'pytz',
     'twitter==1.17.1',
-    'markdown==2.6.2',
-    'decorator==4.0.2',
+    'markdown==2.6.5',
+    'decorator==4.0.6',
     'hurry.filesize==0.9',
-    # 'pymysql3',
-    'SQLAlchemy==1.0.8',
+    'SQLAlchemy==1.0.11',
     'transaction==1.4.4',
     'repoze.tm2==2.0',  # default_commit_veto
     'zope.sqlalchemy==0.7.6',
-    'waitress==0.8.9',
-    'Babel==2.0',
-    'mysql-connector-python==2.0.4'
+    'waitress==0.8.10',
+    'Babel==2.2.0',
+    'psycopg2==2.6.1'
 ]
 
 setup_cmdclass = {}
