@@ -1,1 +1,0 @@
-see docs/index.rst for development instructions

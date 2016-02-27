@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2014-08-17 17:29+0700\n"
+"POT-Creation-Date: 2015-08-20 21:09+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.3\n"
+"Generated-By: Babel 2.0\n"
 
 #: pyrone/lib/helpers.py:208
 msgid "Administrator"
@@ -81,7 +81,7 @@ msgstr ""
 msgid "File content type"
 msgstr "Тип файла (content type)"
 
-#: pyrone/templates/admin/edit_file_props.mako:21
+#: pyrone/templates/admin/edit_file_props.mako:22
 msgid "submit"
 msgstr "отправить"
 
@@ -263,7 +263,7 @@ msgstr "Подтверждено"
 msgid "Blog settings"
 msgstr "Настройки блога"
 
-#: pyrone/templates/admin/settings.mako:25
+#: pyrone/templates/admin/settings.mako:33
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:90
@@ -271,19 +271,19 @@ msgstr "Настройки блога"
 msgid "save"
 msgstr "сохранить"
 
-#: pyrone/templates/admin/settings.mako:30
+#: pyrone/templates/admin/settings.mako:41
 msgid "General"
 msgstr "Общие"
 
-#: pyrone/templates/admin/settings.mako:31
+#: pyrone/templates/admin/settings.mako:42
 msgid "Blog title"
 msgstr "Заголовок блога"
 
-#: pyrone/templates/admin/settings.mako:32
+#: pyrone/templates/admin/settings.mako:43
 msgid "Base blog address"
 msgstr "Базовый URL блога"
 
-#: pyrone/templates/admin/settings.mako:33
+#: pyrone/templates/admin/settings.mako:44
 msgid ""
 "URL that will be used in all external communications (notification "
 "messages for example)"
@@ -291,11 +291,11 @@ msgstr ""
 "URL, который будет использоваться во внешних коммуникациях (уведомления "
 "по почте, например)"
 
-#: pyrone/templates/admin/settings.mako:34
+#: pyrone/templates/admin/settings.mako:45
 msgid "Copyright string"
 msgstr "Строка копирайта"
 
-#: pyrone/templates/admin/settings.mako:35
+#: pyrone/templates/admin/settings.mako:46
 msgid ""
 "A string displayed at the bottom of each blog page, just before “Powered "
 "by Pyrone”"
@@ -303,19 +303,19 @@ msgstr ""
 "Строка, отображаемая в нижней части каждой страницы блога, прямо перед "
 "надписью «Работает на Pyrone»"
 
-#: pyrone/templates/admin/settings.mako:36
+#: pyrone/templates/admin/settings.mako:47
 msgid "Number of elements on a page"
 msgstr "Сколько элементов на странице"
 
-#: pyrone/templates/admin/settings.mako:37
+#: pyrone/templates/admin/settings.mako:48
 msgid "How much elements (articles etc) display on single page"
 msgstr "Сколько элементов (например, статей) показывать на одной странице"
 
-#: pyrone/templates/admin/settings.mako:38
+#: pyrone/templates/admin/settings.mako:49
 msgid "Picture preview width"
 msgstr "Ширина превьюшки для картинки"
 
-#: pyrone/templates/admin/settings.mako:39
+#: pyrone/templates/admin/settings.mako:50
 msgid ""
 "Width of automatically generated preview to be used as smaller copy of "
 "original picture."
@@ -323,11 +323,11 @@ msgstr ""
 "Ширина автоматически сгенерённой превьюшки, которая будет использоваться "
 "в качестве уменьшенной копии картинки"
 
-#: pyrone/templates/admin/settings.mako:40
+#: pyrone/templates/admin/settings.mako:51
 msgid "Google Analytics™ ID"
 msgstr "Google Analytics™ ID"
 
-#: pyrone/templates/admin/settings.mako:41
+#: pyrone/templates/admin/settings.mako:52
 msgid ""
 "Your google analytics ID, value like “UA-12345678-9”, to disable Google "
 "Analytics just clear the field"
@@ -335,11 +335,11 @@ msgstr ""
 "Идентификатор вашего аккаунта в системе Google Analytics™, значение типа "
 "«UA-12345678-9», чтобы отключить аналитику, очистите это поле"
 
-#: pyrone/templates/admin/settings.mako:42
+#: pyrone/templates/admin/settings.mako:53
 msgid "Blog timezone"
 msgstr "Часовой пояс блога"
 
-#: pyrone/templates/admin/settings.mako:43
+#: pyrone/templates/admin/settings.mako:54
 msgid ""
 "Timezone to be used for time and date values on the site, "
 "<strong>must</strong> be tzdb-compatible string value like "
@@ -348,11 +348,11 @@ msgstr ""
 "Название часового пояса (в формате tzdb!), например «Asia/Novosibirsk» "
 "или «UTC»."
 
-#: pyrone/templates/admin/settings.mako:44
+#: pyrone/templates/admin/settings.mako:55
 msgid "Site language"
 msgstr "Язык сайта"
 
-#: pyrone/templates/admin/settings.mako:46
+#: pyrone/templates/admin/settings.mako:57
 msgid ""
 "Site theme (<a href=\"/static/themes-notes-en.html\">read more</a> about "
 "themes)"
@@ -360,11 +360,11 @@ msgstr ""
 "Тема оформления сайта (<a href=\"/static/themes-notes-"
 "ru.html\">подробнее</a> об этом)"
 
-#: pyrone/templates/admin/settings.mako:49
+#: pyrone/templates/admin/settings.mako:60
 msgid "Twitter Auth"
 msgstr "Авторизация через Twitter"
 
-#: pyrone/templates/admin/settings.mako:50
+#: pyrone/templates/admin/settings.mako:61
 msgid ""
 "To use Twitter authentication you MUST <a "
 "href=\"https://dev.twitter.com/apps\">register</a> a new twitter "
@@ -374,44 +374,44 @@ msgstr ""
 "href=\"https://dev.twitter.com/apps\">зарегистрировать</a> новое "
 "приложение на сайте twitter и получить ключи consumer и secret."
 
-#: pyrone/templates/admin/settings.mako:51
+#: pyrone/templates/admin/settings.mako:62
 msgid "Consumer key"
 msgstr "Consumer key"
 
-#: pyrone/templates/admin/settings.mako:52
+#: pyrone/templates/admin/settings.mako:63
 msgid "Consumer secret"
 msgstr "Consumer secret"
 
-#: pyrone/templates/admin/settings.mako:54
+#: pyrone/templates/admin/settings.mako:65
 msgid "Twitter “share a link” button"
 msgstr "Кнопка твиттера «твитнуть»"
 
-#: pyrone/templates/admin/settings.mako:56
-#: pyrone/templates/admin/settings.mako:63
+#: pyrone/templates/admin/settings.mako:67
+#: pyrone/templates/admin/settings.mako:74
 msgid "enable this social button"
 msgstr "включить эту социальную кнопку"
 
-#: pyrone/templates/admin/settings.mako:58
+#: pyrone/templates/admin/settings.mako:69
 msgid "show total Twitter recommendations count"
 msgstr "показывать счётчик с количеством рекомендаций"
 
-#: pyrone/templates/admin/settings.mako:59
+#: pyrone/templates/admin/settings.mako:70
 msgid "Use this Twitter username for sharing"
 msgstr "Использовать это имя твиттера для шаринга"
 
-#: pyrone/templates/admin/settings.mako:61
+#: pyrone/templates/admin/settings.mako:72
 msgid "Google “+1” button"
 msgstr "Кнопка Google «+1»"
 
-#: pyrone/templates/admin/settings.mako:65
+#: pyrone/templates/admin/settings.mako:76
 msgid "Site search widget"
 msgstr "Виджет поиска по сайту"
 
-#: pyrone/templates/admin/settings.mako:66
+#: pyrone/templates/admin/settings.mako:77
 msgid "HTML/JavaScript code for the site search widget"
 msgstr "HTML/JavaScript код для виджета поиска"
 
-#: pyrone/templates/admin/settings.mako:67
+#: pyrone/templates/admin/settings.mako:78
 msgid ""
 "You should enter HTML code in this text box you received from the "
 "external search provider. To delete site search from the pages just clear"
@@ -420,15 +420,15 @@ msgstr ""
 "Вы должны ввести в это поле HTML-код, полученный вами от поискового "
 "провайдера. Чтобы удалить виджет поиска, просто очистите это поле."
 
-#: pyrone/templates/admin/settings.mako:70
+#: pyrone/templates/admin/settings.mako:81
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: pyrone/templates/admin/settings.mako:71
+#: pyrone/templates/admin/settings.mako:82
 msgid "Email address for system notifications"
 msgstr "Адрес электропочты для системных уведомлений"
 
-#: pyrone/templates/admin/settings.mako:72
+#: pyrone/templates/admin/settings.mako:83
 msgid ""
 "Email address for the system notification: user added, comment added for "
 "moderation etc"
@@ -436,25 +436,25 @@ msgstr ""
 "Адрес электропочты, на который будут рассылаться уведомления о добавлении"
 " нового пользователя, новом комментарии и т.п."
 
-#: pyrone/templates/admin/settings.mako:74
+#: pyrone/templates/admin/settings.mako:85
 msgid "Email address to be used as sender address"
 msgstr ""
 "Адрес электропочты, который будет использоваться в качестве адреса "
 "отправителя"
 
-#: pyrone/templates/admin/settings.mako:75
+#: pyrone/templates/admin/settings.mako:86
 msgid "This email will be used as FROM address for notification messages"
 msgstr "Этот адрес будет использован в качестве адреса отправителя для уведомлений"
 
-#: pyrone/templates/admin/settings.mako:77
+#: pyrone/templates/admin/settings.mako:88
 msgid "Select notifications you want to receive"
 msgstr "Выберите, какие уведомления вы хотите получать"
 
-#: pyrone/templates/admin/settings.mako:79
+#: pyrone/templates/admin/settings.mako:90
 msgid "new comment added (including comment moderation requests)"
 msgstr "добавлен новый комментарий (включая требующий модерации)"
 
-#: pyrone/templates/admin/settings.mako:81
+#: pyrone/templates/admin/settings.mako:92
 msgid "new user registered"
 msgstr "зарегистрировался новый пользователь"
 
@@ -826,8 +826,8 @@ msgstr ""
 #: pyrone/templates/email/comment_response.mako:5
 msgid "EMAIL# USER ANSWERED TO YOUR COMMENT FOR THE ARTICLE"
 msgstr ""
-"На ваш комментарий к статье <a href=\"{article_url}\">{article_title}</a> "
-"поступил ответ."
+"На ваш комментарий к статье <a href=\"{article_url}\">{article_title}</a>"
+" поступил ответ."
 
 #: pyrone/templates/email/comment_response.mako:7
 msgid "EMAIL# VISITOR ON DATE WROTE THE FOLLOWING"
@@ -995,3 +995,4 @@ msgstr "Пустое поле комментария не допускается
 #: pyrone/views/blog.py:573
 msgid "Answering to not approved comment"
 msgstr "Нельзя ответить на неподтверждённый комментарий"
+

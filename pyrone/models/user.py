@@ -104,6 +104,9 @@ def find_local_user(login, password):
         filter(User.login == login)
     user = q.first()
 
+    if user is None:
+        return None
+
     if user.password == hashed_password:
         # old password hashing method is used
         return user

@@ -460,13 +460,17 @@ function Pyrone_account_logout(url) {
 		url: url,
 		type: 'POST'
 	}).done(function(){
-		location.reload(true);
+		window.location.replace('/');
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 	});
 }
 
 function Pyrone_account_loginTwitter(url) {
+	if (window.document.location.href.toLowerCase().indexOf('http://') != -1) {
+		alert(tr('TWITTER_AUTH_REQUIRES_HTTPS'));
+		return;
+	}
 	$.ajax({
 		url: url,
 		type: 'POST',
