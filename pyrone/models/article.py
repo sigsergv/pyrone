@@ -3,6 +3,7 @@ from time import time
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
+from sqlalchemy.dialects import mysql
 
 from . import (Base, User)
 from pyrone.lib import markup
@@ -16,9 +17,9 @@ class Article(Base):
     shortcut_date = Column(Unicode(50))  # somethig like "2011/03/29"
     shortcut = Column(Unicode(255))  # something like "test-post-subject"
     title = Column(Unicode(255))
-    body = Column(UnicodeText(2**15))
-    rendered_preview = Column(UnicodeText(2**15))
-    rendered_body = Column(UnicodeText(2**15))
+    body = Column(UnicodeText().with_variant(mysql.MEDIUMTEXT(), 'mysql'))
+    rendered_preview = Column(UnicodeText().with_variant(mysql.MEDIUMTEXT(), 'mysql'))
+    rendered_body = Column(UnicodeText().with_variant(mysql.MEDIUMTEXT(), 'mysql'))
     # UTC timestamp of publishing
     published = Column(Integer)
     # UTC timestamp of article update
