@@ -1,4 +1,4 @@
-include *.txt *.ini *.cfg *.rst
+include *.txt *.ini *.cfg *.rst README.md
 include sample-data.json
 recursive-include examples *
 recursive-include pyrone *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.mo *.otf *.eot *.woff *.svg
