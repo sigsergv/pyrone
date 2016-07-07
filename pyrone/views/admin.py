@@ -14,7 +14,9 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNotFound
+from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.schema import Sequence
 
 from pyrone.lib import helpers as h, httpcode, cache
 from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail
@@ -370,6 +372,7 @@ def restore_backup(request):
         return {'error': _('Unsupported backup version: “{0}”!'.format(root.get('version')))}
 
     dbsession = DBSession()
+    dialect_name = dbsession.bind.name
     # now start to extract all data and fill DB
     # first delete everything from the database
     dbsession.query(Comment).delete()
@@ -563,6 +566,11 @@ def restore_backup(request):
 
         dbsession.add(article)
         dbsession.flush()
+
+    # reset associated sequences
+    if dialect_name == 'postgresql':
+        dbsession.bind.execute(text("SELECT setval('pbarticle_id_seq', (SELECT MAX(id) FROM pbarticle));"))
+        dbsession.bind.execute(text("SELECT setval('pbarticlecomment_id_seq', (SELECT MAX(id) FROM pbarticlecomment));"))
 
     # now process files
     nodes = xmldoc.xpath('//b:backup/b:files', namespaces=namespaces)
