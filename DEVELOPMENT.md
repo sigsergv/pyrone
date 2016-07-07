@@ -46,7 +46,7 @@ And activate it:
 
 Now to install setuptools and pip:
 
-    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python3.4 -
+    $ curl https://bootstrap.pypa.io/ez_setup.py | python3.4 -
     $ rm setuptools-*.zip
 
 Now you need to create symlink to pg_config binary, replace PG_VERSION with the actual postgres version.
@@ -75,11 +75,11 @@ terminal now and proceed.
 First you need to install `python` (version 3.3 or greater), you'll also
 need python package `virtualenv`, you can install them using following command:
 
-    # apt-get install python3.4 python3.4-venv python3.4-dev postgresql-9.5 
+    # apt-get install python3.4 python3.4-venv python3.4-dev postgresql-9.4 
 
 Also you'll need to install additional binary packages:
 
-    # apt-get install gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libpq-dev
+    # apt-get install gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
     
 Now we are going to set up development virtual environment in the project directory:
 
@@ -92,6 +92,12 @@ we are in the project directory):
 
     $ source .venv/bin/activate
 
+Install setuptools and pip:
+
+    $ curl https://bootstrap.pypa.io/ez_setup.py | python3.4 -
+    $ rm setuptools-*.zip
+    $ easy_install-3.4 pip
+
 Make sure that important commands are resolved correctly, if you are using zsh 
 execute command `rehash`:
 
@@ -99,12 +105,6 @@ execute command `rehash`:
     /home/user/projects/pyrone/.venv/bin/easy_install-3.4
     $ which python3.4
     /home/user/projects/pyrone/.venv/bin/python3.4
-
-Now to install setuptools and pip:
-
-    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python3.4 -
-    $ rm setuptools-*.zip
-    $ easy_install-3.4 pip
 
 And install now all required python packages (execute this command in the activated 
 environment and from project directory):
@@ -187,7 +187,7 @@ Alternatively you could use the following command, it will ask you for password:
 
     $ python3.4 setup.py clean sdist upload
 
-If you want to create source distribution package only (file `pyrone-1.3.0.tar.gz`), use 
+If you want to create source distribution package only (file `pyrone-1.4.0.tar.gz`), use 
 the following command:
 
     $ python3.4 setup.py clean compile_catalog compile_catalog_js sdist

@@ -72,7 +72,7 @@ def main():
 
     ini_path = os.path.realpath(args.config_ini)
     if not os.path.isfile(ini_path):
-        print('Config file `{0}` not found!'.format(args.confg_ini))
+        print('Config file `{0}` not found!'.format(args.config_ini))
         exit(1)
 
     print('Initialize database')
