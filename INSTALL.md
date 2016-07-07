@@ -73,7 +73,7 @@ and execute all remaining commands there!
 
 Install setuptools and pip:
 
-    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python3.4 -
+    $ curl https://bootstrap.pypa.io/ez_setup.py | python3.4 -
     $ rm setuptools-*.zip
 
 Now install Pyrone from python packages repository:
