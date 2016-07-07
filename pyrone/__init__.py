@@ -48,6 +48,7 @@ def main(global_config, **settings):
         authentication_policy=authentication_policy,
         authorization_policy=authorization_policy,
         locale_negotiator=locale_negotiator)
+    config.include('pyramid_mako')
     config.add_translation_dirs('pyrone:locale/')
     config.set_request_property(get_user, 'user', reify=True)  # reify=True means that result is cached per request
     config.scan()
