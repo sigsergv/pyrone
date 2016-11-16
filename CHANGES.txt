@@ -1,3 +1,10 @@
+1.4.1
+-----
+
+Release 2016-11-15
+
+* fixed incorrect twitter VIA name
+
 1.4.0
 -----
 

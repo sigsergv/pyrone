@@ -329,10 +329,10 @@ def get_twitter_share_link_button(force_reload=False):
         else:
             tpl = '''<a href="https://twitter.com/share" class="twitter-share-button"{twitter_via}{show_count}>Tweet</a>'''
 
-            twitter_via = get_config('social_twitter_share_link')
+            twitter_via = get_config('social_twitter_share_link_via')
             show_count = get_config('social_twitter_share_link_show_count')
             repl = {
-                'twitter_via': '',
+                'twitter_via': 'pyrone',
                 'show_count': ''
                 }
             if twitter_via != '':
