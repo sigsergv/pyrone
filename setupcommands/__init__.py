@@ -166,9 +166,11 @@ class CompileCatalogJs(Command):
         """
         compile .po file into the javascript file
         """
-        #print self.locale
         po_files = list()
         js_files = list()
+
+        if not os.path.exists(self.out_directory):
+            os.mkdir(self.out_directory)
         
         # code is based on Babel (babel/messages/frontend.py)
         for locale in os.listdir(self.directory):
