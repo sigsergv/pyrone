@@ -43,3 +43,4 @@ favicon.ico
 favicon.png
 storage
 /.venv
+pyrone/static/lang
