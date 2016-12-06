@@ -403,14 +403,17 @@ div#sidebar div.widget-actions div.action-item {
 div#settings-save-block {
 	position: relative;
 	clear: both;
-	height: 20px;
+	height: 30px;
 }
+
 div#settings-save-button-block {
-	position: absolute;
 	top: 0px;
-	left: 15px;
-	right: 280px;
-	padding: 1px 0 8px 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	background: #E1E1E1;
+	padding: 10px;
+	margin: 0 0 5px 0;
 }
 div#settings-save-button-block div {
 	float: left;
@@ -433,11 +436,11 @@ div.save-box-panel-float .save-button {
 }
 
 div.save-box-panel-float {
-	margin-left: -10px;
-	border-radius: 4px;
-	background-color: gray;
+	border: 2px solid #737373;
+	border-radius: 2px;
 	position: fixed !important;
 	top: 0;
+	z-index: 10000;
 }
 
 div.editor-text-controls {
