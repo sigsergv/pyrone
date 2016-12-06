@@ -38,6 +38,9 @@ def view_settings(request):
     for p in config.get_all():
         c['settings'][p.id] = p.value
 
+    if 'ui_theme' not in c['settings'] or c['settings']['ui_theme'] is None:
+        c['settings']['ui_theme'] = 'default'
+
     return c
 
 

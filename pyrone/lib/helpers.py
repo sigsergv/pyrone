@@ -423,7 +423,11 @@ def get_available_themes():
 
 def get_current_theme_css():
     ui_theme = get_config('ui_theme', force=True)
+    print(ui_theme)
     css_url = '/static/styles/{0}/blog.css'
+
+    if ui_theme is None:
+        ui_theme = 'default'
 
     if ui_theme.endswith('.css'):
         css_url = '/files/f/{0}'
