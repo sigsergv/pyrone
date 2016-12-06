@@ -25,14 +25,14 @@
  <span class="warning">${_('draft')}</span>\
 %endif
   </div>
-  <div class="date">${_('Posted by {author} on {date}').format(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
+  <div class="date">${'{author} | {date}'.format(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
   <div class="before-preview"></div>
   <div class="preview">${article.get_html_preview()|n}</div>
   <div class="after-preview"></div>
 %if article.is_splitted:
   <div class="splitter"><a href="${article_url}">${_('continue reading')}</a></div>
 %endif
-  <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
+  <div class="tags">${h.article_tags_links(request, article)|n}</div>
 <div class="footer">
 
 % if article.comments_approved > 0:
@@ -58,7 +58,7 @@ ${_('No articles here.')}
 
 ## display pager
 <div class="pager">
-${h.cond(next_page is not None, '<a href="{0}">{1}</a>'.format(next_page, _('←newer')), _('←newer'))|n} 
-${h.cond(prev_page is not None, '<a href="{0}">{1}</a>'.format(prev_page, _('older→')), _('older→'))|n} 
+${h.cond(next_page is not None, '<a href="{0}">{1}</a>'.format(next_page, _('<-newer')), _('<-newer'))|n} 
+${h.cond(prev_page is not None, '<a href="{0}">{1}</a>'.format(prev_page, _('older->')), _('older->'))|n} 
 
 </div>

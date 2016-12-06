@@ -29,7 +29,7 @@
   </div>
   
   % if comment._truncated_body is not None:
-	  <div class="body" id="c-c-${comment.id}"><p>${comment._truncated_body} <a href="#" onclick="Pyrone_article_expandModeratedComment('${comment.id}'); return false;">${_(u'expand…')}</a></p></div>
+	  <div class="body" id="c-c-${comment.id}"><p>${comment._truncated_body} <a href="#" onclick="Pyrone_article_expandModeratedComment('${comment.id}'); return false;">${_('expand...')}</a></p></div>
 	  <div class="body" id="c-e-${comment.id}" style="display: none;">${comment.rendered_body|n}</div>
   % else:
   	<div class="body">${comment.rendered_body|n}</div>

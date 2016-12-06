@@ -16,4 +16,9 @@
 	<dd><input type="submit" value="${_('sign in')}"/></dd>
 </dl>
 </div>
+
+<hr>
+
+<div>${_('Other sign in options:')} <a href="#" onclick="Pyrone_account_loginTwitter('${url('account_twitter_init')}');\
+  return false;">twitter</a></div>
 </form>

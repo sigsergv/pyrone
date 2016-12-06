@@ -52,7 +52,7 @@ $(document).ready(function() {
     <div class="social">${h.get_gplusone_button()|n}</div>
 <div class="clear-both"></div>
 % if len(article.tags):
-    <div class="tags">${_('Tags:')} ${h.article_tags_links(request, article)|n}</div>
+    <div class="tags">${h.article_tags_links(request, article)|n}</div>
 % endif
   </div>
   <div class="body">${article.rendered_body|n}</div>
@@ -109,7 +109,7 @@ $(document).ready(function() {
         <dd><div id="eid-comment-notify" style="display: none;" class="notify"></div></dd>
         <dt>${_(u'Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, [hyperlink](http://example.com) or &lt;http://example.com> <a class="new-window" target="_blank" href="/static/comment-markup-tip-en.html" title="Open in new window">more</a>)')|n}
         % if authenticated is None:
-        ${_(u'<strong>Anonymous visitors, please pay attention that comments with more than one hyperlink (including field “website”) will be put on moderation. Sign in to post without such limitations.</strong>')|n}
+        ${_(u'<strong>Anonymous visitors, please pay attention that comments with more than one hyperlink (including field "website") will be put on moderation. Sign in to post without such limitations.</strong>')|n}
         % endif
         </dt>
         <dd><textarea name="body" class="small" id="fid-comment-body"></textarea></dd>
@@ -123,7 +123,7 @@ $(document).ready(function() {
         <dt>${_('Your name (required, 50 characters or less)')}</dt>
         <dd><input type="text" id="fid-comment-displayname" value="${comment_display_name}"/></dd>
       
-        <dt>${_("Your email (won't be published, required if you want to receive answers)")}</dt>
+        <dt>${_("Your email (optional, won't be published, required if you want to receive answers)")}</dt>
         <dd><input type="text" id="fid-comment-email" value="${comment_email}"/></dd>
         ${h.form_checkbox('is_subscribed', None, is_subscribed, {}, None, _('Subscribe to answers'))|n}
       

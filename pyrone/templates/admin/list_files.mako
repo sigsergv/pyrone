@@ -11,7 +11,7 @@
   <dl class="form">
     <dt>${_('Choose file to upload')}</dt>
     <dd><input type="file" id="fid-filedata" onchange="Pyrone_file_uploadFormFileSelected()" name="filedata"/> \
-    <span class="hint">${_(u'← First choose file (other fields will be filled automatically)')}</span></dd>
+    <span class="hint">${_('<- First choose file (other fields will be filled automatically)')}</span></dd>
     
     ${h.form_input_text('filename', _('Name of the file (required, case-sensitive, if file with that name exists it will be replaced)'), '', {},\
     help=_('File will be accessed using specified name'))|n}

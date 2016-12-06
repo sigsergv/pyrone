@@ -1,8 +1,8 @@
 <%inherit file="/admin/base.mako"/>
 
-<%def name="title()">${_(u'Widget “Pages” parameters')}</%def>
+<%def name="title()">${_(u'Widget "Pinned posts" parameters')}</%def>
 
-<h2>${_(u'Widget “Pages” parameters')}</h2>
+<h2>${_(u'Widget "Pinned posts" parameters')}</h2>
 <div class="notify" style="display:none;" id="eid-notify"></div>
 
 <!-- render table, up/down buttons -->
@@ -15,7 +15,7 @@
   	
   <dd>${_(u'Every line defines one page, here is the sample: '+\
   u'<code><pre>!http://google.com ! Google web search\n!http://yandex.ru ! Search in Yandex</pre></code>')|n}</dd>
-  <dd>${_(u'You can use any other character as delimiter instead of <strong>!</strong>, e.g. pipe “|”:'+\
+  <dd>${_(u'You can use any other character as delimiter instead of <strong>!</strong>, e.g. pipe "|":'+\
   u'<code><pre>|http://google.com | Google web search\n|http://yandex.ru | Search in Yandex</pre></code>')|n}</dd>
   <dd>${_(u'The main idea is simple: first character in the line is delimiter.')}</dd>
 

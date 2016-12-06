@@ -2,7 +2,7 @@
     admin_permission = user.has_role('admin')
 %>
 <div class="widget">
-<div class="section">${_('Pages')} 
+<div class="section">${_('Pinned posts')} 
 % if admin_permission:
 <a href="${url('admin_settings_widget_pages')}" title="${_('edit')}"><span class="fa fa-pencil"></span></a>
 %endif
