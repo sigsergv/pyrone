@@ -197,3 +197,7 @@ Some additional notes
 =====================
 
 Do not use sqlite even for development! Use postgresql only.
+
+Use this command to connect postgres database:
+
+    $ psql -h localhost pyrone_blog pyrone_blog_user
