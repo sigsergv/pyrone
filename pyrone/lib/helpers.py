@@ -239,13 +239,13 @@ def article_tags_links(request, article):
     Generate comma separated list of tag hyperlinks
     """
     res = []
-    url_template = '<a href="{0}">__TAG__</a>'.format(route_url('blog_tag_articles', request, tag='__TAG__'))
+    url_template = '<a href="{0}">#__TAG__</a>'.format(route_url('blog_tag_articles', request, tag='__TAG__'))
     for tag in article.tags:
         if tag.tag is None:
             continue
         res.append(url_template.replace('__TAG__', tag.tag))
 
-    return ', '.join(res)
+    return ' '.join(res)
 
 
 def get_public_tags_cloud(force_reload=False):
