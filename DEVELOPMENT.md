@@ -79,7 +79,7 @@ need python package `virtualenv`, you can install them using following command:
 
 Also you'll need to install additional binary packages:
 
-    # apt-get install gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
+    # apt-get install curl gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
     
 Now we are going to set up development virtual environment in the project directory:
 
