@@ -85,12 +85,12 @@ This will install latest stable version of Pyrone and all needed packages.
 Alternatively you can install it from local package file (it will automatically install 
 all dependencies too):
 
-    $ easy_install-3.4 pyrone-1.4.1.tar.gz
+    $ easy_install-3.4 pyrone-1.4.2.tar.gz
 
 Now prepare the application configuration files:
 
    $ cd /home/blog/pyrone-blog/
-   $ cp ./env/lib/python3.4/site-packages/pyrone-1.4.1-py3.4.egg/share/pyrone/examples/production.ini .
+   $ cp ./env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/production.ini .
 
 Open file `production.ini` in any text editor and change default database connection
 parameters to yours. If you've followed this instruction from the beginning you'll need to change
@@ -99,7 +99,7 @@ database password only: find the string `pbpass` and replace it with the actual 
 Now we need to setup the database, to do this execute the following command:
 
     $ cd /home/blog/pyrone-blog
-    $ pyronedbinit --sample-data --sample-data-file=./env/lib/python3.4/site-packages/pyrone-1.4.1-py3.4.egg/share/pyrone/sample-data.json production.ini
+    $ pyronedbinit --sample-data --sample-data-file=./env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/sample-data.json production.ini
 
 Check that application is configured properly, to do that just execute the following command inside
 the directory `/home/blog/pyrone-blog`:
@@ -127,7 +127,7 @@ Install required OS packages:
 
 Then create configuration file for the application:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.1-py3.4.egg/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
+    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
     # ln -s /etc/uwsgi/apps-available/pyrone-uwsgi.ini /etc/uwsgi/apps-enabled
 
 And restart uWSGI:
@@ -146,7 +146,7 @@ Install nginx:
 
 Then create nginx configuration file for Pyrone's site:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.1-py3.4.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
+    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
 
 In this file you need to change hostname (default value is `blog.example.com`).
 
