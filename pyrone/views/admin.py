@@ -328,6 +328,7 @@ def list_backups(request):
 
 @view_config(route_name='admin_restore_backup', renderer='json', permission='admin')
 def restore_backup(request):
+
     _ = request.translate
     backup_id = request.matchdict['backup_id']
 
@@ -402,6 +403,15 @@ def restore_backup(request):
 
     node = nodes[0]
     nodes = node.xpath('//b:config', namespaces=namespaces)
+
+    def recursively_restore_commits(tree, root):
+        if root not in tree:
+            return
+        for comment in tree[root]:
+            dbsession.add(comment)
+        dbsession.flush()
+        for comment in tree[root]:
+            recursively_restore_commits(tree, comment.id)
 
     for node in nodes:
         c = dbsession.query(Config).get(node.get('id'))
@@ -527,6 +537,10 @@ def restore_backup(request):
             dbsession.add(tag)
 
         # now process comments
+        # we need to preserve comments hierarchy
+        # local_comments = {}  # key is a comment ID, value - comment object
+        local_parents = {}  # key is a parent-id, value is a list of child IDs
+
         subnodes = node.xpath('./b:comments/b:comment', namespaces=namespaces)
         for sn in subnodes:
             comment = Comment()
@@ -568,13 +582,19 @@ def restore_backup(request):
                         res = True
                     setattr(comment, v, res)
 
-            dbsession.add(comment)
             article.comments_total += 1
             if comment.is_approved:
                 article.comments_approved += 1
 
+            parent_id = comment.parent_id
+            if parent_id not in local_parents:
+                local_parents[parent_id] = []
+            local_parents[parent_id].append(comment)
+
         dbsession.add(article)
         dbsession.flush()
+        
+        recursively_restore_commits(local_parents, None)
 
     # reset associated sequences
     if dialect_name == 'postgresql':
