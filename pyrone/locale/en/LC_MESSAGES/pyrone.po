@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2016-12-06 13:03+0600\n"
+"POT-Creation-Date: 2016-12-06 12:58+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language: en\n"
@@ -637,10 +637,7 @@ msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:110
 msgid ""
-"Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, "
-"[hyperlink](http://example.com) or &lt;http://example.com> <a class"
-"=\"new-window\" target=\"_blank\" href=\"/static/comment-markup-tip-"
-"en.html\" title=\"Open in new window\">more</a>)"
+"Comment text (markup: *<em>italic</em>*, **<strong>bold</strong>**, [hyperlink](http://example.com) or &lt;http://example.com> <a class=\"new-window\" target=\"_blank\" href=\"/static/comment-markup-tip-en.html\" title=\"Open in new window\">more</a>)"
 msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:112
@@ -954,4 +951,3 @@ msgstr ""
 #: pyrone/views/blog.py:573
 msgid "Answering to not approved comment"
 msgstr ""
-
