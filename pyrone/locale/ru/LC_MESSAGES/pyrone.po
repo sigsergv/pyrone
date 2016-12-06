@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2015-08-20 21:09+0600\n"
+"POT-Creation-Date: 2016-12-06 13:03+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
+"Language: ru\n"
 "Language-Team: ru <pyrone-translation@regolit.com>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.0\n"
+"Generated-By: Babel 2.3.4\n"
 
 #: pyrone/lib/helpers.py:208
 msgid "Administrator"
@@ -199,7 +200,7 @@ msgid "Choose file to upload"
 msgstr "Выберите файл"
 
 #: pyrone/templates/admin/list_files.mako:14
-msgid "← First choose file (other fields will be filled automatically)"
+msgid "<- First choose file (other fields will be filled automatically)"
 msgstr "← Сначала выберите файл, а другие поля будут заполнены автоматически"
 
 #: pyrone/templates/admin/list_files.mako:16
@@ -297,8 +298,8 @@ msgstr "Строка копирайта"
 
 #: pyrone/templates/admin/settings.mako:46
 msgid ""
-"A string displayed at the bottom of each blog page, just before “Powered "
-"by Pyrone”"
+"A string displayed at the bottom of each blog page, just before \"Powered"
+" by Pyrone\""
 msgstr ""
 "Строка, отображаемая в нижней части каждой страницы блога, прямо перед "
 "надписью «Работает на Pyrone»"
@@ -324,13 +325,13 @@ msgstr ""
 "в качестве уменьшенной копии картинки"
 
 #: pyrone/templates/admin/settings.mako:51
-msgid "Google Analytics™ ID"
+msgid "Google Analytics(tm) ID"
 msgstr "Google Analytics™ ID"
 
 #: pyrone/templates/admin/settings.mako:52
 msgid ""
-"Your google analytics ID, value like “UA-12345678-9”, to disable Google "
-"Analytics just clear the field"
+"Your google analytics ID, value like \"UA-12345678-9\", to disable Google"
+" Analytics just clear the field"
 msgstr ""
 "Идентификатор вашего аккаунта в системе Google Analytics™, значение типа "
 "«UA-12345678-9», чтобы отключить аналитику, очистите это поле"
@@ -343,7 +344,7 @@ msgstr "Часовой пояс блога"
 msgid ""
 "Timezone to be used for time and date values on the site, "
 "<strong>must</strong> be tzdb-compatible string value like "
-"“Asia/Novosibirsk” or “UTC”."
+"\"Asia/Novosibirsk\" or \"UTC\"."
 msgstr ""
 "Название часового пояса (в формате tzdb!), например «Asia/Novosibirsk» "
 "или «UTC»."
@@ -383,7 +384,7 @@ msgid "Consumer secret"
 msgstr "Consumer secret"
 
 #: pyrone/templates/admin/settings.mako:65
-msgid "Twitter “share a link” button"
+msgid "Twitter \"share a link\" button"
 msgstr "Кнопка твиттера «твитнуть»"
 
 #: pyrone/templates/admin/settings.mako:67
@@ -400,7 +401,7 @@ msgid "Use this Twitter username for sharing"
 msgstr "Использовать это имя твиттера для шаринга"
 
 #: pyrone/templates/admin/settings.mako:72
-msgid "Google “+1” button"
+msgid "Google \"+1\" button"
 msgstr "Кнопка Google «+1»"
 
 #: pyrone/templates/admin/settings.mako:76
@@ -460,8 +461,8 @@ msgstr "зарегистрировался новый пользователь"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:3
 #: pyrone/templates/admin/settings_widget_pages.mako:5
-msgid "Widget “Pages” parameters"
-msgstr "Параметры виджета «Страницы»"
+msgid "Widget \"Pinned posts\" parameters"
+msgstr "Параметры виджета «Избранные посты»"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:12
 msgid "Pages list"
@@ -488,8 +489,8 @@ msgstr ""
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
 "You can use any other character as delimiter instead of "
-"<strong>!</strong>, e.g. pipe “|”:<code><pre>|http://google.com | Google "
-"web search\n"
+"<strong>!</strong>, e.g. pipe \"|\":<code><pre>|http://google.com | "
+"Google web search\n"
 "|http://yandex.ru | Search in Yandex</pre></code>"
 msgstr ""
 "Можно использовать другой символ-разделитель вместо <strong>!</strong>, "
@@ -541,17 +542,13 @@ msgid "delete"
 msgstr "удалить"
 
 #: pyrone/templates/blog/comments_moderation.mako:32
-msgid "expand…"
+msgid "expand..."
 msgstr "раскрыть…"
 
 #: pyrone/templates/blog/list_articles.mako:25
 #: pyrone/templates/blog/view_article.mako:45
 msgid "draft"
 msgstr "черновик"
-
-#: pyrone/templates/blog/list_articles.mako:28
-msgid "Posted by {author} on {date}"
-msgstr "Написано {author} {date}"
 
 #: pyrone/templates/blog/list_articles.mako:28
 #: pyrone/templates/widgets/comment.mako:9
@@ -561,11 +558,6 @@ msgstr "%Y-%m-%d в %H:%M"
 #: pyrone/templates/blog/list_articles.mako:33
 msgid "continue reading"
 msgstr "читать дальше"
-
-#: pyrone/templates/blog/list_articles.mako:35
-#: pyrone/templates/blog/view_article.mako:55
-msgid "Tags:"
-msgstr "Теги:"
 
 #: pyrone/templates/blog/list_articles.mako:39
 #: pyrone/templates/blog/list_articles.mako:41
@@ -581,11 +573,11 @@ msgid "No articles here."
 msgstr "Ничего нет."
 
 #: pyrone/templates/blog/list_articles.mako:61
-msgid "←newer"
+msgid "<-newer"
 msgstr "←новые"
 
 #: pyrone/templates/blog/list_articles.mako:62
-msgid "older→"
+msgid "older->"
 msgstr "старые→"
 
 #: pyrone/templates/blog/local_login.mako:3
@@ -606,12 +598,16 @@ msgstr "Пароль"
 msgid "sign in"
 msgstr "войти"
 
+#: pyrone/templates/blog/local_login.mako:22
+msgid "Other sign in options:"
+msgstr "Другие опции логина:"
+
 #: pyrone/templates/blog/my_profile.mako:3
 msgid "My profile"
 msgstr "Мой профиль на сайте"
 
 #: pyrone/templates/blog/my_profile.mako:13
-msgid "…and repeat password"
+msgid "...and repeat password"
 msgstr "…и повторите пароль"
 
 #: pyrone/templates/blog/my_profile.mako:15
@@ -678,8 +674,8 @@ msgstr ""
 #: pyrone/templates/blog/view_article.mako:112
 msgid ""
 "<strong>Anonymous visitors, please pay attention that comments with more "
-"than one hyperlink (including field “website”) will be put on moderation."
-" Sign in to post without such limitations.</strong>"
+"than one hyperlink (including field \"website\") will be put on "
+"moderation. Sign in to post without such limitations.</strong>"
 msgstr ""
 "Посетители-анонимы, обратите внимение, что более чем одна гиперссылка в "
 "тексте (включая оную из поля «веб-сайт») приведёт к блокировке "
@@ -696,8 +692,10 @@ msgid "Your name (required, 50 characters or less)"
 msgstr "Имя (обязательно, 50 символов или меньше)"
 
 #: pyrone/templates/blog/view_article.mako:126
-msgid "Your email (won't be published, required if you want to receive answers)"
-msgstr "Email, на который получать ответы (не будет опубликован)"
+msgid ""
+"Your email (optional, won't be published, required if you want to receive"
+" answers)"
+msgstr "Опциональный email, на который получать ответы (не будет опубликован)"
 
 #: pyrone/templates/blog/view_article.mako:130
 msgid "Your website"
@@ -730,7 +728,7 @@ msgstr "Ярлык (обязательно)"
 
 #: pyrone/templates/blog/write_article.mako:15
 msgid ""
-"Short string (part of the URL), alphanumeric characters and “-” are "
+"Short string (part of the URL), alphanumeric characters and \"-\" are "
 "recommended."
 msgstr ""
 "Короткая строка (часть URL), рекомендуются алфавитно-цифровые символы и "
@@ -847,23 +845,19 @@ msgstr ""
 msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
 msgstr "Нажмите здесь, чтобы подтвердить email"
 
-#: pyrone/templates/widgets/account.mako:9
-msgid "<strong>Sign in</strong> using"
-msgstr "<strong>Войти на сайт</strong>, используя"
-
-#: pyrone/templates/widgets/account.mako:16
+#: pyrone/templates/widgets/account.mako:17
 msgid "You are logged in."
 msgstr "Вы уже в системе."
 
-#: pyrone/templates/widgets/account.mako:17
+#: pyrone/templates/widgets/account.mako:18
 msgid "My profile page"
 msgstr "Мой профиль на сайте"
 
-#: pyrone/templates/widgets/account.mako:18
+#: pyrone/templates/widgets/account.mako:19
 msgid "My subscriptions"
 msgstr "Мои подписки"
 
-#: pyrone/templates/widgets/account.mako:19
+#: pyrone/templates/widgets/account.mako:20
 msgid "Logout"
 msgstr "Выйти из системы"
 
@@ -896,8 +890,8 @@ msgid "reply to this comment"
 msgstr "ответить на этот комментарий"
 
 #: pyrone/templates/widgets/pages.mako:5
-msgid "Pages"
-msgstr "Страницы"
+msgid "Pinned posts"
+msgstr "Избранные посты"
 
 #: pyrone/templates/widgets/search.mako:6
 msgid "Search blog"
@@ -919,47 +913,47 @@ msgstr "Верификация не получилась, так как адре
 msgid "Email `{0}` has been confirmed."
 msgstr "Адрес электроной почты `{0}` успешно подтверждён."
 
-#: pyrone/views/admin.py:56 pyrone/views/admin.py:62
+#: pyrone/views/admin.py:58 pyrone/views/admin.py:64
 msgid "Invalid value, must be positive numeric value"
 msgstr "Некорректное значение, должно быть целое положительное число"
 
-#: pyrone/views/admin.py:323
+#: pyrone/views/admin.py:330
 msgid "Backup file not found"
 msgstr "Файл бэкапа не найден"
 
-#: pyrone/views/admin.py:330
+#: pyrone/views/admin.py:337
 msgid "Backup file is broken!"
 msgstr "Файл бэкапа повреждён!"
 
-#: pyrone/views/admin.py:336
+#: pyrone/views/admin.py:343
 msgid "Backup file is broken, no catalog file inside!"
 msgstr "Файл бэкапа повреждён, не найден файл каталога внутри архива!"
 
-#: pyrone/views/admin.py:341
+#: pyrone/views/admin.py:348
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr "Файл бэкапа повреждён, файл каталога повреждён!"
 
-#: pyrone/views/admin.py:360
+#: pyrone/views/admin.py:367
 msgid "Unknown XML format of catalog file."
 msgstr "Формат файла каталога не является корректным XML."
 
-#: pyrone/views/admin.py:365
+#: pyrone/views/admin.py:372
 msgid "Unsupported backup version: “{0}”!"
 msgstr "Версия бэкапа «{0}» не поддерживается!"
 
-#: pyrone/views/admin.py:384
+#: pyrone/views/admin.py:392
 msgid "Backup file is broken: settings block not found"
 msgstr "Файл бэкапа повреждён, блок «settings» не обнаружен"
 
-#: pyrone/views/admin.py:400
+#: pyrone/views/admin.py:408
 msgid "Backup file is broken: users block not found"
 msgstr "Файл бэкапа повреждён, блок «users» не обнаружен"
 
-#: pyrone/views/admin.py:462 pyrone/views/admin.py:565
+#: pyrone/views/admin.py:470 pyrone/views/admin.py:578
 msgid "Backup file is broken: articles block not found"
 msgstr "Файл бэкапа повреждён, блок «articles» не обнаружен"
 
-#: pyrone/views/admin.py:610 pyrone/views/admin.py:612
+#: pyrone/views/admin.py:623 pyrone/views/admin.py:625
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"

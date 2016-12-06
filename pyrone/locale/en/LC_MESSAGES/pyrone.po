@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2015-08-20 21:09+0600\n"
+"POT-Creation-Date: 2016-12-06 13:03+0600\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
+"Language: en\n"
 "Language-Team: en <pyrone-translation@regolit.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.0\n"
+"Generated-By: Babel 2.3.4\n"
 
 #: pyrone/lib/helpers.py:208
 msgid "Administrator"
@@ -196,8 +197,8 @@ msgid "Choose file to upload"
 msgstr ""
 
 #: pyrone/templates/admin/list_files.mako:14
-msgid "← First choose file (other fields will be filled automatically)"
-msgstr ""
+msgid "<- First choose file (other fields will be filled automatically)"
+msgstr "← First choose file (other fields will be filled automatically)"
 
 #: pyrone/templates/admin/list_files.mako:16
 msgid ""
@@ -290,9 +291,11 @@ msgstr ""
 
 #: pyrone/templates/admin/settings.mako:46
 msgid ""
+"A string displayed at the bottom of each blog page, just before \"Powered"
+" by Pyrone\""
+msgstr ""
 "A string displayed at the bottom of each blog page, just before “Powered "
 "by Pyrone”"
-msgstr ""
 
 #: pyrone/templates/admin/settings.mako:47
 msgid "Number of elements on a page"
@@ -313,14 +316,16 @@ msgid ""
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:51
-msgid "Google Analytics™ ID"
-msgstr ""
+msgid "Google Analytics(tm) ID"
+msgstr "Google Analytics™ ID"
 
 #: pyrone/templates/admin/settings.mako:52
 msgid ""
+"Your google analytics ID, value like \"UA-12345678-9\", to disable Google"
+" Analytics just clear the field"
+msgstr ""
 "Your google analytics ID, value like “UA-12345678-9”, to disable Google "
 "Analytics just clear the field"
-msgstr ""
 
 #: pyrone/templates/admin/settings.mako:53
 msgid "Blog timezone"
@@ -330,8 +335,11 @@ msgstr ""
 msgid ""
 "Timezone to be used for time and date values on the site, "
 "<strong>must</strong> be tzdb-compatible string value like "
-"“Asia/Novosibirsk” or “UTC”."
+"\"Asia/Novosibirsk\" or \"UTC\"."
 msgstr ""
+"Timezone to be used for time and date values on the site, "
+"<strong>must</strong> be tzdb-compatible string value like "
+"“Asia/Novosibirsk” or “UTC”."
 
 #: pyrone/templates/admin/settings.mako:55
 msgid "Site language"
@@ -363,8 +371,8 @@ msgid "Consumer secret"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:65
-msgid "Twitter “share a link” button"
-msgstr ""
+msgid "Twitter \"share a link\" button"
+msgstr "Twitter “share a link” button"
 
 #: pyrone/templates/admin/settings.mako:67
 #: pyrone/templates/admin/settings.mako:74
@@ -380,8 +388,8 @@ msgid "Use this Twitter username for sharing"
 msgstr ""
 
 #: pyrone/templates/admin/settings.mako:72
-msgid "Google “+1” button"
-msgstr ""
+msgid "Google \"+1\" button"
+msgstr "Google “+1” button"
 
 #: pyrone/templates/admin/settings.mako:76
 msgid "Site search widget"
@@ -434,8 +442,8 @@ msgstr ""
 
 #: pyrone/templates/admin/settings_widget_pages.mako:3
 #: pyrone/templates/admin/settings_widget_pages.mako:5
-msgid "Widget “Pages” parameters"
-msgstr ""
+msgid "Widget \"Pinned posts\" parameters"
+msgstr "Widget “Pinned posts” parameters"
 
 #: pyrone/templates/admin/settings_widget_pages.mako:12
 msgid "Pages list"
@@ -457,10 +465,14 @@ msgstr ""
 #: pyrone/templates/admin/settings_widget_pages.mako:18
 msgid ""
 "You can use any other character as delimiter instead of "
+"<strong>!</strong>, e.g. pipe \"|\":<code><pre>|http://google.com | "
+"Google web search\n"
+"|http://yandex.ru | Search in Yandex</pre></code>"
+msgstr ""
+"You can use any other character as delimiter instead of "
 "<strong>!</strong>, e.g. pipe “|”:<code><pre>|http://google.com | Google "
 "web search\n"
 "|http://yandex.ru | Search in Yandex</pre></code>"
-msgstr ""
 
 #: pyrone/templates/admin/settings_widget_pages.mako:20
 msgid "The main idea is simple: first character in the line is delimiter."
@@ -507,16 +519,12 @@ msgid "delete"
 msgstr ""
 
 #: pyrone/templates/blog/comments_moderation.mako:32
-msgid "expand…"
-msgstr ""
+msgid "expand..."
+msgstr "expand…"
 
 #: pyrone/templates/blog/list_articles.mako:25
 #: pyrone/templates/blog/view_article.mako:45
 msgid "draft"
-msgstr ""
-
-#: pyrone/templates/blog/list_articles.mako:28
-msgid "Posted by {author} on {date}"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:28
@@ -526,11 +534,6 @@ msgstr "%Y-%m-%d in %H:%M"
 
 #: pyrone/templates/blog/list_articles.mako:33
 msgid "continue reading"
-msgstr ""
-
-#: pyrone/templates/blog/list_articles.mako:35
-#: pyrone/templates/blog/view_article.mako:55
-msgid "Tags:"
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:39
@@ -547,12 +550,12 @@ msgid "No articles here."
 msgstr ""
 
 #: pyrone/templates/blog/list_articles.mako:61
-msgid "←newer"
-msgstr ""
+msgid "<-newer"
+msgstr "←newer"
 
 #: pyrone/templates/blog/list_articles.mako:62
-msgid "older→"
-msgstr ""
+msgid "older->"
+msgstr "older→"
 
 #: pyrone/templates/blog/local_login.mako:3
 msgid "Sign in"
@@ -572,13 +575,17 @@ msgstr ""
 msgid "sign in"
 msgstr ""
 
+#: pyrone/templates/blog/local_login.mako:22
+msgid "Other sign in options:"
+msgstr ""
+
 #: pyrone/templates/blog/my_profile.mako:3
 msgid "My profile"
 msgstr ""
 
 #: pyrone/templates/blog/my_profile.mako:13
-msgid "…and repeat password"
-msgstr ""
+msgid "...and repeat password"
+msgstr "…and repeat password"
 
 #: pyrone/templates/blog/my_profile.mako:15
 msgid "You are signed in using twitter account {0}."
@@ -639,9 +646,12 @@ msgstr ""
 #: pyrone/templates/blog/view_article.mako:112
 msgid ""
 "<strong>Anonymous visitors, please pay attention that comments with more "
+"than one hyperlink (including field \"website\") will be put on "
+"moderation. Sign in to post without such limitations.</strong>"
+msgstr ""
+"<strong>Anonymous visitors, please pay attention that comments with more "
 "than one hyperlink (including field “website”) will be put on moderation."
 " Sign in to post without such limitations.</strong>"
-msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:117
 #: pyrone/templates/blog/view_article.mako:128
@@ -653,7 +663,9 @@ msgid "Your name (required, 50 characters or less)"
 msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:126
-msgid "Your email (won't be published, required if you want to receive answers)"
+msgid ""
+"Your email (optional, won't be published, required if you want to receive"
+" answers)"
 msgstr ""
 
 #: pyrone/templates/blog/view_article.mako:130
@@ -687,9 +699,11 @@ msgstr ""
 
 #: pyrone/templates/blog/write_article.mako:15
 msgid ""
-"Short string (part of the URL), alphanumeric characters and “-” are "
+"Short string (part of the URL), alphanumeric characters and \"-\" are "
 "recommended."
 msgstr ""
+"Short string (part of the URL), alphanumeric characters and “-” are "
+"recommended."
 
 #: pyrone/templates/blog/write_article.mako:16
 msgid "Publishing date and time"
@@ -798,23 +812,19 @@ msgstr ""
 msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
 msgstr "Please click here to confirm your address"
 
-#: pyrone/templates/widgets/account.mako:9
-msgid "<strong>Sign in</strong> using"
-msgstr ""
-
-#: pyrone/templates/widgets/account.mako:16
+#: pyrone/templates/widgets/account.mako:17
 msgid "You are logged in."
 msgstr ""
 
-#: pyrone/templates/widgets/account.mako:17
+#: pyrone/templates/widgets/account.mako:18
 msgid "My profile page"
 msgstr ""
 
-#: pyrone/templates/widgets/account.mako:18
+#: pyrone/templates/widgets/account.mako:19
 msgid "My subscriptions"
 msgstr ""
 
-#: pyrone/templates/widgets/account.mako:19
+#: pyrone/templates/widgets/account.mako:20
 msgid "Logout"
 msgstr ""
 
@@ -847,7 +857,7 @@ msgid "reply to this comment"
 msgstr ""
 
 #: pyrone/templates/widgets/pages.mako:5
-msgid "Pages"
+msgid "Pinned posts"
 msgstr ""
 
 #: pyrone/templates/widgets/search.mako:6
@@ -870,47 +880,47 @@ msgstr ""
 msgid "Email `{0}` has been confirmed."
 msgstr ""
 
-#: pyrone/views/admin.py:56 pyrone/views/admin.py:62
+#: pyrone/views/admin.py:58 pyrone/views/admin.py:64
 msgid "Invalid value, must be positive numeric value"
 msgstr ""
 
-#: pyrone/views/admin.py:323
+#: pyrone/views/admin.py:330
 msgid "Backup file not found"
 msgstr ""
 
-#: pyrone/views/admin.py:330
+#: pyrone/views/admin.py:337
 msgid "Backup file is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:336
+#: pyrone/views/admin.py:343
 msgid "Backup file is broken, no catalog file inside!"
 msgstr ""
 
-#: pyrone/views/admin.py:341
+#: pyrone/views/admin.py:348
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr ""
 
-#: pyrone/views/admin.py:360
+#: pyrone/views/admin.py:367
 msgid "Unknown XML format of catalog file."
 msgstr ""
 
-#: pyrone/views/admin.py:365
+#: pyrone/views/admin.py:372
 msgid "Unsupported backup version: “{0}”!"
 msgstr ""
 
-#: pyrone/views/admin.py:384
+#: pyrone/views/admin.py:392
 msgid "Backup file is broken: settings block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:400
+#: pyrone/views/admin.py:408
 msgid "Backup file is broken: users block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:462 pyrone/views/admin.py:565
+#: pyrone/views/admin.py:470 pyrone/views/admin.py:578
 msgid "Backup file is broken: articles block not found"
 msgstr ""
 
-#: pyrone/views/admin.py:610 pyrone/views/admin.py:612
+#: pyrone/views/admin.py:623 pyrone/views/admin.py:625
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
@@ -944,139 +954,4 @@ msgstr ""
 #: pyrone/views/blog.py:573
 msgid "Answering to not approved comment"
 msgstr ""
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "Blog style (skin)"
-#~ msgstr ""
-
-#~ msgid "Cannot create authorization Twitter URL"
-#~ msgstr ""
-
-#~ msgid "Unindent selected block."
-#~ msgstr ""
-
-#~ msgid "Indent selected block."
-#~ msgstr ""
-
-#~ msgid "Name of the file (required, case-sensitive)"
-#~ msgstr ""
-
-#~ msgid "upload new file"
-#~ msgstr ""
-
-#~ msgid "pyrone version: %s"
-#~ msgstr ""
-
-#~ msgid "%i bytes"
-#~ msgstr ""
-
-#~ msgid "Posted by %(author)s on %(date)s"
-#~ msgstr ""
-
-#~ msgid "You are signed in using twitter account %s."
-#~ msgstr ""
-
-#~ msgid "Email `%s` has confirmed."
-#~ msgstr ""
-
-#~ msgid "Unsupported backup version: “%s”!"
-#~ msgstr ""
-
-#~ msgid "Articles labeled with tag “%s”"
-#~ msgstr ""
-
-#~ msgid "EMAIL# PLEASE VERIFY YOUR EMAIL ADDRESS FOR THE SITE"
-#~ msgstr ""
-
-#~ msgid "pyrone version: {0}"
-#~ msgstr ""
-
-#~ msgid "{0} bytes"
-#~ msgstr ""
-
-#~ msgid "Posted by {author} on {date}"
-#~ msgstr ""
-
-#~ msgid "You are signed in using twitter account {0}."
-#~ msgstr ""
-
-#~ msgid "EMAIL# ADMIN SUBJECT NEW COMMENT TO THE ARTICLE"
-#~ msgstr "New comment to the article “{article_title}” on the site “{site_title}”"
-
-#~ msgid "EMAIL# ADMIN NEW COMMENT TO THE ARTICLE"
-#~ msgstr ""
-
-#~ msgid "EMAIL# ADMIN VISITOR ON DATE WROTE THE FOLLOWING"
-#~ msgstr ""
-
-#~ msgid "EMAIL# DIRECT LINK TO COMMENT"
-#~ msgstr "<a href=\"{comment_url}\">Click here</a> to open comment."
-
-#~ msgid "EMAIL# SUBJECT SOMEONE ANSWERED TO YOUR COMMENT"
-#~ msgstr ""
-
-#~ msgid "EMAIL# USER ANSWERED TO YOUR COMMENT FOR THE ARTICLE"
-#~ msgstr ""
-
-#~ msgid "EMAIL# VISITOR ON DATE WROTE THE FOLLOWING"
-#~ msgstr ""
-
-#~ msgid "EMAIL# SUBJECT PLEASE VERIFY YOUR EMAIL ADDRESS FOR THE SITE"
-#~ msgstr "Please verify your email address for the site “{site_title}”"
-
-#~ msgid "EMAIL# TO RECEIVE NOTIFICATIONS FROM SITE YOU MUST CONFIRM THIS ADDRESS"
-#~ msgstr ""
-
-#~ msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
-#~ msgstr "Click here to confirm email address"
-
-#~ msgid "Email `{0}` has confirmed."
-#~ msgstr ""
-
-#~ msgid "Unsupported backup version: “{0}”!"
-#~ msgstr ""
-
-#~ msgid "Articles labeled with tag “{0}”"
-#~ msgstr ""
-
-#~ msgid "Email address verification message subject template"
-#~ msgstr ""
-
-#~ msgid "Plain text, no HTML, allowed substitution symbols:"
-#~ msgstr ""
-
-#~ msgid "Email address verification message body template"
-#~ msgstr ""
-
-#~ msgid "Answer to comment notification message subject template"
-#~ msgstr ""
-
-#~ msgid "Answer to comment notification message body template"
-#~ msgstr ""
-
-#~ msgid "Admin notification subject template: new comment"
-#~ msgstr ""
-
-#~ msgid "Admin notification body template: new comment"
-#~ msgstr ""
-
-#~ msgid "Admin notification subject template: new user registered"
-#~ msgstr ""
-
-#~ msgid "Admin notification body template: new user registered"
-#~ msgstr ""
-
-#~ msgid "Upload backup file"
-#~ msgstr ""
-
-#~ msgid "upload"
-#~ msgstr ""
-
-#~ msgid "RESTORING BACKUP PLEASE WAIT"
-#~ msgstr ""
-
-#~ msgid "CREATING BACKUP PLEASE WAIT"
-#~ msgstr ""
 
