@@ -231,6 +231,7 @@ div.article div.subtitle div.date {
 }
 div.article div.subtitle div.social {
 	float: right;
+	margin: 0 3px 0 3px;
 }
 div.markup-preview {
 	border: 1px solid #7f7f7f;
