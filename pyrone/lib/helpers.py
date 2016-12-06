@@ -351,7 +351,6 @@ def get_twitter_share_link_button(force_reload=False):
 
 
 def get_gplusone_button(force_reload=False):
-
     value = cache.get_value('rendered_gplusone_button')
     if value is None or force_reload:
         if get_config('social_gplusone') != 'true':
@@ -362,6 +361,33 @@ def get_gplusone_button(force_reload=False):
             value = tpl
 
         cache.set_value('rendered_gplusone_button', value)
+
+    return value
+
+
+def get_facebook_share_button_script():
+    if get_config('social_facebook_share') != 'true':
+        value = ''
+    else:
+        tpl = '''<!-- facebook share button -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- facebook share button -->'''
+        value = tpl
+    return value
+
+def get_facebook_share_button(url):
+    if get_config('social_facebook_share') != 'true':
+        value = ''
+    else:
+        tpl = '''<div class="fb-share-button" data-href="{url}" data-layout="button_count"></div>'''
+        value = tpl.format(url=url)
 
     return value
 

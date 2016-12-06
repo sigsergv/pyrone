@@ -38,8 +38,14 @@ def view_settings(request):
     for p in config.get_all():
         c['settings'][p.id] = p.value
 
-    if 'ui_theme' not in c['settings'] or c['settings']['ui_theme'] is None:
-        c['settings']['ui_theme'] = 'default'
+    defaults = {
+        'ui_theme': 'default',
+        'social_facebook_share': True
+    }
+
+    for k,v in defaults.items():
+        if k not in c['settings'] or c['settings'][k] is None:
+            c['settings'][k] = v
 
     return c
 
@@ -77,7 +83,7 @@ def save_settings_ajax(request):
               'image_preview_width', 'google_analytics_id', 'timezone', 'ui_lang', 
               'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
               'social_twitter_share_link_show_count', 'social_twitter_share_link_via',
-              'social_gplusone', 'site_search_widget_code', 'ui_theme')
+              'social_gplusone', 'social_facebook_share', 'site_search_widget_code', 'ui_theme')
 
         for id in settings:
             try:
@@ -89,7 +95,7 @@ def save_settings_ajax(request):
         bool_settings = ('admin_notify_new_comments',
             'admin_notify_new_user', 'social_twitter_share_link',
             'social_twitter_share_link_show_count',
-            'social_gplusone')
+            'social_gplusone', 'social_facebook_share')
         for id in bool_settings:
             if id in request.POST:
                 v = 'true'

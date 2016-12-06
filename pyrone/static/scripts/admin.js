@@ -134,7 +134,7 @@ function Pyrone_settings_saveSettings(url) {
 
 	var bool_field_names = ['admin_notify_new_comments', 'admin_notify_new_user',
 		'social_twitter_share_link', 'social_twitter_share_link_show_count',
-		'social_gplusone']
+		'social_gplusone', 'social_facebook_share']
 	var params = {};
 	
 	$.each(field_names, function(ind, field_name) {

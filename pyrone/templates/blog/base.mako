@@ -16,6 +16,8 @@
   <%include file="/widgets/google_analytics.mako"/>
 </head>
 <body>
+${h.get_facebook_share_button_script()|n}
+
 <div id="topbar"><div class="title"><a href="/">${h.get_config('site_title')}</a></div></div>
 
 <div id="contentbar">
