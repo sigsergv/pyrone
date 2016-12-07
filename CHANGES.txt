@@ -6,6 +6,7 @@ Release: 2016-12-??
 * minor text fixes
 * fixed old backup restoration error
 * updated default styles
+* added "facebook share" social button
 
 1.4.1
 -----
