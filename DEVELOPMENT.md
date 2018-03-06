@@ -16,50 +16,45 @@ MacOS as development platform is not supported anymore, use Virtualbox/VMWare.
 Preparing virtual environment
 -----------------------------
 
-First you need to install `python` (version 3.5 or 3.6, version 2 is not supported).
+First you need to install `python` (version 3.5 or 3.6, version 2 is not supported) and
+some other packages.
 
-    # apt-get install python3.4 python3.4-venv python3.4-dev postgresql-9.4 
+    $ sudo apt-get install python3 python3-venv python3-dev postgresql-9.6 
 
 Also you'll need to install additional binary packages:
 
-    # apt-get install curl gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
+    $ sudo apt-get install dh-exec curl gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
     
 Now we are going to set up development virtual environment in the project directory:
 
-    $ pyvenv-3.4 --without-pip .venv
+    $ python3 -m venv .venv
 
 You now have the directory with new virtual environment, now you should *activate* it, after 
 activation all required commands will be executed from your virtual environment, not from the
-system. Required commands are: `python`, `pip`, `easy_install` etc. So activate (remember,
+system. Required commands are: `python`, `pip`  etc. So activate (remember,
 we are in the project directory):
 
     $ source .venv/bin/activate
 
-Install setuptools and pip:
-
-    $ curl https://bootstrap.pypa.io/ez_setup.py | python3.4 -
-    $ rm setuptools-*.zip
-    $ easy_install-3.4 pip
-
 Make sure that important commands are resolved correctly, if you are using zsh 
 execute command `rehash`:
 
-    $ which easy_install-3.4
-    /home/user/projects/pyrone/.venv/bin/easy_install-3.4
-    $ which python3.4
-    /home/user/projects/pyrone/.venv/bin/python3.4
+    $ which pip3
+    /home/user/pyrone/.venv/bin/pip3
+    $ which python3
+    /home/user/pyrone/.venv/bin/python3
 
-And install now all required python packages (execute this command in the activated 
+And finally install now all required python packages (execute this command in the activated 
 environment and from project directory):
 
-    $ python3.4 setup.py develop
+    $ python3 setup.py develop
 
 Copy configuration script `development.ini` from the directory `examples` to the same directory 
 where `setup.py` is located, edit `development.ini` appropriately, but default preferences are 
 just fine. By default pyrone development config uses sqlite database
 engine.
 
-See also `INSTALL.md` for database setup instruction.
+See also `INSTALL.md` for database setup instructions.
 
 Working with development server
 -------------------------------
@@ -81,24 +76,24 @@ commands.
 
 Collect messages from source files (python only):
 
-    $ python3.4 setup.py extract_messages extract_messages_js
+    $ python3 setup.py extract_messages extract_messages_js
 
 Update messages (using .pot-file created by `extract_messages` command):
 
-    $ python3.4 setup.py update_catalog update_catalog_js
+    $ python3 setup.py update_catalog update_catalog_js
 
 Or collect and update in one step:
 
-    $ python setup.py extract_messages update_catalog extract_messages_js update_catalog_js
+    $ python3 setup.py extract_messages update_catalog extract_messages_js update_catalog_js
 
 Compile translation files (for python code):
 
-    $ python3.4 setup.py compile_catalog compile_catalog_js
+    $ python3 setup.py compile_catalog compile_catalog_js
 
 Start new language ("es", Spanish in this example, both for python and javascript code, do this ONCE for one language):
 
-    $ python3.4 setup.py init_catalog -l es
-    $ python3.4 setup.py init_catalog_js -l es
+    $ python3 setup.py init_catalog -l es
+    $ python3 setup.py init_catalog_js -l es
 
 
 Code syntax highlight in the articles
@@ -121,16 +116,16 @@ You MUST use activated environment for commands below! So first execute:
 
 Prepare and upload source package to pypi:
 
-    $ python3.4 setup.py clean compile_catalog compile_catalog_js sdist upload
+    $ python3 setup.py clean compile_catalog compile_catalog_js sdist upload
 
 Alternatively you could use the following command, it will ask you for password:
 
-    $ python3.4 setup.py clean sdist upload
+    $ python3 setup.py clean sdist upload
 
-If you want to create source distribution package only (file `pyrone-1.4.0.tar.gz`), use 
+If you want to create source distribution package only (file `pyrone-1.4.2.tar.gz`), use 
 the following command:
 
-    $ python3.4 setup.py clean compile_catalog compile_catalog_js sdist
+    $ python3 setup.py clean compile_catalog compile_catalog_js sdist
 
 
 Some additional notes
