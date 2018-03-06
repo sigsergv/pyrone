@@ -1,12 +1,14 @@
 1.4.2
 -----
 
-Release: 2016-12-??
+Release: 2018-03-07
 
 * minor text fixes
 * fixed old backup restoration error
 * updated default styles
 * added "facebook share" social button
+* updated dependencies versions
+* major documentation and examples update
 
 1.4.1
 -----
