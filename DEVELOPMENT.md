@@ -5,70 +5,18 @@ Installation in development mode
 Foreword
 --------
 
-This document covers all aspects of setting up of Pyrone development environment, supported OSes are
-linux (debian/ubuntu) and Mac OS X.
+This document covers all aspects of setting up of Pyrone development environment on Linux
+(Debian 9.3 "Stretch").
+
+We use python venv to install required python packages.
+
+MacOS as development platform is not supported anymore, use Virtualbox/VMWare.
 
 
-Virtual environment
--------------------
+Preparing virtual environment
+-----------------------------
 
-It's strongly recommended to use virtual python environment with locally 
-installed `pyramid` and other required packages. In this document
-it's assumed that `python` binary is located in your virtual environment.
-The same thing for `easy_install` or `pip` executables.
-
-To make your life easier use script `bin/activate` from virtual environment to 
-alter local environment variables (`PATH` etc), in that case you will be able
-to execute binaries like `python` and `easy_install` without specifying full path.
-
-It's a good idea to place local virtual environment into a project directory and 
-call it `.venv`, that name is mentioned in project .gitignore so it won't damage
-repository.
-
-
-Preparing virtual environment (Mac OS X)
-----------------------------------------
-
-First you need to install Python 3.5, download it from the official 
-site: https://www.python.org/downloads/mac-osx/ . At the moment of this document writing
-latest available stable version of Python 3.5 was 3.5.4 
-<https://www.python.org/ftp/python/3.5.4/python-3.5.4-macosx10.6.pkg>
-
-You also need to install Postgres.app from <http://postgresapp.com/>.
-
-Then install `venv`:
-
-    $ python3 -m venv .venv
-
-And activate it:
-
-    $ source .venv/bin/activate
-
-Create symlink to pg_config binary, replace PG_VERSION with the actual postgres version.
-
-    $ ln -s /Applications/Postgres.app/Contents/Versions/PG_VERSION/bin/pg_config .venv/bin
-
-Then install all required packages (execute this command in the activated 
-environment and from project directory):
-
-    $ python3 setup.py develop
-
-Copy configuration script `development.ini` from the directory `examples` to the same directory 
-where `setup.py` is located, edit `development.ini` appropriately, but default preferences are 
-just fine. By default pyrone development config uses sqlite database
-engine.
-
-See also `INSTALL.md` for database setup instruction.
-
-
-Preparing virtual environment (debian/ubuntu)
----------------------------------------------
-
-It's assumed here and later that you're using Debian/Ubuntu linux distribution. So open
-terminal now and proceed.
-
-First you need to install `python` (version 3.3 or greater), you'll also
-need python package `virtualenv`, you can install them using following command:
+First you need to install `python` (version 3.5 or 3.6, version 2 is not supported).
 
     # apt-get install python3.4 python3.4-venv python3.4-dev postgresql-9.4 
 
