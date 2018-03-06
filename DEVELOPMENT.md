@@ -29,34 +29,29 @@ repository.
 Preparing virtual environment (Mac OS X)
 ----------------------------------------
 
-First you need to install Python 3.4, download it from the official 
+First you need to install Python 3.5, download it from the official 
 site: https://www.python.org/downloads/mac-osx/ . At the moment of this document writing
-latest available stable version of Python 3.4 was 3.4.4 
-<https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg>
+latest available stable version of Python 3.5 was 3.5.4 
+<https://www.python.org/ftp/python/3.5.4/python-3.5.4-macosx10.6.pkg>
 
 You also need to install Postgres.app from <http://postgresapp.com/>.
 
 Then install `venv`:
 
-    $ pyvenv-3.4 --without-pip .venv
+    $ python3 -m venv .venv
 
 And activate it:
 
     $ source .venv/bin/activate
 
-Now to install setuptools and pip:
-
-    $ curl https://bootstrap.pypa.io/ez_setup.py | python3.4 -
-    $ rm setuptools-*.zip
-
-Now you need to create symlink to pg_config binary, replace PG_VERSION with the actual postgres version.
+Create symlink to pg_config binary, replace PG_VERSION with the actual postgres version.
 
     $ ln -s /Applications/Postgres.app/Contents/Versions/PG_VERSION/bin/pg_config .venv/bin
 
 Then install all required packages (execute this command in the activated 
 environment and from project directory):
 
-    $ python3.4 setup.py develop
+    $ python3 setup.py develop
 
 Copy configuration script `development.ini` from the directory `examples` to the same directory 
 where `setup.py` is located, edit `development.ini` appropriately, but default preferences are 
@@ -110,9 +105,6 @@ And install now all required python packages (execute this command in the activa
 environment and from project directory):
 
     $ python3.4 setup.py develop
-
-Also you need to install mysql-connector-python manually (there is not appropriate version
-on pypi site yet). Follow instructions on this page: <http://dev.mysql.com/doc/connector-python/en/connector-python-installation-source.html>.
 
 Copy configuration script `development.ini` from the directory `examples` to the same directory 
 where `setup.py` is located, edit `development.ini` appropriately, but default preferences are 

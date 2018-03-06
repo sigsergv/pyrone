@@ -8,8 +8,8 @@ Foreword
 This document describes how to install Pyrone in the production environment.
 
 Pyrone is a standard WSGI application so you can use any method for provisioning WSGI 
-apps. However in this instruction only one method is covered: Debian/Ubuntu + nginx 
-+ uwsgi + postgresql. Application requires Python version 3.4, other versions are not supported.
+apps. However in this instruction only one method is covered: Debian/Ubuntu + nginx + 
+uwsgi + postgresql. Application requires Python version 3.5 or 3.6. Python 2 is not supported.
 
 I recommend you (for security reasons) to create separate system user for the application. In this
 manual all instructions assume there is a system user `blog` with home directory `/home/blog`, 
@@ -18,7 +18,7 @@ it's a regular non-privileged user.
 All linux shell commands in this manual have prefixes, if prefix is `$` then command must be executed
 using user `blog` shell session, and commands with the prefix `#` must be executed in root shell session.
 
-Recommended operating system: any linux with python 3.4 and postgresql 9.5.
+This instruction is written for Debian 9 "Stretch", python 3.5 and postgresql 9.6.
 
 
 Postgresql setup
@@ -35,8 +35,8 @@ Now create database and database user for Pyrone, use the following commands fro
 
 Choose and enter password.
 
-You can also update files `/etc/postgresql/9.4/main/pg_hba.conf` and
-`/etc/postgresql/9.4/main/postgresql.conf` if required.
+You can also update files `/etc/postgresql/9.6/main/pg_hba.conf` and
+`/etc/postgresql/9.6/main/postgresql.conf` if required.
 
 Prepare virtual environment
 ---------------------------
@@ -61,15 +61,15 @@ Login as a `blog` user:
 Then initialize new virtual environment:
 
     $ mkdir /home/blog/pyrone-blog/
-    $ pyvenv-3.4 --without-pip /home/blog/pyrone-blog/env
+    $ python3 -m venv /home/blog/pyrone-blog/env
 
 Now you have to *activate* just installed environment:
 
     $ source /home/blog/pyrone-blog/env/bin/activate
 
-After this command your shell session is slightly modified and almost all python-related command
-will be executed in just created virtual environment. And you are *required* to stay in this session
-and execute all remaining commands there!
+That command modifies your shell session and almost all python-related command are now
+executed in just created virtual environment. And you are *required* to stay in this session
+to execute all remaining commands!
 
 Install setuptools and pip:
 
@@ -90,7 +90,7 @@ all dependencies too):
 Now prepare the application configuration files:
 
    $ cd /home/blog/pyrone-blog/
-   $ cp ./env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/production.ini .
+   $ cp ./env/lib/python3.5/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/production.ini .
 
 Open file `production.ini` in any text editor and change default database connection
 parameters to yours. If you've followed this instruction from the beginning you'll need to change
@@ -99,7 +99,7 @@ database password only: find the string `pbpass` and replace it with the actual 
 Now we need to setup the database, to do this execute the following command:
 
     $ cd /home/blog/pyrone-blog
-    $ pyronedbinit --sample-data --sample-data-file=./env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/sample-data.json production.ini
+    $ pyronedbinit --sample-data --sample-data-file=./env/lib/python3.5/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/sample-data.json production.ini
 
 Check that application is configured properly, to do that just execute the following command inside
 the directory `/home/blog/pyrone-blog`:
@@ -127,7 +127,7 @@ Install required OS packages:
 
 Then create configuration file for the application:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
+    # cp /home/blog/pyrone-blog/env/lib/python3.5/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
     # ln -s /etc/uwsgi/apps-available/pyrone-uwsgi.ini /etc/uwsgi/apps-enabled
 
 And restart uWSGI:
@@ -146,7 +146,7 @@ Install nginx:
 
 Then create nginx configuration file for Pyrone's site:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.4/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
+    # cp /home/blog/pyrone-blog/env/lib/python3.5/site-packages/pyrone-1.4.2-py3.4.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
 
 In this file you need to change hostname (default value is `blog.example.com`).
 
