@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-if sys.version_info[:2] != (3, 4):
+if sys.version_info[:2] not in [(3,5), (3,6)]:
     print('Python version = 3.4 required!', file=sys.stderr)
     sys.exit(1)
 
