@@ -136,3 +136,8 @@ Do not use sqlite even for development! Use postgresql only.
 Use this command to connect postgres database:
 
     $ psql -h localhost pyrone_blog pyrone_blog_user
+
+The simplest way to clear database:
+
+    # sudo -u postgres dropdb pyrone_blog
+    # sudo -u postgres createdb pyrone_blog

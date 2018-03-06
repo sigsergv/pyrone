@@ -36,7 +36,7 @@ Now create database and database user for Pyrone, use the following commands fro
 Choose and enter password.
 
 You can also update files `/etc/postgresql/9.6/main/pg_hba.conf` and
-`/etc/postgresql/9.6/main/postgresql.conf` if required.
+`/etc/postgresql/9.6/main/postgresql.conf` if you want to set special permissions for that user.
 
 Prepare virtual environment
 ---------------------------
@@ -52,7 +52,7 @@ files, so let's begin.
 First install package `python-virtualenv` and other required packages:
 
     # apt-get update
-    # apt-get install dh-exec python3 python3-venv dpkg-dev python3-dev gcc libxml2-dev libxslt1-dev libjpeg8-dev libfreetype6-dev zlib1g-dev libpq-dev
+    # apt-get install dh-exec python3 python3-venv dpkg-dev python3-dev gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
 
 Login as a `blog` user:
 
@@ -71,10 +71,25 @@ That command modifies your shell session and almost all python-related command a
 executed in just created virtual environment. And you are *required* to stay in this session
 to execute all remaining commands!
 
+You need to install some additional packages first:
+
+    $ pip3 install wheel
+
+Now install Pyrone from python packages repository:
+
+    $ pip3 install pyrone
+
+This will install latest stable version of Pyrone and all needed packages.
+
+Alternatively you can install it from local package file (it will automatically install 
+all dependencies too):
+
+    $ pip3 install pyrone-1.4.2.tar.gz
+
 Now prepare the application configuration files:
 
    $ cd /home/blog/pyrone-blog/
-   $ cp ./env/lib/python3.5/site-packages/pyrone-1.4.2-py3.5.egg/share/pyrone/examples/production.ini .
+   $ cp ./env/share/pyrone/examples/production.ini .
 
 Open file `production.ini` in any text editor and change default database connection
 parameters to yours. If you've followed this instruction from the beginning you'll need to change
@@ -83,7 +98,7 @@ database password only: find the string `pbpass` and replace it with the actual 
 Now we need to setup the database, to do this execute the following command:
 
     $ cd /home/blog/pyrone-blog
-    $ pyronedbinit --sample-data --sample-data-file=./env/lib/python3.5/site-packages/pyrone-1.4.2-py3.5.egg/share/pyrone/sample-data.json production.ini
+    $ pyronedbinit --sample-data --sample-data-file=./env/share/pyrone/sample-data.json production.ini
 
 Check that application is configured properly, to do that just execute the following command inside
 the directory `/home/blog/pyrone-blog`:
@@ -111,7 +126,7 @@ Install required OS packages:
 
 Then create configuration file for the application:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.5/site-packages/pyrone-1.4.2-py3.5.egg/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
+    # cp /home/blog/pyrone-blog/env/share/pyrone/examples/pyrone-uwsgi.ini /etc/uwsgi/apps-available/
     # ln -s /etc/uwsgi/apps-available/pyrone-uwsgi.ini /etc/uwsgi/apps-enabled
 
 And restart uWSGI:
