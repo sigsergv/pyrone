@@ -596,11 +596,6 @@ def restore_backup(request):
         
         recursively_restore_commits(local_parents, None)
 
-    # reset associated sequences
-    if dialect_name == 'postgresql':
-        dbsession.bind.execute(text("SELECT setval('pbarticle_id_seq', (SELECT MAX(id) FROM pbarticle));"))
-        dbsession.bind.execute(text("SELECT setval('pbarticlecomment_id_seq', (SELECT MAX(id) FROM pbarticlecomment));"))
-
     # now process files
     nodes = xmldoc.xpath('//b:backup/b:files', namespaces=namespaces)
     if len(nodes) == 0:
@@ -648,6 +643,12 @@ def restore_backup(request):
     # catch IntegrityError here!
     try:
         transaction.commit()
+        
+        # reset sequences
+        if dialect_name == 'postgresql':
+            dbsession.bind.execute(text("SELECT setval('pbarticle_id_seq', (SELECT MAX(id) FROM pbarticle));"))
+            dbsession.bind.execute(text("SELECT setval('pbarticlecomment_id_seq', (SELECT MAX(id) FROM pbarticlecomment));"))
+
     except IntegrityError:
         return JSONResponse(httpcode.BadRequest, {'error': _('Unable to restore backup: database error, maybe your backup file is corrupted')})
     except Exception as e:
