@@ -1,3 +1,10 @@
+1.4.3
+-----
+
+Release: 2019-05-08
+
+* Updated dependencies.
+
 1.4.2
 -----
 

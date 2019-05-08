@@ -54,7 +54,11 @@ where `setup.py` is located, edit `development.ini` appropriately, but default p
 just fine. By default pyrone development config uses sqlite database
 engine.
 
-See also `INSTALL.md` for database setup instructions.
+Now setup database: create database and user, use default password `pbpass`:
+
+    # sudo -u postgres createdb pyrone_blog
+    # sudo -u postgres createuser pyrone_blog_user -P
+
 
 Working with development server
 -------------------------------
