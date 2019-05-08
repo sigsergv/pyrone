@@ -3,7 +3,7 @@ import sys
 import re
 
 if sys.version_info[:2] not in [(3,5), (3,6)]:
-    print('Python version = 3.4 required!', file=sys.stderr)
+    print('Python version = 3.5 or 3.6 required!', file=sys.stderr)
     sys.exit(1)
 
 from setuptools import setup, find_packages
