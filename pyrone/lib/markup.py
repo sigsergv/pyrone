@@ -4,11 +4,14 @@ Contains function for supported text markupt languages
 import markdown
 import re
 import logging
+import hashlib
 
 log = logging.getLogger(__name__)
 
 MARKUP_CONTINUE_MARKER = "<cut>"
 
+def slugify(value, separator):
+    return hashlib.md5(value.encode('utf-8')).hexdigest()
 
 def render_text_markup_mini(text):
     """
@@ -32,12 +35,16 @@ def render_text_markup(text):
         complete_text = text
 
     md = markdown.Markdown(
-        extensions=['footnotes', 'wikilinks', 'def_list',
+        extensions=['footnotes', 'wikilinks', 'def_list', 'toc',
         'fenced_code', 'codehilite(guess_lang=False)'],
         extension_configs={
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068
             #'footnotes': [("PLACE_MARKER", "~~~~~~~~")]
+            'toc': {
+                'slugify': slugify,
+                'permalink': '¶'
+            }
         },
         safe_mode=True,
         enable_attributes=True,
@@ -47,7 +54,7 @@ def render_text_markup(text):
     if preview_part is not None:
         # remove footnotes from the preview
         preview_part = re.sub('\\[\\^[^\\]]+?\\]', '', preview_part)
-        log.debug(preview_part)
+        # log.debug(preview_part)
         preview_html = md.convert(preview_part)
 
     complete_html = md.convert(complete_text)

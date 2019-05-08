@@ -84,7 +84,7 @@ This will install latest stable version of Pyrone and all needed packages.
 Alternatively you can install it from local package file (it will automatically install 
 all dependencies too):
 
-    $ pip3 install pyrone-1.4.2.tar.gz
+    $ pip3 install pyrone-1.4.3.tar.gz
 
 Now prepare the application configuration files:
 
@@ -145,7 +145,7 @@ Install nginx:
 
 Then create nginx configuration file for Pyrone's site:
 
-    # cp /home/blog/pyrone-blog/env/lib/python3.5/site-packages/pyrone-1.4.2-py3.5.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
+    # cp /home/blog/pyrone-blog/env/lib/python3.5/site-packages/pyrone-1.4.3-py3.5.egg/share/pyrone/examples/pyrone-blog-nginx-uwsgi.conf /etc/nginx/sites-available/
 
 In this file you need to change hostname (default value is `blog.example.com`).
 
