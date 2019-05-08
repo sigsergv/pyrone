@@ -2,8 +2,8 @@ import os
 import sys
 import re
 
-if sys.version_info[:2] not in [(3,5), (3,6)]:
-    print('Python version = 3.5 or 3.6 required!', file=sys.stderr)
+if sys.version_info[:2] not in [(3,5), (3,6), (3,7)]:
+    print('Python version = 3.5, 3.6 or 3.7 required!', file=sys.stderr)
     sys.exit(1)
 
 from setuptools import setup, find_packages
@@ -14,25 +14,25 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     # binary packages require some additional packages installed on your system like gcc
-    'Pillow==5.0.0',
-    'lxml==4.1.1',
-    'pyramid==1.9.1',
+    'Pillow==6.0.0',
+    'lxml==4.3.3',
+    'pyramid==1.10.4',
     'pyramid_mako==1.0.2',
-    'pyramid_tm==2.2',
-    'pyramid_debugtoolbar==4.4',
+    'pyramid_tm==2.2.1',
+    'pyramid_debugtoolbar==4.5',
     'pyramid_beaker==0.8',
     'pytz',
     'twitter==1.18.0',
     'markdown==2.6.11',
-    'decorator==4.2.1',
+    'decorator==4.4.0',
     'hurry.filesize==0.9',
-    'SQLAlchemy==1.2.4',
-    'transaction==2.2.0',
+    'SQLAlchemy==1.3.3',
+    'transaction==2.4.0',
     'repoze.tm2==2.1',  # default_commit_veto
-    'zope.sqlalchemy==1.0',
-    'waitress==1.1.0',
-    'Babel==2.5.3',
-    'psycopg2==2.7.4'
+    'zope.sqlalchemy==1.1',
+    'waitress==1.3.0',
+    'Babel==2.6.0',
+    'psycopg2==2.8.2'
 ]
 
 setup_cmdclass = {}

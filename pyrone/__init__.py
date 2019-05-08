@@ -50,7 +50,7 @@ def main(global_config, **settings):
         locale_negotiator=locale_negotiator)
     config.include('pyramid_mako')
     config.add_translation_dirs('pyrone:locale/')
-    config.set_request_property(get_user, 'user', reify=True)  # reify=True means that result is cached per request
+    config.add_request_method(get_user, 'user', reify=True)  # reify=True means that result is cached per request
     config.scan()
     config.add_static_view('static', 'pyrone:static')
     routes = [

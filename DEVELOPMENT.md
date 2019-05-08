@@ -54,7 +54,11 @@ where `setup.py` is located, edit `development.ini` appropriately, but default p
 just fine. By default pyrone development config uses sqlite database
 engine.
 
-See also `INSTALL.md` for database setup instructions.
+Now setup database: create database and user, use default password `pbpass`:
+
+    # sudo -u postgres createdb pyrone_blog
+    # sudo -u postgres createuser pyrone_blog_user -P
+
 
 Working with development server
 -------------------------------
@@ -122,7 +126,7 @@ Alternatively you could use the following command, it will ask you for password:
 
     $ python3 setup.py clean sdist upload
 
-If you want to create source distribution package only (file `pyrone-1.4.2.tar.gz`), use 
+If you want to create source distribution package only (file `pyrone-1.4.3.tar.gz`), use 
 the following command:
 
     $ python3 setup.py clean compile_catalog compile_catalog_js sdist
