@@ -24,6 +24,7 @@ requires = [
     'pytz',
     'twitter==1.18.0',
     'markdown==2.6.11',
+    'MarkdownSubscript==2.1.1',
     'decorator==4.4.0',
     'hurry.filesize==0.9',
     'SQLAlchemy==1.3.3',

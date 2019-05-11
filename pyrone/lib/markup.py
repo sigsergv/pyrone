@@ -6,6 +6,8 @@ import re
 import logging
 import hashlib
 
+from mdx_subscript import SubscriptExtension
+
 log = logging.getLogger(__name__)
 
 MARKUP_CONTINUE_MARKER = "<cut>"
@@ -36,7 +38,7 @@ def render_text_markup(text):
 
     md = markdown.Markdown(
         extensions=['footnotes', 'wikilinks', 'def_list', 'toc',
-        'fenced_code', 'codehilite(guess_lang=False)'],
+        'fenced_code', 'codehilite(guess_lang=False)', SubscriptExtension()],
         extension_configs={
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068
