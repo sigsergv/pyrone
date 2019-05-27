@@ -474,6 +474,9 @@ div.editor-text-controls span.button {
 	font-size: 22px;
 }
 
+.center {
+    text-align: center;
+}
 
 /* pygments styles */
 .codehilite .hll { background-color: #ffffcc }

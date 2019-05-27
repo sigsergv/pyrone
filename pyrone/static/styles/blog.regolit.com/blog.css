@@ -495,6 +495,9 @@ textarea {
 button.button {
 	font-size: 14px;
 }
+.center {
+    text-align: center;
+}
 /* pygments styles */
 .codehilite .hll { background-color: #ffffcc }
 .codehilite  { background: #f8f8f8; }
