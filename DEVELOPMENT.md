@@ -6,7 +6,7 @@ Foreword
 --------
 
 This document covers all aspects of setting up of Pyrone development environment on Linux
-(Debian 9.3 "Stretch").
+(Debian 10 "Buster").
 
 We use python venv to install required python packages.
 
@@ -16,10 +16,10 @@ MacOS as development platform is not supported anymore, use Virtualbox/VMWare.
 Preparing virtual environment
 -----------------------------
 
-First you need to install `python` (version 3.5 or 3.6, version 2 is not supported) and
-some other packages.
+First you need to install `python` (version 3.7, version 2 is not supported, versions 3.5, 36
+are supported but not testes) and some other packages.
 
-    $ sudo apt-get install python3 python3-venv python3-dev postgresql-9.6 
+    $ sudo apt-get install python3.7 python3-venv python3.7-dev postgresql-11 
 
 Also you'll need to install additional binary packages:
 
