@@ -126,7 +126,7 @@ Alternatively you could use the following command, it will ask you for password:
 
     $ python3 setup.py clean sdist upload
 
-If you want to create source distribution package only (file `pyrone-1.4.4.tar.gz`), use 
+If you want to create source distribution package only (file `pyrone-1.4.5.tar.gz`), use 
 the following command:
 
     $ python3 setup.py clean compile_catalog compile_catalog_js sdist

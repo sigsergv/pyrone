@@ -9,8 +9,8 @@
 % if user.kind == 'local':
   ${h.form_input_text('login', _('Login name'), user.login, {})|n}
   ${h.form_input_text('display_name', _('Display name'), user.display_name, {})|n}
-  ${h.form_input_text('password_1', _('Password'), '', {})|n}
-  ${h.form_input_text('password_2', _('...and repeat password'), '', {})|n}
+  ${h.form_password('password_1', _('Password'), '', {})|n}
+  ${h.form_password('password_2', _('...and repeat password'), '', {})|n}
 % elif user.kind == 'twitter':
   <div>${_('You are signed in using twitter account {0}.').format(h.user_link(user))|n}</div>
 % endif

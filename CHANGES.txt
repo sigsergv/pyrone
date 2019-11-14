@@ -1,3 +1,11 @@
+1.4.5
+-----
+
+Release: 2019-11-14
+
+* fixed user password change crash
+* fixed password field display
+
 1.4.4
 -----
 

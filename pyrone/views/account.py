@@ -29,7 +29,7 @@ def md5(s):
 
 
 def sha1(s):
-    return hashlib.sha1(s).hexdigest()
+    return hashlib.sha1(s).hexdigest().encode('utf8')
 
 
 @view_config(route_name='account_login', renderer='/blog/local_login.mako')
@@ -104,7 +104,9 @@ def my_profile_save_ajax(request):
             sample = '0123456789abcdef'
             salt = ''.join([random.choice(sample) for x in range(8)])
 
-            user.password = salt + sha1(salt + sha1(request.POST['new_password']))
+            salt = salt.encode('utf8')
+            hashed_password = salt + sha1(salt + sha1(request.POST['new_password'].encode('utf8')))
+            user.password = hashed_password.decode('utf8')
             is_changed = True
 
     if is_changed:

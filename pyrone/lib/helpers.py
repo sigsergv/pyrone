@@ -53,6 +53,28 @@ def form_input_text(name, title, value, errors, help=None):
 
     return html
 
+def form_password(name, title, value, errors, help=None):
+    estyle = ''
+    error_str = ''
+    if name not in errors:
+        estyle = 'display: none;'
+    else:
+        error_str = errors[name]
+
+    if value is None:
+        value = ''
+
+    if help is not None:
+        title = '<acronym title="{help}">{title}</acronym>'.format(help=html_escape(help), title=html_escape(title))
+
+    html = """<dt>{title}</dt>
+    <div id="error-{name}" class="error" style="{style}">{error}</div>
+    <dd><input type="password" name="{name}" id="fid-{name}" value="{value}"/></dd>
+    """.format(name=name, style=estyle, error=html_escape(error_str),
+               value=html_escape(value), title=title)
+
+    return html
+
 
 def form_textarea(name, title, value, errors, help=None, height=None):
     estyle = ''

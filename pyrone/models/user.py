@@ -17,7 +17,7 @@ def md5(s):
 
 
 def sha1(s):
-    return hashlib.sha1(s.encode('utf8')).hexdigest()
+    return hashlib.sha1(s).hexdigest().encode('utf8')
 
 
 class User(Base):
@@ -112,9 +112,10 @@ def find_local_user(login, password):
         return user
     else:
         # possibly a new method is used
-        salt = user.password[:8]
-        hashed_password = salt + sha1(salt + sha1(password))
-        if user.password == hashed_password:
+        salt = user.password[:8].encode('utf8')
+        hashed_password = salt + sha1(salt + sha1(password.encode('utf8')))
+        print((user.password, hashed_password, type(user.password), type(hashed_password)))
+        if user.password == hashed_password.decode('utf8'):
             return user
 
     return None
