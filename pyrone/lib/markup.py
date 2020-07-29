@@ -40,7 +40,7 @@ def render_text_markup(text):
         extensions=['footnotes', 'wikilinks', 'def_list', 'toc', 'legacy_attrs',
         'fenced_code', 'codehilite', SubscriptExtension()],
         extension_configs={
-            'markdown.extensions.codehilite': {'guess_lang':False},
+            'codehilite': {'guess_lang':False},
             # 'mdx_subscript.SubscriptExtension': {},
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068

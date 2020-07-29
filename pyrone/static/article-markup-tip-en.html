@@ -13,7 +13,7 @@
 <h2>Pyrone text markup language (for articles)</h2>
 
 <div>Pyrone uses Markdown-based markup language, it supports complete core 
-    Markdown elements set and some additional features.</div>
+    Markdown elements set plus some additional features.</div>
 
 <div>Please consult official Markdown 
     <a href="http://daringfireball.net/projects/markdown/syntax">syntax documentation</a> 
@@ -50,14 +50,14 @@ And 2nd level
 
 ###### This is the smallest possible header</code></pre>
 
-<div>Inline text formattin is easy: enclose text in *-s to create 
+<div>Inline text formatting is easy: enclose text in *-s to create 
 *<em>emphasized</em>* text and in double *-s **<strong>strong</strong>**
 text. Emphasized text is displayed as italic, and strong as an embolden text. 
-And of course there is an alternatives: enclose phrase in underscores to create
+And of course there is an alternative: enclose phrase in underscores to create
 emphasized, and use triple *-s to create ***<strong><em>strong emphasis</em></strong>***.
 </div>
 
-<pre><code>The next word is *emphasized*, and this **a strong text**.
+<pre><code>The next word is *emphasized* this _emphasized_ too, and this **a strong text**.
 Strong ***emphasis***.</code></pre>
 
 <div>Lists are also easy, put each list item on separate line and prepend it with *, to create sublists place an indent before the *. </div>
@@ -70,6 +70,16 @@ enclose it with two backticks and so on: ``<code>$x = `ls`;</code>``.</div>
     * these are
     * sublist items
 * and continue the main list</code></pre>
+
+<div>You can split long lines into, just remember: empty line creates paragraph break, indent line with the same amount of
+spaces as line above.</div>
+
+<pre><code>* first list item
+* second list item
+  continues here
+  it's still single paragraph inside
+  one list item
+</code></pre>
 
 <div>Ordered lists are also simple:</div>
 
@@ -230,6 +240,23 @@ for (int x=0; x&lt;666; ++x) {
 }
 ~~~~~</code></pre>
 
+And you can insert listings from Linux terminal:
+
+<pre><code>~~~~
+:::shell-session
+[user@shell]% head -n 2 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+~~~~
+</code></pre>
+
+It's rendered into this:
+
+<div class="codehilite"><pre><span></span><span class="gp">[user@shell]%</span> head -n <span class="m">2</span> /etc/passwd
+<span class="go">root:x:0:0:root:/root:/bin/bash</span>
+<span class="go">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span>
+</pre></div>
+
 
 <h3>Splitting long articles</h3>
 
@@ -251,13 +278,32 @@ And this is a remaining part of the article.</code></pre>
 <pre><code>[TOC]
 </code></pre>
 
-You can customize TOC items using this syntax:
-
-<pre><code>[TOC]
-</code></pre>
-
 Detailed extension description available on its web page: <a href="https://python-markdown.github.io/extensions/toc/">https://python-markdown.github.io/extensions/toc/</a>.
 
+</div>
+
+<h2>Usefull additions</h2>
+<div class="article">
+
+<div>You can use some decorations to improve text presentation. For example, to insert <em>dinkus</em> use one of these lines:
+
+<pre><code>❈ ❈ ❈ {@class=center}
+
+⁂ {@class=center}
+
+❦ ❦ ❦ {@class=center}
+
+❧ {@class=center}
+
+○ ○ ○ {@class=center}
+</code></pre>
+
+You can change color of text in the paragraph, to do that use this construction:
+
+<pre><code>{@style=color:red;} This paragraph is rendered by red color.
+</code></pre>
+
+</div>
 </div>
 
 </div><!--#content-->

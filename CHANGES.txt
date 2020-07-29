@@ -4,7 +4,9 @@
 Release: 2020-07-??
 
 * Updated dependencies
-* 
+* Removed dependency on external jquery
+* some improvements in markup:
+** use <toc> instead of [toc] to insert table of contents
 
 1.4.5
 -----
