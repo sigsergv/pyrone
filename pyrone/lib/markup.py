@@ -37,9 +37,11 @@ def render_text_markup(text):
         complete_text = text
 
     md = markdown.Markdown(
-        extensions=['footnotes', 'wikilinks', 'def_list', 'toc',
-        'fenced_code', 'codehilite(guess_lang=False)', SubscriptExtension()],
+        extensions=['footnotes', 'wikilinks', 'def_list', 'toc', 'legacy_attrs',
+        'fenced_code', 'codehilite', SubscriptExtension()],
         extension_configs={
+            'markdown.extensions.codehilite': {'guess_lang':False},
+            # 'mdx_subscript.SubscriptExtension': {},
             # commented because current (2.0.3) version of Python Markdown
             # has bug http://www.freewisdom.org/projects/python-markdown/Tickets/000068
             #'footnotes': [("PLACE_MARKER", "~~~~~~~~")]
@@ -50,7 +52,7 @@ def render_text_markup(text):
         },
         safe_mode=True,
         enable_attributes=True,
-        output_format='xhtml')
+        output_format='html5')
 
     preview_html = None
     if preview_part is not None:

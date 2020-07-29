@@ -14,26 +14,26 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     # binary packages require some additional packages installed on your system like gcc
-    'Pillow==6.0.0',
-    'lxml==4.3.3',
+    'Pillow==7.2.0',
+    'lxml==4.5.2',
     'pyramid==1.10.4',
-    'pyramid_mako==1.0.2',
-    'pyramid_tm==2.2.1',
-    'pyramid_debugtoolbar==4.5',
+    'pyramid_mako==1.1.0',
+    'pyramid_tm==2.4',
+    'pyramid_debugtoolbar==4.6.1',
     'pyramid_beaker==0.8',
     'pytz',
     'twitter==1.18.0',
-    'markdown==2.6.11',
+    'markdown==3.0.1',
     'MarkdownSubscript==2.1.1',
-    'decorator==4.4.0',
+    'decorator==4.4.2',
     'hurry.filesize==0.9',
-    'SQLAlchemy==1.3.3',
-    'transaction==2.4.0',
+    'SQLAlchemy==1.3.18',
+    'transaction==3.0.0',
     'repoze.tm2==2.1',  # default_commit_veto
-    'zope.sqlalchemy==1.1',
-    'waitress==1.3.0',
-    'Babel==2.6.0',
-    'psycopg2==2.8.2'
+    'zope.sqlalchemy==1.3',
+    'waitress==1.4.4',
+    'Babel==2.8.0',
+    'psycopg2==2.8.5'
 ]
 
 setup_cmdclass = {}
