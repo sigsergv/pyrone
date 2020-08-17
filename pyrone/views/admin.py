@@ -83,7 +83,7 @@ def save_settings_ajax(request):
               'image_preview_width', 'google_analytics_id', 'timezone', 'ui_lang', 
               'tw_consumer_key', 'tw_consumer_secret', 'social_twitter_share_link',
               'social_twitter_share_link_show_count', 'social_twitter_share_link_via',
-              'social_gplusone', 'social_facebook_share', 'site_search_widget_code', 'ui_theme')
+              'social_facebook_share', 'site_search_widget_code', 'ui_theme')
 
         for id in settings:
             try:
@@ -95,7 +95,7 @@ def save_settings_ajax(request):
         bool_settings = ('admin_notify_new_comments',
             'admin_notify_new_user', 'social_twitter_share_link',
             'social_twitter_share_link_show_count',
-            'social_gplusone', 'social_facebook_share')
+            'social_facebook_share')
         for id in bool_settings:
             if id in request.POST:
                 v = 'true'
@@ -104,7 +104,6 @@ def save_settings_ajax(request):
             config.set(id, v, dbsession)
 
         # refresh data in the cache
-        h.get_gplusone_button(True)
         h.get_twitter_share_link_button(True)
 
     return c

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2016-12-06 13:01+0600\n"
+"POT-Creation-Date: 2020-08-17 06:43+0000\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language: ru\n"
@@ -17,21 +17,21 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.8.0\n"
 
-#: pyrone/lib/helpers.py:208
+#: pyrone/lib/helpers.py:230
 msgid "Administrator"
 msgstr "Администратор"
 
-#: pyrone/lib/helpers.py:380
+#: pyrone/lib/helpers.py:413
 msgid "Default theme (internal)"
 msgstr "Тема по умолчанию (встроенная)"
 
-#: pyrone/lib/helpers.py:381
+#: pyrone/lib/helpers.py:414
 msgid "Green theme (internal)"
 msgstr "Зелёная тема (встроенная)"
 
-#: pyrone/lib/helpers.py:382
+#: pyrone/lib/helpers.py:415
 msgid "blog.regolit.com style (internal)"
 msgstr "Тема сайта blog.regolit.com (встроенная)"
 
@@ -43,7 +43,7 @@ msgstr "администрирование"
 msgid "pyrone version: {0}"
 msgstr "версия pyrone: {0}"
 
-#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:25
+#: pyrone/templates/admin/base.mako:21 pyrone/templates/blog/base.mako:27
 msgid "Powered by Pyrone"
 msgstr "Работает на Pyrone"
 
@@ -401,8 +401,8 @@ msgid "Use this Twitter username for sharing"
 msgstr "Использовать это имя твиттера для шаринга"
 
 #: pyrone/templates/admin/settings.mako:72
-msgid "Google \"+1\" button"
-msgstr "Кнопка Google «+1»"
+msgid "Facebook share button"
+msgstr "Кнопка фейсбука"
 
 #: pyrone/templates/admin/settings.mako:76
 msgid "Site search widget"
@@ -905,55 +905,55 @@ msgstr "Облако тегов"
 msgid "Incorrect login or password"
 msgstr "Неверный логин или пароль"
 
-#: pyrone/views/account.py:219
+#: pyrone/views/account.py:221
 msgid "Verification failed: email not found."
 msgstr "Верификация не получилась, так как адрес электропочты неизвестен сайту."
 
-#: pyrone/views/account.py:222
+#: pyrone/views/account.py:224
 msgid "Email `{0}` has been confirmed."
 msgstr "Адрес электроной почты `{0}` успешно подтверждён."
 
-#: pyrone/views/admin.py:58 pyrone/views/admin.py:64
+#: pyrone/views/admin.py:67 pyrone/views/admin.py:73
 msgid "Invalid value, must be positive numeric value"
 msgstr "Некорректное значение, должно быть целое положительное число"
 
-#: pyrone/views/admin.py:330
+#: pyrone/views/admin.py:339
 msgid "Backup file not found"
 msgstr "Файл бэкапа не найден"
 
-#: pyrone/views/admin.py:337
+#: pyrone/views/admin.py:346
 msgid "Backup file is broken!"
 msgstr "Файл бэкапа повреждён!"
 
-#: pyrone/views/admin.py:343
+#: pyrone/views/admin.py:352
 msgid "Backup file is broken, no catalog file inside!"
 msgstr "Файл бэкапа повреждён, не найден файл каталога внутри архива!"
 
-#: pyrone/views/admin.py:348
+#: pyrone/views/admin.py:357
 msgid "Backup file is broken, XML catalog is broken!"
 msgstr "Файл бэкапа повреждён, файл каталога повреждён!"
 
-#: pyrone/views/admin.py:367
+#: pyrone/views/admin.py:376
 msgid "Unknown XML format of catalog file."
 msgstr "Формат файла каталога не является корректным XML."
 
-#: pyrone/views/admin.py:372
+#: pyrone/views/admin.py:381
 msgid "Unsupported backup version: “{0}”!"
 msgstr "Версия бэкапа «{0}» не поддерживается!"
 
-#: pyrone/views/admin.py:392
+#: pyrone/views/admin.py:401
 msgid "Backup file is broken: settings block not found"
 msgstr "Файл бэкапа повреждён, блок «settings» не обнаружен"
 
-#: pyrone/views/admin.py:408
+#: pyrone/views/admin.py:426
 msgid "Backup file is broken: users block not found"
 msgstr "Файл бэкапа повреждён, блок «users» не обнаружен"
 
-#: pyrone/views/admin.py:470 pyrone/views/admin.py:578
+#: pyrone/views/admin.py:488 pyrone/views/admin.py:601
 msgid "Backup file is broken: articles block not found"
 msgstr "Файл бэкапа повреждён, блок «articles» не обнаружен"
 
-#: pyrone/views/admin.py:623 pyrone/views/admin.py:625
+#: pyrone/views/admin.py:652 pyrone/views/admin.py:654
 msgid ""
 "Unable to restore backup: database error, maybe your backup file is "
 "corrupted"
@@ -989,4 +989,7 @@ msgstr "Пустое поле комментария не допускается
 #: pyrone/views/blog.py:573
 msgid "Answering to not approved comment"
 msgstr "Нельзя ответить на неподтверждённый комментарий"
+
+#~ msgid "Google \"+1\" button"
+#~ msgstr "Кнопка Google «+1»"
 

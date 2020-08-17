@@ -5,6 +5,7 @@ Release: 2020-08-??
 
 * Updated dependencies
 * Jquery is now bundled with the product and not fetched from external CDN
+* removed google+ button
 
 1.4.5
 -----

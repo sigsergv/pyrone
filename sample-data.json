@@ -32,7 +32,6 @@
         ["social_twitter_share_link", "true"],
         ["social_twitter_share_link_show_count", "true"],
         ["social_twitter_share_link_via", ""],
-        ["social_gplusone", "true"],
         ["social_facebook_share", "true"],
         ["ui_lang", "en"],
         ["ui_theme", "default"]
