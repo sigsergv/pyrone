@@ -8,6 +8,7 @@ Release: 2020-08-??
 * removed google+ button
 * removed file article-markup-tip-ru.html, use article-markup-tip-en.html instead
 * new feature: return to article edit content field after background save finished
+* new formatting buttons: dinkus, shell code, red paragraph color, hyperlink
 
 1.4.5
 -----
