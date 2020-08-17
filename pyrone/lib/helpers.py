@@ -372,21 +372,6 @@ def get_twitter_share_link_button(force_reload=False):
     return value
 
 
-def get_gplusone_button(force_reload=False):
-    value = cache.get_value('rendered_gplusone_button')
-    if value is None or force_reload:
-        if get_config('social_gplusone') != 'true':
-            value = ''
-        else:
-            tpl = '''<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<g:plusone></g:plusone>'''
-            value = tpl
-
-        cache.set_value('rendered_gplusone_button', value)
-
-    return value
-
-
 def get_facebook_share_button_script():
     if get_config('social_facebook_share') != 'true':
         value = ''
