@@ -755,7 +755,7 @@ msgid ""
 msgstr ""
 "Тело статьи (обязательно, разметка *<em>курсив</em>*, "
 "**<strong>полужирная</strong>**, [ссылка](http://example.com) <a "
-"href=\"/static/article-markup-tip-ru.html\" target=\"_blank\" class"
+"href=\"/static/article-markup-tip-en.html\" target=\"_blank\" class"
 "=\"new-window\">ещё</a>)"
 
 #: pyrone/templates/blog/write_article.mako:22
