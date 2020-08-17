@@ -51,8 +51,15 @@ environment and from project directory):
 
 Copy configuration script `development.ini` from the directory `examples` to the same directory 
 where `setup.py` is located, edit `development.ini` appropriately, but default preferences are 
-just fine. By default pyrone development config uses sqlite database
-engine.
+just fine. By default pyrone development config uses postgres database engine. 
+
+You may need to change IP address development servers binds to upon start, change this section
+in that case (replace `127.0.0.1` with another address):
+
+    [server:main]
+    use = egg:waitress#main
+    host = 127.0.0.1
+    port = 5000
 
 Now setup database: create database and user, use default password `pbpass`:
 
@@ -63,13 +70,13 @@ Now setup database: create database and user, use default password `pbpass`:
 Working with development server
 -------------------------------
 
-To start development server use the following command:
-
-    $ pserve --reload development.ini
-
 On first run or after database destroy you need to initialize database:
 
     $ pyronedbinit development.ini --sample-data
+
+To start development server use the following command:
+
+    $ pserve --reload development.ini
 
 
 Localization and internationalization

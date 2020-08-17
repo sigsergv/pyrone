@@ -1,12 +1,10 @@
 1.5.0
 -----
 
-Release: 2020-07-??
+Release: 2020-08-??
 
 * Updated dependencies
-* Removed dependency on external jquery
-* some improvements in markup:
-** use <toc> instead of [toc] to insert table of contents
+* Jquery is now bundled with the product and not fetched from external CDN
 
 1.4.5
 -----
