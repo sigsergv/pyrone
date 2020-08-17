@@ -751,6 +751,14 @@ function Pyrone_editor_wrap(id, wrap_in)
 	f.fieldSelection(text);
 }
 
+function Pyrone_editor_replace(id, text)
+{
+	var f = $('#'+id),
+		sel = f.fieldSelection();
+
+	f.fieldSelection(text);
+}
+
 function Pyrone_editor_blockquote(id)
 {
 	var f = $('#'+id);

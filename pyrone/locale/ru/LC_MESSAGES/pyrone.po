@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2020-08-17 06:43+0000\n"
+"POT-Creation-Date: 2020-08-17 07:32+0000\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language: ru\n"
@@ -268,7 +268,7 @@ msgstr "Настройки блога"
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:90
-#: pyrone/templates/blog/write_article.mako:35
+#: pyrone/templates/blog/write_article.mako:39
 msgid "save"
 msgstr "сохранить"
 
@@ -774,23 +774,39 @@ msgstr "Полужирный текст"
 msgid "Quotation"
 msgstr "Цитирование"
 
-#: pyrone/templates/blog/write_article.mako:32
+#: pyrone/templates/blog/write_article.mako:26
+msgid "Insert dinkus"
+msgstr "Вставить разделитель"
+
+#: pyrone/templates/blog/write_article.mako:27
+msgid "Insert shell code"
+msgstr "Вставить shell code"
+
+#: pyrone/templates/blog/write_article.mako:28
+msgid "Insert paragraph color text"
+msgstr "Вставить цветной параграф"
+
+#: pyrone/templates/blog/write_article.mako:29
+msgid "Insert hyperlink template"
+msgstr "Вставить шаблон гиперссылки"
+
+#: pyrone/templates/blog/write_article.mako:36
 msgid "draft article"
 msgstr "черновик"
 
-#: pyrone/templates/blog/write_article.mako:32
+#: pyrone/templates/blog/write_article.mako:36
 msgid "if checked article will not be available to everyone"
 msgstr "если включено, сохранённая статья будет видна только вам"
 
-#: pyrone/templates/blog/write_article.mako:33
+#: pyrone/templates/blog/write_article.mako:37
 msgid "allow visitors comments"
 msgstr "разрешить комментарии"
 
-#: pyrone/templates/blog/write_article.mako:38
+#: pyrone/templates/blog/write_article.mako:42
 msgid "save and continue editing"
 msgstr "сохранить в фоновом режиме"
 
-#: pyrone/templates/blog/write_article.mako:40
+#: pyrone/templates/blog/write_article.mako:44
 msgid "preview"
 msgstr "предварительный просмотр"
 

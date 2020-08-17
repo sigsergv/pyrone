@@ -23,6 +23,12 @@
     <span class="button" onclick="Pyrone_editor_wrap('fid-body', '*');" title="${_('Emphasis (italic)')}"><em>I</em>&nbsp;</span>
     <span class="button" onclick="Pyrone_editor_wrap('fid-body', '**');" title="${_('Strong text (bold)')}"><strong>B</strong></span>
     <span class="button" onclick="Pyrone_editor_blockquote('fid-body');" title="${_('Quotation')}">&gt;</span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '❈ ❈ ❈ {@class=center}\n');" title="${_('Insert dinkus')}">❈ ❈ ❈</span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '────────────────── {@class=center}\n');" title="${_('Insert dinkus')}">──</span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '══════════════════ {@class=center}\n');" title="${_('Insert dinkus')}">══</span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '~~~~~\n:::shell-session\n[user@shell]% \n~~~~~\n');" title="${_('Insert shell code')}">sh $</span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '{@style=color:red;}');" title="${_('Insert paragraph color text')}"><span style="color: red;">red</span></span>
+    <span class="button" onclick="Pyrone_editor_replace('fid-body', '[TEXT](https://)');" title="${_('Insert hyperlink template')}">&lt;a&gt;</span>
 
 ##    <span class="button" onclick="Pyrone_editor_unindent('fid-body');" title="${_('Unindent selected block.')}">←¶</span>
 ##    <span class="button" onclick="Pyrone_editor_indent('fid-body');" title="${_('Indent selected block.')}">¶→</span>
