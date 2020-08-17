@@ -201,6 +201,8 @@ function Pyrone_article_save(url) {
 			Pyrone_notify($('#eid-article-notify'), tr('ARTICLE_SAVED'));
 		}
 		save_button.removeAttr('disabled');
+		// return focus back to editing window
+		$('#fid-body').focus();
 	}).fail(function() {
 		alert(tr('AJAX_REQUEST_ERROR'));
 		save_button.removeAttr('disabled');
