@@ -9,7 +9,8 @@ This document describes how to install Pyrone in the production environment.
 
 Pyrone is a standard WSGI application so you can use any method for provisioning WSGI 
 apps. However in this instruction only one method is covered: Debian/Ubuntu + nginx + 
-uwsgi + postgresql. Application requires Python version 3.5 or 3.6. Python 2 is not supported.
+uwsgi + postgresql. Application requires Python version 3.9, other 3.X version could work too.
+Python 2 is not supported. Python 3.5 and below are not supported.
 
 I recommend you (for security reasons) to create separate system user for the application. In this
 manual all instructions assume there is a system user `blog` with home directory `/home/blog`, 
@@ -18,15 +19,21 @@ it's a regular non-privileged user.
 All linux shell commands in this manual have prefixes, if prefix is `$` then command must be executed
 using user `blog` shell session, and commands with the prefix `#` must be executed in root shell session.
 
-This instruction is written for Debian 9 "Stretch", python 3.5 and postgresql 9.6.
+This instruction is written for Debian 11.1 "Bullseye", python 3.9 and postgresql 13.
 
+OS setup
+--------
+
+Create a new user `blog`:
+
+    # adduser blog
 
 Postgresql setup
 ----------------
 
 Install Postgresql:
 
-    # apt-get install postgresql
+    # apt install postgresql
 
 Now create database and database user for Pyrone, use the following commands from your shell:
 
@@ -35,8 +42,8 @@ Now create database and database user for Pyrone, use the following commands fro
 
 Choose and enter password.
 
-You can also update files `/etc/postgresql/9.6/main/pg_hba.conf` and
-`/etc/postgresql/9.6/main/postgresql.conf` if you want to set special permissions for that user.
+You can also update files `/etc/postgresql/13/main/pg_hba.conf` and
+`/etc/postgresql/13/main/postgresql.conf` if you want to set special permissions for that user.
 
 Prepare virtual environment
 ---------------------------
@@ -51,8 +58,8 @@ files, so let's begin.
 
 First install package `python-virtualenv` and other required packages:
 
-    # apt-get update
-    # apt-get install dh-exec python3 python3-venv dpkg-dev python3-dev gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
+    # apt update
+    # apt install dh-exec python3 python3-venv dpkg-dev python3-dev gcc libxml2-dev libxslt1-dev libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libpq-dev
 
 Login as a `blog` user:
 
