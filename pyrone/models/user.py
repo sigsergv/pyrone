@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm.session import Session
 from sqlalchemy.types import String, Unicode, Integer, Boolean
 
-from . import Base, DBSession
+from .meta import Base
 
 
 def md5(s):
@@ -125,15 +125,13 @@ def normalize_email(email):
     return email
 
 
-def get_user(user_id):
-    dbsession = DBSession()
-    user = dbsession.query(User).options(joinedload('roles')).get(user_id)
+def get_user(request, user_id):
+    user = request.dbsession.query(User).options(joinedload('roles')).get(user_id)
     return user
 
 
-def find_twitter_user(username):
-    dbsession = DBSession()
-    q = dbsession.query(User).options(joinedload('roles')).filter(User.kind == 'twitter').\
+def find_twitter_user(request, username):
+    q = request.dbsession.query(User).options(joinedload('roles')).filter(User.kind == 'twitter').\
         filter(User.login == username)
     user = q.first()
     return user

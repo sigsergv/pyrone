@@ -4,7 +4,7 @@ Pyrone
 Pyrone is a lightweight and simple personal blog-like CMS
 application written in Python and Pyramid framework.
 
-Pyrone is currently requires python 3.5 and postgresql. Python version 2 is
+Pyrone is currently requires python 3.6+ and postgresql. Python versions 2 and 3.5 and below are
 no longer supported.
 
 Features

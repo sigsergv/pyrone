@@ -2,8 +2,8 @@ import os
 import sys
 import re
 
-if sys.version_info[:2] not in [(3,5), (3,6), (3,7)]:
-    print('Python version = 3.5, 3.6 or 3.7 required!', file=sys.stderr)
+if sys.version_info[:2] not in [(3,6), (3.7), (3,8), (3,9)]:
+    print('Python version = 3.6, 3.7, 3.8 or 3.9 required!', file=sys.stderr)
     sys.exit(1)
 
 from setuptools import setup, find_packages
@@ -24,7 +24,7 @@ requires = [
     'pytz',
     'twitter==1.19.3',
     'markdown==3.3.6',
-    'MarkdownSubscript==2.1.1',
+    # 'MarkdownSubscript==2.1.1',  # included to the project
     'decorator==5.1.0',
     'hurry.filesize==0.9',
     'SQLAlchemy==1.4.27',
@@ -33,7 +33,7 @@ requires = [
     'zope.sqlalchemy==1.6',
     'waitress==2.0.0',
     'Babel==2.9.1',
-    'psycopg2==3.0.5'
+    'psycopg2==2.9.2'
 ]
 
 setup_cmdclass = {}
@@ -70,7 +70,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.9',
         'Framework :: Pyramid',
         'License :: OSI Approved :: BSD License',
         'Topic :: Internet :: WWW/HTTP',

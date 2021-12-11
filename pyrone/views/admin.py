@@ -35,7 +35,7 @@ def view_settings(request):
         'settings': {}, 
         'errors': {}
         }
-    for p in config.get_all():
+    for p in config.get_all(request):
         c['settings'][p.id] = p.value
 
     defaults = {

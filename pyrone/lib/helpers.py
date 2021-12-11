@@ -24,9 +24,8 @@ from sqlalchemy import func
 from pyrone.version import PYRONE_VERSION
 from pyrone.models.config import get as get_config
 from pyrone.models.file import get_storage_dirs
-from pyrone.models import DBSession, Article, Tag, Comment, File
-from pyrone.lib import auth, lang
-from pyrone.lib import cache
+from pyrone.models import Article, Tag, Comment, File
+from pyrone.lib import (auth, lang, cache)
 
 log = logging.getLogger(__name__)
 
@@ -278,8 +277,7 @@ def get_public_tags_cloud(force_reload=False):
     """
     value = cache.get_value('tags_cloud')
     if value is None or force_reload:
-        dbsession = DBSession()
-        q = dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
+        q = request.dbsession.query(func.count(Tag.id), Tag.tag).join(Article).filter(Article.is_draft==False).group_by(Tag.tag)
         items = list()
         counts = list()
         total = 0
@@ -399,16 +397,14 @@ def get_facebook_share_button(url):
     return value
 
 
-def get_not_approved_comments_count():
-    dbsession = DBSession()
-    cnt = dbsession.query(func.count(Comment.id)).filter(Comment.is_approved==False).scalar()
+def get_not_approved_comments_count(request):
+    cnt = request.dbsession.query(func.count(Comment.id)).filter(Comment.is_approved==False).scalar()
     return cnt
 
 def get_supported_langs_spec():
     return lang.supported_langs_spec()
 
-def get_available_themes():
-    dbsession = DBSession()
+def get_available_themes(request):
     themes = [
         ('default', _('Default theme (internal)')),
         ('green', _('Green theme (internal)')),
@@ -417,7 +413,7 @@ def get_available_themes():
     # load suitable css files from the storage
     storage_dirs = get_storage_dirs()
     storage_path = storage_dirs['orig']
-    style_files = dbsession.query(File).filter(File.dltype=='auto', File.content_type=='text/css').all()
+    style_files = request.dbsession.query(File).filter(File.dltype=='auto', File.content_type=='text/css').all()
     theme_data_re = re.compile(r'/\* pyrone-theme-data:([0-9a-z-]+):\s*(.+)\s*\*/')
 
     for f in style_files:

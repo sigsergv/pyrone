@@ -5,7 +5,8 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 from sqlalchemy.dialects import mysql
 
-from . import (Base, User)
+from . import User
+from .meta import Base
 from pyrone.lib import markup
 
 class Article(Base):

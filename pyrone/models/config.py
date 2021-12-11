@@ -6,7 +6,7 @@ import transaction
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText
 
-from . import Base, DBSession
+from .meta import Base
 from pyrone.lib import cache
 
 log = logging.getLogger(__name__)
@@ -26,12 +26,11 @@ class Config(Base):
 # config values are cached
 
 
-def get_all():
+def get_all(request):
     """
     Fetch all config options, not cached
     """
-    dbsession = DBSession()
-    all = dbsession.query(Config).all()
+    all = request.dbsession.query(Config).all()
     return all
 
 

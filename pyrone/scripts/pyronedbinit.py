@@ -7,14 +7,15 @@ import codecs
 from sys import exit
 import re
 
-from pyramid.paster import get_appsettings, setup_logging
+from pyramid.paster import (bootstrap, get_appsettings, setup_logging)
 from sqlalchemy import engine_from_config
 #from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import (IntegrityError, OperationalError)
 import transaction
 from sqlalchemy import engine_from_config
 
-from ..models import Base, DBSession, initialize_sql
+# from ..models import Base, DBSession, initialize_sql
+from ..models.meta import Base
 from ..models import (
     User,
     Role,
@@ -68,36 +69,56 @@ def main():
         help='JSON file with the sample data')
     args = parser.parse_args()
 
-    print(args)
-
     ini_path = os.path.realpath(args.config_ini)
     if not os.path.isfile(ini_path):
         print('Config file `{0}` not found!'.format(args.config_ini))
         exit(1)
-
-    print('Initialize database')
-    # initialize db engine
     setup_logging(ini_path)
-    settings = get_appsettings(ini_path)
-    engine = engine_from_config(settings, 'sqlalchemy.')
-    initialize_sql(engine)
-    dbsession = DBSession()
-    dh = Data(dbsession)
+    env = bootstrap(args.config_ini)
 
-    # create tables
-    Base.metadata.create_all(engine)
-    if args.sample_data:
-        # import sample data from json file
-        raw = codecs.open(args.sample_data_file, encoding='utf-8').read()
-        raw = re.sub('^\s*//.+\n', '', raw, flags=re.MULTILINE)
-        #raw = re.sub('//.*$', '', raw, flags=re.MULTILINE)
-        sample_data = json.loads(raw, encoding='utf-8')
+    try:
+        with env['request'].tm:
+            dbsession = env['request'].dbsession
+            settings = get_appsettings(ini_path)
+            engine = engine_from_config(settings, 'sqlalchemy.')
 
-        dh.init_config(sample_data['config'])
-        dh.init_user(sample_data['user'])
-        dh.flush()
+            print('Initialize database')
+            Base.metadata.create_all(engine)
 
-        transaction.commit()
+            # create tables
+            if args.sample_data:
+                dh = Data(dbsession)
+                # import sample data from json file
+                raw = codecs.open(args.sample_data_file, encoding='utf-8').read()
+                raw = re.sub('^\s*//.+\n', '', raw, flags=re.MULTILINE)
+                #raw = re.sub('//.*$', '', raw, flags=re.MULTILINE)
+                sample_data = json.loads(raw)
+
+                dh.init_config(sample_data['config'])
+                dh.init_user(sample_data['user'])
+                dh.flush()
+
+                transaction.commit()
+
+    except OperationalError:
+        print('''
+Pyramid is having a problem using your SQL database.  The problem
+might be caused by one of the following things:
+
+1.  You may need to initialize your database tables with `alembic`.
+    Check your README.txt for description and try to run it.
+
+2.  Your database server may not be running.  Check that the
+    database server referred to by the "sqlalchemy.url" setting in
+    your "development.ini" file is running.
+            ''')
+
+    # initialize db engine
+    # settings = get_appsettings(ini_path)
+    # engine = engine_from_config(settings, 'sqlalchemy.')
+    # initialize_sql(engine)
+    # dbsession = DBSession()
+
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import String, Unicode, UnicodeText, Integer, Boolean
 
-from . import Base
+from .meta import Base
 
 log = logging.getLogger(__name__)
 
