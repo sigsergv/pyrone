@@ -8,7 +8,7 @@
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <script language="javascript" src="/static/scripts/admin.js"></script>
   <link rel="icon" type="image/png" href="/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css()}"/>
+  <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css(request)}"/>
   <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
   <title>${self.title()} — ${h.get_config('site_title')} — ${_('administration')}</title>
 </head>

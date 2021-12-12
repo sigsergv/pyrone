@@ -13,18 +13,23 @@ from pyrone.lib.lang import locale_negotiator
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    init_storage_from_settings(settings)
+
     config = Configurator(settings=settings)
     config.include('.security')
     config.include('.routes')
     config.include('.models')
     config.include('pyramid_mako')
+    config.scan()
+
+    config.add_subscriber('pyrone.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
+    config.add_subscriber('pyrone.subscribers.add_localizer', 'pyramid.events.NewRequest')
 
     return config.make_wsgi_app()
     '''
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
-    init_storage_from_settings(settings)
     init_notifications_from_settings(settings)
     authentication_policy = PyroneSessionAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()

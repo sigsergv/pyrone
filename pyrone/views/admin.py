@@ -19,7 +19,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.schema import Sequence
 
 from pyrone.lib import helpers as h, httpcode, cache
-from pyrone.models import config, DBSession, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail
+from pyrone.models import (config, Article, Comment, Tag, File, Config, User, Role, VerifiedEmail)
 from pyrone.models.file import get_storage_dirs, get_backups_dir, allowed_dltypes
 from pyrone.lib.jsonhttpresponse import JSONResponse
 
@@ -75,7 +75,7 @@ def save_settings_ajax(request):
     if len(errors):
         c['errors'] = errors
     else:
-        dbsession = DBSession()
+        dbsession = request.dbsession
 
         # save settings
         settings = ('site_title', 'site_base_url', 'site_copyright', 'elements_on_page',
@@ -88,7 +88,7 @@ def save_settings_ajax(request):
         for id in settings:
             try:
                 v = request.POST[id]
-                config.set(id, v)
+                config.set(request, id, v)
             except KeyError:
                 continue
 
@@ -101,10 +101,10 @@ def save_settings_ajax(request):
                 v = 'true'
             else:
                 v = 'false'
-            config.set(id, v, dbsession)
+            config.set(request, id, v)
 
         # refresh data in the cache
-        h.get_twitter_share_link_button(True)
+        h.get_twitter_share_link_button(request, True)
 
     return c
 
@@ -113,7 +113,7 @@ def save_settings_ajax(request):
 def list_files(request):
     c = {}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     c['files'] = dbsession.query(File).all()
     return c
 
@@ -122,7 +122,7 @@ def list_files(request):
 def list_visitors_emails(request):
     c = {}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     c['emails'] = dbsession.query(VerifiedEmail).all()
     return c
 
@@ -134,7 +134,7 @@ def visitor_email_edit_ajax(request):
     id = int(request.POST['id'])
     is_verified = request.POST['is_verified'] == 'true'
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     vf = dbsession.query(VerifiedEmail).get(id)
     if vf is None:
         return HTTPNotFound()
@@ -152,7 +152,7 @@ def visitors_emails_delete_ajax(request):
     uids_raw = request.POST['uids']
     uids = [int(s.strip()) for s in uids_raw.split(',')]
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     dbsession.query(VerifiedEmail).filter(VerifiedEmail.id.in_(uids)).delete(False)
     c['deleted'] = uids
     return c
@@ -180,7 +180,7 @@ def upload_file(request):
     # guess content type
     content_type = guess_type(hfile.filename)[0] or 'application/octet-stream'
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     now = datetime.utcnow()
 
@@ -191,7 +191,7 @@ def upload_file(request):
     file.size = len(hfile.value)
     file.dltype = 'download' if request.POST['dltype'] == 'download' else 'auto'
     file.content_type = content_type
-    file.updated = h.dt_to_timestamp(now)
+    file.updated = h.dt_to_timestamp(request, now)
 
     # save file to the storage
     storage_dirs = get_storage_dirs()
@@ -222,7 +222,7 @@ def upload_file_check_ajax(request):
     # check filename
     if 'filename' in request.POST:
         filename = request.POST['filename']
-        dbsession = DBSession()
+        dbsession = request.dbsession
         file = dbsession.query(File).filter(File.name == filename).first()
         if file is not None:
             c['exists'] = True
@@ -239,7 +239,7 @@ def delete_files(request):
         'deleted': uids, 
         'failed': False
         }
-    dbsession = DBSession()
+    dbsession = request.dbsession
     dbsession.query(File).filter(File.id.in_(uids)).delete(False)
 
     return c
@@ -250,7 +250,7 @@ def edit_file_props(request):
     c = {'errors': {}}
 
     file_id = int(request.matchdict['file_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     if request.method == 'POST':
         content_type = request.POST['content_type']
@@ -292,7 +292,7 @@ def edit_file_props_check_ajax(request):
     # check filename
     if 'filename' in request.POST:
         filename = request.POST['filename']
-        dbsession = DBSession()
+        dbsession = request.dbsession
         file = dbsession.query(File).filter(File.name == filename).filter(File.id != file_id).first()
         if file is not None:
             c['exists'] = True
@@ -380,7 +380,7 @@ def restore_backup(request):
     if backup_version not in ('1.0', '1.1'):
         return {'error': _('Unsupported backup version: “{0}”!'.format(root.get('version')))}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     dialect_name = dbsession.bind.name
     # now start to extract all data and fill DB
     # first delete everything from the database
@@ -693,7 +693,7 @@ def backup_now(request):
     settings_el = e(root, 'settings')
     users_el = e(root, 'users')
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     # dump tables, create xml-file with data, dump files, pack all in the zip-file
     for article in dbsession.query(Article).all():
         article_el = e(articles_el, 'article')
@@ -869,7 +869,7 @@ def delete_backups(request):
 def list_accounts(request):
     c = {}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     c['users'] = dbsession.query(User).all()
     return c
 
@@ -883,7 +883,7 @@ def delete_accounts_ajax(request):
         'deleted': uids, 
         'failed': False
         }
-    dbsession = DBSession()
+    dbsession = request.dbsession
     dbsession.query(User).filter(User.id.in_(uids)).delete(False)
 
     return c
@@ -896,7 +896,7 @@ def view_pages_widget_settings(request):
         'settings': {}
         }
 
-    widget_pages_pages_spec = config.get('widget_pages_pages_spec')
+    widget_pages_pages_spec = config.get(request, 'widget_pages_pages_spec')
 
     c['settings']['widget_pages_pages_spec'] = widget_pages_pages_spec
 
@@ -908,7 +908,7 @@ def save_pages_widget_settings_ajax(request):
     c = {}
 
     widget_pages_pages_spec = request.POST['widget_pages_pages_spec']
-    config.set('widget_pages_pages_spec', widget_pages_pages_spec)
+    config.set(request, 'widget_pages_pages_spec', widget_pages_pages_spec)
     # force reload page links cache
-    h.get_pages_widget_links(True)
+    h.get_pages_widget_links(request, True)
     return c

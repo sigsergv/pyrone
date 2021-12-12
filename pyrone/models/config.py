@@ -34,13 +34,13 @@ def get_all(request):
     return all
 
 
-def get(key, force=False):
+def get(request, key, force=False):
     """
     Get settings value, set "force" to True to update corresponding value in the cache
     """
     value = cache.get_value(key)
     if value is None or force is True:
-        dbsession = DBSession()
+        dbsession = request.dbsession
         c = dbsession.query(Config).get(key)
         if c is not None:
             v = c.value
@@ -58,14 +58,15 @@ def get(key, force=False):
     return cache.get_value(key)
 
 
-def set(key, value, dbsession=None):
+def set(request, key, value):
     is_transaction = False
 
-    if dbsession is None:
-        dbsession = DBSession()
-        is_transaction = True
-        transaction.begin()
+    # if dbsession is None:
+    #     dbsession = DBSession()
+    #     is_transaction = True
+    #     transaction.begin()
 
+    dbsession = request.dbsession
     c = dbsession.query(Config).get(key)
     if c is None:
         c = Config(key, value)
@@ -73,7 +74,7 @@ def set(key, value, dbsession=None):
     else:
         c.value = value
 
-    if is_transaction:
-        transaction.commit()
+    # if is_transaction:
+    #     transaction.commit()
 
     cache.set_value(key, value)

@@ -6,7 +6,7 @@
     % else:
     <span class="name">${comment.display_name}</span>
     % endif
-    | <span class="date">${h.timestamp_to_str(comment.published, _('DATE_TIME_SHORT'))}</span>
+    | <span class="date">${h.timestamp_to_str(request, comment.published, _('DATE_TIME_SHORT'))}</span>
     % if admin_permission:
     | ${_('IP address:')} <span class="name comment-ip-address">${comment.ip_address}</span>
       % if comment.xff_ip_address is not None:

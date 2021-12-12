@@ -4,7 +4,7 @@ from pyramid.httpexceptions import HTTPFound
 def add_route(config, **r):
     """Adds route with trailing slashes if requested
     """
-    is_slashed = '_slashed' in r
+    is_slashed = r.get('_slashed', False) 
 
     rname = r['name']
 

@@ -25,7 +25,7 @@
  <span class="warning">${_('draft')}</span>\
 %endif
   </div>
-  <div class="date">${'{author} | {date}'.format(author=article.user.display_name, date=h.timestamp_to_str(article.published, _('DATE_TIME_SHORT')))}</div>
+  <div class="date">${'{author} | {date}'.format(author=article.user.display_name, date=h.timestamp_to_str(request, article.published, _('DATE_TIME_SHORT')))}</div>
   <div class="before-preview"></div>
   <div class="preview">${article.get_html_preview()|n}</div>
   <div class="after-preview"></div>

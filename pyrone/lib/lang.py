@@ -26,7 +26,7 @@ def fallback_lang():
 
 
 def locale_negotiator(request):
-    lang = config.get('ui_lang')
+    lang = config.get(request, 'ui_lang')
     return lang
 
 lang = locale_negotiator

@@ -16,7 +16,7 @@ from pyramid.httpexceptions import (HTTPBadRequest, HTTPFound, HTTPNotFound,
     HTTPServerError, HTTPMovedPermanently)
 from pyramid.renderers import render
 
-from pyrone.models import DBSession, Article, Comment, Tag, File, VerifiedEmail
+from pyrone.models import (Article, Comment, Tag, File, VerifiedEmail)
 from pyrone.models.config import get as get_config
 from pyrone.lib import helpers as h, markup, notifications
 from pyrone.models.file import get_storage_dirs, allowed_dltypes
@@ -65,7 +65,7 @@ def latest(request):
     for k,v in request.headers.items():
         headers.append('{0}: {1}'.format(k, v))
 
-    page_size = int(get_config('elements_on_page'))
+    page_size = int(get_config(request, 'elements_on_page'))
     start_page = 0
     if 'start' in request.GET:
         try:
@@ -73,7 +73,7 @@ def latest(request):
         except ValueError:
             start_page = 0
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     user = request.user
 
     q = dbsession.query(Article).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
@@ -104,7 +104,7 @@ def tag_articles(request):
     _ = request.translate
     tag = request.matchdict['tag']
 
-    page_size = int(get_config('elements_on_page'))
+    page_size = int(get_config(request, 'elements_on_page'))
     start_page = 0
     if 'start' in request.GET:
         try:
@@ -113,7 +113,7 @@ def tag_articles(request):
             start_page = 0
 
     user = request.user
-    dbsession = DBSession()
+    dbsession = request.dbsession
     q = dbsession.query(Article).join(Tag).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
     if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
@@ -169,7 +169,7 @@ def _check_article_fields(article, request):
 def _update_article(article_id, request):
     _ = request.translate
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     article = dbsession.query(Article).get(article_id)
     if article is None:
@@ -192,11 +192,11 @@ def _update_article(article_id, request):
             c['errors']['published'] = _('invalid date and time format')
         else:
             # we need to convert LOCAL date and time to UTC seconds
-            article.published = h.str_to_timestamp(request.POST['published'])
+            article.published = h.str_to_timestamp(request, request.POST['published'])
             v = [int(x) for x in mo.groups()[0:3]]
             article.shortcut_date = '{0:04d}/{1:02d}/{2:02d}'.format(*v)
 
-        dbsession = DBSession()
+        dbsession = request.dbsession
         q = dbsession.query(Article).filter(Article.shortcut_date == article.shortcut_date)\
             .filter(Article.id != article_id)\
             .filter(Article.shortcut == article.shortcut)
@@ -225,7 +225,7 @@ def _update_article(article_id, request):
             dbsession.add(tag)
 
         # force update of tags cloud
-        h.get_public_tags_cloud(force_reload=True)
+        h.get_public_tags_cloud(request, force_reload=True)
 
         return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
     else:
@@ -248,7 +248,7 @@ def write_article(request):
         a = Article('new-article-shortcut', 'New article title')
         c['tags'] = []
         c['article'] = a
-        c['article_published_str'] = h.timestamp_to_str(a.published)
+        c['article_published_str'] = h.timestamp_to_str(request, a.published)
 
     elif request.method == 'POST':
         article = Article()
@@ -266,11 +266,11 @@ def write_article(request):
                 c['errors']['published'] = _('invalid date and time format')
             else:
                 # we need to convert LOCAL date and time to UTC seconds
-                article.published = h.str_to_timestamp(request.POST['published'])
+                article.published = h.str_to_timestamp(request, request.POST['published'])
                 v = [int(x) for x in mo.groups()[0:3]]
                 article.shortcut_date = '{0:04d}/{1:02d}/{2:02d}'.format(*v)
 
-            dbsession = DBSession()
+            dbsession = request.dbsession
             q = dbsession.query(Article).filter(Article.shortcut_date == article.shortcut_date)\
                 .filter(Article.shortcut == article.shortcut)
             res = q.first()
@@ -290,7 +290,7 @@ def write_article(request):
                 c['tags'].append(tag_str)
 
         if len(c['errors']) == 0:
-            dbsession = DBSession()
+            dbsession = request.dbsession
 
             # save and redirect
             user = request.user
@@ -305,7 +305,7 @@ def write_article(request):
                 dbsession.add(tag)
 
             # force update of tags cloud
-            h.get_public_tags_cloud(force_reload=True)
+            h.get_public_tags_cloud(request, force_reload=True)
 
             return HTTPFound(location=route_url('blog_go_article', request, article_id=article_id))
 
@@ -344,13 +344,13 @@ def edit_article(request):
     c['errors'] = {}
     c['new_article'] = False
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     if request.method == 'GET':
         article = dbsession.query(Article).get(article_id)
         c['article'] = article
         c['tags'] = [tag.tag for tag in article.tags]
-        c['article_published_str'] = h.timestamp_to_str(article.published)
+        c['article_published_str'] = h.timestamp_to_str(request, article.published)
     elif request.method == 'POST':
         res = _update_article(article_id, request)
         if type(res) != dict:
@@ -366,7 +366,7 @@ def edit_article(request):
 @view_config(route_name='blog_article_delete_ajax', renderer='json', permission='admin', request_method='POST')
 def delete_article(request):
     article_id = int(request.matchdict['article_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
     article = dbsession.query(Article).get(article_id)
 
     if article is None:
@@ -375,7 +375,7 @@ def delete_article(request):
     # delete article and all article comments, invalidate tags too
     dbsession.query(Comment).filter(Comment.article_id == article_id).delete()
     dbsession.delete(article)
-    h.get_public_tags_cloud(force_reload=True)
+    h.get_public_tags_cloud(request, force_reload=True)
 
     data = {}
     return data
@@ -403,7 +403,7 @@ def _update_comments_counters(dbsession, article):
 def _view_article(request, article_id=None, article=None):
     c = {}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     if article is None:
         article = dbsession.query(Article).get(article_id)
@@ -479,7 +479,7 @@ def view_article(request):
     shortcut_date = request.matchdict['shortcut_date']
     shortcut = request.matchdict['shortcut']
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     q = dbsession.query(Article).filter(Article.shortcut_date == shortcut_date)\
         .filter(Article.shortcut == shortcut)
     user = request.user
@@ -504,7 +504,7 @@ def add_article_comment_ajax(request):
     _ = request.translate
     article_id = int(request.matchdict['article_id'])
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     q = dbsession.query(Article).filter(Article.id == article_id)
     user = request.user
@@ -647,7 +647,7 @@ def add_article_comment_ajax(request):
     loop_limit = 100
     comment = dbsession.query(Comment).get(comment.id)
     parent = comment.parent
-    admin_email = get_config('admin_notifications_email')
+    admin_email = get_config(request, 'admin_notifications_email')
     vf_q = dbsession.query(VerifiedEmail)
     notifications_emails = []
 
@@ -678,7 +678,7 @@ def add_article_comment_ajax(request):
             # send notification to "email"
             ns.append(notifications.gen_comment_response_notification(request, article, comment, c, email))
 
-    admin_notifications_email = normalize_email(get_config('admin_notifications_email'))
+    admin_notifications_email = normalize_email(get_config(request, 'admin_notifications_email'))
 
     for nfn in ns:
         if nfn is None:
@@ -711,7 +711,7 @@ def add_article_comment_ajax(request):
 @view_config(route_name='blog_approve_comment_ajax', renderer='json', request_method='POST', permission='admin')
 def approve_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
     comment = dbsession.query(Comment).get(comment_id)
     if comment is None:
         return HTTPNotFound()
@@ -733,7 +733,7 @@ def approve_article_comment_ajax(request):
 @view_config(route_name='blog_delete_comment_ajax', renderer='json', request_method='POST', permission='admin')
 def delete_article_comment_ajax(request):
     comment_id = int(request.matchdict['comment_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
     comment = dbsession.query(Comment).get(comment_id)
     if comment is None:
         return HTTPNotFound()
@@ -751,7 +751,7 @@ def edit_fetch_comment_ajax(request):
     Fetch comment details
     """
     comment_id = int(request.matchdict['comment_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     comment = dbsession.query(Comment).get(comment_id)
 
@@ -760,7 +760,7 @@ def edit_fetch_comment_ajax(request):
     for a in attrs:
         data[a] = getattr(comment, a)
 
-    data['date'] = h.timestamp_to_str(comment.published)
+    data['date'] = h.timestamp_to_str(request, comment.published)
 
     return data
 
@@ -771,7 +771,7 @@ def edit_article_comment_ajax(request):
     Update comment and return updated and rendered data
     """
     comment_id = int(request.matchdict['comment_id'])
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     comment = dbsession.query(Comment).options(joinedload('user')).options(joinedload('user.roles')).get(comment_id)
 
@@ -794,7 +794,7 @@ def edit_article_comment_ajax(request):
     comment.set_body(request.POST['body'])
     comment.is_subscribed = 'is_subscribed' in request.POST
 
-    comment.published = h.str_to_timestamp(request.POST['date'])
+    comment.published = h.str_to_timestamp(request, request.POST['date'])
     dbsession.flush()
 
     #comment_user = None
@@ -827,7 +827,7 @@ def edit_article_comment_ajax(request):
 def download_file(request):
     filename = request.matchdict['filename']
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     file = dbsession.query(File).filter(File.name == filename).first()
 
     if file is None:
@@ -868,7 +868,7 @@ def download_file(request):
 def download_file_preview(request):
     filename = request.matchdict['filename']
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     file = dbsession.query(File).filter(File.name == filename).first()
 
     if file is None:
@@ -898,7 +898,7 @@ def download_file_preview(request):
     # make preview image if required
     if not os.path.exists(preview_path):
         try:
-            preview_max_width = int(get_config('image_preview_width', 300))
+            preview_max_width = int(get_config(request, 'image_preview_width', 300))
         except ValueError:
             preview_max_width = 300
         except TypeError:
@@ -934,14 +934,14 @@ def latest_rss(request):
     Create rss feed with the latest published articles and return them as the atom feed
     """
     _ = request.translate
-    dbsession = DBSession()
+    dbsession = request.dbsession
 
     q = dbsession.query(Article).options(joinedload('tags'))\
         .options(joinedload('user'))\
         .filter(Article.is_draft==False).order_by(Article.updated.desc())
     articles = q[0:10]
-    rss_title = get_config('site_title') + ' - ' + _('Latest articles feed')
-    site_base_url = get_config('site_base_url')
+    rss_title = get_config(request, 'site_title') + ' - ' + _('Latest articles feed')
+    site_base_url = get_config(request, 'site_base_url')
     items = []
 
     '''
@@ -957,7 +957,7 @@ def latest_rss(request):
         tags_list = []
         for t in a.tags:
             tags_list.append(t.tag)
-        items.append(RSSItem(title=a.title, link=link, description=a.rendered_preview, pubDate=h.timestamp_to_dt(a.published),
+        items.append(RSSItem(title=a.title, link=link, description=a.rendered_preview, pubDate=h.timestamp_to_dt(request, a.published),
             guid=str(a.id)))
 
     feed = RSS2(
@@ -975,7 +975,7 @@ def latest_rss(request):
 def view_moderation_queue(request):
     c = {'comments': []}
 
-    dbsession = DBSession()
+    dbsession = request.dbsession
     comments = dbsession.query(Comment).filter(Comment.is_approved==False).all()
 
     for x in comments:

@@ -13,7 +13,6 @@ from pyramid.view import view_config
 from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPServerError
 
-from pyrone.models import DBSession
 from pyrone.models import User
 from pyrone.models.user import find_local_user, find_twitter_user,\
     normalize_email, VerifiedEmail
@@ -81,8 +80,7 @@ def my_profile_save_ajax(request):
 
     is_changed = False
 
-    dbsession = DBSession()
-    user = dbsession.query(User).options(joinedload('roles')).get(user_id)
+    user = request.dbsession.query(User).options(joinedload('roles')).get(user_id)
 
     if user is None:
         return JSONResponse(httpcode.BadRequest, c)
@@ -180,12 +178,11 @@ def login_twitter_finish(request):
     user = find_twitter_user(tw_username)
 
     if user is None:
-        dbsession = DBSession()
         # create user
         user = User()
         user.kind = 'twitter'
         user.login = tw_username
-        dbsession.add(user)
+        request.dbsession.add(user)
 
         # re-request again to correctly read roles
         user = find_twitter_user(tw_username)
@@ -208,8 +205,7 @@ def verify_email(request):
     try:
         email = normalize_email(request.GET['email'])
         verification_code = request.GET['token']
-        dbsession = DBSession()
-        vf = dbsession.query(VerifiedEmail).filter(VerifiedEmail.email == email).first()
+        vf = request.dbsession.query(VerifiedEmail).filter(VerifiedEmail.email == email).first()
         if vf is None or vf.verification_code != verification_code or vf.is_verified:
             fail = True
         else:

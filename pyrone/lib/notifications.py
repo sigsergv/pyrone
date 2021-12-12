@@ -125,7 +125,7 @@ def _extract_comment_sub(request, comment):
     article = comment.article
     comment_url = h.article_url(request, article) + '#comment-' + str(comment.id)
 
-    comment_date = h.timestamp_to_str(comment.published)
+    comment_date = h.timestamp_to_str(request, comment.published)
     res = {
         'comment_author_email': author_email,
         'comment_author_name': author_name,

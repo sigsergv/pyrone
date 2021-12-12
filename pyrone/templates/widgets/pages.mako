@@ -7,7 +7,7 @@
 <a href="${url('admin_settings_widget_pages')}" title="${_('edit')}"><span class="fa fa-pencil"></span></a>
 %endif
 <ul>
-% for link in h.get_pages_widget_links():
+% for link in h.get_pages_widget_links(request):
   <li><a href="${link['url']}">${link['title']}</a></li>
 % endfor
 </ul>

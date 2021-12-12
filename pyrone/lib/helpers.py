@@ -159,21 +159,21 @@ def form_checkbox(name, title, value, errors, help=None, label=None, label_help=
     return html
 
 
-def timestamp_to_dt(ts):
+def timestamp_to_dt(request, ts):
     """
     Convert UTC seconds to datetime object
     """
-    tz = get_config('timezone')
+    tz = get_config(request, 'timezone')
     tts = datetime.datetime.utcfromtimestamp(ts)  # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz)  # utc time -> local time
     return utc_dt
 
 
-def timestamp_to_str(ts, fmt='%Y-%m-%d %H:%M'):
+def timestamp_to_str(request, ts, fmt='%Y-%m-%d %H:%M'):
     """
     Convert UTC seconds to time string in local timezone
     """
-    tz = get_config('timezone')
+    tz = get_config(request, 'timezone')
     tts = datetime.datetime.utcfromtimestamp(ts)  # seconds -> time_struct
     utc_dt = pytz.utc.localize(tts).astimezone(tz)  # utc time -> local time
 
@@ -182,11 +182,11 @@ def timestamp_to_str(ts, fmt='%Y-%m-%d %H:%M'):
     return t_str
 
 
-def str_to_timestamp(t_str):
+def str_to_timestamp(request, t_str):
     """
     Convert time string in local timezone to UTC seconds
     """
-    tz = get_config('timezone')
+    tz = get_config(request, 'timezone')
     dt = datetime.datetime.strptime(t_str, '%Y-%m-%d %H:%M')
     dt_loc = tz.localize(dt)
     dt_utc = dt_loc.astimezone(pytz.utc)
@@ -269,7 +269,7 @@ def article_tags_links(request, article):
     return ' '.join(res)
 
 
-def get_public_tags_cloud(force_reload=False):
+def get_public_tags_cloud(request, force_reload=False):
     """
     return tags cloud: list of tuples-pairs ("tag", "tag_weight"), tag_weight - is a number divisible by 5,
     0 <= tag_weight <= 100
@@ -310,14 +310,14 @@ def get_public_tags_cloud(force_reload=False):
     return value
 
 
-def get_pages_widget_links(force_reload=False):
+def get_pages_widget_links(request, force_reload=False):
 
     value = cache.get_value('pages_links')
 
     if value is None or force_reload:
         pages_links = list()
         # fetch from settings, parse, fill cache
-        raw = get_config('widget_pages_pages_spec')
+        raw = get_config(request, 'widget_pages_pages_spec')
         if raw is None:
             raw = ''
         for line in raw.split('\n'):
@@ -341,16 +341,16 @@ def get_pages_widget_links(force_reload=False):
     return value
 
 
-def get_twitter_share_link_button(force_reload=False):
+def get_twitter_share_link_button(request, force_reload=False):
     value = cache.get_value('rendered_twitter_share_link_button')
     if value is None or force_reload:
-        if get_config('social_twitter_share_link') != 'true':
+        if get_config(request, 'social_twitter_share_link') != 'true':
             value = ''
         else:
             tpl = '''<a href="https://twitter.com/share" class="twitter-share-button"{twitter_via}{show_count}>Tweet</a>'''
 
-            twitter_via = get_config('social_twitter_share_link_via')
-            show_count = get_config('social_twitter_share_link_show_count')
+            twitter_via = get_config(request, 'social_twitter_share_link_via')
+            show_count = get_config(request, 'social_twitter_share_link_show_count')
             repl = {
                 'twitter_via': 'pyrone',
                 'show_count': ''
@@ -370,8 +370,8 @@ def get_twitter_share_link_button(force_reload=False):
     return value
 
 
-def get_facebook_share_button_script():
-    if get_config('social_facebook_share') != 'true':
+def get_facebook_share_button_script(request):
+    if get_config(request, 'social_facebook_share') != 'true':
         value = ''
     else:
         tpl = '''<!-- facebook share button -->
@@ -387,8 +387,8 @@ def get_facebook_share_button_script():
         value = tpl
     return value
 
-def get_facebook_share_button(url):
-    if get_config('social_facebook_share') != 'true':
+def get_facebook_share_button(request, url):
+    if get_config(request, 'social_facebook_share') != 'true':
         value = ''
     else:
         tpl = '''<div class="fb-share-button" data-href="{url}" data-layout="button_count"></div>'''
@@ -450,8 +450,8 @@ def get_available_themes(request):
 
     return themes
 
-def get_current_theme_css():
-    ui_theme = get_config('ui_theme', force=True)
+def get_current_theme_css(request):
+    ui_theme = get_config(request, 'ui_theme', force=True)
     print(ui_theme)
     css_url = '/static/styles/{0}/blog.css'
 

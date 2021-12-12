@@ -9,14 +9,14 @@
   <script language="javascript" src="/static/scripts/blog.js"></script>
 
   <link rel="icon" type="image/png" href="/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css()}"/>
+  <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css(request)}"/>
   <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
   <link rel="alternate" type="application/atom+xml" title="${h.get_config('site_title')} - ${_('Latest articles feed')}" href="${url('blog_latest_rss')}"/>
   <title>${self.title()} — ${h.get_config('site_title')}</title>
   <%include file="/widgets/google_analytics.mako"/>
 </head>
 <body>
-${h.get_facebook_share_button_script()|n}
+${h.get_facebook_share_button_script(request)|n}
 
 <div id="topbar"><div class="title"><a href="/">${h.get_config('site_title')}</a></div></div>
 

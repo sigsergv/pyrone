@@ -54,7 +54,7 @@
     help=_(u'Timezone to be used for time and date values on the site, <strong>must</strong> be tzdb-compatible string value like "Asia/Novosibirsk" or "UTC".'))|n}
   ${h.form_selector('ui_lang', _('Site language'), h.get_supported_langs_spec().items(),
     settings['ui_lang'], errors)|n}
-  ${h.form_selector('ui_theme', _('Site theme (<a href="/static/themes-notes-en.html">read more</a> about themes)'), h.get_available_themes(),
+  ${h.form_selector('ui_theme', _('Site theme (<a href="/static/themes-notes-en.html">read more</a> about themes)'), h.get_available_themes(request),
     settings['ui_theme'], errors)|n}
   
   <h3>${_('Twitter Auth')}</h3>

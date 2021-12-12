@@ -47,9 +47,9 @@ $(document).ready(function() {
   </div>
   
   <div class="subtitle">
-    <div class="date">${h.timestamp_to_str(article.published)}</div>
-    <div class="social">${h.get_twitter_share_link_button()|n}</div>
-    <div class="social">${h.get_facebook_share_button(request.url)|n}</div>
+    <div class="date">${h.timestamp_to_str(request, article.published)}</div>
+    <div class="social">${h.get_twitter_share_link_button(request)|n}</div>
+    <div class="social">${h.get_facebook_share_button(request, request.url)|n}</div>
 <div class="clear-both"></div>
 % if len(article.tags):
     <div class="tags">${h.article_tags_links(request, article)|n}</div>

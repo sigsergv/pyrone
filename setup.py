@@ -97,11 +97,13 @@ setup(
         ('**.py', 'python', {'encoding': 'utf-8'}),
         ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'})
     ]},
-    entry_points="""\
-    [paste.app_factory]
-    main = pyrone:main
-    [console_scripts]
-    pyronedbinit = pyrone.scripts.pyronedbinit:main
-    """,
+    entry_points={
+        'paste.app_factory': [
+            'main = pyrone:main'
+        ],
+        'console_scripts': [
+            'pyronedbinit = pyrone.scripts.pyronedbinit:main'
+        ]
+    }
     cmdclass=setup_cmdclass
 )
