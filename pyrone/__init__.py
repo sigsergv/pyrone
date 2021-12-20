@@ -1,6 +1,6 @@
 from pyramid.config import Configurator
 from pyramid.authorization import ACLAuthorizationPolicy
-from pyramid_beaker import session_factory_from_settings
+# from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 
 # from pyrone.lib.auth import PyroneSessionAuthenticationPolicy, get_user

@@ -39,13 +39,13 @@ def login_local(request):
         # process login
         login = request.POST['login']
         password = request.POST['password']
-        user = find_local_user(login, password)
+        user = find_local_user(request, login, password)
         if user is None:
             c['error'] = _('Incorrect login or password')
         else:
             # this method doesn't return any headers actually
             user.detach()
-            headers = remember(request, user.id, user=user)
+            headers = remember(request, user.id)
             return HTTPFound(location=route_url('blog_latest', request), headers=headers)
 
     elif request.method == 'GET':
@@ -112,7 +112,7 @@ def my_profile_save_ajax(request):
         user.detach()
         user.get_roles()
         # also update Beaker session object
-        remember(request, None, user=user)
+        remember(request, None)
     else:
         return JSONResponse(httpcode.BadRequest, c)
 
@@ -192,7 +192,7 @@ def login_twitter_finish(request):
 
     # save user to the session
     user.detach()
-    remember(request, None, user=user)
+    remember(request, None)
 
     return HTTPFound(location=request.GET['pyrone_url'])
 

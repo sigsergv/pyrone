@@ -1,5 +1,5 @@
 <%
-  search_code = h.get_config('site_search_widget_code')
+  search_code = h.get_config(request, 'site_search_widget_code')
 %>
 % if search_code is not None and search_code != '':
 <div class="widget widget-search">

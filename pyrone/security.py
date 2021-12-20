@@ -1,9 +1,13 @@
+import logging
+
 from pyramid.authentication import AuthTktCookieHelper
 from pyramid.csrf import CookieCSRFStoragePolicy
 from pyramid.request import RequestLocalCache
+from pyramid.session import SignedCookieSessionFactory
 
 from pyrone.models.user import anonymous as anonymous_user, get_user as get_user_by_id
 
+log = logging.getLogger(__name__)
 
 class MySecurityPolicy:
     def __init__(self, secret):
@@ -33,11 +37,26 @@ class MySecurityPolicy:
     def forget(self, request, **kw):
         return self.authtkt.forget(request, **kw)
 
+    def permits(self, request, context, permission):
+        # log.debug('PERMISSION')
+        # log.debug(permission)
+        user = request.identity
+        if user is None:
+            return False
+        elif permission == 'authenticated':
+            return True
+        else:
+            for p in user.roles:
+                if p.name == permission:
+                    return True
+            return False
 
 def includeme(config):
     settings = config.get_settings()
 
     # config.set_csrf_storage_policy(CookieCSRFStoragePolicy())
     # config.set_default_csrf_options(require_csrf=True)
+    session_factory = SignedCookieSessionFactory('itsaseekreet')
     
+    config.set_session_factory(session_factory)
     config.set_security_policy(MySecurityPolicy(settings['pyrone.auth_secret']))

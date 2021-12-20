@@ -1,9 +1,9 @@
 <%
-    authenticated = request.user.kind != 'anonymous'
+    authenticated = user is not None and user.kind != 'anonymous'
     
-    writer_permission = user.has_role('writer')
-    editor_permission = user.has_role('editor')
-    admin_permission = user.has_role('admin')
+    writer_permission = user is not None and user.has_role('writer')
+    editor_permission = user is not None and user.has_role('editor')
+    admin_permission = user is not None and user.has_role('admin')
 %>
 % if authenticated:
 

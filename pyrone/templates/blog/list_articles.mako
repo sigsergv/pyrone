@@ -1,7 +1,7 @@
 <%inherit file="/blog/base.mako"/>\
 <%
-    editor_permission = user.has_role('editor') 
-    admin_permission = user.has_role('admin')
+    editor_permission = user is not None and user.has_role('editor') 
+    admin_permission = user is not None and user.has_role('admin')
 %>
 
 

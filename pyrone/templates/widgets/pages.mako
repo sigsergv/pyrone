@@ -1,5 +1,5 @@
 <%
-    admin_permission = user.has_role('admin')
+    admin_permission = user is not None and user.has_role('admin')
 %>
 <div class="widget">
 <div class="section">${_('Pinned posts')} 

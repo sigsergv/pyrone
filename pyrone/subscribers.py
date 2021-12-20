@@ -25,7 +25,7 @@ def add_renderer_globals(event):
 
     event['_'] = request.translate
     event['url'] = url_generator(request)
-    event['user'] = request.user
+    event['user'] = request.identity
 
 tsf = TranslationStringFactory('pyrone')
 

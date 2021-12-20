@@ -25,7 +25,7 @@ from pyrone.version import PYRONE_VERSION
 from pyrone.models.config import get as get_config
 from pyrone.models.file import get_storage_dirs
 from pyrone.models import Article, Tag, Comment, File
-from pyrone.lib import (auth, lang, cache)
+from pyrone.lib import (lang, cache)
 
 log = logging.getLogger(__name__)
 
@@ -462,3 +462,12 @@ def get_current_theme_css(request):
         css_url = '/files/f/{0}'
 
     return css_url.format(ui_theme)
+
+
+def get_logout_token(request):
+    s = request.session
+    logout_token = ''
+    if 'user.logout_token' in s:
+        logout_token = s['user.logout_token']
+
+    return logout_token

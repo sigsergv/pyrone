@@ -10,15 +10,15 @@
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css(request)}"/>
   <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
-  <title>${self.title()} — ${h.get_config('site_title')} — ${_('administration')}</title>
+  <title>${self.title()} — ${h.get_config(request, 'site_title')} — ${_('administration')}</title>
 </head>
 <body>
-<div id="topbar-admin" class="admin"><div class="title"><a href="/">${h.get_config('site_title')}</a> / ${_('administration')}</div><div class="version">${_('pyrone version: {0}').format(h.PYRONE_VERSION)}</div></div>
+<div id="topbar-admin" class="admin"><div class="title"><a href="/">${h.get_config(request, 'site_title')}</a> / ${_('administration')}</div><div class="version">${_('pyrone version: {0}').format(h.PYRONE_VERSION)}</div></div>
   <div id="contentbar">
     <div id="content">
     ${next.body()}
     </div>
-    <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
+    <div id="bottombar"><div class="title">${h.get_config(request, 'site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
     </div>
   </div>
 

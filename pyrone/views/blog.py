@@ -74,10 +74,10 @@ def latest(request):
             start_page = 0
 
     dbsession = request.dbsession
-    user = request.user
+    user = request.identity
 
     q = dbsession.query(Article).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
-    if not user.has_role('editor'):
+    if user is not None and not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
 
     c['articles'] = q[(start_page * page_size):(start_page+1) * page_size + 1]

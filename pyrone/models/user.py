@@ -97,9 +97,9 @@ class VerifiedEmail(Base):
         self.verification_code = str(uuid.uuid4())
 
 
-def find_local_user(login, password):
+def find_local_user(request, login, password):
     hashed_password = md5(password)
-    dbsession = DBSession()
+    dbsession = request.dbsession
     q = dbsession.query(User).options(joinedload('roles')).filter(User.kind == 'local').\
         filter(User.login == login)
     user = q.first()

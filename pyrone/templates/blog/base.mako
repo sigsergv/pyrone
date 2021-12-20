@@ -11,20 +11,20 @@
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="${h.get_current_theme_css(request)}"/>
   <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
-  <link rel="alternate" type="application/atom+xml" title="${h.get_config('site_title')} - ${_('Latest articles feed')}" href="${url('blog_latest_rss')}"/>
-  <title>${self.title()} — ${h.get_config('site_title')}</title>
+  <link rel="alternate" type="application/atom+xml" title="${h.get_config(request, 'site_title')} - ${_('Latest articles feed')}" href="${url('blog_latest_rss')}"/>
+  <title>${self.title()} — ${h.get_config(request, 'site_title')}</title>
   <%include file="/widgets/google_analytics.mako"/>
 </head>
 <body>
 ${h.get_facebook_share_button_script(request)|n}
 
-<div id="topbar"><div class="title"><a href="/">${h.get_config('site_title')}</a></div></div>
+<div id="topbar"><div class="title"><a href="/">${h.get_config(request, 'site_title')}</a></div></div>
 
 <div id="contentbar">
   <div id="content">
   ${next.body()}
   </div>
-  <div id="bottombar"><div class="title">${h.get_config('site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
+  <div id="bottombar"><div class="title">${h.get_config(request, 'site_copyright')} | <a href="https://github.com/sigsergv/pyrone">${_('Powered by Pyrone')}</a></div>
   </div>
 </div>
 

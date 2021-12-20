@@ -1,5 +1,5 @@
 <%
-  ga = h.get_config('google_analytics_id')
+  ga = h.get_config(request, 'google_analytics_id')
 %>\
 % if ga != '':
 <script type="text/javascript">
