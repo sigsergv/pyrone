@@ -104,6 +104,6 @@ setup(
         'console_scripts': [
             'pyronedbinit = pyrone.scripts.pyronedbinit:main'
         ]
-    }
+    },
     cmdclass=setup_cmdclass
 )

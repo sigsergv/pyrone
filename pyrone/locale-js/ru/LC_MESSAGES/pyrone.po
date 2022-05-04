@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2020-08-17 07:32+0000\n"
+"POT-Creation-Date: 2022-05-04 11:13+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language: ru\n"
@@ -17,31 +17,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
-
-#: file
-msgid "SELECT_FILE_TO_UPLOAD"
-msgstr "Выберите файл для загрузки"
-
-#: file
-msgid "FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE"
-msgstr "Файл с таким именем уже есть в хранилище"
+"Generated-By: Babel 2.9.1\n"
 
 #: file
 msgid "AJAX_REQUEST_ERROR"
 msgstr "Ошибка выполнения AJAX-запроса"
-
-#: file
-msgid "SELECT_ITEMS_FIRST"
-msgstr "Сначала выберите элементы"
-
-#: file
-msgid "SETTINGS_SAVED"
-msgstr "Настройки успешно сохранены"
-
-#: file
-msgid "BACKUP_RESTORE_COMPLETE"
-msgstr "Бэкап успешно восстановлен"
 
 #: file
 msgid "ARTICLE_SAVED"
@@ -86,4 +66,24 @@ msgstr "Пароли не совпадают"
 #: file
 msgid "YOUR_PROFILE_HAS_BEEN_UPDATED"
 msgstr "Ваш профиль успешно обновлён"
+
+#: file
+msgid "SELECT_FILE_TO_UPLOAD"
+msgstr "Выберите файл для загрузки"
+
+#: file
+msgid "FILE_NAME_ALREADY_EXISTS_IN_THE_STORAGE"
+msgstr "Файл с таким именем уже есть в хранилище"
+
+#: file
+msgid "SELECT_ITEMS_FIRST"
+msgstr "Сначала выберите элементы"
+
+#: file
+msgid "SETTINGS_SAVED"
+msgstr "Настройки успешно сохранены"
+
+#: file
+msgid "BACKUP_RESTORE_COMPLETE"
+msgstr "Бэкап успешно восстановлен"
 

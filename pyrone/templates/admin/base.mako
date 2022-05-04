@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <script src="/static/scripts/jquery.min.js"></script>
-  <script language="javascript" src="/static/lang/${h.lang.lang(request)}.js"></script>
+  <script language="javascript" src="/static/lang/${h.i18n.locale_negotiator(request)}.js"></script>
   <script language="javascript" src="/static/scripts/blog.js"></script>
   <script language="javascript" src="/static/scripts/admin.js"></script>
   <link rel="icon" type="image/png" href="/favicon.png"/>

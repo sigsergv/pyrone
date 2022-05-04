@@ -35,6 +35,7 @@ def add_localizer(event):
     localizer = get_localizer(request)
 
     def auto_translate(string):
+        print(string, tsf(string))
         return localizer.translate(tsf(string))
 
     request.translate = auto_translate

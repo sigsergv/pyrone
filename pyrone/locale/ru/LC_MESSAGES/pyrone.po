@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pyrone 0.1\n"
 "Report-Msgid-Bugs-To: pyrone-translation@regolit.com\n"
-"POT-Creation-Date: 2020-08-17 07:32+0000\n"
+"POT-Creation-Date: 2022-05-04 11:13+0700\n"
 "PO-Revision-Date: 2011-07-31 19:51+0600\n"
 "Last-Translator: Sergey Stolyarov <sergei@regolit.com>\n"
 "Language: ru\n"
@@ -17,21 +17,21 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: pyrone/lib/helpers.py:230
 msgid "Administrator"
 msgstr "Администратор"
 
-#: pyrone/lib/helpers.py:413
+#: pyrone/lib/helpers.py:410
 msgid "Default theme (internal)"
 msgstr "Тема по умолчанию (встроенная)"
 
-#: pyrone/lib/helpers.py:414
+#: pyrone/lib/helpers.py:411
 msgid "Green theme (internal)"
 msgstr "Зелёная тема (встроенная)"
 
-#: pyrone/lib/helpers.py:415
+#: pyrone/lib/helpers.py:412
 msgid "blog.regolit.com style (internal)"
 msgstr "Тема сайта blog.regolit.com (встроенная)"
 
@@ -268,7 +268,7 @@ msgstr "Настройки блога"
 #: pyrone/templates/admin/settings_widget_pages.mako:23
 #: pyrone/templates/blog/my_profile.mako:20
 #: pyrone/templates/blog/view_article.mako:90
-#: pyrone/templates/blog/write_article.mako:39
+#: pyrone/templates/blog/write_article.mako:41
 msgid "save"
 msgstr "сохранить"
 
@@ -559,6 +559,10 @@ msgstr "%Y-%m-%d в %H:%M"
 msgid "continue reading"
 msgstr "читать дальше"
 
+#: pyrone/templates/blog/list_articles.mako:35
+msgid "Tags:"
+msgstr "Теги:"
+
 #: pyrone/templates/blog/list_articles.mako:39
 #: pyrone/templates/blog/list_articles.mako:41
 msgid "Comments:"
@@ -775,38 +779,40 @@ msgid "Quotation"
 msgstr "Цитирование"
 
 #: pyrone/templates/blog/write_article.mako:26
+#: pyrone/templates/blog/write_article.mako:27
+#: pyrone/templates/blog/write_article.mako:28
 msgid "Insert dinkus"
 msgstr "Вставить разделитель"
 
-#: pyrone/templates/blog/write_article.mako:27
+#: pyrone/templates/blog/write_article.mako:29
 msgid "Insert shell code"
 msgstr "Вставить shell code"
 
-#: pyrone/templates/blog/write_article.mako:28
+#: pyrone/templates/blog/write_article.mako:30
 msgid "Insert paragraph color text"
 msgstr "Вставить цветной параграф"
 
-#: pyrone/templates/blog/write_article.mako:29
+#: pyrone/templates/blog/write_article.mako:31
 msgid "Insert hyperlink template"
 msgstr "Вставить шаблон гиперссылки"
 
-#: pyrone/templates/blog/write_article.mako:36
+#: pyrone/templates/blog/write_article.mako:38
 msgid "draft article"
 msgstr "черновик"
 
-#: pyrone/templates/blog/write_article.mako:36
+#: pyrone/templates/blog/write_article.mako:38
 msgid "if checked article will not be available to everyone"
 msgstr "если включено, сохранённая статья будет видна только вам"
 
-#: pyrone/templates/blog/write_article.mako:37
+#: pyrone/templates/blog/write_article.mako:39
 msgid "allow visitors comments"
 msgstr "разрешить комментарии"
 
-#: pyrone/templates/blog/write_article.mako:42
+#: pyrone/templates/blog/write_article.mako:44
 msgid "save and continue editing"
 msgstr "сохранить в фоновом режиме"
 
-#: pyrone/templates/blog/write_article.mako:44
+#: pyrone/templates/blog/write_article.mako:46
 msgid "preview"
 msgstr "предварительный просмотр"
 
@@ -861,19 +867,19 @@ msgstr ""
 msgid "EMAIL# PLEASE CLICK HERE TO VERIFY ADDRESS"
 msgstr "Нажмите здесь, чтобы подтвердить email"
 
-#: pyrone/templates/widgets/account.mako:17
+#: pyrone/templates/widgets/account.mako:15
 msgid "You are logged in."
 msgstr "Вы уже в системе."
 
-#: pyrone/templates/widgets/account.mako:18
+#: pyrone/templates/widgets/account.mako:16
 msgid "My profile page"
 msgstr "Мой профиль на сайте"
 
-#: pyrone/templates/widgets/account.mako:19
+#: pyrone/templates/widgets/account.mako:17
 msgid "My subscriptions"
 msgstr "Мои подписки"
 
-#: pyrone/templates/widgets/account.mako:20
+#: pyrone/templates/widgets/account.mako:18
 msgid "Logout"
 msgstr "Выйти из системы"
 
@@ -917,15 +923,15 @@ msgstr "Искать по блогу"
 msgid "Tags cloud"
 msgstr "Облако тегов"
 
-#: pyrone/views/account.py:45
+#: pyrone/views/account.py:44
 msgid "Incorrect login or password"
 msgstr "Неверный логин или пароль"
 
-#: pyrone/views/account.py:221
+#: pyrone/views/account.py:217
 msgid "Verification failed: email not found."
 msgstr "Верификация не получилась, так как адрес электропочты неизвестен сайту."
 
-#: pyrone/views/account.py:224
+#: pyrone/views/account.py:220
 msgid "Email `{0}` has been confirmed."
 msgstr "Адрес электроной почты `{0}` успешно подтверждён."
 
@@ -982,8 +988,8 @@ msgid "Latest articles"
 msgstr "Последние статьи"
 
 #: pyrone/views/blog.py:133
-msgid "Articles labeled with tag “{0}”"
-msgstr "Статьи, помеченные тегом «{0}»"
+msgid "Articles with tag “{0}”"
+msgstr "Статьи c тегом «{0}»"
 
 #: pyrone/views/blog.py:153
 msgid "field is required"

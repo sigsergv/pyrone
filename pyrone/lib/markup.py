@@ -6,7 +6,7 @@ import re
 import logging
 import hashlib
 
-from mdx_subscript import SubscriptExtension
+from .md_subscript import SubscriptExtension
 
 log = logging.getLogger(__name__)
 

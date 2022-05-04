@@ -1,9 +1,9 @@
 1.6.0
 -----
 
-Release: 2021-12-XX
+Release: 2022-05-XX
 
-* Python 3.9 is recommended version now
+* Migration to python3, python 3.9 is recommended version now
 * Updated dependencies
 
 1.5.0

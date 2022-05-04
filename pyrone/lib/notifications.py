@@ -17,7 +17,7 @@ from pyramid.renderers import render
 
 from pyrone.models.config import get as get_config
 from pyrone.models.user import normalize_email
-from pyrone.lib.lang import lang
+from pyrone.i18n import locale_negotiator
 from pyrone.lib import helpers as h
 
 log = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ SUBJECT_RE = re.compile(r'^Subject: ([^\n\r]+)')
 
 def send_email_process(request, template_name, recipients, sender, params):
     """Process for real sending emails"""
-    language = lang(request)
+    language = locale_negotiator(request)
 
     html = render('/email/'+template_name+'.mako', params, request)
 

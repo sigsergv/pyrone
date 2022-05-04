@@ -25,7 +25,8 @@ from pyrone.version import PYRONE_VERSION
 from pyrone.models.config import get as get_config
 from pyrone.models.file import get_storage_dirs
 from pyrone.models import Article, Tag, Comment, File
-from pyrone.lib import (lang, cache)
+from pyrone.lib import cache
+from pyrone import i18n
 
 log = logging.getLogger(__name__)
 
@@ -402,7 +403,7 @@ def get_not_approved_comments_count(request):
     return cnt
 
 def get_supported_langs_spec():
-    return lang.supported_langs_spec()
+    return i18n.supported_langs_spec()
 
 def get_available_themes(request):
     themes = [
@@ -442,7 +443,7 @@ def get_available_themes(request):
 
         # get description from the data
         request = threadlocal.get_current_request()
-        key = 'title-{0}'.format(lang.lang(request))
+        key = 'title-{0}'.format(i18n.locale_negotiator(request))
         if key in theme_data:
             description = theme_data[key]
 

@@ -177,6 +177,10 @@ div.article-preview div.after-preview {
 }
 div.article-preview div.tags a {
 	color: #040;
+	text-decoration: none;
+}
+div.article-preview div.tags a:hover {
+	text-decoration: underline;
 }
 div.article-preview div.footer {
 	color: #989898;

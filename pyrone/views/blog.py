@@ -112,7 +112,7 @@ def tag_articles(request):
         except ValueError:
             start_page = 0
 
-    user = request.user
+    user = request.identity
     dbsession = request.dbsession
     q = dbsession.query(Article).join(Tag).options(joinedload('tags')).options(joinedload('user')).order_by(Article.published.desc())
     if not user.has_role('editor'):
@@ -130,7 +130,7 @@ def tag_articles(request):
     if start_page > 0:
         c['next_page'] = route_url('blog_tag_articles', request, tag=tag, _query=[('start', start_page-1)])
 
-    c['page_title'] = _(u'Articles labeled with tag “{0}”'.format(tag))
+    c['page_title'] = _('Articles with tag “{0}”').format(tag)
 
     return c
 
@@ -293,7 +293,7 @@ def write_article(request):
             dbsession = request.dbsession
 
             # save and redirect
-            user = request.user
+            user = request.identity
             article.user_id = user.id
             dbsession.add(article)
             dbsession.flush()  # required as we need to obtain article_id
@@ -411,7 +411,7 @@ def _view_article(request, article_id=None, article=None):
     if article is None:
         return HTTPNotFound()
 
-    user = request.user
+    user = request.identity
     if article.is_draft and not user.has_role('editor'):
         return HTTPNotFound()
 
@@ -482,7 +482,7 @@ def view_article(request):
     dbsession = request.dbsession
     q = dbsession.query(Article).filter(Article.shortcut_date == shortcut_date)\
         .filter(Article.shortcut == shortcut)
-    user = request.user
+    user = request.identity
     if not user.has_role('editor'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
@@ -507,7 +507,7 @@ def add_article_comment_ajax(request):
     dbsession = request.dbsession
 
     q = dbsession.query(Article).filter(Article.id == article_id)
-    user = request.user
+    user = request.identity
     if not user.has_role('editor') or not user.has_role('admin'):
         q = q.filter(Article.is_draft==False)
     article = q.first()
@@ -542,7 +542,7 @@ def add_article_comment_ajax(request):
     comment = Comment()
     comment.set_body(body)
 
-    user = request.user
+    user = request.identity
 
     if user.kind != 'anonymous':
         comment.user_id = user.id
