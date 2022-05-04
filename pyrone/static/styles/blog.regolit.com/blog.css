@@ -162,7 +162,7 @@ div.article-preview div.title {
 	font-weight: bolder;
 	position: relative;
 }
-div.article-preview div.tags {
+div.tags {
     font-size: 10pt;
     font-weight: bold;
 	color: #040;
@@ -175,11 +175,11 @@ div.article-preview div.before-preview {
 }
 div.article-preview div.after-preview {
 }
-div.article-preview div.tags a {
+div.tags a {
 	color: #040;
 	text-decoration: none;
 }
-div.article-preview div.tags a:hover {
+div.tags a:hover {
 	text-decoration: underline;
 }
 div.article-preview div.footer {
